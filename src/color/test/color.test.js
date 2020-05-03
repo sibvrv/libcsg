@@ -1,7 +1,7 @@
 const test = require('ava');
-const {cube, sphere, cylinder} = require('./primitives3d-api');
-const {square, circle} = require('./primitives2d-api');
-const {color, rgb2hsl, hsl2rgb, rgb2hsv, hsv2rgb, html2rgb, rgb2html, css2rgb} = require('./color');
+const {cube, sphere, cylinder} = require('../../api/primitives3d-api');
+const {square, circle} = require('../../api/primitives2d-api');
+const {color, rgb2hsl, hsl2rgb, rgb2hsv, hsv2rgb, html2rgb, rgb2html, css2rgb} = require('../');
 
 test('css2rgb', t => {
   const c1 = css2rgb('black');
