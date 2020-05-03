@@ -1,3 +1,12 @@
+# [0.8.0](https://github.com/sibvrv/libcsg/compare/v0.7.0...v0.8.0) (2020-05-03)
+
+
+### Bug Fixes
+
+* **center:** fix center function z axis for non-uniform geometries ([#129](https://github.com/sibvrv/libcsg/issues/129)) ([0546043](https://github.com/sibvrv/libcsg/commit/054604309613a40b500f040169b8cd8ed9413343))
+
+
+
 <a name="0.7.0"></a>
 # [0.7.0](https://github.com/jscad/csg.js/compare/v0.6.0...v0.7.0) (2018-09-01)
 

@@ -950,7 +950,7 @@ Extrude to into a 3D solid by rotating the origin around the Y axis.
 
 <a name="linear_extrude"></a>
 
-## linear_extrude([options], baseShape) ⇒ [<code>CSG</code>](#CSG)
+## linear\_extrude([options], baseShape) ⇒ [<code>CSG</code>](#CSG)
 linear extrusion of the input 2d shape
 
 **Kind**: global function  
@@ -971,7 +971,7 @@ let revolved = linear_extrude({height: 10}, square())
 ```
 <a name="rotate_extrude"></a>
 
-## rotate_extrude([options], baseShape) ⇒ [<code>CSG</code>](#CSG)
+## rotate\_extrude([options], baseShape) ⇒ [<code>CSG</code>](#CSG)
 rotate extrusion / revolve of the given 2d shape
 
 **Kind**: global function  
@@ -992,7 +992,7 @@ let revolved = rotate_extrude({fn: 10}, square())
 ```
 <a name="rectangular_extrude"></a>
 
-## rectangular_extrude(basePoints, [options]) ⇒ [<code>CSG</code>](#CSG)
+## rectangular\_extrude(basePoints, [options]) ⇒ [<code>CSG</code>](#CSG)
 rectangular extrusion of the given array of points
 
 **Kind**: global function  
@@ -1188,7 +1188,7 @@ let hulled = hull(rect(), circle())
 ```
 <a name="chain_hull"></a>
 
-## chain_hull(objects) ⇒ [<code>CSG</code>](#CSG)
+## chain\_hull(objects) ⇒ [<code>CSG</code>](#CSG)
 create a chain hull of the given shapes
 Originally "Whosa whatsis" suggested "Chain Hull" ,
 as described at https://plus.google.com/u/0/105535247347788377245/posts/aZGXKFX1ACN
@@ -1658,7 +1658,7 @@ Creates solid from slices (Polygon) by generating walls
 
 <a name="_addWalls"></a>
 
-## _addWalls(walls, bottom, top)
+## \_addWalls(walls, bottom, top)
 **Kind**: global function  
 
 | Param | Description |
@@ -1729,7 +1729,7 @@ let textSegments = vectorText({ yOffset: -80, input: 'OpenJSCAD' })
 ```
 <a name="vector_char"></a>
 
-## ~~vector_char(x, y, char) ⇒ [<code>VectorCharObject</code>](#VectorCharObject)~~
+## ~~vector\_char(x, y, char) ⇒ [<code>VectorCharObject</code>](#VectorCharObject)~~
 ***Deprecated***
 
 Construct a [VectorCharObject](#VectorCharObject) from a ascii character whose code is between 31 and 127,
@@ -1749,7 +1749,7 @@ let vectorCharObject = vector_char(36, 0, 'B')
 ```
 <a name="vector_text"></a>
 
-## ~~vector_text(x, y, text) ⇒ <code>Array</code>~~
+## ~~vector\_text(x, y, text) ⇒ <code>Array</code>~~
 ***Deprecated***
 
 Construct an array of character segments from a ascii string whose characters code is between 31 and 127,
