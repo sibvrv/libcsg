@@ -1,7 +1,7 @@
 const test = require('ava');
 const {cube, torus} = require('./primitives3d-api');
 const {circle} = require('./primitives2d-api');
-const {linear_extrude} = require('../modifiers/extrusions/ops-extrusions');
+const {linear_extrude} = require('../modifiers/extrusions');
 const {union, intersection} = require('../modifiers/boolean');
 
 // any tests that involve multiple operands (extrude with union translate with difference etc)
