@@ -1,4 +1,12 @@
-export declare const primitives3d: any;
+import { cube, cylinder, geodesicSphere, polyhedron, sphere, torus } from '../primitives';
+export declare const primitives3d: {
+    cube: typeof cube;
+    sphere: typeof sphere;
+    geodesicSphere: typeof geodesicSphere;
+    cylinder: typeof cylinder;
+    torus: typeof torus;
+    polyhedron: typeof polyhedron;
+};
 export declare const primitives2d: any;
 export * as booleanOps from '../modifiers/boolean';
 export * as transformations from '../modifiers/transforms';

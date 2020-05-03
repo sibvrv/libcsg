@@ -1,6 +1,6 @@
 const test = require('ava');
 const {sideEquals} = require('../../../api/test-helpers');
-const {cube, sphere} = require('../../../primitives/primitives3d-api');
+const {cube, sphere} = require('../../../primitives');
 const {square, circle} = require('../../../primitives/primitives2d-api');
 const {translate, rotate, scale, transform, center, mirror, expand, contract, minkowski, hull, chain_hull} = require('../');
 

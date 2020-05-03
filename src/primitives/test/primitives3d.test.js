@@ -1,5 +1,5 @@
 const test = require('ava');
-const {cube, sphere, geodesicSphere, cylinder, torus, polyhedron} = require('../primitives3d-api');
+const {cube, sphere, geodesicSphere, cylinder, torus, polyhedron} = require('../');
 const {simplifiedPolygon, comparePolygons} = require('../../api/test-helpers.js');
 
 /* FIXME : not entirely sure how to deal with this, but for now relies on inspecting

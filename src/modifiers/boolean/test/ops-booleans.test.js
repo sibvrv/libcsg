@@ -1,5 +1,5 @@
 const test = require('ava');
-const {cube, sphere} = require('../../../primitives/primitives3d-api');
+const {cube, sphere} = require('../../../primitives');
 const {square} = require('../../../primitives/primitives2d-api');
 const {union, difference, intersection} = require('../index');
 

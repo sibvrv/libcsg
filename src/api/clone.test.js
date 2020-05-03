@@ -1,5 +1,5 @@
 const test = require('ava');
-const {cube} = require('../primitives/primitives3d-api');
+const {cube} = require('../primitives');
 const {clone} = require('./clone');
 
 test('clone', t => {
