@@ -1,6 +1,6 @@
 export declare const primitives3d: any;
 export declare const primitives2d: any;
-export declare const booleanOps: any;
+export * as booleanOps from '../modifiers/boolean';
 export declare const transformations: any;
 export declare const extrusions: any;
 export declare const color: any;

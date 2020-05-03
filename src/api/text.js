@@ -1,5 +1,4 @@
 const defaultFont = require('../fonts/single-line/hershey/simplex.js');
-const {union} = require('../modifiers/boolean/ops-booleans');
 
 const defaultsVectorParams = {
   xOffset: 0,

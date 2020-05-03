@@ -1,6 +1,6 @@
 export const primitives3d = require('./primitives3d-api');
 export const primitives2d = require('./primitives2d-api');
-export const booleanOps = require('../modifiers/boolean/ops-booleans');
+export * as booleanOps from '../modifiers/boolean';
 export const transformations = require('../modifiers/transforms/ops-transformations');
 export const extrusions = require('./ops-extrusions');
 export const color = require('./color');

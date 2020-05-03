@@ -1,7 +1,7 @@
 const Matrix4 = require('../../core/math/Matrix4');
 const Plane = require('../../core/math/Plane');
 const Vector3 = require('../../core/math/Vector3');
-const {union} = require('../boolean/ops-booleans');
+const {union} = require('../boolean');
 const {fromPoints} = require('../../core/CAGFactories');
 const {isCAG} = require('../../core/utils');
 
