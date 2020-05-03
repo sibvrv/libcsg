@@ -3,7 +3,7 @@ const Vector2D = require('./math/Vector2');
 const Vertex2 = require('./math/Vertex2');
 const {areaEPS} = require('./constants');
 const {isSelfIntersecting, contains} = require('./utils/cagValidation');
-const {union, difference} = require('../api/ops-booleans');
+const {union, difference} = require('../modifiers/boolean/ops-booleans');
 
 /** Construct a CAG from a list of `Side` instances.
  * @param {Side[]} sides - list of sides

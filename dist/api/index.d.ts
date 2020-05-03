@@ -7,8 +7,4 @@ export declare const color: any;
 export declare const maths: any;
 export declare const text: any;
 export declare const CAG: any, CSG: any, isCAG: any, isCSG: any;
-export declare const csg: {
-    CAG: any;
-    CSG: any;
-};
 //# sourceMappingURL=index.d.ts.map

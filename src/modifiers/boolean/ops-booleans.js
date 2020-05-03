@@ -1,4 +1,4 @@
-const {isCAG} = require('../core/utils');
+const {isCAG} = require('../../core/utils');
 // boolean operations
 
 // FIXME should this be lazy ? in which case, how do we deal with 2D/3D combined

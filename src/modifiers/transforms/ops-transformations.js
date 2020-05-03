@@ -1,9 +1,9 @@
-const Matrix4 = require('../core/math/Matrix4');
-const Plane = require('../core/math/Plane');
-const Vector3 = require('../core/math/Vector3');
-const {union} = require('./ops-booleans');
-const {fromPoints} = require('../core/CAGFactories');
-const {isCAG} = require('../core/utils');
+const Matrix4 = require('../../core/math/Matrix4');
+const Plane = require('../../core/math/Plane');
+const Vector3 = require('../../core/math/Vector3');
+const {union} = require('../boolean/ops-booleans');
+const {fromPoints} = require('../../core/CAGFactories');
+const {isCAG} = require('../../core/utils');
 
 // -- 3D transformations (OpenSCAD like notion)
 
