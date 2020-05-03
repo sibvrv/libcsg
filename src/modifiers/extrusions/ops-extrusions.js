@@ -1,14 +1,14 @@
-const {EPS, defaultResolution3D} = require('../core/constants');
-const OrthoNormalBasis = require('../core/math/OrthoNormalBasis');
-const {parseOptionAs3DVector, parseOptionAsBool, parseOptionAsFloat, parseOptionAsInt} = require('./optionParsers');
-const Vector3D = require('../core/math/Vector3');
-const Vector2D = require('../core/math/Vector2');
-const Matrix4 = require('../core/math/Matrix4');
-const Path2D = require('../core/math/Path2');
-const {Connector} = require('../core/connectors');
-const {fromPolygons} = require('../core/CSGFactories');
-const {cagToPointsArray, clamp, rightMultiply1x3VectorToArray, polygonFromPoints} = require('./helpers');
-const {fromPoints} = require('../core/CAGFactories');
+const {EPS, defaultResolution3D} = require('../../core/constants');
+const OrthoNormalBasis = require('../../core/math/OrthoNormalBasis');
+const {parseOptionAs3DVector, parseOptionAsBool, parseOptionAsFloat, parseOptionAsInt} = require('../../api/optionParsers');
+const Vector3D = require('../../core/math/Vector3');
+const Vector2D = require('../../core/math/Vector2');
+const Matrix4 = require('../../core/math/Matrix4');
+const Path2D = require('../../core/math/Path2');
+const {Connector} = require('../../core/connectors');
+const {fromPolygons} = require('../../core/CSGFactories');
+const {cagToPointsArray, clamp, rightMultiply1x3VectorToArray, polygonFromPoints} = require('../../api/helpers');
+const {fromPoints} = require('../../core/CAGFactories');
 
 /** extrude the CAG in a certain plane.
  * Giving just a plane is not enough, multiple different extrusions in the same plane would be possible
@@ -63,7 +63,7 @@ const extrudeInPlane = function (cag, axis1, axis2, depth, options) {
  * @example extruded=cag.extrude({offset: [0,0,10], twistangle: 360, twiststeps: 100});
  */
 const extrude = function (cag, options) {
-  const CSG = require('../core/CSG'); // FIXME: circular dependencies CAG=>CSG=>CAG
+  const CSG = require('../../core/CSG'); // FIXME: circular dependencies CAG=>CSG=>CAG
   if (cag.sides.length === 0) {
     // empty! : FIXME: should this throw ?
     return new CSG();

@@ -1,7 +1,7 @@
 const test = require('ava');
-const {square} = require('./primitives2d-api');
-const {linear_extrude, rotate_extrude, rectangular_extrude} = require('./ops-extrusions');
-const {simplifiedPolygon} = require('./test-helpers');
+const {square} = require('../../../api/primitives2d-api');
+const {linear_extrude, rotate_extrude, rectangular_extrude} = require('../ops-extrusions');
+const {simplifiedPolygon} = require('../../../api/test-helpers');
 
 test('linear_extrude (height)', t => {
   const op1 = square();
