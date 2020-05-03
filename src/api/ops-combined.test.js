@@ -1,7 +1,7 @@
 const test = require('ava');
 const {circle, cube, torus} = require('../primitives');
 const {linear_extrude} = require('../modifiers/extrusions');
-const {union, intersection} = require('../modifiers/boolean');
+const {union, intersection} = require('../modifiers/booleans');
 
 // any tests that involve multiple operands (extrude with union translate with difference etc)
 // and are not testing a specific feature (union, difference, translate etc)

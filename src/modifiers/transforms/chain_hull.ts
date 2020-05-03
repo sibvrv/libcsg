@@ -1,4 +1,4 @@
-const {union} = require('../boolean');
+const {union} = require('../booleans');
 import {hull} from './hull';
 
 /** create a chain hull of the given shapes

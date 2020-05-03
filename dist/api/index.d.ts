@@ -14,7 +14,7 @@ export declare const primitives3d: {
     torus: typeof torus;
     polyhedron: typeof polyhedron;
 };
-export * as booleanOps from '../modifiers/boolean';
+export * as booleanOps from '../modifiers/booleans';
 export * as transformations from '../modifiers/transforms';
 export * as extrusions from '../modifiers/extrusions';
 export declare const maths: any;
