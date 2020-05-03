@@ -1,11 +1,14 @@
-import {cube, cylinder, geodesicSphere, polyhedron, sphere, torus} from '../primitives';
+import {circle, cube, cylinder, geodesicSphere, polygon, polyhedron, sphere, square, torus, triangle} from '../primitives';
 
+export * as color from '../color';
+
+export const primitives2d = {circle, square, polygon, triangle};
 export const primitives3d = {cube, sphere, geodesicSphere, cylinder, torus, polyhedron};
-export const primitives2d = require('../primitives/primitives2d-api');
+
 export * as booleanOps from '../modifiers/boolean';
 export * as transformations from '../modifiers/transforms';
 export * as extrusions from '../modifiers/extrusions';
-export * as color from '../color';
+
 export const maths = require('./maths');
 export const text = require('./text');
 

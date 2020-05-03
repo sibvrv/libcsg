@@ -1,5 +1,5 @@
 const test = require('ava');
-const {square} = require('../../../primitives/primitives2d-api');
+const {square} = require('../../../primitives');
 const {linear_extrude, rotate_extrude, rectangular_extrude} = require('../');
 const {simplifiedPolygon} = require('../../../api/test-helpers');
 

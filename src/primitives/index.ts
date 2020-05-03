@@ -1,4 +1,8 @@
 // Primitives 2D
+export {square} from './square';
+export {circle} from './circle';
+export {polygon} from './polygon';
+export {triangle} from './triangle';
 
 // Primitives 3D
 export {cube} from './cube';

@@ -1,6 +1,5 @@
 const test = require('ava');
-const {cube, sphere, cylinder} = require('../../primitives');
-const {square, circle} = require('../../primitives/primitives2d-api');
+const {square, circle, cube, sphere, cylinder} = require('../../primitives');
 const {color, rgb2hsl, hsl2rgb, rgb2hsv, hsv2rgb, html2rgb, rgb2html, css2rgb} = require('../');
 
 test('css2rgb', t => {

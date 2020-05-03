@@ -1,5 +1,5 @@
 const test = require('ava');
-const {square, circle, triangle, polygon} = require('../primitives2d-api');
+const {square, circle, triangle, polygon} = require('../');
 const {sideEquals, shape2dToNestedArray} = require('../../api/test-helpers');
 
 /* FIXME : not entirely sure how to deal with this, but for now relies on inspecting

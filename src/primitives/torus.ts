@@ -1,5 +1,5 @@
 const {CSG} = require('../csg');
-const {circle} = require('./primitives2d-api');
+const {circle} = require('./');
 const {rotate_extrude} = require('../modifiers/extrusions');
 const {translate, scale} = require('../modifiers/transforms');
 const Polygon3 = require('../core/math/Polygon3');
