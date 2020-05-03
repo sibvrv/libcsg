@@ -2,7 +2,7 @@ const test = require('ava');
 const {sideEquals} = require('../../../api/test-helpers');
 const {cube, sphere} = require('../../../api/primitives3d-api');
 const {square, circle} = require('../../../api/primitives2d-api');
-const {translate, rotate, scale, transform, center, mirror, expand, contract, minkowski, hull, chain_hull} = require('../ops-transformations');
+const {translate, rotate, scale, transform, center, mirror, expand, contract, minkowski, hull, chain_hull} = require('../');
 
 // TODO: since cube, sphere etc rely on some of the transformations, we should be creating csg objects 'from scratch' instead
 // of using those since it is not a very good independant test otherwise

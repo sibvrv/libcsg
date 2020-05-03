@@ -1,0 +1,1 @@
+{"version":3,"file":"ConvexHullPoint.d.ts","sourceRoot":"","sources":["../../../../src/modifiers/transforms/helpers/ConvexHullPoint.ts"],"names":[],"mappings":"AAAA;;GAEG;AACH,qBAAa,eAAe;IACP,KAAK,EAAE,MAAM;IAAS,KAAK,EAAE,MAAM;IAAS,QAAQ,EAAE,MAAM;gBAA5D,KAAK,EAAE,MAAM,EAAS,KAAK,EAAE,MAAM,EAAS,QAAQ,EAAE,MAAM;IAG/E,OAAO,CAAC,CAAC,EAAE,eAAe;CAc3B"}
