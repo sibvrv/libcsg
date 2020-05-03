@@ -17,7 +17,7 @@ const {overCutInsideCorners} = require('../api/ops-cnc');
 const {extrudeInOrthonormalBasis, extrudeInPlane, extrude, rotateExtrude} = require('../modifiers/extrusions/');
 const cagoutlinePaths = require('../api/cagOutlinePaths');
 const center = require('../api/center');
-const {expand, contract, expandedShellOfCAG} = require('../modifiers/expansions/ops-expandContract');
+const {expand, contract, expandedShellOfCAG} = require('../modifiers/expansions');
 /**
  * Class CAG
  * Holds a solid area geometry like CSG but 2D.
