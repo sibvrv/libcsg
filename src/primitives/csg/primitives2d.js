@@ -1,10 +1,9 @@
-const CAG = require('../core/CAG');
-const {parseOptionAs2DVector, parseOptionAsFloat, parseOptionAsInt} = require('../api/optionParsers');
-const {defaultResolution2D} = require('../core/constants');
-const Vector2D = require('../core/math/Vector2');
-const Vertex2 = require('../core/math/Vertex2');
-const Path2D = require('../core/math/Path2');
-const {fromCompactBinary, fromPoints, fromPath2, fromSides} = require('../core/CAGFactories');
+const CAG = require('../../core/CAG');
+const {parseOptionAs2DVector, parseOptionAsFloat, parseOptionAsInt} = require('../../api/optionParsers');
+const {defaultResolution2D} = require('../../core/constants');
+const Vector2D = require('../../core/math/Vector2');
+const Path2D = require('../../core/math/Path2');
+const {fromCompactBinary, fromPoints, fromPath2} = require('../../core/CAGFactories');
 
 /** Construct a circle.
  * @param {Object} [options] - options for construction
@@ -143,38 +142,6 @@ const roundedRectangle = function (options) {
   }
   return rect;
 };
-
-/** Reconstruct a CAG from the output of toCompactBinary().
- * @param {CompactBinary} bin - see toCompactBinary()
- * @returns {CAG} new CAG object
- */
-/*fromCompactBinary = function (bin) {
-  if (bin['class'] !== 'CAG') throw new Error('Not a CAG')
-  let vertices = []
-  let vertexData = bin.vertexData
-  let numvertices = vertexData.length / 2
-  let arrayindex = 0
-  for (let vertexindex = 0; vertexindex < numvertices; vertexindex++) {
-    let x = vertexData[arrayindex++]
-    let y = vertexData[arrayindex++]
-    let pos = new Vector2D(x, y)
-    let vertex = new Vertex2(pos)
-    vertices.push(vertex)
-  }
-
-  let sides = []
-  let numsides = bin.sideVertexIndices.length / 2
-  arrayindex = 0
-  for (let sideindex = 0; sideindex < numsides; sideindex++) {
-    let vertexindex0 = bin.sideVertexIndices[arrayindex++]
-    let vertexindex1 = bin.sideVertexIndices[arrayindex++]
-    let side = new Side(vertices[vertexindex0], vertices[vertexindex1])
-    sides.push(side)
-  }
-  let cag = fromSides(sides)
-  cag.isCanonicalized = true
-  return cag
-}*/
 
 module.exports = {
   circle,
