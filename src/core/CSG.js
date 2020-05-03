@@ -17,7 +17,7 @@ const {projectToOrthoNormalBasis} = require('./utils/csgProjections');
 const {lieFlat, getTransformationToFlatLying, getTransformationAndInverseTransformationToFlatLying} = require('../api/ops-cnc');
 const {sectionCut, cutByPlane} = require('../api/ops-cuts');
 const center = require('../api/center');
-const {expand, contract, expandedShellOfCCSG} = require('../api/ops-expandContract');
+const {expand, contract, expandedShellOfCCSG} = require('../modifiers/expansions/ops-expandContract');
 
 /** Class CSG
  * Holds a binary space partition tree representing a 3D solid. Two solids can

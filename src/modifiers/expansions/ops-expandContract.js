@@ -1,9 +1,9 @@
-const {EPS, angleEPS} = require('../core/constants');
-const Vertex = require('../core/math/Vertex3');
-const Vector2D = require('../core/math/Vector2');
-const Polygon = require('../core/math/Polygon3');
-const {fnNumberSort, isCSG} = require('../core/utils');
-const {fromPoints, fromPointsNoCheck} = require('../core/CAGFactories');
+const {EPS, angleEPS} = require('../../core/constants');
+const Vertex = require('../../core/math/Vertex3');
+const Vector2D = require('../../core/math/Vector2');
+const Polygon = require('../../core/math/Polygon3');
+const {fnNumberSort, isCSG} = require('../../core/utils');
+const {fromPoints, fromPointsNoCheck} = require('../../core/CAGFactories');
 
 const expand = function (shape, radius, resolution) {
   let result;
@@ -30,7 +30,7 @@ const contract = function (shape, radius, resolution) {
 };
 
 const expandedShellOfCAG = function (_cag, radius, resolution) {
-  const CAG = require('../core/CAG'); // FIXME, circular dependency !!
+  const CAG = require('../../core/CAG'); // FIXME, circular dependency !!
   resolution = resolution || 8;
   if (resolution < 4) resolution = 4;
   let cags = [];
@@ -129,8 +129,8 @@ const expandedShellOfCAG = function (_cag, radius, resolution) {
  * @param  {Boolean} unionWithThis
  */
 const expandedShellOfCCSG = function (_csg, radius, resolution, unionWithThis) {
-  const CSG = require('../core/CSG'); // FIXME: circular dependency ! CSG => this => CSG
-  const {fromPolygons} = require('../core/CSGFactories'); // FIXME: circular dependency !
+  const CSG = require('../../core/CSG'); // FIXME: circular dependency ! CSG => this => CSG
+  const {fromPolygons} = require('../../core/CSGFactories'); // FIXME: circular dependency !
   // const {sphere} = require('./primitives3d') // FIXME: circular dependency !
   let csg = _csg.reTesselated();
   let result;
