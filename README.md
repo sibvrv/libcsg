@@ -11,10 +11,9 @@
 
 Constructive Solid Geometry (CSG) is a modelling technique that uses Boolean operations like union and intersection to combine 3D solids. This library implements CSG operations on meshes elegantly and concisely using BSP trees, and is meant to serve as an easily understandable implementation of the algorithm.
 
-> NOTE : as of September 1 2018, we will NOT be accepting new PRS against the V1 / master branch: we realistically
-are not able to keep adding new features/fixes to the 'old' version and work on the very different V2.
-thank you for your comprehension !
-(already open PRS at that date are exempt)
+> The developers of the main project (JSCAD) are busy creating the second version of the API. 
+> Because the first version is needed for my own purposes. 
+> It was decided to continue developing the first version.
 
 ## Table of Contents
 
@@ -27,7 +26,7 @@ thank you for your comprehension !
 ## Installation
 
 ```
-npm install @jscad/csg
+npm install sibvrv/libcsg
 ```
 
 ## Usage
@@ -35,7 +34,7 @@ npm install @jscad/csg
 - as Node module :
 
 ```
-const csg = require('@jscad/csg')
+const csg = require('libcsg')
 ```
 
 ## API
@@ -68,5 +67,5 @@ Some copyrights apply. Copyright (c) 2012 Joost Nieuwenhuijse (joost@newhouse.nl
 
 ## License
 
-[The MIT License (MIT)](https://github.com/jscad/csg.js/blob/master/LICENSE)
+[The MIT License (MIT)](https://github.com/sibvrv/libcsg/blob/master/LICENSE)
 (unless specified otherwise)
