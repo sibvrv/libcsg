@@ -12,7 +12,7 @@ import {css2rgb} from './css2rgb';
  */
 export const color = (colorValue: string | number[], ...objects: any[]) => {
   let object;
-  let i = 1;
+  let i = 0;
   let a = objects;
 
   // assume first argument is RGB array
