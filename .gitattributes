@@ -1,0 +1,17 @@
+*.sh text eol=lf
+*.js text eol=lf
+*.ts text eol=lf
+*.json text eol=lf
+
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.gif binary
+*.swf binary
+*.ico binary
+
+*.eot binary
+*.ttf binary
+*.woff binary
+*.woff2 binary
+
