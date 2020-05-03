@@ -13,7 +13,7 @@ module.exports = (env, argv) => {
   return {
     context: sourcePath,
     entry: [
-      'index.ts'
+      'main.ts'
     ],
     output: {
       publicPath: '/',

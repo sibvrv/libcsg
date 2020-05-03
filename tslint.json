@@ -8,6 +8,8 @@
       true,
       "single"
     ],
-    "no-unused-expression": false
+    "no-unused-expression": false,
+    "no-var-requires": false,
+    "no-bitwise": false
   }
 }
