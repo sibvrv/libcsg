@@ -1,4 +1,4 @@
-const {parseOption, parseOptionAs3DVector, parseOptionAs2DVector, parseOptionAs3DVectorList, parseOptionAsFloat, parseOptionAsInt} = require('./optionParsers');
+const {parseOption, parseOptionAs3DVector, parseOptionAs2DVector, parseOptionAs3DVectorList, parseOptionAsFloat, parseOptionAsInt} = require('../api/optionParsers');
 const {defaultResolution3D, defaultResolution2D, EPS} = require('../core/constants');
 const Vector3 = require('../core/math/Vector3');
 const Vertex3 = require('../core/math/Vertex3');

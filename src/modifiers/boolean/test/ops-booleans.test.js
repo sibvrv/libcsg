@@ -1,6 +1,6 @@
 const test = require('ava');
-const {cube, sphere} = require('../../../api/primitives3d-api');
-const {square} = require('../../../api/primitives2d-api');
+const {cube, sphere} = require('../../../primitives/primitives3d-api');
+const {square} = require('../../../primitives/primitives2d-api');
 const {union, difference, intersection} = require('../index');
 
 test('union (defaults)', t => {

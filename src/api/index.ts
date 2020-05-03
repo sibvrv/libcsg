@@ -1,5 +1,5 @@
-export const primitives3d = require('./primitives3d-api');
-export const primitives2d = require('./primitives2d-api');
+export const primitives3d = require('../primitives/primitives3d-api');
+export const primitives2d = require('../primitives/primitives2d-api');
 export * as booleanOps from '../modifiers/boolean';
 export * as transformations from '../modifiers/transforms';
 export * as extrusions from '../modifiers/extrusions';
