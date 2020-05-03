@@ -11,10 +11,10 @@ const {isCAG} = require('../../core/utils');
  * @example
  * let differenceOfSphereAndCube = difference(sphere(), cube())
  */
-export function difference() {
+export const difference = (...objects: any[]) => {
   let object;
   let i = 0;
-  let a = arguments;
+  let a = objects;
   if (a[0].length) a = a[0];
   for (object = a[i++]; i < a.length; i++) {
     if (isCAG(a[i])) {
@@ -24,4 +24,4 @@ export function difference() {
     }
   }
   return object;
-}
+};

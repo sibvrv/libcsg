@@ -8,5 +8,5 @@
  * @example
  * let intersectionOfSphereAndCube = intersection(sphere(), cube())
  */
-export declare function intersection(): any;
+export declare const intersection: (...objects: any[]) => any;
 //# sourceMappingURL=intersection.d.ts.map

@@ -7,5 +7,5 @@
  * @example
  * let unionOfSphereAndCube = union(sphere(), cube())
  */
-export declare function union(): any;
+export declare const union: (...objects: any[]) => any;
 //# sourceMappingURL=union.d.ts.map

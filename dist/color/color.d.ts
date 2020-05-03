@@ -6,5 +6,5 @@
  * @example
  * let redSphere = color([1,0,0,1], sphere())
  */
-export declare function color(colorValue: string | number[]): any;
+export declare const color: (colorValue: string | number[], ...objects: any[]) => any;
 //# sourceMappingURL=color.d.ts.map

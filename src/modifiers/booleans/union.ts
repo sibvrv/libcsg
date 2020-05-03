@@ -9,7 +9,7 @@ const {isCAG} = require('../../core/utils');
  * @example
  * let unionOfSphereAndCube = union(sphere(), cube())
  */
-export function union() {
+export const union = (...objects: any[]) => {
   const defaults = {
     extrude2d: false,
   };
@@ -17,7 +17,7 @@ export function union() {
   let options = {...defaults};
   let o;
   let i = 0;
-  let a = arguments;
+  let a = objects;
 
   if (a[0].length) a = a[0];
 

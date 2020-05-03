@@ -10,10 +10,10 @@ const {isCAG} = require('../../core/utils');
  * @example
  * let intersectionOfSphereAndCube = intersection(sphere(), cube())
  */
-export function intersection() {
+export const intersection = (...objects: any[]) => {
   let object;
   let i = 0;
-  let a = arguments;
+  let a = objects;
   if (a[0].length) a = a[0];
   for (object = a[i++]; i < a.length; i++) {
     if (isCAG(a[i])) {

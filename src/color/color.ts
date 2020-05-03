@@ -10,10 +10,10 @@ import {css2rgb} from './css2rgb';
  * @example
  * let redSphere = color([1,0,0,1], sphere())
  */
-export function color(colorValue: string | number[]) {
+export const color = (colorValue: string | number[], ...objects: any[]) => {
   let object;
   let i = 1;
-  let a = arguments;
+  let a = objects;
 
   // assume first argument is RGB array
   // but check if first argument is CSS string

@@ -9,5 +9,5 @@
  * @example
  * let differenceOfSphereAndCube = difference(sphere(), cube())
  */
-export declare function difference(): any;
+export declare const difference: (...objects: any[]) => any;
 //# sourceMappingURL=difference.d.ts.map
