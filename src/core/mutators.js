@@ -57,6 +57,17 @@ const addTransformationMethodsToPrototype = function (prot) {
 
     return this.transform(Rz2.multiply(Rx).multiply(Rz1).multiply(T));
   };
+
+  prot.rotateEulerXYZ = function (alpha, beta, gamma, position) {
+    position = position || [0, 0, 0];
+
+    let Rx = Matrix4x4.rotationX(alpha);
+    let Ry = Matrix4x4.rotationY(beta);
+    let Rz = Matrix4x4.rotationZ(gamma);
+    let T = Matrix4x4.translation(new Vector3D(position));
+
+    return this.transform(Rz.multiply(Ry).multiply(Rx).multiply(T));
+  };
 };
 
 // TODO: consider generalization and adding to addTransformationMethodsToPrototype

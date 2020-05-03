@@ -264,6 +264,14 @@ CAG.prototype = {
     let polys = csgplane.polygons.filter(function (polygon) {
       return Math.abs(polygon.plane.normal.z) > 0.99;
     });
+    // add uv vectors, corresponding with the x and y coordinates of the
+    // points defining the original CAG
+    polys.forEach(function (poly) {
+      poly.vertices.forEach(function (vertex) {
+        vertex.uv = new Vector2D(vertex.pos.x, vertex.pos.y);
+      });
+    });
+
     // finally, position the plane per passed transformations
     return polys.map(function (poly) {
       return poly.transform(m);
@@ -275,7 +283,7 @@ CAG.prototype = {
     * copies of this cag, positioned in 3d space as "bottom" and
     * "top" plane per connectors toConnector1, and toConnector2, respectively
     */
-  _toWallPolygons: function (options) {
+  _toWallPolygons: function (options, iteration = 0) {
     // normals are going to be correct as long as toConn2.point - toConn1.point
     // points into cag normal direction (check in caller)
     // arguments: options.toConnector1, options.toConnector2, options.cag
@@ -299,17 +307,59 @@ CAG.prototype = {
     }
     // target cag is same as this unless specified
     let toCag = options.cag || this;
-    let m1 = thisConnector.getTransformationTo(toConnector1, false, 0);
-    let m2 = thisConnector.getTransformationTo(toConnector2, false, 0);
+    let m1 = thisConnector.getTransformationTo(toConnector1, toConnector1.axisvector.z < 0, 0);
+    let m2 = thisConnector.getTransformationTo(toConnector2, toConnector2.axisvector.z < 0, 0);
     let vps1 = this._toVector3DPairs(m1);
     let vps2 = toCag._toVector3DPairs(m2);
+    let hasMirroredNormals = toConnector1.axisvector.z < 0;
 
+    // group the Vector3DPairs by 2D polygon in case of multi-array cag
+    let vps1List = [];
+    let vps2List = [];
+    let vps1Temp = [vps1[0]];
+    let vps2Temp = [vps2[0]];
+    let i = 0;
+    for (i = 1; i < vps1.length; ++i) {
+      if (!(vps1[i][1].equals(vps1[i - 1][0]) || vps1[i][0].equals(vps1[i - 1][1]))) {
+        vps1List.push(vps1Temp);
+        vps1Temp = [];
+        vps2List.push(vps2Temp);
+        vps2Temp = [];
+      }
+      vps1Temp.push(vps1[i]);
+      vps2Temp.push(vps2[i]);
+    }
+    vps1List.push(vps1Temp);
+    vps2List.push(vps2Temp);
+
+    // calculate UV coordinates for each extruded side
     let polygons = [];
-    vps1.forEach(function (vp1, i) {
-      polygons.push(new Polygon([
-        new Vertex3D(vps2[i][1]), new Vertex3D(vps2[i][0]), new Vertex3D(vp1[0])]));
-      polygons.push(new Polygon([
-        new Vertex3D(vps2[i][1]), new Vertex3D(vp1[0]), new Vertex3D(vp1[1])]));
+    vps1List.forEach(function (vps1, i) {
+      let xbot0 = 0;
+      let xtop0 = 0;
+      vps2 = vps2List[i];
+      vps1.forEach(function (vp1, j) {
+        let xbot1 = xbot0 + vp1[0].distanceTo(vp1[1]);
+        let xtop1 = xtop0 + vps2[j][0].distanceTo(vps2[j][1]);
+        let y0 = vp1[0].distanceTo(vps2[j][0]);
+        let y1 = vp1[1].distanceTo(vps2[j][1]);
+        let polygon1 = new Polygon(
+          [Vertex3D.fromPosAndUV(vps2[j][1], new Vector2D(xtop1, y1 * (1 + iteration))),
+            Vertex3D.fromPosAndUV(vps2[j][0], new Vector2D(xtop0, y0 * (1 + iteration))),
+            Vertex3D.fromPosAndUV(vp1[0], new Vector2D(xbot0, y0 * iteration))]);
+        let polygon2 = new Polygon(
+          [Vertex3D.fromPosAndUV(vps2[j][1], new Vector2D(xtop1, y1 * (1 + iteration))),
+            Vertex3D.fromPosAndUV(vp1[0], new Vector2D(xbot0, y0 * iteration)),
+            Vertex3D.fromPosAndUV(vp1[1], new Vector2D(xbot1, y1 * iteration))]);
+        if (hasMirroredNormals) {
+          polygon1.plane = polygon1.plane.flipped();
+          polygon2.plane = polygon2.plane.flipped();
+        }
+        polygons.push(polygon1);
+        polygons.push(polygon2);
+        xbot0 = xbot1;
+        xtop0 = xtop1;
+      });
     });
     return polygons;
   },

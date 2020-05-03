@@ -1,4 +1,4 @@
-const {CAG} = require('../../csg');// we have to import from top level otherwise prototypes are not complete..
+const {CAG} = require('../csg');// we have to import from top level otherwise prototypes are not complete..
 const {fromPoints} = require('../core/CAGFactories');
 
 /** Construct a square/rectangle

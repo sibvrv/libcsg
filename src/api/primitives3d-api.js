@@ -1,5 +1,5 @@
 /// //////////FUNCTIONAL API
-const {CSG} = require('../../csg');
+const {CSG} = require('../csg');
 const {circle} = require('./primitives2d-api');
 const {rotate_extrude} = require('./ops-extrusions');
 const {translate, scale} = require('./ops-transformations');

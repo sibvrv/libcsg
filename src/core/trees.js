@@ -2,6 +2,10 @@ const {_CSGDEBUG, EPS} = require('./constants');
 const Vertex = require('./math/Vertex3');
 const Polygon = require('./math/Polygon3');
 
+function calcInterpolationFactor(pointa, pointb, intermediatePoint) {
+  return pointa.distanceTo(intermediatePoint) / pointa.distanceTo(pointb);
+}
+
 // Returns object:
 // .type:
 //   0: coplanar-front
@@ -67,8 +71,9 @@ function splitPolygonByPlane(plane, polygon) {
           // line segment intersects plane:
           let point = vertex.pos;
           let nextpoint = vertices[nextvertexindex].pos;
-          let intersectionpoint = plane.splitLineBetweenPoints(point, nextpoint);
-          let intersectionvertex = new Vertex(intersectionpoint);
+          let interpolationFactor =
+            calcInterpolationFactor(point, nextpoint, plane.splitLineBetweenPoints(point, nextpoint));
+          let intersectionvertex = vertex.interpolate(vertices[nextvertexindex], interpolationFactor);
           if (isback) {
             backvertices.push(vertex);
             backvertices.push(intersectionvertex);

@@ -6,6 +6,11 @@ const Vector2D = require('./Vector2');
 const Line2D = require('./Line2');
 const Polygon = require('./Polygon3');
 
+
+const calcInterpolationFactor = function (pointa, pointb, intermediatePoint) {
+  return pointa.distanceTo(intermediatePoint) / pointa.distanceTo(pointb);
+};
+
 // Retesselation function for a set of coplanar polygons. See the introduction at the top of
 // this file.
 const reTesselateCoplanarPolygons = function (sourcepolygons, destpolygons) {
@@ -15,6 +20,7 @@ const reTesselateCoplanarPolygons = function (sourcepolygons, destpolygons) {
     let shared = sourcepolygons[0].shared;
     let orthobasis = new OrthoNormalBasis(plane);
     let polygonvertices2d = []; // array of array of Vector2D
+    let polygonuvcoordinates = []; // array of array of Vector2D
     let polygontopvertexindexes = []; // array of indexes of topmost vertex per polygon
     let topy2polygonindexes = {};
     let ycoordinatetopolygonindexes = {};
@@ -29,12 +35,14 @@ const reTesselateCoplanarPolygons = function (sourcepolygons, destpolygons) {
     for (let polygonindex = 0; polygonindex < numpolygons; polygonindex++) {
       let poly3d = sourcepolygons[polygonindex];
       let vertices2d = [];
+      let uvcoordinates = [];
       let numvertices = poly3d.vertices.length;
       let minindex = -1;
       if (numvertices > 0) {
         let miny, maxy, maxindex;
         for (let i = 0; i < numvertices; i++) {
           let pos2d = orthobasis.to2D(poly3d.vertices[i].pos);
+          let uvcoordinate = poly3d.vertices[i].uv;
           // perform binning of y coordinates: If we have multiple vertices very
           // close to each other, give them the same y coordinate:
           let ycoordinatebin = Math.floor(pos2d.y * ycoordinateBinningFactor);
@@ -51,6 +59,7 @@ const reTesselateCoplanarPolygons = function (sourcepolygons, destpolygons) {
           }
           pos2d = Vector2D.Create(pos2d.x, newy);
           vertices2d.push(pos2d);
+          uvcoordinates.push(uvcoordinate);
           let y = pos2d.y;
           if ((i === 0) || (y < miny)) {
             miny = y;
@@ -68,6 +77,7 @@ const reTesselateCoplanarPolygons = function (sourcepolygons, destpolygons) {
         if (miny >= maxy) {
           // degenerate polygon, all vertices have same y coordinate. Just ignore it from now:
           vertices2d = [];
+          uvcoordinates = [];
           numvertices = 0;
           minindex = -1;
         } else {
@@ -79,8 +89,10 @@ const reTesselateCoplanarPolygons = function (sourcepolygons, destpolygons) {
       } // if(numvertices > 0)
       // reverse the vertex order:
       vertices2d.reverse();
+      uvcoordinates.reverse();
       minindex = numvertices - minindex - 1;
       polygonvertices2d.push(vertices2d);
+      polygonuvcoordinates.push(uvcoordinates);
       polygontopvertexindexes.push(minindex);
     }
     let ycoordinates = [];
@@ -117,6 +129,7 @@ const reTesselateCoplanarPolygons = function (sourcepolygons, destpolygons) {
         if (polygonindexeswithcorner[polygonindex]) {
           // this active polygon has a corner at this y coordinate:
           let vertices2d = polygonvertices2d[polygonindex];
+          let uvcoordinates = polygonuvcoordinates[polygonindex];
           let numvertices = vertices2d.length;
           let newleftvertexindex = activepolygon.leftvertexindex;
           let newrightvertexindex = activepolygon.rightvertexindex;
@@ -141,13 +154,17 @@ const reTesselateCoplanarPolygons = function (sourcepolygons, destpolygons) {
             activepolygon.leftvertexindex = newleftvertexindex;
             activepolygon.rightvertexindex = newrightvertexindex;
             activepolygon.topleft = vertices2d[newleftvertexindex];
+            activepolygon.topleftuv = uvcoordinates[newleftvertexindex];
             activepolygon.topright = vertices2d[newrightvertexindex];
+            activepolygon.toprightuv = uvcoordinates[newrightvertexindex];
             let nextleftvertexindex = newleftvertexindex + 1;
             if (nextleftvertexindex >= numvertices) nextleftvertexindex = 0;
             activepolygon.bottomleft = vertices2d[nextleftvertexindex];
+            activepolygon.bottomleftuv = uvcoordinates[nextleftvertexindex];
             let nextrightvertexindex = newrightvertexindex - 1;
             if (nextrightvertexindex < 0) nextrightvertexindex = numvertices - 1;
             activepolygon.bottomright = vertices2d[nextrightvertexindex];
+            activepolygon.bottomrightuv = uvcoordinates[nextrightvertexindex];
           }
         } // if polygon has corner here
       } // for activepolygonindex
@@ -165,6 +182,7 @@ const reTesselateCoplanarPolygons = function (sourcepolygons, destpolygons) {
         for (let polygonindex_key in startingpolygonindexes) {
           let polygonindex = startingpolygonindexes[polygonindex_key];
           let vertices2d = polygonvertices2d[polygonindex];
+          let uvcoordinates = polygonuvcoordinates[polygonindex];
           let numvertices = vertices2d.length;
           let topvertexindex = polygontopvertexindexes[polygonindex];
           // the top of the polygon may be a horizontal line. In that case topvertexindex can point to any point on this line.
@@ -194,9 +212,13 @@ const reTesselateCoplanarPolygons = function (sourcepolygons, destpolygons) {
             leftvertexindex: topleftvertexindex,
             rightvertexindex: toprightvertexindex,
             topleft: vertices2d[topleftvertexindex],
+            topleftuv: uvcoordinates[topleftvertexindex],
             topright: vertices2d[toprightvertexindex],
+            toprightuv: uvcoordinates[toprightvertexindex],
             bottomleft: vertices2d[nextleftvertexindex],
-            bottomright: vertices2d[nextrightvertexindex]
+            bottomleftuv: uvcoordinates[nextleftvertexindex],
+            bottomright: vertices2d[nextrightvertexindex],
+            bottomrightuv: uvcoordinates[nextrightvertexindex]
           };
           insertSorted(activepolygons, newactivepolygon, function (el1, el2) {
             let x1 = interpolateBetween2DPointsForY(
@@ -221,17 +243,37 @@ const reTesselateCoplanarPolygons = function (sourcepolygons, destpolygons) {
 
           let x = interpolateBetween2DPointsForY(activepolygon.topleft, activepolygon.bottomleft, ycoordinate);
           let topleft = Vector2D.Create(x, ycoordinate);
+          let topleftuv = activepolygon.topleftuv.lerp(activepolygon.bottomleftuv,
+            calcInterpolationFactor(activepolygon.topleft,
+              activepolygon.bottomleft,
+              topleft));
           x = interpolateBetween2DPointsForY(activepolygon.topright, activepolygon.bottomright, ycoordinate);
           let topright = Vector2D.Create(x, ycoordinate);
+          let toprightuv = activepolygon.toprightuv.lerp(activepolygon.bottomrightuv,
+            calcInterpolationFactor(activepolygon.topright,
+              activepolygon.bottomright,
+              topright));
           x = interpolateBetween2DPointsForY(activepolygon.topleft, activepolygon.bottomleft, nextycoordinate);
           let bottomleft = Vector2D.Create(x, nextycoordinate);
+          let bottomleftuv = activepolygon.topleftuv.lerp(activepolygon.bottomleftuv,
+            calcInterpolationFactor(activepolygon.topleft,
+              activepolygon.bottomleft,
+              bottomleft));
           x = interpolateBetween2DPointsForY(activepolygon.topright, activepolygon.bottomright, nextycoordinate);
           let bottomright = Vector2D.Create(x, nextycoordinate);
+          let bottomrightuv = activepolygon.toprightuv.lerp(activepolygon.bottomrightuv,
+            calcInterpolationFactor(activepolygon.topright,
+              activepolygon.bottomright,
+              bottomright));
           let outpolygon = {
             topleft: topleft,
+            topleftuv: topleftuv,
             topright: topright,
+            toprightuv: toprightuv,
             bottomleft: bottomleft,
+            bottomleftuv: bottomleftuv,
             bottomright: bottomright,
+            bottomrightuv: bottomrightuv,
             leftline: Line2D.fromPoints(topleft, bottomleft),
             rightline: Line2D.fromPoints(bottomright, topright)
           };
@@ -242,8 +284,10 @@ const reTesselateCoplanarPolygons = function (sourcepolygons, destpolygons) {
             if ((d1 < EPS) && (d2 < EPS)) {
               // we can join this polygon with the one to the left:
               outpolygon.topleft = prevoutpolygon.topleft;
+              outpolygon.topleftuv = prevoutpolygon.topleftuv;
               outpolygon.leftline = prevoutpolygon.leftline;
               outpolygon.bottomleft = prevoutpolygon.bottomleft;
+              outpolygon.bottomleftuv = prevoutpolygon.bottomleftuv;
               newoutpolygonrow.splice(newoutpolygonrow.length - 1, 1);
             }
           }
@@ -292,17 +336,21 @@ const reTesselateCoplanarPolygons = function (sourcepolygons, destpolygons) {
               // Finish the polygon with the last point(s):
               let prevpolygon = prevoutpolygonrow[ii];
               prevpolygon.outpolygon.rightpoints.push(prevpolygon.bottomright);
+              prevpolygon.outpolygon.rightuvcoordinates.push(prevpolygon.bottomrightuv);
               if (prevpolygon.bottomright.distanceTo(prevpolygon.bottomleft) > EPS) {
                 // polygon ends with a horizontal line:
                 prevpolygon.outpolygon.leftpoints.push(prevpolygon.bottomleft);
+                prevpolygon.outpolygon.leftuvcoordinates.push(prevpolygon.bottomleftuv);
               }
               // reverse the left half so we get a counterclockwise circle:
               prevpolygon.outpolygon.leftpoints.reverse();
+              prevpolygon.outpolygon.leftuvcoordinates.reverse();
               let points2d = prevpolygon.outpolygon.rightpoints.concat(prevpolygon.outpolygon.leftpoints);
+              let uvcoordinates = prevpolygon.outpolygon.rightuvcoordinates.concat(prevpolygon.outpolygon.leftuvcoordinates);
               let vertices3d = [];
-              points2d.map(function (point2d) {
+              points2d.map(function (point2d, i) {
                 let point3d = orthobasis.to3D(point2d);
-                let vertex3d = new Vertex(point3d);
+                let vertex3d = Vertex.fromPosAndUV(point3d, uvcoordinates[i]);
                 vertices3d.push(vertex3d);
               });
               let polygon = new Polygon(vertices3d, shared, plane);
@@ -316,20 +364,26 @@ const reTesselateCoplanarPolygons = function (sourcepolygons, destpolygons) {
             // polygon starts here:
             thispolygon.outpolygon = {
               leftpoints: [],
-              rightpoints: []
+              leftuvcoordinates: [],
+              rightpoints: [],
+              rightuvcoordinates: []
             };
             thispolygon.outpolygon.leftpoints.push(thispolygon.topleft);
+            thispolygon.outpolygon.leftuvcoordinates.push(thispolygon.topleftuv);
             if (thispolygon.topleft.distanceTo(thispolygon.topright) > EPS) {
               // we have a horizontal line at the top:
               thispolygon.outpolygon.rightpoints.push(thispolygon.topright);
+              thispolygon.outpolygon.rightuvcoordinates.push(thispolygon.toprightuv);
             }
           } else {
             // continuation of a previous row
             if (!thispolygon.leftlinecontinues) {
               thispolygon.outpolygon.leftpoints.push(thispolygon.topleft);
+              thispolygon.outpolygon.leftuvcoordinates.push(thispolygon.topleftuv);
             }
             if (!thispolygon.rightlinecontinues) {
               thispolygon.outpolygon.rightpoints.push(thispolygon.topright);
+              thispolygon.outpolygon.rightuvcoordinates.push(thispolygon.toprightuv);
             }
           }
         }

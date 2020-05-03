@@ -80,12 +80,13 @@ for solid CAD anyway.
 
 */
 
-const {addTransformationMethodsToPrototype, addCenteringToPrototype} = require('./src/core/mutators')
-let CSG = require('./src/core/CSG')
-let CAG = require('./src/core/CAG')
+const {addTransformationMethodsToPrototype, addCenteringToPrototype} = require('./core/mutators');
+let CSG = require('./core/CSG');
+let CAG = require('./core/CAG');
 
 // FIXME: how many are actual usefull to be exposed as API ?? looks like a code smell
-const { _CSGDEBUG,
+const {
+  _CSGDEBUG,
   defaultResolution2D,
   defaultResolution3D,
   EPS,
@@ -99,111 +100,110 @@ const { _CSGDEBUG,
   front,
   back,
   staticTag,
-  getTag} = require('./src/core/constants')
+  getTag
+} = require('./core/constants');
 
-CSG._CSGDEBUG = _CSGDEBUG
-CSG.defaultResolution2D = defaultResolution2D
-CSG.defaultResolution3D = defaultResolution3D
-CSG.EPS = EPS
-CSG.angleEPS = angleEPS
-CSG.areaEPS = areaEPS
-CSG.all = all
-CSG.top = top
-CSG.bottom = bottom
-CSG.left = left
-CSG.right = right
-CSG.front = front
-CSG.back = back
-CSG.staticTag = staticTag
-CSG.getTag = getTag
+CSG._CSGDEBUG = _CSGDEBUG;
+CSG.defaultResolution2D = defaultResolution2D;
+CSG.defaultResolution3D = defaultResolution3D;
+CSG.EPS = EPS;
+CSG.angleEPS = angleEPS;
+CSG.areaEPS = areaEPS;
+CSG.all = all;
+CSG.top = top;
+CSG.bottom = bottom;
+CSG.left = left;
+CSG.right = right;
+CSG.front = front;
+CSG.back = back;
+CSG.staticTag = staticTag;
+CSG.getTag = getTag;
 
 // eek ! all this is kept for backwards compatibility...for now
-CSG.Vector2D = require('./src/core/math/Vector2')
-CSG.Vector3D = require('./src/core/math/Vector3')
-CSG.Vertex = require('./src/core/math/Vertex3')
-CAG.Vertex = require('./src/core/math/Vertex2')
-CSG.Plane = require('./src/core/math/Plane')
-CSG.Polygon = require('./src/core/math/Polygon3')
-CSG.Polygon2D = require('./src/core/math/Polygon2')
-CSG.Line2D = require('./src/core/math/Line2')
-CSG.Line3D = require('./src/core/math/Line3')
-CSG.Path2D = require('./src/core/math/Path2')
-CSG.OrthoNormalBasis = require('./src/core/math/OrthoNormalBasis')
-CSG.Matrix4x4 = require('./src/core/math/Matrix4')
+CSG.Vector2D = require('./core/math/Vector2');
+CSG.Vector3D = require('./core/math/Vector3');
+CSG.Vertex = require('./core/math/Vertex3');
+CAG.Vertex = require('./core/math/Vertex2');
+CSG.Plane = require('./core/math/Plane');
+CSG.Polygon = require('./core/math/Polygon3');
+CSG.Polygon2D = require('./core/math/Polygon2');
+CSG.Line2D = require('./core/math/Line2');
+CSG.Line3D = require('./core/math/Line3');
+CSG.Path2D = require('./core/math/Path2');
+CSG.OrthoNormalBasis = require('./core/math/OrthoNormalBasis');
+CSG.Matrix4x4 = require('./core/math/Matrix4');
 
-CAG.Side = require('./src/core/math/Side')
+CAG.Side = require('./core/math/Side');
 
-CSG.Connector = require('./src/core/connectors').Connector
-CSG.ConnectorList = require('./src/core/connectors').ConnectorList
-CSG.Properties = require('./src/core/Properties')
+CSG.Connector = require('./core/connectors').Connector;
+CSG.ConnectorList = require('./core/connectors').ConnectorList;
+CSG.Properties = require('./core/Properties');
 
-const {circle, ellipse, rectangle, roundedRectangle} = require('./src/api/primitives2d')
-const {sphere, cube, roundedCube, cylinder, roundedCylinder, cylinderElliptic, polyhedron} = require('./src/api/primitives3d')
+const {circle, ellipse, rectangle, roundedRectangle} = require('./api/primitives2d');
+const {sphere, cube, roundedCube, cylinder, roundedCylinder, cylinderElliptic, polyhedron} = require('./api/primitives3d');
 
-CSG.sphere = sphere
-CSG.cube = cube
-CSG.roundedCube = roundedCube
-CSG.cylinder = cylinder
-CSG.roundedCylinder = roundedCylinder
-CSG.cylinderElliptic = cylinderElliptic
-CSG.polyhedron = polyhedron
+CSG.sphere = sphere;
+CSG.cube = cube;
+CSG.roundedCube = roundedCube;
+CSG.cylinder = cylinder;
+CSG.roundedCylinder = roundedCylinder;
+CSG.cylinderElliptic = cylinderElliptic;
+CSG.polyhedron = polyhedron;
 
-CAG.circle = circle
-CAG.ellipse = ellipse
-CAG.rectangle = rectangle
-CAG.roundedRectangle = roundedRectangle
+CAG.circle = circle;
+CAG.ellipse = ellipse;
+CAG.rectangle = rectangle;
+CAG.roundedRectangle = roundedRectangle;
 
 // injecting factories
-const {fromPolygons, fromCompactBinary, fromObject, fromSlices} = require('./src/core/CSGFactories')
-CSG.fromCompactBinary = fromCompactBinary
-CSG.fromObject = fromObject
-CSG.fromSlices = fromSlices
-CSG.fromPolygons = fromPolygons
+const {fromPolygons, fromCompactBinary, fromObject, fromSlices} = require('./core/CSGFactories');
+CSG.fromCompactBinary = fromCompactBinary;
+CSG.fromObject = fromObject;
+CSG.fromSlices = fromSlices;
+CSG.fromPolygons = fromPolygons;
 
-CSG.toPointCloud = require('./src/api/debugHelpers').toPointCloud
-
-const CAGFactories = require('./src/core/CAGFactories')
-CAG.fromSides = CAGFactories.fromSides
-CAG.fromObject = CAGFactories.fromObject
-CAG.fromPoints = CAGFactories.fromPoints
-CAG.fromPointsNoCheck = CAGFactories.fromPointsNoCheck
-CAG.fromPath2 = CAGFactories.fromPath2
-CAG.fromFakeCSG = CAGFactories.fromFakeCSG
-CAG.fromCompactBinary = CAGFactories.fromCompactBinary
+const CAGFactories = require('./core/CAGFactories');
+CAG.fromSides = CAGFactories.fromSides;
+CAG.fromObject = CAGFactories.fromObject;
+CAG.fromPoints = CAGFactories.fromPoints;
+CAG.fromPointsNoCheck = CAGFactories.fromPointsNoCheck;
+CAG.fromPath2 = CAGFactories.fromPath2;
+CAG.fromFakeCSG = CAGFactories.fromFakeCSG;
+CAG.fromCompactBinary = CAGFactories.fromCompactBinary;
 
 /// ////////////////////////////////////
 // option parsers
-const optionsParsers = require('./src/api/optionParsers')
+const optionsParsers = require('./api/optionParsers');
 
 // ////////////////////////////////////
-addTransformationMethodsToPrototype(CSG.prototype)
-addTransformationMethodsToPrototype(CSG.Vector2D.prototype)
-addTransformationMethodsToPrototype(CSG.Vector3D.prototype)
-addTransformationMethodsToPrototype(CSG.Vertex.prototype)
-addTransformationMethodsToPrototype(CSG.Plane.prototype)
-addTransformationMethodsToPrototype(CSG.Polygon.prototype)
-addTransformationMethodsToPrototype(CSG.Line2D.prototype)
-addTransformationMethodsToPrototype(CSG.Line3D.prototype)
-addTransformationMethodsToPrototype(CSG.Path2D.prototype)
-addTransformationMethodsToPrototype(CSG.OrthoNormalBasis.prototype)
-addTransformationMethodsToPrototype(CSG.Connector.prototype)
+addTransformationMethodsToPrototype(CSG.prototype);
+addTransformationMethodsToPrototype(CSG.Vector2D.prototype);
+addTransformationMethodsToPrototype(CSG.Vector3D.prototype);
+addTransformationMethodsToPrototype(CSG.Vertex.prototype);
+addTransformationMethodsToPrototype(CSG.Plane.prototype);
+addTransformationMethodsToPrototype(CSG.Polygon.prototype);
+addTransformationMethodsToPrototype(CSG.Line2D.prototype);
+addTransformationMethodsToPrototype(CSG.Line3D.prototype);
+addTransformationMethodsToPrototype(CSG.Path2D.prototype);
+addTransformationMethodsToPrototype(CSG.OrthoNormalBasis.prototype);
+addTransformationMethodsToPrototype(CSG.Connector.prototype);
 
-addTransformationMethodsToPrototype(CAG.prototype)
-addTransformationMethodsToPrototype(CAG.Side.prototype)
-addTransformationMethodsToPrototype(CAG.Vertex.prototype)
+addTransformationMethodsToPrototype(CAG.prototype);
+addTransformationMethodsToPrototype(CAG.Side.prototype);
+addTransformationMethodsToPrototype(CAG.Vertex.prototype);
 
-CSG.parseOptionAs2DVector = optionsParsers.parseOptionAs3DVector
-CSG.parseOptionAs3DVector = optionsParsers.parseOptionAs3DVector
-CSG.parseOptionAs3DVectorList = optionsParsers.parseOptionAs3DVectorList
-CSG.parseOptionAsBool = optionsParsers.parseOptionAsBool
-CSG.parseOptionAsFloat = optionsParsers.parseOptionAsFloat
-CSG.parseOptionAsInt = optionsParsers.parseOptionAsInt
+CSG.parseOptionAs2DVector = optionsParsers.parseOptionAs3DVector;
+CSG.parseOptionAs3DVector = optionsParsers.parseOptionAs3DVector;
+CSG.parseOptionAs3DVectorList = optionsParsers.parseOptionAs3DVectorList;
+CSG.parseOptionAsBool = optionsParsers.parseOptionAsBool;
+CSG.parseOptionAsFloat = optionsParsers.parseOptionAsFloat;
+CSG.parseOptionAsInt = optionsParsers.parseOptionAsInt;
 // this is needed for now, otherwise there are missing features in Polygon2D
-CSG.Polygon2D.prototype = CAG.prototype
+CSG.Polygon2D.prototype = CAG.prototype;
 
 // utilities
-const {isCAG, isCSG} = require('./src/core/utils')
+const {isCAG, isCSG} = require('./core/utils');
 
-const globalApi = Object.assign({}, {CSG, CAG}, optionsParsers, {isCAG, isCSG})
+const globalApi = Object.assign({}, {CSG, CAG}, optionsParsers, {isCAG, isCSG});
 
-module.exports = globalApi
+module.exports = globalApi;

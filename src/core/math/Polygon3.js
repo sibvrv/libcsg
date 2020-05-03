@@ -1,3 +1,4 @@
+const Vector2D = require('./Vector2');
 const Vector3D = require('./Vector3');
 const Vertex = require('./Vertex3');
 const Matrix4x4 = require('./Matrix4');
@@ -115,15 +116,19 @@ Polygon.prototype = {
     newpolygons.push(polygon1);
     let polygon2 = polygon1.translate(offsetvector);
     let numvertices = this.vertices.length;
+    let x = 0;
+    let y = offsetvector.length();
     for (let i = 0; i < numvertices; i++) {
       let sidefacepoints = [];
       let nexti = (i < (numvertices - 1)) ? i + 1 : 0;
-      sidefacepoints.push(polygon1.vertices[i].pos);
-      sidefacepoints.push(polygon2.vertices[i].pos);
-      sidefacepoints.push(polygon2.vertices[nexti].pos);
-      sidefacepoints.push(polygon1.vertices[nexti].pos);
-      let sidefacepolygon = Polygon.createFromPoints(sidefacepoints, this.shared);
+      let xn = x + polygon1.vertices[i].pos.distanceTo(polygon1.vertices[nexti].pos);
+      sidefacepoints.push(Vertex.fromPosAndUV(polygon1.vertices[i].pos, new Vector2D(x, 0)));
+      sidefacepoints.push(Vertex.fromPosAndUV(polygon2.vertices[i].pos, new Vector2D(x, y)));
+      sidefacepoints.push(Vertex.fromPosAndUV(polygon2.vertices[nexti].pos, new Vector2D(xn, y)));
+      sidefacepoints.push(Vertex.fromPosAndUV(polygon1.vertices[nexti].pos, new Vector2D(xn, 0)));
+      let sidefacepolygon = new Polygon(sidefacepoints, this.shared);
       newpolygons.push(sidefacepolygon);
+      x = xn;
     }
     polygon2 = polygon2.flipped();
     newpolygons.push(polygon2);

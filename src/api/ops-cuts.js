@@ -46,10 +46,14 @@ const cutByPlane = function (csg, plane) {
   // Now build a polygon on the plane, at any point farther than maxdistance from the plane center:
   let vertices = [];
   let orthobasis = new OrthoNormalBasis(plane);
-  vertices.push(new Vertex3(orthobasis.to3D(new Vector2(maxdistance, -maxdistance))));
-  vertices.push(new Vertex3(orthobasis.to3D(new Vector2(-maxdistance, -maxdistance))));
-  vertices.push(new Vertex3(orthobasis.to3D(new Vector2(-maxdistance, maxdistance))));
-  vertices.push(new Vertex3(orthobasis.to3D(new Vector2(maxdistance, maxdistance))));
+  vertices.push(Vertex3.fromPosAndUV(orthobasis.to3D(new Vector2(maxdistance, -maxdistance)),
+    new Vector2(maxdistance, -maxdistance)));
+  vertices.push(Vertex3.fromPosAndUV(orthobasis.to3D(new Vector2(-maxdistance, -maxdistance)),
+    new Vector2(-maxdistance, -maxdistance)));
+  vertices.push(Vertex3.fromPosAndUV(orthobasis.to3D(new Vector2(-maxdistance, maxdistance)),
+    new Vector2(-maxdistance, maxdistance)));
+  vertices.push(Vertex3.fromPosAndUV(orthobasis.to3D(new Vector2(maxdistance, maxdistance)),
+    new Vector2(maxdistance, maxdistance)));
   const polygon = new Polygon3(vertices, null, plane.flipped());
 
   // and extrude the polygon into a cube, backwards of the plane:

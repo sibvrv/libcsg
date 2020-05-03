@@ -2,6 +2,7 @@ const {EPS, defaultResolution3D} = require('../core/constants');
 const OrthoNormalBasis = require('../core/math/OrthoNormalBasis');
 const {parseOptionAs3DVector, parseOptionAsBool, parseOptionAsFloat, parseOptionAsInt} = require('./optionParsers');
 const Vector3D = require('../core/math/Vector3');
+const Vector2D = require('../core/math/Vector2');
 const Matrix4 = require('../core/math/Matrix4');
 const Path2D = require('../core/math/Path2');
 const {Connector} = require('../core/connectors');
@@ -97,7 +98,7 @@ const extrude = function (cag, options) {
       normalVector.rotateZ(i * twistangle / twiststeps));
     let c2 = new Connector(offsetVector.times((i + 1) / twiststeps), [0, 0, offsetVector.z],
       normalVector.rotateZ((i + 1) * twistangle / twiststeps));
-    polygons = polygons.concat(cag._toWallPolygons({toConnector1: c1, toConnector2: c2}));
+    polygons = polygons.concat(cag._toWallPolygons({toConnector1: c1, toConnector2: c2}, i));
   }
 
   return fromPolygons(polygons);
@@ -111,7 +112,10 @@ const extrude = function (cag, options) {
  * @param {Number} [options.resolution=defaultResolution3D] - number of polygons per 360 degree revolution
  * @returns {CSG} new 3D solid
  */
-const rotateExtrude = function (cag, options) { // FIXME options should be optional
+const rotateExtrude = function (cag, options) {
+  if (options === undefined) {
+    options = {};
+  }
   let alpha = parseOptionAsFloat(options, 'angle', 360);
   let resolution = parseOptionAsInt(options, 'resolution', defaultResolution3D);
 
@@ -134,10 +138,11 @@ const rotateExtrude = function (cag, options) { // FIXME options should be optio
   let connT1 = connS;
   let connT2;
   let step = alpha / resolution;
+  let iteration = 0;
   for (let a = step; a <= alpha + EPS; a += step) { // FIXME Should this be angelEPS?
     connT2 = new Connector(origin, axisV.rotateZ(-a), normalV);
     polygons = polygons.concat(cag._toWallPolygons(
-      {toConnector1: connT1, toConnector2: connT2}));
+      {toConnector1: connT1, toConnector2: connT2}, iteration));
     connT1 = connT2;
   }
   return fromPolygons(polygons).reTesselated();

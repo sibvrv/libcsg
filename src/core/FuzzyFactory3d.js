@@ -4,7 +4,7 @@ const FuzzyFactory = require('./FuzzyFactory');
 
 // ////////////////////////////////////
 const FuzzyCSGFactory = function () {
-  this.vertexfactory = new FuzzyFactory(3, EPS);
+  this.vertexfactory = new FuzzyFactory(5, EPS);
   this.planefactory = new FuzzyFactory(4, EPS);
   this.polygonsharedfactory = {};
 };
@@ -21,7 +21,8 @@ FuzzyCSGFactory.prototype = {
   },
 
   getVertex: function (sourcevertex) {
-    let elements = [sourcevertex.pos._x, sourcevertex.pos._y, sourcevertex.pos._z];
+    let elements = [sourcevertex.pos._x, sourcevertex.pos._y, sourcevertex.pos._z,
+      sourcevertex.uv._x, sourcevertex.uv._y];
     let result = this.vertexfactory.lookupOrCreate(elements, function (els) {
       return sourcevertex;
     });
