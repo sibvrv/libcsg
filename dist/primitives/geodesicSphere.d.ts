@@ -1,6 +1,10 @@
+export interface IGeodesicSphereOptions {
+    r: number;
+    fn: number;
+}
 /**
  * Geodesic Sphere
- * @param params
+ * @param options
  */
-export declare function geodesicSphere(params: any): any;
+export declare function geodesicSphere(options?: Partial<IGeodesicSphereOptions>): any;
 //# sourceMappingURL=geodesicSphere.d.ts.map

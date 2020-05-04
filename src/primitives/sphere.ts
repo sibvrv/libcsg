@@ -1,7 +1,7 @@
 import {geodesicSphere} from './geodesicSphere';
+import {translate} from '../modifiers/transforms';
 
 const {CSG} = require('../csg');
-const {translate} = require('../modifiers/transforms');
 
 export const enum SPHERE_TYPE {
   NORMAL = 'normal',

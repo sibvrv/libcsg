@@ -3,7 +3,8 @@ export interface ICircleOptions {
     fn: number;
     center: boolean;
 }
-/** Construct a circle
+/**
+ * Construct a circle
  * @param {ICircleOptions} [options] - options for construction
  * @param {number} [options.r=1] - radius of the circle
  * @param {number} [options.fn=32] - segments of circle (ie quality/ resolution)
@@ -15,5 +16,5 @@ export interface ICircleOptions {
  *   r: 10
  * })
  */
-export declare function circle(options?: ICircleOptions | number): any;
+export declare function circle(options?: Partial<ICircleOptions> | number): any;
 //# sourceMappingURL=circle.d.ts.map

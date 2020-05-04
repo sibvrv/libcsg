@@ -1,5 +1,5 @@
+import {translate} from '../modifiers/transforms';
 const {CSG} = require('../csg');
-const {translate} = require('../modifiers/transforms');
 
 /** Construct a cuboid
  * @param {Object} [options] - options for construction

@@ -1,7 +1,7 @@
 const {CSG} = require('../csg');
 const {circle} = require('./');
-const {rotate_extrude} = require('../modifiers/extrusions');
-const {translate} = require('../modifiers/transforms');
+import {rotate_extrude} from '../modifiers/extrusions';
+import {translate} from '../modifiers/transforms';
 
 const MIN_FNI = 3;
 const MIN_FNO = 3;

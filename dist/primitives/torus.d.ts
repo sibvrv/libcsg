@@ -1,4 +1,4 @@
-interface ITorusOptions {
+export interface ITorusOptions {
     ri: number;
     ro: number;
     fni: number;
@@ -20,6 +20,5 @@ interface ITorusOptions {
  *   ri: 10
  * })
  */
-export declare function torus(options?: ITorusOptions): any;
-export {};
+export declare function torus(options?: Partial<ITorusOptions>): any;
 //# sourceMappingURL=torus.d.ts.map

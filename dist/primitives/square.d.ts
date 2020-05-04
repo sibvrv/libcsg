@@ -2,7 +2,8 @@ export interface ISquareOptions {
     center: boolean;
     size: number | [number, number];
 }
-/** Construct a square/rectangle
+/**
+ * Construct a square/rectangle
  * @param {ISquareOptions} [options] - options for construction
  * @param {number} [options.size=1] - size of the square, either as array or scalar
  * @param {boolean} [options.center=true] - whether to center the square/rectangle or not
@@ -13,5 +14,5 @@ export interface ISquareOptions {
  *   size: 10
  * })
  */
-export declare function square(options?: ISquareOptions | number | [number, number]): any;
+export declare function square(options?: Partial<ISquareOptions> | number | [number, number]): any;
 //# sourceMappingURL=square.d.ts.map
