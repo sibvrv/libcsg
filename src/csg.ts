@@ -81,10 +81,10 @@ for solid CAD anyway.
 */
 
 const {addTransformationMethodsToPrototype, addCenteringToPrototype} = require('./core/mutators');
-let CSG = require('./core/CSG');
-let CAG = require('./core/CAG');
+const CSG = require('./core/CSG');
+const CAG = require('./core/CAG');
 
-// FIXME: how many are actual usefull to be exposed as API ?? looks like a code smell
+// FIXME: how many are actual useful to be exposed as API ?? looks like a code smell
 const {
   _CSGDEBUG,
   defaultResolution2D,
@@ -100,7 +100,7 @@ const {
   front,
   back,
   staticTag,
-  getTag
+  getTag,
 } = require('./core/constants');
 
 CSG._CSGDEBUG = _CSGDEBUG;
@@ -204,6 +204,24 @@ CSG.Polygon2D.prototype = CAG.prototype;
 // utilities
 const {isCAG, isCSG} = require('./core/utils');
 
-const globalApi = Object.assign({}, {CSG, CAG}, optionsParsers, {isCAG, isCSG});
+export {CSG, CAG, isCAG, isCSG};
 
-module.exports = globalApi;
+const {
+  parseOption,
+  parseOptionAsInt,
+  parseOptionAsFloat,
+  parseOptionAsBool,
+  parseOptionAs3DVector,
+  parseOptionAs2DVector,
+  parseOptionAs3DVectorList,
+} = optionsParsers;
+
+export {
+  parseOption,
+  parseOptionAsInt,
+  parseOptionAsFloat,
+  parseOptionAsBool,
+  parseOptionAs3DVector,
+  parseOptionAs2DVector,
+  parseOptionAs3DVectorList,
+};
