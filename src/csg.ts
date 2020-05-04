@@ -140,13 +140,13 @@ CAG.rectangle = rectangle;
 CAG.roundedRectangle = roundedRectangle;
 
 // injecting factories
-const {fromPolygons, fromCompactBinary, fromObject, fromSlices} = require('./core/CSGFactories');
+import {fromPolygons, fromCompactBinary, fromObject, fromSlices} from './core/CSGFactories';
 CSG.fromCompactBinary = fromCompactBinary;
 CSG.fromObject = fromObject;
 CSG.fromSlices = fromSlices;
 CSG.fromPolygons = fromPolygons;
 
-const CAGFactories = require('./core/CAGFactories');
+import * as CAGFactories from './core/CAGFactories';
 CAG.fromSides = CAGFactories.fromSides;
 CAG.fromObject = CAGFactories.fromObject;
 CAG.fromPoints = CAGFactories.fromPoints;

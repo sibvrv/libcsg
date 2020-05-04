@@ -1,6 +1,6 @@
 const {defaultResolution3D} = require('../../core/constants');
 const {parseOptionAs3DVector, parseOptionAsFloat, parseOptionAsInt} = require('../../api/optionParsers');
-const {fromPolygons} = require('../../core/CSGFactories');
+import {fromPolygons} from '../../core/CSGFactories';
 const {Connector} = require('../../core/connectors');
 const Vector3D = require('../../core/math/Vector3');
 

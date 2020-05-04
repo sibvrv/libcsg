@@ -9,20 +9,20 @@ const {union, difference} = require('../modifiers/booleans');
  * @param {Side[]} sides - list of sides
  * @returns {CAG} new CAG object
  */
-const fromSides = function (sides) {
+export const fromSides = (sides: any) => {
   const CAG = require('./CAG'); // circular dependency CAG => fromSides => CAG
-  let cag = new CAG();
+  const cag = new CAG();
   cag.sides = sides;
   return cag;
 };
 
 // Converts a CSG to a  The CSG must consist of polygons with only z coordinates +1 and -1
 // as constructed by _toCSGWall(-1, 1). This is so we can use the 3D union(), intersect() etc
-const fromFakeCSG = function (csg) {
-  let sides = csg.polygons.map(function (p) {
+export const fromFakeCSG = (csg: any) => {
+  const sides = csg.polygons.map((p: any) => {
     return Side._fromFakePolygon(p);
   })
-    .filter(function (s) {
+    .filter((s: any) => {
       return s !== null;
     });
   return fromSides(sides);
@@ -37,7 +37,7 @@ const fromFakeCSG = function (csg) {
  * @param {points[]|Array.<points[]>} points - (nested) list of points in 2D space
  * @returns {CAG} new CAG object
  */
-const fromPoints = function (points) {
+export const fromPoints = (points: any): any => {
   if (!points) {
     throw new Error('points parameter must be defined');
   }
@@ -54,14 +54,14 @@ const fromPoints = function (points) {
 };
 
 // Do not export the two following function (code splitting for fromPoints())
-const fromPointsArray = function (points) {
+export const fromPointsArray = (points: any) => {
   if (points.length < 3) {
     throw new Error('CAG shape needs at least 3 points');
   }
-  let sides = [];
+  const sides: any[] = [];
   let prevvertex = new Vertex2(new Vector2D(points[points.length - 1]));
-  points.map(function (point) {
-    let vertex = new Vertex2(new Vector2D(point));
+  points.map((point: any) => {
+    const vertex = new Vertex2(new Vector2D(point));
     sides.push(new Side(prevvertex, vertex));
     prevvertex = vertex;
   });
@@ -69,7 +69,7 @@ const fromPointsArray = function (points) {
   if (isSelfIntersecting(result)) {
     throw new Error('Polygon is self intersecting!');
   }
-  let area = result.area();
+  const area = result.area();
   if (Math.abs(area) < areaEPS) {
     throw new Error('Degenerate polygon!');
   }
@@ -79,21 +79,21 @@ const fromPointsArray = function (points) {
   return result.canonicalized();
 };
 
-const fromNestedPointsArray = function (points) {
+export const fromNestedPointsArray = (points: any) => {
   if (points.length === 1) {
     return fromPoints(points[0]);
   }
   // First pass: create a collection of CAG paths
-  let paths = [];
-  points.forEach(path => {
-    paths.push(fromPointsArray(path));
+  const paths: any = [];
+  points.forEach((_path: any) => {
+    paths.push(fromPointsArray(_path));
   });
   // Second pass: make a tree of paths
-  let tree = {};
+  const tree: any = {};
   // for each polygon extract parents and childs polygons
-  paths.forEach((p1, i) => {
+  paths.forEach((p1: any, i: any) => {
     // check for intersection
-    paths.forEach((p2, y) => {
+    paths.forEach((p2: any, y: any) => {
       if (p1 !== p2) {
         // create default node
         tree[i] || (tree[i] = {parents: [], isHole: false});
@@ -110,18 +110,22 @@ const fromNestedPointsArray = function (points) {
   });
   // Third pass: subtract holes
   let path = null;
-  for (key in tree) {
+
+  // tslint:disable-next-line:forin
+  for (const key in tree) {
     path = tree[key];
     if (path.isHole) {
       delete tree[key]; // remove holes for final pass
-      path.parents.forEach(parentKey => {
+      path.parents.forEach((parentKey: any) => {
         paths[parentKey] = difference(paths[parentKey], paths[key]);
       });
     }
   }
   // Fourth and last pass: create final CAG object
   let cag = fromSides([]);
-  for (key in tree) {
+
+  // tslint:disable-next-line:forin
+  for (const key in tree) {
     cag = union(cag, paths[key]);
   }
   return cag;
@@ -131,12 +135,15 @@ const fromNestedPointsArray = function (points) {
  * @param {Object} obj - anonymous object, typically from JSON
  * @returns {CAG} new CAG object
  */
-const fromObject = function (obj) {
-  let sides = obj.sides.map(function (s) {
+export const fromObject = (obj: any) => {
+
+  const sides = obj.sides.map((s: any) => {
     return Side.fromObject(s);
   });
-  let cag = fromSides(sides);
+
+  const cag = fromSides(sides);
   cag.isCanonicalized = obj.isCanonicalized;
+
   return cag;
 };
 
@@ -148,14 +155,16 @@ const fromObject = function (obj) {
  * @param {points[]} points - list of points in 2D space
  * @returns {CAG} new CAG object
  */
-const fromPointsNoCheck = function (points) {
-  let sides = [];
-  let prevpoint = new Vector2D(points[points.length - 1]);
+export const fromPointsNoCheck = (points: any) => {
+  const sides: any[] = [];
+  const prevpoint = new Vector2D(points[points.length - 1]);
+
   let prevvertex = new Vertex2(prevpoint);
-  points.map(function (p) {
-    let point = new Vector2D(p);
-    let vertex = new Vertex2(point);
-    let side = new Side(prevvertex, vertex);
+
+  points.map((p: any) => {
+    const point = new Vector2D(p);
+    const vertex = new Vertex2(point);
+    const side = new Side(prevvertex, vertex);
     sides.push(side);
     prevvertex = vertex;
   });
@@ -167,7 +176,7 @@ const fromPointsNoCheck = function (points) {
  * @param {path} Path2 - a Path2 path
  * @returns {CAG} new CAG object
  */
-const fromPath2 = function (path) {
+export const fromPath2 = (path: any) => {
   if (!path.isClosed()) throw new Error('The path should be closed!');
   return fromPoints(path.getPoints());
 };
@@ -176,39 +185,29 @@ const fromPath2 = function (path) {
  * @param {CompactBinary} bin - see toCompactBinary()
  * @returns {CAG} new CAG object
  */
-const fromCompactBinary = function (bin) {
-  if (bin['class'] !== 'CAG') throw new Error('Not a CAG');
-  let vertices = [];
-  let vertexData = bin.vertexData;
-  let numvertices = vertexData.length / 2;
+export const fromCompactBinary = (bin: any) => {
+  if (bin.class !== 'CAG') throw new Error('Not a CAG');
+  const vertices = [];
+  const vertexData = bin.vertexData;
+  const numvertices = vertexData.length / 2;
   let arrayindex = 0;
   for (let vertexindex = 0; vertexindex < numvertices; vertexindex++) {
-    let x = vertexData[arrayindex++];
-    let y = vertexData[arrayindex++];
-    let pos = new Vector2D(x, y);
-    let vertex = new Vertex2(pos);
+    const x = vertexData[arrayindex++];
+    const y = vertexData[arrayindex++];
+    const pos = new Vector2D(x, y);
+    const vertex = new Vertex2(pos);
     vertices.push(vertex);
   }
-  let sides = [];
-  let numsides = bin.sideVertexIndices.length / 2;
+  const sides = [];
+  const numsides = bin.sideVertexIndices.length / 2;
   arrayindex = 0;
   for (let sideindex = 0; sideindex < numsides; sideindex++) {
-    let vertexindex0 = bin.sideVertexIndices[arrayindex++];
-    let vertexindex1 = bin.sideVertexIndices[arrayindex++];
-    let side = new Side(vertices[vertexindex0], vertices[vertexindex1]);
+    const vertexindex0 = bin.sideVertexIndices[arrayindex++];
+    const vertexindex1 = bin.sideVertexIndices[arrayindex++];
+    const side = new Side(vertices[vertexindex0], vertices[vertexindex1]);
     sides.push(side);
   }
-  let cag = fromSides(sides);
+  const cag = fromSides(sides);
   cag.isCanonicalized = true;
   return cag;
-};
-
-module.exports = {
-  fromSides,
-  fromObject,
-  fromPoints,
-  fromPointsNoCheck,
-  fromPath2,
-  fromFakeCSG,
-  fromCompactBinary
 };

@@ -1,5 +1,5 @@
 const {CAG} = require('../csg');// we have to import from top level otherwise prototypes are not complete..
-const {fromPoints} = require('../core/CAGFactories');
+import {fromPoints} from '../core/CAGFactories';
 
 // FIXME: errr this is kinda just a special case of a polygon , why do we need it ?
 /** Construct a triangle

@@ -2,7 +2,7 @@ const {EPS, defaultResolution3D} = require('../../core/constants');
 const {parseOptionAsFloat, parseOptionAsInt} = require('../../api/optionParsers');
 const Vector3D = require('../../core/math/Vector3');
 const {Connector} = require('../../core/connectors');
-const {fromPolygons} = require('../../core/CSGFactories');
+import {fromPolygons} from '../../core/CSGFactories';
 
 // THIS IS AN OLD untested !!! version of rotate extrude
 /** Extrude to into a 3D solid by rotating the origin around the Y axis.

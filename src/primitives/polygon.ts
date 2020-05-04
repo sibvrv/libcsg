@@ -1,5 +1,5 @@
 const {CAG} = require('../csg');// we have to import from top level otherwise prototypes are not complete..
-const {fromPoints} = require('../core/CAGFactories');
+import {fromPoints} from '../core/CAGFactories';
 
 /** Construct a polygon either from arrays of paths and points,
  * or just arrays of points nested paths (multiple paths) and flat paths are supported

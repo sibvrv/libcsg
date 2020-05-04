@@ -1,6 +1,6 @@
 const {EPS, angleEPS} = require('../../core/constants');
 const Vector2D = require('../../core/math/Vector2');
-const {fromPoints, fromPointsNoCheck} = require('../../core/CAGFactories');
+import {fromPoints, fromPointsNoCheck} from '../../core/CAGFactories';
 
 /**
  * Expanded Shell Of CAG

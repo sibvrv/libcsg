@@ -1,6 +1,6 @@
 import {ConvexHull} from './helpers/ConvexHull';
 
-const {fromPoints} = require('../../core/CAGFactories');
+import {fromPoints} from '../../core/CAGFactories';
 const {isCAG} = require('../../core/utils');
 
 /** create a convex hull of the given shapes

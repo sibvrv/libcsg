@@ -4,8 +4,8 @@ import {cagToPointsArray} from '../../helpers/cagToPointsArray';
 import {clamp} from '../../math/clamp';
 
 const Matrix4 = require('../../core/math/Matrix4');
-const {fromPolygons} = require('../../core/CSGFactories');
-const {fromPoints} = require('../../core/CAGFactories');
+import {fromPolygons} from '../../core/CSGFactories';
+import {fromPoints} from '../../core/CAGFactories';
 
 /** rotate extrusion / revolve of the given 2d shape
  * @param {Object} [options] - options for construction
