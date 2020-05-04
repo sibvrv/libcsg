@@ -12,7 +12,8 @@ const defaults: ICircleOptions = {
   center: false,
 };
 
-/** Construct a circle
+/**
+ * Construct a circle
  * @param {ICircleOptions} [options] - options for construction
  * @param {number} [options.r=1] - radius of the circle
  * @param {number} [options.fn=32] - segments of circle (ie quality/ resolution)
@@ -24,7 +25,7 @@ const defaults: ICircleOptions = {
  *   r: 10
  * })
  */
-export function circle(options?: ICircleOptions | number) {
+export function circle(options?: Partial<ICircleOptions> | number) {
 
   const {r, fn, center} = {...defaults, ...(typeof options === 'number' ? {r: options} : options)} as ICircleOptions;
   const offset = center ? [0, 0] : [r, r];

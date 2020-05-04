@@ -6,7 +6,7 @@ const {translate} = require('../modifiers/transforms');
 const MIN_FNI = 3;
 const MIN_FNO = 3;
 
-interface ITorusOptions {
+export interface ITorusOptions {
   ri: number;
   ro: number;
   fni: number;
@@ -37,7 +37,7 @@ const defaults: ITorusOptions = {
  *   ri: 10
  * })
  */
-export function torus(options?: ITorusOptions) {
+export function torus(options?: Partial<ITorusOptions>) {
   const {ri, ro, fni, fno, roti} = {...defaults, ...options};
 
   let baseCircle = circle({r: ri, fn: Math.max(MIN_FNI, fni), center: true});

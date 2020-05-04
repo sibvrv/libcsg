@@ -10,7 +10,8 @@ const defaults: ISquareOptions = {
   size: [1, 1],
 };
 
-/** Construct a square/rectangle
+/**
+ * Construct a square/rectangle
  * @param {ISquareOptions} [options] - options for construction
  * @param {number} [options.size=1] - size of the square, either as array or scalar
  * @param {boolean} [options.center=true] - whether to center the square/rectangle or not
@@ -21,7 +22,7 @@ const defaults: ISquareOptions = {
  *   size: 10
  * })
  */
-export function square(options?: ISquareOptions | number | [number, number]) {
+export function square(options?: Partial<ISquareOptions> | number | [number, number]) {
   const {center, size} = {
     ...defaults,
     ...(typeof options === 'number' ? {size: [options, options]} : (Array.isArray(options) ? {size: [...options]} : options)),
