@@ -105,7 +105,9 @@ const geodesicSubDivide = (p: number[][], fn: number, offset: number) => {
 
 /**
  * Geodesic Sphere
- * @param options
+ * @param {IGeodesicSphereOptions} options - options for construction
+ * @param {number} options.r - radius of the sphere
+ * @param {number} options.fn - segments of the sphere (ie quality/resolution)
  */
 export function geodesicSphere(options?: Partial<IGeodesicSphereOptions>) {
   const {r, fn} = {...defaults, ...options};

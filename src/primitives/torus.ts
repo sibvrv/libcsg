@@ -25,11 +25,11 @@ const defaults: ITorusOptions = {
 /**
  * Construct a Torus
  * @param {ITorusOptions} [options] - options for construction
- * @param {number} [options.ri=1] - radius of base circle
- * @param {number} [options.ro=4] - radius offset
- * @param {number} [options.fni=16] - segments of base circle (ie quality)
- * @param {number} [options.fno=32] - segments of extrusion (ie quality)
- * @param {number} [options.roti=0] - rotation angle of base circle
+ * @param {number} options.ri - radius of base circle
+ * @param {number} options.ro - radius offset
+ * @param {number} options.fni - segments of base circle (ie quality)
+ * @param {number} options.fno - segments of extrusion (ie quality)
+ * @param {number} options.roti - rotation angle of base circle
  * @returns {CSG} new torus
  *
  * @example

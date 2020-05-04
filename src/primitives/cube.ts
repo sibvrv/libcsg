@@ -20,11 +20,9 @@ const defaults: ICuboidOptions = {
 
 /**
  * Construct a cuboid
- * @param {ICuboidOptions} [options] - options for construction
- * @param {boolean | boolean[]} [options.center=false] - center of cuboid
- * @param {number} [options.size=1] - dimensions of cuboid : can be either:
- * - a scalar : ie a single float, in which case all dimensions will be the same
- * - or an array: to specify different dimensions along x/y/z
+ * @param {ICuboidOptions} options - options for construction
+ * @param {boolean | boolean[]} options.center - center of cuboid
+ * @param {number} options.size - dimensions of cuboid; width, depth, height
  * @returns {CSG} new cuboid
  *
  * @example

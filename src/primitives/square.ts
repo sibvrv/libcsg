@@ -12,9 +12,9 @@ const defaults: ISquareOptions = {
 
 /**
  * Construct a square/rectangle
- * @param {ISquareOptions} [options] - options for construction
- * @param {number} [options.size=1] - size of the square, either as array or scalar
- * @param {boolean} [options.center=true] - whether to center the square/rectangle or not
+ * @param {ISquareOptions} options - options for construction
+ * @param {number} options.size - size of the square, either as array or scalar
+ * @param {boolean} options.center - whether to center the square/rectangle or not
  * @returns {CAG} new square
  *
  * @example
