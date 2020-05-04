@@ -8,21 +8,21 @@ const Vector3D = require('../math/Vector3');
  * let bounds = A.getBounds()
  * let minX = bounds[0].x
  */
-const bounds = function (csg) {
+export const bounds = (csg: any) => {
   if (!csg.cachedBoundingBox) {
     let minpoint = new Vector3D(0, 0, 0);
     let maxpoint = new Vector3D(0, 0, 0);
-    let polygons = csg.polygons;
-    let numpolygons = polygons.length;
+    const polygons = csg.polygons;
+    const numpolygons = polygons.length;
     for (let i = 0; i < numpolygons; i++) {
-      let polygon = polygons[i];
-      let bounds = polygon.boundingBox();
+      const polygon = polygons[i];
+      const _bounds = polygon.boundingBox();
       if (i === 0) {
-        minpoint = bounds[0];
-        maxpoint = bounds[1];
+        minpoint = _bounds[0];
+        maxpoint = _bounds[1];
       } else {
-        minpoint = minpoint.min(bounds[0]);
-        maxpoint = maxpoint.max(bounds[1]);
+        minpoint = minpoint.min(_bounds[0]);
+        maxpoint = maxpoint.max(_bounds[1]);
       }
     }
     // FIXME: not ideal, we are mutating the input, we need to move some of it out
@@ -31,18 +31,18 @@ const bounds = function (csg) {
   return csg.cachedBoundingBox;
 };
 
-const volume = function (csg) {
-  let result = csg.toTriangles().map(function (triPoly) {
+export const volume = (csg: any) => {
+  const result = csg.toTriangles().map((triPoly: any) => {
     return triPoly.getTetraFeatures(['volume']);
   });
+  // tslint:disable-next-line:no-console
   console.log('volume', result);
 };
 
-const area = function (csg) {
-  let result = csg.toTriangles().map(function (triPoly) {
+export const area = (csg: any) => {
+  const result = csg.toTriangles().map((triPoly: any) => {
     return triPoly.getTetraFeatures(['area']);
   });
+  // tslint:disable-next-line:no-console
   console.log('area', result);
 };
-
-module.exports = {bounds, volume, area};
