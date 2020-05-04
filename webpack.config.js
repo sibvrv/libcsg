@@ -3,6 +3,7 @@ const path = require('path');
 // Plugins
 const TSConfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const {DefinePlugin} = require("webpack");
 
 // Variables
 const sourcePath = path.join(__dirname, './src/');
@@ -10,6 +11,9 @@ const outPath = path.join(__dirname, `./dist/`);
 
 module.exports = (env, argv) => {
   const isProduction = argv.mode === 'production';
+
+  console.log();
+
   return {
     context: sourcePath,
     entry: [
@@ -40,7 +44,14 @@ module.exports = (env, argv) => {
       ]
     },
     plugins: [
-      new CleanWebpackPlugin()
+      new CleanWebpackPlugin(),
+      new DefinePlugin({
+        '__LIB_VERSION__': JSON.stringify({
+          build: process.env.npm_package_version,
+          time: new Date().toUTCString(),
+          stamp: Math.floor(Date.now() / 1000)
+        })
+      })
     ],
     devtool: isProduction ? 'hidden-source-map' : 'cheap-module-eval-source-map'
   };

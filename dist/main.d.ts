@@ -20,4 +20,9 @@ export * as extrusions from './modifiers/extrusions';
 export * as maths from './math/mathsHelpersAPI';
 export * as text from './text';
 export declare const CAG: any, CSG: any, isCAG: any, isCSG: any;
+export declare const version: {
+    build: string;
+    date: string;
+    stamp: number;
+};
 //# sourceMappingURL=main.d.ts.map

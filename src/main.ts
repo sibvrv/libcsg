@@ -15,3 +15,6 @@ export * as text from './text';
 // these are 'external' to this api and we basically just re-export for old api compatibility
 // ...needs to be reviewed
 export const {CAG, CSG, isCAG, isCSG} = require('./csg');
+
+declare var __LIB_VERSION__: { build: string; date: string; stamp: number; };
+export const version = __LIB_VERSION__;
