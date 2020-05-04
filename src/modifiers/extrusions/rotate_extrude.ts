@@ -1,6 +1,10 @@
+import {polygonFromPoints} from '../../helpers/polygonFromPoints';
+import {rightMultiply1x3VectorToArray} from '../../helpers/rightMultiply1x3VectorToArray';
+import {cagToPointsArray} from '../../helpers/cagToPointsArray';
+import {clamp} from '../../math/clamp';
+
 const Matrix4 = require('../../core/math/Matrix4');
 const {fromPolygons} = require('../../core/CSGFactories');
-const {cagToPointsArray, clamp, rightMultiply1x3VectorToArray, polygonFromPoints} = require('../../api/helpers');
 const {fromPoints} = require('../../core/CAGFactories');
 
 /** rotate extrusion / revolve of the given 2d shape
