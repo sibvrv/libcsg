@@ -6,9 +6,9 @@ export interface ICircleOptions {
 /**
  * Construct a circle
  * @param {ICircleOptions} [options] - options for construction
- * @param {number} [options.r=1] - radius of the circle
- * @param {number} [options.fn=32] - segments of circle (ie quality/ resolution)
- * @param {boolean} [options.center=true] - whether to center the circle or not
+ * @param {number} options.r - radius of the circle
+ * @param {number} options.fn - segments of circle (ie quality/ resolution)
+ * @param {boolean} options.center - whether to center the circle or not
  * @returns {CAG} new circle
  *
  * @example

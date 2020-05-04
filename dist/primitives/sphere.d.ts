@@ -1,3 +1,8 @@
+/**
+ * Sphere Type Enum
+ * @readonly
+ * @enum {string}
+ */
 export declare const enum SPHERE_TYPE {
     NORMAL = "normal",
     GEODESIC = "geodesic"
@@ -10,9 +15,9 @@ export interface ISphereOptions {
 }
 /** Construct a sphere
  * @param {ISphereOptions} [options] - options for construction
- * @param {number} [options.r=1] - radius of the sphere
- * @param {number} [options.fn=32] - segments of the sphere (ie quality/resolution)
- * @param {SPHERE_TYPE} [options.type='normal'] - type of sphere : either 'normal' or 'geodesic'
+ * @param {number} options.r - radius of the sphere
+ * @param {number} options.fn - segments of the sphere (ie quality/resolution)
+ * @param {SPHERE_TYPE} options.type - type of sphere : either 'normal' or 'geodesic'
  * @returns {CSG} new sphere
  *
  * @example
