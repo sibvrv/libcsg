@@ -27,7 +27,7 @@ import { IVectorTextOptions } from './vectorParams';
  * or
  * let vectorCharObject = vectorChar({ xOffset: 78, input: '!' })
  */
-export declare function vectorChar(options?: Partial<IVectorTextOptions>, char?: string): {
+export declare function vectorChar(options?: Partial<IVectorTextOptions> | string, char?: string): {
     width: number;
     height: number;
     segments: number[][][];

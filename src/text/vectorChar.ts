@@ -29,7 +29,7 @@ import {IVectorTextOptions, vectorParams} from './vectorParams';
  * or
  * let vectorCharObject = vectorChar({ xOffset: 78, input: '!' })
  */
-export function vectorChar(options?: Partial<IVectorTextOptions>, char: string = '?') {
+export function vectorChar(options?: Partial<IVectorTextOptions> | string, char: string = '?') {
   const {
     xOffset, yOffset, input, font, height, extrudeOffset,
   } = vectorParams(options, char);
