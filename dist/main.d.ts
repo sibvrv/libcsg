@@ -18,6 +18,6 @@ export * as booleanOps from './modifiers/booleans';
 export * as transformations from './modifiers/transforms';
 export * as extrusions from './modifiers/extrusions';
 export declare const maths: any;
-export declare const text: any;
+export * as text from './text';
 export declare const CAG: any, CSG: any, isCAG: any, isCSG: any;
 //# sourceMappingURL=main.d.ts.map

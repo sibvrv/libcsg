@@ -1,0 +1,1 @@
+{"version":3,"file":"translateLine.d.ts","sourceRoot":"","sources":["../../src/text/translateLine.ts"],"names":[],"mappings":"AAAA,OAAO,EAAC,eAAe,EAAC,MAAM,cAAc,CAAC;AAE7C,MAAM,WAAW,qBAAqB;IACpC,CAAC,EAAE,MAAM,CAAC;IACV,CAAC,EAAE,MAAM,CAAC;CACX;AAOD;;;;GAIG;AACH,wBAAgB,aAAa,CAAC,OAAO,EAAE,OAAO,CAAC,qBAAqB,CAAC,EAAE,IAAI,EAAE,eAAe,mBAY3F"}
