@@ -5,7 +5,7 @@ export interface ISquareOptions {
   size: number | [number, number];
 }
 
-const defaults = {
+const defaults: ISquareOptions = {
   center: false,
   size: [1, 1],
 };

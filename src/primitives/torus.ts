@@ -1,18 +1,35 @@
 const {CSG} = require('../csg');
 const {circle} = require('./');
 const {rotate_extrude} = require('../modifiers/extrusions');
-const {translate, scale} = require('../modifiers/transforms');
-const Polygon3 = require('../core/math/Polygon3');
-const Vector3 = require('../core/math/Vector3');
-const Vertex3 = require('../core/math/Vertex3');
+const {translate} = require('../modifiers/transforms');
 
-/** Construct a torus
- * @param {Object} [options] - options for construction
- * @param {Float} [options.ri=1] - radius of base circle
- * @param {Float} [options.ro=4] - radius offset
- * @param {Integer} [options.fni=16] - segments of base circle (ie quality)
- * @param {Integer} [options.fno=32] - segments of extrusion (ie quality)
- * @param {Integer} [options.roti=0] - rotation angle of base circle
+const MIN_FNI = 3;
+const MIN_FNO = 3;
+
+interface ITorusOptions {
+  ri: number;
+  ro: number;
+  fni: number;
+  fno: number;
+  roti: number;
+}
+
+const defaults: ITorusOptions = {
+  ri: 1,
+  ro: 4,
+  fni: 16,
+  fno: 32,
+  roti: 0,
+};
+
+/**
+ * Construct a Torus
+ * @param {ITorusOptions} [options] - options for construction
+ * @param {number} [options.ri=1] - radius of base circle
+ * @param {number} [options.ro=4] - radius offset
+ * @param {number} [options.fni=16] - segments of base circle (ie quality)
+ * @param {number} [options.fno=32] - segments of extrusion (ie quality)
+ * @param {number} [options.roti=0] - rotation angle of base circle
  * @returns {CSG} new torus
  *
  * @example
@@ -20,32 +37,11 @@ const Vertex3 = require('../core/math/Vertex3');
  *   ri: 10
  * })
  */
-export function torus(params: any) {
-  const defaults = {
-    ri: 1,
-    ro: 4,
-    fni: 16,
-    fno: 32,
-    roti: 0
-  };
-  params = Object.assign({}, defaults, params);
+export function torus(options?: ITorusOptions) {
+  const {ri, ro, fni, fno, roti} = {...defaults, ...options};
 
-  /* possible enhancements ? declarative limits
-  const limits = {
-    fni: {min: 3},
-    fno: {min: 3}
-  } */
-
-  // tslint:disable-next-line:prefer-const
-  let {ri, ro, fni, fno, roti} = params;
-
-  if (fni < 3) fni = 3;
-  if (fno < 3) fno = 3;
-
-  let baseCircle = circle({r: ri, fn: fni, center: true});
-
+  let baseCircle = circle({r: ri, fn: Math.max(MIN_FNI, fni), center: true});
   if (roti) baseCircle = baseCircle.rotateZ(roti);
-  const result = rotate_extrude({fn: fno}, translate([ro, 0, 0], baseCircle));
-  // result = result.union(result)
-  return result;
+
+  return rotate_extrude({fn: Math.max(MIN_FNO, fno)}, translate([ro, 0, 0], baseCircle));
 }

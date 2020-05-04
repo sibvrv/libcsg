@@ -1,1 +1,1 @@
-{"version":3,"file":"torus.d.ts","sourceRoot":"","sources":["../../src/primitives/torus.ts"],"names":[],"mappings":"AAQA;;;;;;;;;;;;;GAaG;AACH,wBAAgB,KAAK,CAAC,MAAM,EAAE,GAAG,OA4BhC"}
+{"version":3,"file":"torus.d.ts","sourceRoot":"","sources":["../../src/primitives/torus.ts"],"names":[],"mappings":"AAQA,UAAU,aAAa;IACrB,EAAE,EAAE,MAAM,CAAC;IACX,EAAE,EAAE,MAAM,CAAC;IACX,GAAG,EAAE,MAAM,CAAC;IACZ,GAAG,EAAE,MAAM,CAAC;IACZ,IAAI,EAAE,MAAM,CAAC;CACd;AAUD;;;;;;;;;;;;;;GAcG;AACH,wBAAgB,KAAK,CAAC,OAAO,CAAC,EAAE,aAAa,OAO5C"}
