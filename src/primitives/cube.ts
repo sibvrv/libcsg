@@ -1,15 +1,31 @@
 import {translate} from '../modifiers/transforms';
+
 const {CSG} = require('../csg');
 
-/** Construct a cuboid
- * @param {Object} [options] - options for construction
- * @param {Float} [options.size=1] - size of the side of the cuboid : can be either:
+export interface ICuboidOptions {
+  size: number | [number, number, number];
+  center: boolean | [boolean, boolean, boolean];
+  round: boolean;
+  radius: number;
+  fn: number;
+}
+
+const defaults: ICuboidOptions = {
+  size: 1,
+  center: false,
+  round: false,
+  radius: 0,
+  fn: 8,
+};
+
+/**
+ * Construct a cuboid
+ * @param {ICuboidOptions} [options] - options for construction
+ * @param {boolean | boolean[]} [options.center=false] - center of cuboid
+ * @param {number} [options.size=1] - dimensions of cuboid : can be either:
  * - a scalar : ie a single float, in which case all dimensions will be the same
  * - or an array: to specify different dimensions along x/y/z
- * @param {Integer} [options.fn=32] - segments of the sphere (ie quality/resolution)
- * @param {Integer} [options.fno=32] - segments of extrusion (ie quality)
- * @param {String} [options.type='normal'] - type of sphere : either 'normal' or 'geodesic'
- * @returns {CSG} new sphere
+ * @returns {CSG} new cuboid
  *
  * @example
  * let cube1 = cube({
@@ -17,48 +33,19 @@ const {CSG} = require('../csg');
  *   fn: 20
  * })
  */
-export function cube(params: any) {
-  const defaults = {
-    size: 1,
-    offset: [0, 0, 0],
-    round: false,
-    radius: 0,
-    fn: 8,
-  };
+export function cube(options?: Partial<ICuboidOptions> | [number, number, number]) {
+  const {round, radius, fn, size, center} = {...defaults, ...(Array.isArray(options) ? {size: options} : options)} as ICuboidOptions;
 
-  // tslint:disable-next-line:prefer-const
-  let {round, radius, fn, size} = Object.assign({}, defaults, params);
-  let offset = [0, 0, 0];
-  let v = null;
-  if (params && params.length) v = params;
-  if (params && params.size && params.size.length) v = params.size; // { size: [1,2,3] }
-  if (params && params.size && !params.size.length) size = params.size; // { size: 1 }
-  if (params && (typeof params !== 'object')) size = params;// (2)
-  if (params && params.round === true) {
-    round = true;
-    radius = v && v.length ? (v[0] + v[1] + v[2]) / 30 : size / 10;
-  }
-  if (params && params.radius) {
-    round = true;
-    radius = params.radius;
-  }
+  const [width, depth, height] = Array.isArray(size) ? size : [size, size, size];
+  const roundRadius = (round || radius) && (radius ? radius : (width + depth + height) / 30) || 0;
 
-  let x = size;
-  let y = size;
-  let z = size;
-  if (v && v.length) {
-    [x, y, z] = v;
-  }
-  offset = [x / 2, y / 2, z / 2]; // center: false default
-  const object = round
-    ? CSG.roundedCube({radius: [x / 2, y / 2, z / 2], roundradius: radius, resolution: fn})
-    : CSG.cube({radius: [x / 2, y / 2, z / 2]});
-  if (params && params.center && params.center.length) {
-    offset = [params.center[0] ? 0 : x / 2, params.center[1] ? 0 : y / 2, params.center[2] ? 0 : z / 2];
-  } else if (params && params.center === true) {
-    offset = [0, 0, 0];
-  } else if (params && params.center === false) {
-    offset = [x / 2, y / 2, z / 2];
-  }
-  return (offset[0] || offset[1] || offset[2]) ? translate(offset, object) : object;
+  const halfSize = [width / 2, depth / 2, height / 2];
+
+  const mesh = roundRadius
+    ? CSG.roundedCube({radius: [...halfSize], roundradius: roundRadius, resolution: fn})
+    : CSG.cube({radius: [...halfSize]});
+
+  const offset = Array.isArray(center) ? [+!!!center[0] * halfSize[0], +!!!center[1] * halfSize[1], +!!!center[2] * halfSize[2]] : (!center ? [...halfSize] : [0, 0, 0]);
+
+  return (offset[0] || offset[1] || offset[2]) ? translate(offset, mesh) : mesh;
 }
