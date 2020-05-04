@@ -3,12 +3,29 @@ import {geodesicSphere} from './geodesicSphere';
 const {CSG} = require('../csg');
 const {translate} = require('../modifiers/transforms');
 
+export const enum SPHERE_TYPE {
+  NORMAL = 'normal',
+  GEODESIC = 'geodesic',
+}
+
+export interface ISphereOptions {
+  r: number;
+  fn: number;
+  center: boolean | [boolean, boolean, boolean];
+  type: SPHERE_TYPE;
+}
+
+const defaults: Partial<ISphereOptions> = {
+  r: 1,
+  fn: 32,
+  type: SPHERE_TYPE.NORMAL,
+};
+
 /** Construct a sphere
- * @param {Object} [options] - options for construction
- * @param {Float} [options.r=1] - radius of the sphere
- * @param {Integer} [options.fn=32] - segments of the sphere (ie quality/resolution)
- * @param {Integer} [options.fno=32] - segments of extrusion (ie quality)
- * @param {String} [options.type='normal'] - type of sphere : either 'normal' or 'geodesic'
+ * @param {ISphereOptions} [options] - options for construction
+ * @param {number} [options.r=1] - radius of the sphere
+ * @param {number} [options.fn=32] - segments of the sphere (ie quality/resolution)
+ * @param {SPHERE_TYPE} [options.type='normal'] - type of sphere : either 'normal' or 'geodesic'
  * @returns {CSG} new sphere
  *
  * @example
@@ -17,30 +34,14 @@ const {translate} = require('../modifiers/transforms');
  *   fn: 20
  * })
  */
-export function sphere(params: any) {
-  const defaults = {
-    r: 1,
-    fn: 32,
-    type: 'normal'
-  };
-
-  // tslint:disable-next-line:prefer-const
-  let {r, fn, type} = Object.assign({}, defaults, params);
-  let offset = [0, 0, 0]; // center: false (default)
-  if (params && (typeof params !== 'object')) {
-    r = params;
-  }
-  // let zoffset = 0 // sphere() in openscad has no center:true|false
-
-  const output = type === 'geodesic' ? geodesicSphere(params) : CSG.sphere({radius: r, resolution: fn});
+export function sphere(options?: Partial<ISphereOptions> | number) {
+  const {r, fn, center, type} = {...defaults, ...(typeof options === 'number' ? {r: options} : options)} as ISphereOptions;
 
   // preparing individual x,y,z center
-  if (params && params.center && params.center.length) {
-    offset = [params.center[0] ? 0 : r, params.center[1] ? 0 : r, params.center[2] ? 0 : r];
-  } else if (params && params.center === true) {
-    offset = [0, 0, 0];
-  } else if (params && params.center === false) {
-    offset = [r, r, r];
-  }
-  return (offset[0] || offset[1] || offset[2]) ? translate(offset, output) : output;
+  // center: false (default)
+  const offset = Array.isArray(center) ? [+!!!center[0] * r, +!!!center[1] * r, +!!!center[2] * r] : (typeof center === 'boolean' && !center ? [r, r, r] : [0, 0, 0]);
+
+  const mesh = type === SPHERE_TYPE.GEODESIC ? geodesicSphere({r, fn}) : CSG.sphere({radius: r, resolution: fn});
+
+  return (offset[0] || offset[1] || offset[2]) ? translate(offset, mesh) : mesh;
 }
