@@ -9,7 +9,7 @@ export * as booleanOps from './modifiers/booleans';
 export * as transformations from './modifiers/transforms';
 export * as extrusions from './modifiers/extrusions';
 
-export const maths = require('./api/maths');
+export * as maths from './math/mathsHelpersAPI';
 export * as text from './text';
 
 // these are 'external' to this api and we basically just re-export for old api compatibility

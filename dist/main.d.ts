@@ -17,7 +17,7 @@ export declare const primitives3d: {
 export * as booleanOps from './modifiers/booleans';
 export * as transformations from './modifiers/transforms';
 export * as extrusions from './modifiers/extrusions';
-export declare const maths: any;
+export * as maths from './math/mathsHelpersAPI';
 export * as text from './text';
 export declare const CAG: any, CSG: any, isCAG: any, isCSG: any;
 //# sourceMappingURL=main.d.ts.map
