@@ -3,8 +3,8 @@ const Vector2D = require('../core/math/Vector2');
 
 // Parse an option from the options object
 // If the option is not present, return the default value
-const parseOption = function (options, optionname, defaultvalue) {
-  var result = defaultvalue;
+export const parseOption = (options: any, optionname: string, defaultvalue: any) => {
+  let result = defaultvalue;
   if (options && optionname in options) {
     result = options[optionname];
   }
@@ -13,29 +13,29 @@ const parseOption = function (options, optionname, defaultvalue) {
 
 // Parse an option and force into a Vector3D. If a scalar is passed it is converted
 // into a vector with equal x,y,z
-const parseOptionAs3DVector = function (options, optionname, defaultvalue) {
-  var result = parseOption(options, optionname, defaultvalue);
+export const parseOptionAs3DVector = (options: any, optionname: string, defaultvalue: any) => {
+  let result = parseOption(options, optionname, defaultvalue);
   result = new Vector3D(result);
   return result;
 };
 
-const parseOptionAs3DVectorList = function (options, optionname, defaultvalue) {
-  var result = parseOption(options, optionname, defaultvalue);
-  return result.map(function (res) {
+export const parseOptionAs3DVectorList = (options: any, optionname: string, defaultvalue: any) => {
+  const result = parseOption(options, optionname, defaultvalue);
+  return result.map((res: any) => {
     return new Vector3D(res);
   });
 };
 
 // Parse an option and force into a Vector2D. If a scalar is passed it is converted
 // into a vector with equal x,y
-const parseOptionAs2DVector = function (options, optionname, defaultvalue) {
-  var result = parseOption(options, optionname, defaultvalue);
+export const parseOptionAs2DVector = (options: any, optionname: string, defaultvalue: any) => {
+  let result = parseOption(options, optionname, defaultvalue);
   result = new Vector2D(result);
   return result;
 };
 
-const parseOptionAsFloat = function (options, optionname, defaultvalue) {
-  var result = parseOption(options, optionname, defaultvalue);
+export const parseOptionAsFloat = (options: any, optionname: string, defaultvalue: any) => {
+  let result = parseOption(options, optionname, defaultvalue);
   if (typeof (result) === 'string') {
     result = Number(result);
   }
@@ -45,8 +45,8 @@ const parseOptionAsFloat = function (options, optionname, defaultvalue) {
   return result;
 };
 
-const parseOptionAsInt = function (options, optionname, defaultvalue) {
-  var result = parseOption(options, optionname, defaultvalue);
+export const parseOptionAsInt = (options: any, optionname: string, defaultvalue: any) => {
+  let result = parseOption(options, optionname, defaultvalue);
   result = Number(Math.floor(result));
   if (isNaN(result)) {
     throw new Error('Parameter ' + optionname + ' should be a number');
@@ -54,23 +54,13 @@ const parseOptionAsInt = function (options, optionname, defaultvalue) {
   return result;
 };
 
-const parseOptionAsBool = function (options, optionname, defaultvalue) {
-  var result = parseOption(options, optionname, defaultvalue);
+export const parseOptionAsBool = (options: any, optionname: string, defaultvalue: any) => {
+  let result = parseOption(options, optionname, defaultvalue);
   if (typeof (result) === 'string') {
     if (result === 'true') result = true;
     else if (result === 'false') result = false;
-    else if (result === 0) result = false;
+    else if (result === '0') result = false;
   }
   result = !!result;
   return result;
-};
-
-module.exports = {
-  parseOption,
-  parseOptionAsInt,
-  parseOptionAsFloat,
-  parseOptionAsBool,
-  parseOptionAs3DVector,
-  parseOptionAs2DVector,
-  parseOptionAs3DVectorList
 };

@@ -1,4 +1,4 @@
-const {EPS} = require('../core/constants');
+import {EPS} from '../core/constants';
 const Plane = require('../core/math/Plane');
 const Vector2 = require('../core/math/Vector2');
 const Vertex3 = require('../core/math/Vertex3');
@@ -9,7 +9,7 @@ const OrthoNormalBasis = require('../core/math/OrthoNormalBasis');
  * @param  {CSG} csg the csg object to cut
  * @param  {Orthobasis} orthobasis the orthobasis to cut along
  */
-const sectionCut = function (csg, orthobasis) {
+export const sectionCut = (csg: any, orthobasis: any) => {
   let plane1 = orthobasis.plane;
   let plane2 = orthobasis.plane.flipped();
   plane1 = new Plane(plane1.normal, plane1.w);
@@ -23,7 +23,7 @@ const sectionCut = function (csg, orthobasis) {
  * @param  {Plane} plane
  * @returns {CSG} the solid on the back side of the plane
  */
-const cutByPlane = function (csg, plane) {
+export const cutByPlane = (csg: any, plane: any) => {
   if (csg.polygons.length === 0) {
     const CSG = require('../core/CSG'); // FIXME: circular dependency ! CSG => cutByPlane => CSG
     return new CSG();
@@ -33,19 +33,19 @@ const cutByPlane = function (csg, plane) {
   // a cube, with one face on the plane, and a size larger enough so that the entire
   // solid fits in the cube.
   // find the max distance of any vertex to the center of the plane:
-  let planecenter = plane.normal.times(plane.w);
+  const planecenter = plane.normal.times(plane.w);
   let maxdistance = 0;
-  csg.polygons.map(function (polygon) {
-    polygon.vertices.map(function (vertex) {
-      let distance = vertex.pos.distanceToSquared(planecenter);
+  csg.polygons.map((_polygon: any) => {
+    _polygon.vertices.map((vertex: any) => {
+      const distance = vertex.pos.distanceToSquared(planecenter);
       if (distance > maxdistance) maxdistance = distance;
     });
   });
   maxdistance = Math.sqrt(maxdistance);
   maxdistance *= 1.01; // make sure it's really larger
   // Now build a polygon on the plane, at any point farther than maxdistance from the plane center:
-  let vertices = [];
-  let orthobasis = new OrthoNormalBasis(plane);
+  const vertices = [];
+  const orthobasis = new OrthoNormalBasis(plane);
   vertices.push(Vertex3.fromPosAndUV(orthobasis.to3D(new Vector2(maxdistance, -maxdistance)),
     new Vector2(maxdistance, -maxdistance)));
   vertices.push(Vertex3.fromPosAndUV(orthobasis.to3D(new Vector2(-maxdistance, -maxdistance)),
@@ -60,9 +60,7 @@ const cutByPlane = function (csg, plane) {
   const cube = polygon.extrude(plane.normal.times(-maxdistance));
 
   // Now we can do the intersection:
-  let result = csg.intersect(cube);
+  const result = csg.intersect(cube);
   result.properties = csg.properties; // keep original properties
   return result;
 };
-
-module.exports = {sectionCut, cutByPlane};

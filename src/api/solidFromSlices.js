@@ -208,7 +208,6 @@ const _addWalls = function (walls, bottom, top, bFlipped) {
       ));
       tpoint = secondPoint;
     }
-    ;
   }
   return walls;
 };
