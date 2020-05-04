@@ -15,5 +15,5 @@ export interface ICircleOptions {
  *   r: 10
  * })
  */
-export declare function circle(options: ICircleOptions | number): any;
+export declare function circle(options?: ICircleOptions | number): any;
 //# sourceMappingURL=circle.d.ts.map

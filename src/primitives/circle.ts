@@ -24,7 +24,7 @@ const defaults: ICircleOptions = {
  *   r: 10
  * })
  */
-export function circle(options: ICircleOptions | number) {
+export function circle(options?: ICircleOptions | number) {
 
   const {r, fn, center} = {...defaults, ...(typeof options === 'number' ? {r: options} : options)} as ICircleOptions;
   const offset = center ? [0, 0] : [r, r];

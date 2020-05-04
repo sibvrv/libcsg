@@ -1,9 +1,19 @@
 const {CAG} = require('../csg');// we have to import from top level otherwise prototypes are not complete..
 
+export interface ISquareOptions {
+  center: boolean;
+  size: number | [number, number];
+}
+
+const defaults = {
+  center: false,
+  size: [1, 1],
+};
+
 /** Construct a square/rectangle
- * @param {Object} [options] - options for construction
- * @param {Float} [options.size=1] - size of the square, either as array or scalar
- * @param {Boolean} [options.center=true] - wether to center the square/rectangle or not
+ * @param {ISquareOptions} [options] - options for construction
+ * @param {number} [options.size=1] - size of the square, either as array or scalar
+ * @param {boolean} [options.center=true] - whether to center the square/rectangle or not
  * @returns {CAG} new square
  *
  * @example
@@ -11,21 +21,14 @@ const {CAG} = require('../csg');// we have to import from top level otherwise pr
  *   size: 10
  * })
  */
-export function square() {
-  let v = [1, 1];
-  let off;
-  const a = arguments;
-  let params = a[0];
+export function square(options?: ISquareOptions | number | [number, number]) {
+  const {center, size} = {
+    ...defaults,
+    ...(typeof options === 'number' ? {size: [options, options]} : (Array.isArray(options) ? {size: [...options]} : options)),
+  } as ISquareOptions;
 
-  if (params && Number.isFinite(params)) v = [params, params];
-  if (params && params.length) {
-    v = a[0];
-    params = a[1];
-  }
-  if (params && params.size && params.size.length) v = params.size;
+  const [halfWidth, halfHeight] = typeof size === 'number' ? [size / 2, size / 2] : [size[0] / 2, size[1] / 2];
+  const offset = center ? [0, 0] : [halfWidth, halfHeight];
 
-  off = [v[0] / 2, v[1] / 2];
-  if (params && params.center === true) off = [0, 0];
-
-  return CAG.rectangle({center: off, radius: [v[0] / 2, v[1] / 2]});
+  return CAG.rectangle({center: offset, radius: [halfWidth, halfHeight]});
 }
