@@ -85,23 +85,7 @@ const CSG = require('./core/CSG');
 const CAG = require('./core/CAG');
 
 // FIXME: how many are actual useful to be exposed as API ?? looks like a code smell
-const {
-  _CSGDEBUG,
-  defaultResolution2D,
-  defaultResolution3D,
-  EPS,
-  angleEPS,
-  areaEPS,
-  all,
-  top,
-  bottom,
-  left,
-  right,
-  front,
-  back,
-  staticTag,
-  getTag,
-} = require('./core/constants');
+import {_CSGDEBUG, all, angleEPS, areaEPS, back, bottom, defaultResolution2D, defaultResolution3D, EPS, front, getTag, left, right, staticTag, top} from './core/constants';
 
 CSG._CSGDEBUG = _CSGDEBUG;
 CSG.defaultResolution2D = defaultResolution2D;
@@ -206,7 +190,7 @@ const {isCAG, isCSG} = require('./core/utils');
 
 export {CSG, CAG, isCAG, isCSG};
 
-const {
+export const {
   parseOption,
   parseOptionAsInt,
   parseOptionAsFloat,
@@ -215,13 +199,3 @@ const {
   parseOptionAs2DVector,
   parseOptionAs3DVectorList,
 } = optionsParsers;
-
-export {
-  parseOption,
-  parseOptionAsInt,
-  parseOptionAsFloat,
-  parseOptionAsBool,
-  parseOptionAs3DVector,
-  parseOptionAs2DVector,
-  parseOptionAs3DVectorList,
-};

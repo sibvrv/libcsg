@@ -1,18 +1,16 @@
-function fnNumberSort(a, b) {
+export function fnNumberSort(a: number, b: number) {
   return a - b;
 }
 
-function fnSortByIndex(a, b) {
+export function fnSortByIndex<T extends { index: number }>(a: T, b: T) {
   return a.index - b.index;
 }
 
-const IsFloat = function (n) {
-  return (!isNaN(n)) || (n === Infinity) || (n === -Infinity);
-};
+export const IsFloat = (n: number) => (!isNaN(n)) || (n === Infinity) || (n === -Infinity);
 
-const solve2Linear = function (a, b, c, d, u, v) {
-  let det = a * d - b * c;
-  let invdet = 1.0 / det;
+export const solve2Linear = (a: number, b: number, c: number, d: number, u: number, v: number) => {
+  const det = a * d - b * c;
+  const invdet = 1.0 / det;
   let x = u * d - b * v;
   let y = -u * c + a * v;
   x *= invdet;
@@ -20,13 +18,13 @@ const solve2Linear = function (a, b, c, d, u, v) {
   return [x, y];
 };
 
-function insertSorted(array, element, comparefunc) {
+export function insertSorted(array: any[], element: any, comparefunc: any) {
   let leftbound = 0;
   let rightbound = array.length;
   while (rightbound > leftbound) {
-    let testindex = Math.floor((leftbound + rightbound) / 2);
-    let testelement = array[testindex];
-    let compareresult = comparefunc(element, testelement);
+    const testindex = Math.floor((leftbound + rightbound) / 2);
+    const testelement = array[testindex];
+    const compareresult = comparefunc(element, testelement);
     if (compareresult > 0) // element > testelement
     {
       leftbound = testindex + 1;
@@ -40,7 +38,7 @@ function insertSorted(array, element, comparefunc) {
 // Get the x coordinate of a point with a certain y coordinate, interpolated between two
 // points (CSG.Vector2D).
 // Interpolation is robust even if the points have the same y coordinate
-const interpolateBetween2DPointsForY = function (point1, point2, y) {
+export const interpolateBetween2DPointsForY = (point1: any, point2: any, y: number) => {
   let f1 = y - point1.y;
   let f2 = point2.y - point1.y;
   if (f2 < 0) {
@@ -57,11 +55,11 @@ const interpolateBetween2DPointsForY = function (point1, point2, y) {
   } else {
     t = f1 / f2;
   }
-  let result = point1.x + t * (point2.x - point1.x);
+  const result = point1.x + t * (point2.x - point1.x);
   return result;
 };
 
-function isCAG(object) {
+export function isCAG(object: any) {
   // objects[i] instanceof CAG => NOT RELIABLE
   // 'instanceof' causes huge issues when using objects from
   // two different versions of CSG.js as they are not reckonized as one and the same
@@ -69,6 +67,7 @@ function isCAG(object) {
   if (!('sides' in object)) {
     return false;
   }
+
   if (!('length' in object.sides)) {
     return false;
   }
@@ -76,7 +75,7 @@ function isCAG(object) {
   return true;
 }
 
-function isCSG(object) {
+export function isCSG(object: any) {
   // objects[i] instanceof CSG => NOT RELIABLE
   // 'instanceof' causes huge issues when using objects from
   // two different versions of CSG.js as they are not reckonized as one and the same
@@ -84,19 +83,10 @@ function isCSG(object) {
   if (!('polygons' in object)) {
     return false;
   }
+
   if (!('length' in object.polygons)) {
     return false;
   }
+
   return true;
 }
-
-module.exports = {
-  fnNumberSort,
-  fnSortByIndex,
-  IsFloat,
-  solve2Linear,
-  insertSorted,
-  interpolateBetween2DPointsForY,
-  isCAG,
-  isCSG
-};
