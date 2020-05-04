@@ -1,4 +1,4 @@
-const defaultFont = require('../fonts/single-line/hershey/simplex.js');
+const defaultFont = require('./fonts/single-line/hershey/simplex.js');
 
 const defaultsVectorParams = {
   xOffset: 0,

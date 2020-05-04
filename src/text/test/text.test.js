@@ -1,5 +1,5 @@
 const test = require('ava');
-const {vector_text, vector_char, vectorChar, vectorText} = require('./text');
+const {vector_text, vector_char, vectorChar, vectorText} = require('../text');
 
 const questionMarkSegments = [ // '?'
   [[3, 16], [3, 17], [4, 19], [5, 20], [7, 21], [11, 21], [13, 20], [14, 19], [15, 17], [15, 15], [14, 13], [13, 12], [9, 10], [9, 7]],
