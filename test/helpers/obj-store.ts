@@ -1,24 +1,24 @@
-import fs from 'fs'
-import {CSG, CAG} from '../../csg' //FIXME: BAD!! tests are supposed to be independant from our CODE !!
+import * as fs from 'fs'
+import {CSG, CAG} from '../../src/csg' // FIXME: BAD!! tests are supposed to be independant from our CODE !!
 
 // import the required modules if necessary
 
 // //////////////////////////////////////////
 // define the basic OBJ
 // //////////////////////////////////////////
-var OBJ = {}
+export const OBJ: any = {}
 
-function _path (objectid) {
+function _path (objectid: string) {
   return './objects/' + objectid + '.bin'
 }
 
-OBJ.save = function (objectid, object) {
+OBJ.save = (objectid: any, object: any) => {
   fs.writeFileSync(_path(objectid), JSON.stringify(object), 'utf8')
 }
 
-OBJ.load = function (objectid) {
-  var buffer = fs.readFileSync(_path(objectid), 'utf8')
-  var bin = JSON.parse(buffer)
+OBJ.load =  (objectid: any) => {
+  const buffer = fs.readFileSync(_path(objectid), 'utf8')
+  const bin = JSON.parse(buffer)
   if ('sides' in bin) {
     return CAG.fromObject(bin)
   }
@@ -28,7 +28,7 @@ OBJ.load = function (objectid) {
   throw new Error('Unsupported binary')
 }
 
-OBJ.loadPrevious = function (objectid, object) {
+OBJ.loadPrevious =  (objectid: any, object: any) => {
   let path = './objects/'
   if (!fs.existsSync(path)) {
     fs.mkdirSync(path)
@@ -40,5 +40,3 @@ OBJ.loadPrevious = function (objectid, object) {
   }
   return OBJ.load(objectid)
 }
-
-module.exports = {OBJ}

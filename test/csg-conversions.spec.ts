@@ -1,5 +1,5 @@
 import test from 'ava'
-import {CSG} from '../csg'
+import {CSG} from '../src/csg'
 import {assertSameGeometry} from './helpers/asserts'
 
 test('CSG can be packed into and retrieved from a compact binary', t => {
