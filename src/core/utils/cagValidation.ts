@@ -1,5 +1,5 @@
-const {areaEPS} = require('../constants');
-const {linesIntersect} = require('../math/lineUtils');
+import {areaEPS} from '../constants';
+import {linesIntersect} from '../math/lineUtils';
 
 // check if we are a valid CAG (for debugging)
 // NOTE(bebbi) uneven side count doesn't work because rounding with EPS isn't taken into account

@@ -1,7 +1,7 @@
 const Side = require('./math/Side');
 const Vector2D = require('./math/Vector2');
 const Vertex2 = require('./math/Vertex2');
-const {areaEPS} = require('./constants');
+import {areaEPS} from './constants';
 const {isSelfIntersecting, contains} = require('./utils/cagValidation');
 const {union, difference} = require('../modifiers/booleans');
 

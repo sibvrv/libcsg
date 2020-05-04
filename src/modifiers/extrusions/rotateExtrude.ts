@@ -1,4 +1,4 @@
-const {EPS, defaultResolution3D} = require('../../core/constants');
+import {EPS, defaultResolution3D} from '../../core/constants';
 const {parseOptionAsFloat, parseOptionAsInt} = require('../../api/optionParsers');
 const Vector3D = require('../../core/math/Vector3');
 const {Connector} = require('../../core/connectors');

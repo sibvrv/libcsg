@@ -1,4 +1,4 @@
-const {isCAG} = require('../../core/utils');
+import {isCAG} from '../../core/utils';
 
 /** intersection of the given shapes: ie keep only the common parts between the given shapes
  * @param {Object(s)|Array} objects - objects to intersect

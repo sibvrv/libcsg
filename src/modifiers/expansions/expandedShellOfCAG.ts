@@ -1,4 +1,4 @@
-const {EPS, angleEPS} = require('../../core/constants');
+import {EPS, angleEPS} from '../../core/constants';
 const Vector2D = require('../../core/math/Vector2');
 import {fromPoints, fromPointsNoCheck} from '../../core/CAGFactories';
 

@@ -186,7 +186,7 @@ CSG.parseOptionAsInt = optionsParsers.parseOptionAsInt;
 CSG.Polygon2D.prototype = CAG.prototype;
 
 // utilities
-const {isCAG, isCSG} = require('./core/utils');
+import {isCAG, isCSG} from './core/utils';
 
 export {CSG, CAG, isCAG, isCSG};
 

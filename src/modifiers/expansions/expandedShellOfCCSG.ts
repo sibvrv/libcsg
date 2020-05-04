@@ -1,7 +1,7 @@
-const {EPS} = require('../../core/constants');
+import {EPS} from '../../core/constants';
 const Vertex = require('../../core/math/Vertex3');
 const Polygon = require('../../core/math/Polygon3');
-const {fnNumberSort} = require('../../core/utils');
+import {fnNumberSort} from '../../core/utils';
 
 /**
  * Create the expanded shell of the solid:

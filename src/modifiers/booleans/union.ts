@@ -1,4 +1,4 @@
-const {isCAG} = require('../../core/utils');
+import {isCAG} from '../../core/utils';
 
 /** union/ combine the given shapes
  * @param {Object(s)|Array} objects - objects to combine : can be given

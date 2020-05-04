@@ -1,7 +1,6 @@
 import {expandedShellOfCCSG} from './expandedShellOfCCSG';
 import {expandedShellOfCAG} from './expandedShellOfCAG';
-
-const {isCSG} = require('../../core/utils');
+import {isCSG} from '../../core/utils';
 
 /**
  * Contract

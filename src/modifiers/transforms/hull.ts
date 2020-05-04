@@ -1,7 +1,6 @@
 import {ConvexHull} from './helpers/ConvexHull';
-
 import {fromPoints} from '../../core/CAGFactories';
-const {isCAG} = require('../../core/utils');
+import {isCAG} from '../../core/utils';
 
 /** create a convex hull of the given shapes
  * @param {Object(s)|Array} objects either a single or multiple CSG/CAG objects to create a hull around
