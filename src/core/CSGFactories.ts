@@ -4,58 +4,67 @@ const Plane = require('./math/Plane');
 const Polygon2D = require('./math/Polygon2');
 const Polygon3D = require('./math/Polygon3');
 
-/** Construct a CSG solid from a list of `Polygon` instances.
+/**
+ * Construct a CSG solid from a list of `Polygon` instances.
  * @param {Polygon[]} polygons - list of polygons
  * @returns {CSG} new CSG object
  */
-const fromPolygons = function (polygons) {
+export const fromPolygons = (polygons: any) => {
   const CSG = require('./CSG');
-  let csg = new CSG();
+  const csg = new CSG();
   csg.polygons = polygons;
   csg.isCanonicalized = false;
   csg.isRetesselated = false;
   return csg;
 };
 
-/** Construct a CSG solid from a list of pre-generated slices.
+/**
+ * Construct a CSG solid from a list of pre-generated slices.
  * See Polygon.prototype.solidFromSlices() for details.
  * @param {Object} options - options passed to solidFromSlices()
  * @returns {CSG} new CSG object
  */
-function fromSlices(options) {
+export function fromSlices(options: any) {
   return Polygon2D.createFromPoints([
     [0, 0, 0],
     [1, 0, 0],
     [1, 1, 0],
-    [0, 1, 0]
+    [0, 1, 0],
   ]).solidFromSlices(options);
 }
 
-/** Reconstruct a CSG solid from an object with identical property names.
+/**
+ * Reconstruct a CSG solid from an object with identical property names.
  * @param {Object} obj - anonymous object, typically from JSON
  * @returns {CSG} new CSG object
  */
-function fromObject(obj) {
-  let polygons = obj.polygons.map(function (p) {
+export function fromObject(obj: any) {
+  const polygons = obj.polygons.map((p: any) => {
     return Polygon3D.fromObject(p);
   });
-  let csg = fromPolygons(polygons);
+  const csg = fromPolygons(polygons);
   csg.isCanonicalized = obj.isCanonicalized;
   csg.isRetesselated = obj.isRetesselated;
   return csg;
 }
 
-/** Reconstruct a CSG from the output of toCompactBinary().
+/**
+ * Reconstruct a CSG from the output of toCompactBinary().
  * @param {CompactBinary} bin - see toCompactBinary().
  * @returns {CSG} new CSG object
  */
-function fromCompactBinary(bin) {
-  if (bin['class'] !== 'CSG') throw new Error('Not a CSG');
-  let planes = [];
-  let planeData = bin.planeData;
-  let numplanes = planeData.length / 4;
+export function fromCompactBinary(bin: any) {
+  if (bin.class !== 'CSG') throw new Error('Not a CSG');
+  const planes = [];
+  const planeData = bin.planeData;
+  const numplanes = planeData.length / 4;
   let arrayindex = 0;
-  let x, y, z, w, normal, plane;
+  let x;
+  let y;
+  let z;
+  let w;
+  let normal;
+  let plane;
   for (let planeindex = 0; planeindex < numplanes; planeindex++) {
     x = planeData[arrayindex++];
     y = planeData[arrayindex++];
@@ -66,7 +75,7 @@ function fromCompactBinary(bin) {
     planes.push(plane);
   }
 
-  let vertices = [];
+  const vertices = [];
   const vertexData = bin.vertexData;
   const numvertices = vertexData.length / 3;
   let pos;
@@ -81,16 +90,16 @@ function fromCompactBinary(bin) {
     vertices.push(vertex);
   }
 
-  let shareds = bin.shared.map(function (shared) {
-    return Polygon3D.Shared.fromObject(shared);
+  const shareds = bin.shared.map((_shared: any) => {
+    return Polygon3D.Shared.fromObject(_shared);
   });
 
-  let polygons = [];
-  let numpolygons = bin.numPolygons;
-  let numVerticesPerPolygon = bin.numVerticesPerPolygon;
-  let polygonVertices = bin.polygonVertices;
-  let polygonPlaneIndexes = bin.polygonPlaneIndexes;
-  let polygonSharedIndexes = bin.polygonSharedIndexes;
+  const polygons = [];
+  const numpolygons = bin.numPolygons;
+  const numVerticesPerPolygon = bin.numVerticesPerPolygon;
+  const polygonVertices = bin.polygonVertices;
+  const polygonPlaneIndexes = bin.polygonPlaneIndexes;
+  const polygonSharedIndexes = bin.polygonSharedIndexes;
   let numpolygonvertices;
   let polygonvertices;
   let shared;
@@ -107,15 +116,8 @@ function fromCompactBinary(bin) {
     polygon = new Polygon3D(polygonvertices, shared, plane);
     polygons.push(polygon);
   }
-  let csg = fromPolygons(polygons);
+  const csg = fromPolygons(polygons);
   csg.isCanonicalized = true;
   csg.isRetesselated = true;
   return csg;
 }
-
-module.exports = {
-  fromPolygons,
-  fromSlices,
-  fromObject,
-  fromCompactBinary
-};
