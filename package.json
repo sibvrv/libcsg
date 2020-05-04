@@ -3,6 +3,7 @@
   "version": "0.8.0",
   "description": "Constructive Solid Geometry (CSG) Library",
   "repository": "https://github.com/sibvrv/libcsg",
+  "homepage": "https://github.com/sibvrv/libcsg",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
   "scripts": {

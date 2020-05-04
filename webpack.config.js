@@ -3,7 +3,7 @@ const path = require('path');
 // Plugins
 const TSConfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
-const {DefinePlugin} = require("webpack");
+const {DefinePlugin, BannerPlugin} = require("webpack");
 
 // Variables
 const sourcePath = path.join(__dirname, './src/');
@@ -11,8 +11,8 @@ const outPath = path.join(__dirname, `./dist/`);
 
 module.exports = (env, argv) => {
   const isProduction = argv.mode === 'production';
-
-  console.log();
+  const buildDate = new Date();
+  const {npm_package_version, npm_package_homepage, npm_package_repository_url} = process.env;
 
   return {
     context: sourcePath,
@@ -47,11 +47,12 @@ module.exports = (env, argv) => {
       new CleanWebpackPlugin(),
       new DefinePlugin({
         '__LIB_VERSION__': JSON.stringify({
-          build: process.env.npm_package_version,
-          time: new Date().toUTCString(),
-          stamp: Math.floor(Date.now() / 1000)
+          build: npm_package_version,
+          date: buildDate.toISOString(),
+          stamp: Math.floor(buildDate.getTime() / 1000)
         })
-      })
+      }),
+      new BannerPlugin(`LibCSG version ${npm_package_version}\nBuild Date: ${buildDate.toISOString()}\nHomepage: ${npm_package_homepage}\nRepository: ${npm_package_repository_url}`)
     ],
     devtool: isProduction ? 'hidden-source-map' : 'cheap-module-eval-source-map'
   };
