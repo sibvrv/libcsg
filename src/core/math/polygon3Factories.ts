@@ -17,21 +17,13 @@ const Polygon3 = require('./Polygon3');
  * ]
  * let polygon = CSG.Polygon.createFromPoints(points)
  */
-const fromPoints = function (points, shared, plane) {
-  let vertices = [];
-  points.map(function (p) {
-    let vec = new Vector3D(p);
-    let vertex = new Vertex(vec);
+export const fromPoints = (points: number[][], shared: any, plane?: any) => {
+  const vertices: any[] = [];
+  points.map((p) => {
+    const vec = new Vector3D(p);
+    const vertex = new Vertex(vec);
     vertices.push(vertex);
   });
 
-  let polygon;
-  if (arguments.length < 3) {
-    polygon = new Polygon3(vertices, shared);
-  } else {
-    polygon = new Polygon3(vertices, shared, plane);
-  }
-  return polygon;
+  return plane ? new Polygon3(vertices, shared, plane) : new Polygon3(vertices, shared);
 };
-
-module.exports = {fromPoints};
