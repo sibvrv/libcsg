@@ -1,7 +1,7 @@
-const test = require('ava');
-const {square} = require('../../../primitives');
-const {linear_extrude, rotate_extrude, rectangular_extrude} = require('../');
-const {simplifiedPolygon} = require('../../../api/test-helpers');
+import test from 'ava';
+import {square} from '../../../primitives';
+import {linear_extrude, rectangular_extrude, rotate_extrude} from '../';
+import {simplifiedPolygon} from '../../../api/test-helpers';
 
 test('linear_extrude (height)', t => {
   const op1 = square();
@@ -13,7 +13,7 @@ test('linear_extrude (height)', t => {
       {pos: {_x: 0, _y: 0, _z: 0}},
       {pos: {_x: 0, _y: 1, _z: 0}}],
     shared: {color: null},
-    plane: {normal: {_x: -0, _y: -0, _z: -1}, w: -0}
+    plane: {normal: {_x: -0, _y: -0, _z: -1}, w: -0},
   };
 
   const expLastPoly = {
@@ -21,7 +21,7 @@ test('linear_extrude (height)', t => {
       {pos: {_x: 1, _y: 1, _z: 0}},
       {pos: {_x: 0, _y: 1, _z: 0}}],
     shared: {color: null},
-    plane: {normal: {_x: 0, _y: 1, _z: 0}, w: 1}
+    plane: {normal: {_x: 0, _y: 1, _z: 0}, w: 1},
   };
 
   t.deepEqual(obs.polygons.length, 10);
@@ -39,7 +39,7 @@ test('linear_extrude (height, twist, slices, center)', t => {
       {pos: {_x: 1.1102230246251565e-16, _y: 0, _z: -5}},
       {pos: {_x: 1.1102230246251565e-16, _y: 1, _z: -5}}],
     shared: {color: null},
-    plane: {normal: {_x: -0, _y: -0, _z: -1}, w: 5}
+    plane: {normal: {_x: -0, _y: -0, _z: -1}, w: 5},
   };
 
   const expLastPoly = {
@@ -49,8 +49,8 @@ test('linear_extrude (height, twist, slices, center)', t => {
     shared: {color: null},
     plane: {
       normal: {_x: 0.12523593496267418, _y: 0.9913445035756271, _z: 0.03939588588188166},
-      w: 1.188323932985035
-    }
+      w: 1.188323932985035,
+    },
   };
 
   t.deepEqual(obs.polygons.length, 402);
@@ -71,9 +71,9 @@ test('rotate_extrude (defaults)', t => {
     plane:
       {
         normal: [-0.9951847266721969, 0.09801714032956071, 0],
-        w: -3.9807389066887877
+        w: -3.9807389066887877,
       },
-    shared: {color: null, tag: 1612}
+    shared: {color: null, tag: 1612},
   };
 
   const expLastPoly = {
@@ -85,9 +85,9 @@ test('rotate_extrude (defaults)', t => {
     plane:
       {
         normal: [0.9951847266721968, 0.09801714032956149, -0],
-        w: 4.975923633360985
+        w: 4.975923633360985,
       },
-    shared: {color: null, tag: 1612}
+    shared: {color: null, tag: 1612},
   };
 
   t.deepEqual(obs.polygons.length, 132);
@@ -108,9 +108,9 @@ test('rotate_extrude (custom resolution)', t => {
     plane:
       {
         normal: [-0.9238795325112867, 0.3826834323650898, 0],
-        w: -3.695518130045147
+        w: -3.695518130045147,
       },
-    shared: {color: null, tag: 1612}
+    shared: {color: null, tag: 1612},
   };
 
   const expLastPoly = {
@@ -122,9 +122,9 @@ test('rotate_extrude (custom resolution)', t => {
     plane:
       {
         normal: [0.9238795325112867, 0.38268343236508956, -0],
-        w: 4.619397662556434
+        w: 4.619397662556434,
       },
-    shared: {color: null, tag: 1612}
+    shared: {color: null, tag: 1612},
   };
 
   t.deepEqual(obs.polygons.length, 36);
@@ -145,9 +145,9 @@ test('rotate_extrude (custom angle)', t => {
     plane:
       {
         normal: [-0.9999851261394216, 0.00545412687101576, 0],
-        w: -3.9999405045576863
+        w: -3.9999405045576863,
       },
-    shared: {color: null, tag: 1612}
+    shared: {color: null, tag: 1612},
   };
 
   const expLastPoly = {
@@ -159,9 +159,9 @@ test('rotate_extrude (custom angle)', t => {
     plane:
       {
         normal: [0.9415440651830257, -0.33688985339220645, 0],
-        w: 4.999925630697108
+        w: 4.999925630697108,
       },
-    shared: {color: null, tag: 1612}
+    shared: {color: null, tag: 1612},
   };
   t.deepEqual(obs.polygons.length, 192);
   t.deepEqual(simplifiedPolygon(obs.polygons[0]), expFirstPoly);
@@ -181,9 +181,9 @@ test('rotate_extrude (custom negative angle)', t => {
     plane:
       {
         normal: [-0.9999851261394216, -0.00545412687101576, 0],
-        w: -3.9999405045576863
+        w: -3.9999405045576863,
       },
-    shared: {color: null, tag: 1612}
+    shared: {color: null, tag: 1612},
   };
 
   const expLastPoly = {
@@ -195,9 +195,9 @@ test('rotate_extrude (custom negative angle)', t => {
     plane:
       {
         normal: [0.9415440651830257, 0.33688985339220645, 0],
-        w: 4.999925630697108
+        w: 4.999925630697108,
       },
-    shared: {color: null, tag: 1612}
+    shared: {color: null, tag: 1612},
   };
   t.deepEqual(obs.polygons.length, 192);
   t.deepEqual(simplifiedPolygon(obs.polygons[0]), expFirstPoly);
@@ -217,9 +217,9 @@ test('rotate_extrude (custom negative angle, custom start angle)', t => {
     plane:
       {
         normal: [-0.8934693932653679, 0.4491240845223238, 0],
-        w: -3.9999405045576863
+        w: -3.9999405045576863,
       },
-    shared: {color: null, tag: 1612}
+    shared: {color: null, tag: 1612},
   };
 
   const expLastPoly = {
@@ -231,9 +231,9 @@ test('rotate_extrude (custom negative angle, custom start angle)', t => {
     plane:
       {
         normal: [0.991866697787626, -0.12728100337391368, 0],
-        w: 4.999925630697108
+        w: 4.999925630697108,
       },
-    shared: {color: null, tag: 1612}
+    shared: {color: null, tag: 1612},
   };
   t.deepEqual(obs.polygons.length, 192);
   t.deepEqual(simplifiedPolygon(obs.polygons[0]), expFirstPoly);
@@ -281,7 +281,7 @@ test('rotate_extrude (custom negative angle, custom start angle, capped points)'
         [0.44550326209418395, -0.22699524986977337, 0],
         [0, 0, 0]],
     plane: {normal: [-0, 0, -1], w: -0},
-    shared: {color: null, tag: 1612}
+    shared: {color: null, tag: 1612},
   };
 
   const expLastPoly = {
@@ -293,9 +293,9 @@ test('rotate_extrude (custom negative angle, custom start angle, capped points)'
     plane:
       {
         normal: [0.991866697787627, -0.12728100337390572, 0],
-        w: 0.4999925630697108
+        w: 0.4999925630697108,
       },
-    shared: {color: null, tag: 1612}
+    shared: {color: null, tag: 1612},
   };
   t.deepEqual(obs.polygons.length, 98);
   // console.log('first', simplifiedPolygon(obs.polygons[0]))
@@ -309,12 +309,17 @@ test('rotate_extrude (invalid overflow setting should throw an exception)', t =>
   const op1 = square().translate([-0.5, 0, 0]);
   t.throws(() => {
     rotate_extrude({angle: -20, startAngle: 27, overflow: undefined}, op1);
+    // @ts-ignore
   }, 'only capping of overflowing points is supported !');
 });
 
 test('rectangular_extrude ', t => {
   const op1 = square();
-  const obs = rectangular_extrude([[10, 10], [-10, 10], [-20, 0], [-10, -10], [10, -10]], // path is an array of 2d coords
+  const obs = rectangular_extrude(
+    [
+      [10, 10], [-10, 10], [-20, 0], [-10, -10], [10, -10],
+    ], // path is an array of 2d coords
+    // @ts-ignore
     {w: 1, h: 3, closed: true}, op1);
 
   const expFirstPoly = {
@@ -325,7 +330,7 @@ test('rectangular_extrude ', t => {
       {pos: {_x: 9.5, _y: 10.5, _z: 0}},
       {pos: {_x: 9.5, _y: 9.5, _z: 0}}],
     shared: {color: null, tag: 1612},
-    plane: {normal: {_x: -0, _y: -0, _z: -1}, w: -0}
+    plane: {normal: {_x: -0, _y: -0, _z: -1}, w: -0},
   };
 
   const expLastPoly = {
@@ -334,7 +339,7 @@ test('rectangular_extrude ', t => {
       {pos: {_x: -19.292893218813454, _y: -1.1102230246251565e-16, _z: 0}},
       {pos: {_x: -9.792893218813454, _y: 9.5, _z: 0}}],
     shared: {color: null, tag: 1612},
-    plane: {normal: {_x: 0.7071067811865476, _y: -0.7071067811865476, _z: 0}, w: -13.642135623730951}
+    plane: {normal: {_x: 0.7071067811865476, _y: -0.7071067811865476, _z: 0}, w: -13.642135623730951},
   };
   /* console.log(obs.polygons[0])
   console.log(obs.polygons[0].vertices)

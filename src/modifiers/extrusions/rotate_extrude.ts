@@ -20,7 +20,7 @@ import {fromPoints} from '../../core/CAGFactories';
  * @example
  * let revolved = rotate_extrude({fn: 10}, square())
  */
-export function rotate_extrude(params: any, baseShape: any) {
+export function rotate_extrude(params?: any, baseShape?: any) {
   // note, we should perhaps alias this to revolve() as well
   const defaults = {
     fn: 32,

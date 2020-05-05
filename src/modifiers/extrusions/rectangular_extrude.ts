@@ -14,7 +14,7 @@ const Path2D = require('../../core/math/Path2');
  * @example
  * let revolved = rectangular_extrude({height: 10}, square())
  */
-export function rectangular_extrude(basePoints: any, params: any) {
+export function rectangular_extrude(basePoints: any, params?: any) {
   const defaults = {
     w: 1,
     h: 1,

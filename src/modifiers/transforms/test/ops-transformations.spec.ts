@@ -1,7 +1,7 @@
-const test = require('ava');
-const {sideEquals} = require('../../../api/test-helpers');
-const {square, circle, cube, sphere} = require('../../../primitives');
-const {translate, rotate, scale, transform, center, mirror, expand, contract, minkowski, hull, chain_hull} = require('../');
+import test from 'ava';
+import {sideEquals} from '../../../api/test-helpers';
+import {square, circle, cube, sphere} from '../../../primitives';
+import {translate, rotate, scale, transform, center, mirror, expand, contract, minkowski, hull, chain_hull} from '../';
 
 // TODO: since cube, sphere etc rely on some of the transformations, we should be creating csg objects 'from scratch' instead
 // of using those since it is not a very good independant test otherwise
@@ -60,6 +60,7 @@ test('translate (multiple items in array, 2d)', t => {
 
 test('rotate (single item)', t => {
   const op1 = cube();
+  // @ts-ignore
   const obs = rotate([0, Math.PI, 0], op1);
   t.deepEqual(obs.properties.cube.center, {_x: 0.5266504075063266, _y: 0.5, _z: 0.47184674235753715});
 });
@@ -68,6 +69,7 @@ test('rotate (multiple items)', t => {
   const op1 = cube();
   const op2 = sphere({center: false});
 
+  // @ts-ignore
   const obs = rotate([0, Math.PI, 0], op1, op2);
   t.deepEqual(obs.properties.cube.center, {_x: 0.5266504075063266, _y: 0.5, _z: 0.47184674235753715});
   t.deepEqual(obs.properties.sphere.center, {_x: 1.0533008150126533, _y: 1, _z: 0.9436934847150743});
@@ -77,6 +79,7 @@ test('rotate (multiple items in array)', t => {
   const op1 = cube();
   const op2 = sphere({center: false});
 
+  // @ts-ignore
   const obs = rotate([0, Math.PI, 0], [op1, op2]);
   t.deepEqual(obs.properties.cube.center, {_x: 0.5266504075063266, _y: 0.5, _z: 0.47184674235753715});
   t.deepEqual(obs.properties.sphere.center, {_x: 1.0533008150126533, _y: 1, _z: 0.9436934847150743});
@@ -84,6 +87,7 @@ test('rotate (multiple items in array)', t => {
 
 test('rotate (single item angle axis style)', t => {
   const op1 = cube();
+  // @ts-ignore
   const obs = rotate(Math.PI, [0, 1, 0], op1);
   t.deepEqual(obs.properties.cube.center, {_x: 0.5266504075063266, _y: 0.5, _z: 0.47184674235753715});
 });
@@ -91,6 +95,7 @@ test('rotate (single item angle axis style)', t => {
 test('rotate (multiple items, 2d)', t => {
   const op1 = square();
   const op2 = circle();
+  // @ts-ignore
   const obs = rotate([0, 10, 0], op1, op2);
 
   sideEquals(t, obs.sides[0], [[1.9506927011935618, 0.8049096779838713], [1.969615506024416, 1]]);
@@ -165,10 +170,12 @@ test('transform (multiple items, translation)', t => {
 test('transform should fail if provided with anything but a flat array of numbers', t => {
   t.throws(() => {
     transform(['1', 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 10, -5, 0, 1], cube());
+    // @ts-ignore
   }, 'you can only use a flat array of valid, finite numbers (float and integers)');
 
   t.throws(() => {
     transform([[0, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [10, -5, 0, 1]], cube());
+    // @ts-ignore
   }, 'you can only use a flat array of valid, finite numbers (float and integers)');
   /* const obs =
   t.th
@@ -243,6 +250,7 @@ test('expand (single item)', t => {
 test.failing('expand (multiple items)', t => {
   const op1 = cube();
   const op2 = sphere();
+  // @ts-ignore
   const obs = expand(10, 5, op1, op2);
 
   t.deepEqual(obs.polygons[0].vertices[0], {pos: {_x: -10, _y: 0, _z: 0}});
@@ -252,6 +260,7 @@ test.failing('expand (multiple items)', t => {
 test('expand (multiple items, 2d)', t => {
   const op1 = square();
   const op2 = circle();
+  // @ts-ignore
   const obs = expand(10, 5, op1, op2);
 
   t.deepEqual(obs.sides[0], {vertex0: {pos: {_x: 11, _y: 0}}, vertex1: {pos: {_x: 11, _y: 1}}});
@@ -264,6 +273,8 @@ test('expand (multiple items, 2d)', t => {
 test.failing('contract (single item)', t => {
   const op1 = cube({size: 10});
   const obs = contract(5, 1, op1);
+
+  // tslint:disable-next-line:no-console
   console.log('obs', obs);
 
   t.deepEqual(obs.polygons[0].vertices[0], {pos: {_x: -10, _y: 0, _z: 0}});
@@ -272,6 +283,7 @@ test.failing('contract (single item)', t => {
 test.failing('contract (multiple items, 3d)', t => {
   const op1 = cube();
   const op2 = sphere();
+  // @ts-ignore
   const obs = contract(5, 1, op1, op2);
 
   t.deepEqual(obs.polygons[0].vertices[0], {pos: {_x: -10, _y: 0, _z: 0}});
@@ -281,6 +293,7 @@ test.failing('contract (multiple items, 3d)', t => {
 test.failing('contract (multiple items, 2d)', t => {
   const op1 = square();
   const op2 = circle();
+  // @ts-ignore
   const obs = contract(10, 5, op1, op2);
 
   // FIXME: these are fake values, but it does not work either way
@@ -291,9 +304,12 @@ test.failing('contract (multiple items, 2d)', t => {
 test.failing('minkowski (multiple items)', t => {
   const op1 = cube();
   const op2 = sphere({center: true});
+  // @ts-ignore
   const obs = minkowski(op1, op2);
 
+  // @ts-ignore
   t.deepEqual(obs.properties.cube.center, {_x: 0.5, _y: 10.5, _z: 0.5});
+  // @ts-ignore
   t.deepEqual(obs.properties.sphere.center, {_x: 0, _y: 10, _z: 0});
 });
 

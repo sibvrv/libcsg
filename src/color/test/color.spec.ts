@@ -1,6 +1,6 @@
-const test = require('ava');
-const {square, circle, cube, sphere, cylinder} = require('../../primitives');
-const {color, rgb2hsl, hsl2rgb, rgb2hsv, hsv2rgb, html2rgb, rgb2html, css2rgb} = require('../');
+import test from 'ava';
+import {circle, cube, cylinder, sphere, square} from '../../primitives';
+import {color, css2rgb, hsl2rgb, hsv2rgb, html2rgb, rgb2hsl, rgb2hsv, rgb2html} from '../';
 
 test('css2rgb', t => {
   const c1 = css2rgb('black');
@@ -105,8 +105,8 @@ test.failing('color (rgba, on array of 2d objects)', t => {
 });
 
 test('color (by name, on 3d objects)', t => {
-  var obs = color('red', cube());
-  var expColor = {color: [1, 0, 0, 1]};
+  let obs = color('red', cube());
+  let expColor = {color: [1, 0, 0, 1]};
 
   t.deepEqual(obs.polygons[0].shared, expColor);
   t.deepEqual(obs.polygons[obs.polygons.length - 1].shared, expColor);
@@ -133,8 +133,8 @@ test.failing('color (by name, on 2d objects)', t => {
 });
 
 test('color (by name and alpha, on 3d objects)', t => {
-  var obs = color('red', 0.5, cube());
-  var expColor = {color: [1, 0, 0, 0.5]};
+  let obs = color('red', 0.5, cube());
+  let expColor = {color: [1, 0, 0, 0.5]};
 
   t.deepEqual(obs.polygons[0].shared, expColor);
   t.deepEqual(obs.polygons[obs.polygons.length - 1].shared, expColor);

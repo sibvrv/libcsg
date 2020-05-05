@@ -1,6 +1,6 @@
-const test = require('ava');
-const {cube, sphere, geodesicSphere, cylinder, torus, polyhedron} = require('../');
-const {simplifiedPolygon, comparePolygons} = require('../../api/test-helpers.js');
+import test from 'ava';
+import {cube, sphere, geodesicSphere, cylinder, torus, polyhedron} from '../';
+import {simplifiedPolygon, comparePolygons} from '../../api/test-helpers';
 
 /* FIXME : not entirely sure how to deal with this, but for now relies on inspecting
 output data structures: we should have higher level primitives ... */

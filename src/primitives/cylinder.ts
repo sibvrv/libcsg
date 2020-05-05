@@ -18,7 +18,7 @@ const {CSG} = require('../csg');
  *   fn: 20
  * })
  */
-export function cylinder(params: any) {
+export function cylinder(params?: any) {
   const defaults = {
     r: 1,
     r1: 1,

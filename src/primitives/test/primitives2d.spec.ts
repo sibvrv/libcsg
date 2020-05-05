@@ -1,14 +1,14 @@
-const test = require('ava');
-const {square, circle, triangle, polygon} = require('../');
-const {sideEquals, shape2dToNestedArray} = require('../../api/test-helpers');
+import test from 'ava';
+import {square, circle, triangle, polygon} from '../';
+import {sideEquals, shape2dToNestedArray} from '../../api/test-helpers';
 
 /* FIXME : not entirely sure how to deal with this, but for now relies on inspecting
 output data structures: we should have higher level primitives ... */
 
 // helper functions
-function comparePositonVertices(obs, exp) {
+function comparePositonVertices(obs: any, exp: any) {
   for (let index = 0; index < obs.length; index++) {
-    let side = obs[index];
+    const side = obs[index];
     const same = side.vertex0.pos._x === exp[index][0][0] && side.vertex0.pos._y === exp[index][0][1]
       && side.vertex1.pos._x === exp[index][1][0] && side.vertex1.pos._y === exp[index][1][1];
     // console.log('side', side.vertex0.pos, same)
@@ -32,6 +32,7 @@ test.failing('triangle (defaults)', t => {
 });
 
 test.failing('triangle (custom size)', t => {
+  // @ts-ignore
   const obs = triangle(5);
 
   const expSides = [

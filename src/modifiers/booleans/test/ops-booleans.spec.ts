@@ -1,6 +1,6 @@
-const test = require('ava');
-const {square, cube, sphere} = require('../../../primitives');
-const {union, difference, intersection} = require('../index');
+import test from 'ava';
+import {square, cube, sphere} from '../../../primitives';
+import {union, difference, intersection} from '../index';
 
 test('union (defaults)', t => {
   const op1 = cube();
