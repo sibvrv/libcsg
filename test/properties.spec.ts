@@ -1,6 +1,8 @@
-import test from 'ava'
-import {CSG} from '../src/csg'
+import {CSG} from '../src/csg';
+import {expect} from 'chai';
 
-test('CSG.Properties exists', t => {
-  t.is('Properties' in CSG, true)
-})
+describe('CSG Properties', () => {
+  it('CSG.Properties exists', () => {
+    expect('Properties' in CSG).to.be.true;
+  });
+});
