@@ -80,7 +80,8 @@ for solid CAD anyway.
 
 */
 
-const {addTransformationMethodsToPrototype, addCenteringToPrototype} = require('./core/mutators');
+import {addTransformationMethodsToPrototype} from './core/mutators';
+
 const CSG = require('./core/CSG');
 const CAG = require('./core/CAG');
 
@@ -123,8 +124,8 @@ CSG.Connector = require('./core/connectors').Connector;
 CSG.ConnectorList = require('./core/connectors').ConnectorList;
 CSG.Properties = require('./core/Properties');
 
-const {circle, ellipse, rectangle, roundedRectangle} = require('./primitives/csg/primitives2d');
-const {sphere, cube, roundedCube, cylinder, roundedCylinder, cylinderElliptic, polyhedron} = require('./primitives/csg/primitives3d');
+import {circle, ellipse, rectangle, roundedRectangle} from './primitives/csg/primitives2d';
+import {sphere, cube, roundedCube, cylinder, roundedCylinder, cylinderElliptic, polyhedron} from './primitives/csg/primitives3d';
 
 CSG.sphere = sphere;
 CSG.cube = cube;
