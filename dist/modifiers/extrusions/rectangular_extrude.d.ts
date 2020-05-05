@@ -12,5 +12,5 @@
  * @example
  * let revolved = rectangular_extrude({height: 10}, square())
  */
-export declare function rectangular_extrude(basePoints: any, params: any): any;
+export declare function rectangular_extrude(basePoints: any, params?: any): any;
 //# sourceMappingURL=rectangular_extrude.d.ts.map

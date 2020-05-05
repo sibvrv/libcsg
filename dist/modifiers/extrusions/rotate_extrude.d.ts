@@ -11,5 +11,5 @@
  * @example
  * let revolved = rotate_extrude({fn: 10}, square())
  */
-export declare function rotate_extrude(params: any, baseShape: any): any;
+export declare function rotate_extrude(params?: any, baseShape?: any): any;
 //# sourceMappingURL=rotate_extrude.d.ts.map

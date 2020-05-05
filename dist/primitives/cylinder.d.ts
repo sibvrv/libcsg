@@ -15,5 +15,5 @@
  *   fn: 20
  * })
  */
-export declare function cylinder(params: any): any;
+export declare function cylinder(params?: any): any;
 //# sourceMappingURL=cylinder.d.ts.map
