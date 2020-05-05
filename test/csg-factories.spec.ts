@@ -1,4 +1,5 @@
 import test from 'ava';
+
 const Vertex = require('../src/core/math/Vertex3');
 const Vector3D = require('../src/core/math/Vector3');
 const Polygon = require('../src/core/math/Polygon3');

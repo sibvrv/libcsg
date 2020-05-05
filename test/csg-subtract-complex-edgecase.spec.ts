@@ -1,5 +1,5 @@
-import test from 'ava';
 import {CSG} from '../src/csg';
+import {expect} from 'chai';
 
 function createOperands() {
 
@@ -15,29 +15,25 @@ function createOperands() {
 
 /**
  * resulting solid from subtract can never be bigger then before subtract operation, check bounds for that
- * @param t
  * @param resultSolid
  * @param baseSolid
  * @param failMessage
  */
-function checkGeomBounds(t: any, resultSolid: any, baseSolid: any, failMessage?: any) {
+function checkGeomBounds(resultSolid: any, baseSolid: any, failMessage = 'resulting solid is bigger after subraction') {
 
   const bndsBaseSolid = baseSolid.getBounds();
   const distBase = bndsBaseSolid[0].distanceTo(bndsBaseSolid[1]);
   const bndsResultSolid = resultSolid.getBounds();
   const distResult = bndsResultSolid[0].distanceTo(bndsResultSolid[1]);
 
-  if (distResult > distBase) {
-    failMessage = failMessage === undefined ? 'resulting solid is bigger after subraction' : failMessage;
-    t.fail(failMessage);
-  } else {
-    t.pass();
-  }
+  expect(distResult > distBase, failMessage).to.be.false;
 }
 
+describe('CSG Subtract Complex EdgeCase', () => {
 // perform test
-test.failing('CSG.complex_edgecase_subtract', t => {
-  const {a, b} = createOperands();
-  checkGeomBounds(t, a.subtract(b), a);
-});
+  it.skip('CSG.complex_edgecase_subtract', () => {
+    const {a, b} = createOperands();
+    checkGeomBounds(a.subtract(b), a);
+  });
 
+});

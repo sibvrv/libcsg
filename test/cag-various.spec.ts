@@ -1,4 +1,5 @@
 import test from 'ava';
+
 const {CAG, CSG} = require('../csg');
 
 // helper function, gives a much more compact variant of the the side data

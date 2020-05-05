@@ -1,15 +1,15 @@
-import test from 'ava'
-import {CSG} from '../src/csg'
-import {assertSameGeometry} from './helpers/asserts'
+import test from 'ava';
+import {CSG} from '../src/csg';
+import {assertSameGeometry} from './helpers/asserts';
 
 test('CSG can be packed into and retrieved from a compact binary', t => {
   // test using simple default shapes. Compact binary do not provide however
   // perfect clones, only geometry identical objects, that's why we use here
   // assertSameGeometry which compares vertices one by one.
-  const c1 = CSG.cube()
-  assertSameGeometry(t, c1, CSG.fromCompactBinary(c1.toCompactBinary()))
-  const c2 = CSG.sphere()
-  assertSameGeometry(t, c2, CSG.fromCompactBinary(c2.toCompactBinary()))
-  const c3 = CSG.cylinder()
-  assertSameGeometry(t, c3, CSG.fromCompactBinary(c3.toCompactBinary()))
-})
+  const c1 = CSG.cube();
+  assertSameGeometry(t, c1, CSG.fromCompactBinary(c1.toCompactBinary()));
+  const c2 = CSG.sphere();
+  assertSameGeometry(t, c2, CSG.fromCompactBinary(c2.toCompactBinary()));
+  const c3 = CSG.cylinder();
+  assertSameGeometry(t, c3, CSG.fromCompactBinary(c3.toCompactBinary()));
+});
