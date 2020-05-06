@@ -1,18 +1,18 @@
-import Tree from './trees';
-import Polygon from './math/Polygon3';
-import Plane from './math/Plane';
-import OrthoNormalBasis from './math/OrthoNormalBasis';
+import {Tree} from './trees';
+import {Polygon} from './math/Polygon3';
+import {Plane} from './math/Plane';
+import {OrthoNormalBasis} from './math/OrthoNormalBasis';
 
-import Properties from './Properties';
-import fixTJunctions from './utils/fixTJunctions';
-import canonicalize from './utils/canonicalize';
-import reTesselate from './utils/retesellate';
+import {Properties} from './Properties';
+import {fixTJunctions} from './utils/fixTJunctions';
+import {canonicalize} from './utils/canonicalize';
+import {reTesselate} from './utils/retesellate';
 import {bounds} from './utils/csgMeasurements';
 import {projectToOrthoNormalBasis} from './utils/csgProjections';
 
 import {getTransformationAndInverseTransformationToFlatLying, getTransformationToFlatLying, lieFlat} from '../api/ops-cnc';
 import {cutByPlane, sectionCut} from '../api/ops-cuts';
-import center from '../api/center';
+import {center} from '../api/center';
 import {contract, expand, expandedShellOfCCSG} from '../modifiers/expansions';
 
 import {_CSGDEBUG, all, angleEPS, areaEPS, back, bottom, defaultResolution2D, defaultResolution3D, EPS, front, getTag, left, right, staticTag, top} from './constants';
