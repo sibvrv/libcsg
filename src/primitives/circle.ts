@@ -1,4 +1,6 @@
-const {CAG} = require('../csg');// we have to import from top level otherwise prototypes are not complete..
+// @ts-nocheck
+
+import CAG from '../core/CAG';// we have to import from top level otherwise prototypes are not complete..
 
 export interface ICircleOptions {
   r: number;

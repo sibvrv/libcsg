@@ -1,8 +1,10 @@
-const Matrix4x4 = require('../core/math/Matrix4.js');
-const Vector3D = require('../core/math/Vector3.js');
-const {Connector} = require('../core/connectors.js');
-const {fromPoints} = require('../core/CAGFactories');
-const Vector2D = require('../core/math/Vector2');
+// @ts-nocheck
+
+import {Matrix4x4} from '../core/math/Matrix4';
+import {Vector3D} from '../core/math/Vector3';
+import {Connector} from '../core/connectors';
+import {fromPoints} from '../core/CAGFactories';
+import {Vector2} from '../core/math/Vector2';
 
 // Get the transformation that transforms this CSG such that it is lying on the z=0 plane,
 // as flat as possible (i.e. the least z-height).
@@ -160,7 +162,7 @@ export const overCutInsideCorners = (_cag: any, cutterradius: number) => {
         const points = [circlecenter];
         for (let i = 0; i <= numsteps; i++) {
           const angle = startangle + i / numsteps * deltaangle;
-          const p = Vector2D.fromAngleRadians(angle).times(radiuscorrected).plus(circlecenter);
+          const p = Vector2.fromAngleRadians(angle).times(radiuscorrected).plus(circlecenter);
           points.push(p);
         }
         cutouts.push(fromPoints(points));

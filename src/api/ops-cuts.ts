@@ -1,9 +1,12 @@
+// @ts-nocheck
+
 import {EPS} from '../core/constants';
-const Plane = require('../core/math/Plane');
-const Vector2 = require('../core/math/Vector2');
-const Vertex3 = require('../core/math/Vertex3');
-const Polygon3 = require('../core/math/Polygon3');
-const OrthoNormalBasis = require('../core/math/OrthoNormalBasis');
+import {Plane} from '../core/math/Plane';
+import {Vector2} from '../core/math/Vector2';
+import {Vertex3} from '../core/math/Vertex3';
+import Polygon3 from '../core/math/Polygon3';
+import {OrthoNormalBasis} from '../core/math/OrthoNormalBasis';
+import {CSG} from '../core/CSG'; // FIXME: circular dependency ! CSG => cutByPlane => CSG
 
 /** cuts a csg along a orthobasis
  * @param  {CSG} csg the csg object to cut
@@ -25,7 +28,6 @@ export const sectionCut = (csg: any, orthobasis: any) => {
  */
 export const cutByPlane = (csg: any, plane: any) => {
   if (csg.polygons.length === 0) {
-    const CSG = require('../core/CSG'); // FIXME: circular dependency ! CSG => cutByPlane => CSG
     return new CSG();
   }
   // Ideally we would like to do an intersection with a polygon of inifinite size

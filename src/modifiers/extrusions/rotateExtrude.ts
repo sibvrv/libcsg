@@ -1,7 +1,9 @@
+// @ts-nocheck
+
 import {EPS, defaultResolution3D} from '../../core/constants';
-const {parseOptionAsFloat, parseOptionAsInt} = require('../../api/optionParsers');
-const Vector3D = require('../../core/math/Vector3');
-const {Connector} = require('../../core/connectors');
+import {parseOptionAsFloat, parseOptionAsInt} from '../../api/optionParsers';
+import Vector3D from '../../core/math/Vector3';
+import {Connector} from '../../core/connectors';
 import {fromPolygons} from '../../core/CSGFactories';
 
 // THIS IS AN OLD untested !!! version of rotate extrude

@@ -2,8 +2,7 @@ import {polygonFromPoints} from '../../helpers/polygonFromPoints';
 import {rightMultiply1x3VectorToArray} from '../../helpers/rightMultiply1x3VectorToArray';
 import {cagToPointsArray} from '../../helpers/cagToPointsArray';
 import {clamp} from '../../math/clamp';
-
-const Matrix4 = require('../../core/math/Matrix4');
+import {Matrix4x4 as Matrix4} from '../../core/math/Matrix4';
 import {fromPolygons} from '../../core/CSGFactories';
 import {fromPoints} from '../../core/CAGFactories';
 

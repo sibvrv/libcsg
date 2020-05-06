@@ -1,6 +1,9 @@
+// @ts-nocheck
+/* tslint:disable */
+
 import {translate} from '../modifiers/transforms';
 
-const {CSG} = require('../csg');
+import CSG from '../core/CSG';
 
 export interface ICuboidOptions {
   size: number | [number, number, number];

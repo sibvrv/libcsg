@@ -1,6 +1,8 @@
-const Matrix4x4 = require('./math/Matrix4');
-const Vector3D = require('./math/Vector3');
-const Plane = require('./math/Plane');
+// @ts-nocheck
+
+import {Matrix4x4} from './math/Matrix4';
+import Vector3D from './math/Vector3';
+import Plane from './math/Plane';
 
 // Add several convenience methods to the classes that support a transform() method:
 export const addTransformationMethodsToPrototype = (prot: any) => {

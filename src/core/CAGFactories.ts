@@ -1,16 +1,18 @@
-const Side = require('./math/Side');
-const Vector2D = require('./math/Vector2');
-const Vertex2 = require('./math/Vertex2');
+// @ts-nocheck
+
+import {Side} from './math/Side';
+import {Vector2 as Vector2D} from './math/Vector2';
+import {Vertex2} from './math/Vertex2';
 import {areaEPS} from './constants';
-const {isSelfIntersecting, contains} = require('./utils/cagValidation');
-const {union, difference} = require('../modifiers/booleans');
+import {isSelfIntersecting, contains} from './utils/cagValidation';
+import {union, difference} from '../modifiers/booleans';
+import {CAG} from './CAG';
 
 /** Construct a CAG from a list of `Side` instances.
  * @param {Side[]} sides - list of sides
  * @returns {CAG} new CAG object
  */
 export const fromSides = (sides: any) => {
-  const CAG = require('./CAG'); // circular dependency CAG => fromSides => CAG
   const cag = new CAG();
   cag.sides = sides;
   return cag;

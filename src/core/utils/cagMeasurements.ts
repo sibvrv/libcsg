@@ -1,4 +1,6 @@
-const Vector2D = require('../math/Vector2');
+// @ts-nocheck
+
+import Vector2D from '../math/Vector2';
 
 // see http://local.wasp.uwa.edu.au/~pbourke/geometry/polyarea/ :
 // Area of the polygon. For a counter clockwise rotating polygon the area is positive, otherwise negative

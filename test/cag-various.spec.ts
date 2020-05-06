@@ -1,6 +1,5 @@
 import test from 'ava';
-
-const {CAG, CSG} = require('../csg');
+import {CAG, CSG} from '../src/csg';
 
 // helper function, gives a much more compact variant of the the side data
 // hint : this could also be used to streamline the cag implementation in the future

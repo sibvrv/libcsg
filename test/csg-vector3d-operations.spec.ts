@@ -1,7 +1,6 @@
 import test from 'ava';
 import {CSG} from '../src/csg';
-// import {CAG} from '../csg'
-const {nearlyEqual} = require('./helpers/nearlyEqual');
+import {nearlyEqual} from './helpers/nearlyEqual';
 
 function planeEquals(t: any, observed: any, expected: any) {
   t.is(observed.w, expected.w);

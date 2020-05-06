@@ -1,5 +1,7 @@
-const Vector3D = require('../core/math/Vector3');
-const Vector2D = require('../core/math/Vector2');
+// @ts-nocheck
+
+import {Vector3} from '../core/math/Vector3';
+import {Vector2} from '../core/math/Vector2';
 
 // Parse an option from the options object
 // If the option is not present, return the default value
@@ -11,26 +13,26 @@ export const parseOption = (options: any, optionname: string, defaultvalue: any)
   return result;
 };
 
-// Parse an option and force into a Vector3D. If a scalar is passed it is converted
+// Parse an option and force into a Vector3. If a scalar is passed it is converted
 // into a vector with equal x,y,z
 export const parseOptionAs3DVector = (options: any, optionname: string, defaultvalue: any) => {
   let result = parseOption(options, optionname, defaultvalue);
-  result = new Vector3D(result);
+  result = new Vector3(result);
   return result;
 };
 
 export const parseOptionAs3DVectorList = (options: any, optionname: string, defaultvalue: any) => {
   const result = parseOption(options, optionname, defaultvalue);
   return result.map((res: any) => {
-    return new Vector3D(res);
+    return new Vector3(res);
   });
 };
 
-// Parse an option and force into a Vector2D. If a scalar is passed it is converted
+// Parse an option and force into a Vector2. If a scalar is passed it is converted
 // into a vector with equal x,y
 export const parseOptionAs2DVector = (options: any, optionname: string, defaultvalue: any) => {
   let result = parseOption(options, optionname, defaultvalue);
-  result = new Vector2D(result);
+  result = new Vector2(result);
   return result;
 };
 

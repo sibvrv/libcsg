@@ -1,7 +1,12 @@
+// @ts-nocheck
+
 import {EPS} from '../../core/constants';
-const Vertex = require('../../core/math/Vertex3');
-const Polygon = require('../../core/math/Polygon3');
+import Vertex from '../../core/math/Vertex3';
+import Polygon from '../../core/math/Polygon3';
 import {fnNumberSort} from '../../core/utils';
+import CSG from '../../core/CSG';
+import {fromPolygons} from '../../core/CSGFactories';
+// import {sphere} from './primitives3d'
 
 /**
  * Create the expanded shell of the solid:
@@ -16,10 +21,6 @@ import {fnNumberSort} from '../../core/utils';
  * @param  {Boolean} unionWithThis
  */
 export const expandedShellOfCCSG = (_csg: any, radius: number, resolution: number, unionWithThis?: boolean) => {
-  const CSG = require('../../core/CSG'); // FIXME: circular dependency ! CSG => this => CSG
-  const {fromPolygons} = require('../../core/CSGFactories'); // FIXME: circular dependency !
-  // const {sphere} = require('./primitives3d') // FIXME: circular dependency !
-
   const csg = _csg.reTesselated();
   let result: any;
   if (unionWithThis) {

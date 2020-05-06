@@ -1,4 +1,4 @@
-import {CSG} from '../src/csg';
+import CSG from '../src/core/CSG';
 import {expect} from 'chai';
 
 describe('CSG Properties', () => {

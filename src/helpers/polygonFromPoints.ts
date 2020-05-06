@@ -1,6 +1,8 @@
-const Vertex3 = require('../core/math/Vertex3');
-const Vector3 = require('../core/math/Vector3');
-const Polygon3 = require('../core/math/Polygon3');
+// @ts-nocheck
+
+import Vertex3 from '../core/math/Vertex3';
+import Vector3 from '../core/math/Vector3';
+import Polygon3 from '../core/math/Polygon3';
 
 /**
  * Polygon From Points

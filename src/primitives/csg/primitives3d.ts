@@ -1,12 +1,14 @@
+// @ts-nocheck
+
 import {parseOption, parseOptionAs2DVector, parseOptionAs3DVector, parseOptionAs3DVectorList, parseOptionAsFloat, parseOptionAsInt} from '../../api/optionParsers';
 import {defaultResolution2D, defaultResolution3D, EPS} from '../../core/constants';
 import {fromPolygons} from '../../core/CSGFactories';
 
-const Vector3 = require('../../core/math/Vector3');
-const Vertex3 = require('../../core/math/Vertex3');
-const Polygon3 = require('../../core/math/Polygon3');
-const {Connector} = require('../../core/connectors');
-const Properties = require('../../core/Properties');
+import Vector3 from '../../core/math/Vector3';
+import {Vertex3} from '../../core/math/Vertex3';
+import Polygon3 from '../../core/math/Polygon3';
+import {Connector} from '../../core/connectors';
+import Properties from '../../core/Properties';
 
 /** Construct an axis-aligned solid cuboid.
  * @param {Object} [options] - options for construction

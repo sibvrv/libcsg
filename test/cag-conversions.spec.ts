@@ -1,7 +1,9 @@
-import test from 'ava';
-import {CAG} from '../src/csg';
+// @ts-nocheck
+/* tslint:disable */
 
-const {clearTags} = require('./helpers/clearTags');
+import test from 'ava';
+import CAG from '../src/core/CAG';
+import {clearTags} from './helpers/clearTags';
 
 //
 // Test suite for CAG Conversions

@@ -1,8 +1,11 @@
+// @ts-nocheck
+
 import {defaultResolution3D} from '../../core/constants';
-const {parseOptionAs3DVector, parseOptionAsFloat, parseOptionAsInt} = require('../../api/optionParsers');
+import {parseOptionAs3DVector, parseOptionAsFloat, parseOptionAsInt} from '../../api/optionParsers';
 import {fromPolygons} from '../../core/CSGFactories';
-const {Connector} = require('../../core/connectors');
-const Vector3D = require('../../core/math/Vector3');
+import {Connector} from '../../core/connectors';
+import Vector3D from '../../core/math/Vector3';
+import CSG from '../../core/CSG';
 
 /** linear extrusion of 2D shape, with optional twist
  * @param  {CAG} cag the cag to extrude
@@ -15,7 +18,6 @@ const Vector3D = require('../../core/math/Vector3');
  * @example extruded=cag.extrude({offset: [0,0,10], twistangle: 360, twiststeps: 100});
  */
 export const extrude = (cag: any, options: any) => {
-  const CSG = require('../../core/CSG'); // FIXME: circular dependencies CAG=>CSG=>CAG
   if (cag.sides.length === 0) {
     // empty! : FIXME: should this throw ?
     return new CSG();

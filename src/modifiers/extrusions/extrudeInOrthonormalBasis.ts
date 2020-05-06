@@ -1,5 +1,7 @@
-const OrthoNormalBasis = require('../../core/math/OrthoNormalBasis');
-const {parseOptionAsBool} = require('../../api/optionParsers');
+// @ts-nocheck
+
+import OrthoNormalBasis from '../../core/math/OrthoNormalBasis';
+import {parseOptionAsBool} from '../../api/optionParsers';
 
 /** extrude the CAG in a certain plane.
  * Giving just a plane is not enough, multiple different extrusions in the same plane would be possible

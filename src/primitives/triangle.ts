@@ -1,4 +1,4 @@
-const {CAG} = require('../csg');// we have to import from top level otherwise prototypes are not complete..
+import CAG from '../core/CAG';// we have to import from top level otherwise prototypes are not complete..
 import {fromPoints} from '../core/CAGFactories';
 
 // FIXME: errr this is kinda just a special case of a polygon , why do we need it ?

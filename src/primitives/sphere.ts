@@ -1,7 +1,9 @@
+// @ts-nocheck
+/* tslint:disable */
+
 import {geodesicSphere} from './geodesicSphere';
 import {translate} from '../modifiers/transforms';
-
-const {CSG} = require('../csg');
+import CSG from '../core/CSG';
 
 /**
  * Sphere Type Enum

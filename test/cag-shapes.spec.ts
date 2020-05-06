@@ -1,5 +1,8 @@
+// @ts-nocheck
+/* tslint:disable */
+
 import test from 'ava';
-import {CAG} from '../src/csg';
+import CAG from '../src/core/CAG';
 import {OBJ} from './helpers/obj-store';
 import {CAGNearlyEquals} from './helpers/asserts';
 

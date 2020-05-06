@@ -1,4 +1,6 @@
-const Vector3D = require('../math/Vector3');
+// @ts-nocheck
+
+import Vector3D from '../math/Vector3';
 
 /**
  * Returns an array of Vector3D, providing minimum coordinates and maximum coordinates

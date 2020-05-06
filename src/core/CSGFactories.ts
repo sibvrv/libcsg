@@ -1,8 +1,11 @@
-const Vector3D = require('./math/Vector3');
-const Vertex = require('./math/Vertex3');
-const Plane = require('./math/Plane');
-const Polygon2D = require('./math/Polygon2');
-const Polygon3D = require('./math/Polygon3');
+// @ts-nocheck
+
+import Vector3D from './math/Vector3';
+import {Vertex3} from './math/Vertex3';
+import Plane from './math/Plane';
+import Polygon2D from './math/Polygon2';
+import Polygon3D from './math/Polygon3';
+import CSG from './CSG';
 
 /**
  * Construct a CSG solid from a list of `Polygon` instances.
@@ -10,7 +13,6 @@ const Polygon3D = require('./math/Polygon3');
  * @returns {CSG} new CSG object
  */
 export const fromPolygons = (polygons: any) => {
-  const CSG = require('./CSG');
   const csg = new CSG();
   csg.polygons = polygons;
   csg.isCanonicalized = false;
@@ -86,7 +88,7 @@ export function fromCompactBinary(bin: any) {
     y = vertexData[arrayindex++];
     z = vertexData[arrayindex++];
     pos = Vector3D.Create(x, y, z);
-    vertex = new Vertex(pos);
+    vertex = new Vertex3(pos);
     vertices.push(vertex);
   }
 

@@ -1,4 +1,6 @@
-const Path2D = require('../../core/math/Path2');
+// @ts-nocheck
+
+import Path2D from '../../core/math/Path2';
 
 /** rectangular extrusion of the given array of points
  * @param {Array} basePoints array of points (nested) to extrude from

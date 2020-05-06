@@ -1,5 +1,5 @@
-const {CSG} = require('../csg');
-const {circle} = require('./');
+import CSG from '../core/CSG';
+import {circle} from './';
 import {rotate_extrude} from '../modifiers/extrusions';
 import {translate} from '../modifiers/transforms';
 

@@ -1,4 +1,4 @@
-const OrthoNormalBasis = require('../../core/math/OrthoNormalBasis');
+import OrthoNormalBasis from '../../core/math/OrthoNormalBasis';
 import {extrudeInOrthonormalBasis} from './extrudeInOrthonormalBasis';
 
 /** Extrude in a standard cartesian plane, specified by two axis identifiers. Each identifier can be

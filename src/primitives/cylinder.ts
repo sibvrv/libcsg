@@ -1,5 +1,8 @@
+// @ts-nocheck
+/* tslint:disable */
+
 import {translate} from '../modifiers/transforms';
-const {CSG} = require('../csg');
+import CSG from '../core/CSG';
 
 /** Construct a cylinder
  * @param {Object} [options] - options for construction

@@ -1,6 +1,7 @@
 import {EPS, angleEPS} from '../../core/constants';
-const Vector2D = require('../../core/math/Vector2');
+import Vector2D from '../../core/math/Vector2';
 import {fromPoints, fromPointsNoCheck} from '../../core/CAGFactories';
+import CAG from '../../core/CAG';
 
 /**
  * Expanded Shell Of CAG
@@ -9,8 +10,6 @@ import {fromPoints, fromPointsNoCheck} from '../../core/CAGFactories';
  * @param resolution
  */
 export const expandedShellOfCAG = (_cag: any, radius: number, resolution: number) => {
-  const CAG = require('../../core/CAG'); // FIXME, circular dependency !!
-
   resolution = resolution || 8;
   if (resolution < 4) resolution = 4;
   const cags = [];

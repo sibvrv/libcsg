@@ -1,7 +1,7 @@
 import test from 'ava';
 import {CAG, CSG} from '../src/csg';
 
-const {nearlyEqual} = require('./helpers/nearlyEqual');
+import {nearlyEqual} from './helpers/nearlyEqual';
 
 // helper function, gives a much more compact variant of the the side data
 // hint : this could also be used to streamline the cag implementation in the future

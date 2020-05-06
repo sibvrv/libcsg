@@ -1,6 +1,8 @@
-const Vector3D = require('./Vector3');
-const Vertex = require('./Vertex3');
-const Polygon3 = require('./Polygon3');
+// @ts-nocheck
+
+import Vector3D from './Vector3';
+import {Vertex3} from './Vertex3';
+import Polygon3 from './Polygon3';
 
 // FIXME : redundant code with Polygon3.createFromPoints , but unuseable due to circular dependencies
 /** Create a polygon from the given points.
@@ -21,7 +23,7 @@ export const fromPoints = (points: number[][], shared: any, plane?: any) => {
   const vertices: any[] = [];
   points.map((p) => {
     const vec = new Vector3D(p);
-    const vertex = new Vertex(vec);
+    const vertex = new Vertex3(vec);
     vertices.push(vertex);
   });
 

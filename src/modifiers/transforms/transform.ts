@@ -1,4 +1,4 @@
-const Matrix4 = require('../../core/math/Matrix4');
+import {Matrix4x4} from '../../core/math/Matrix4';
 
 /** apply the given matrix transform to the given objects
  * @param {Array} matrix - the 4x4 matrix to apply, as a simple 1d array of 16 elements
@@ -14,7 +14,7 @@ const Matrix4 = require('../../core/math/Matrix4');
  * 0,           0, 0,  1
  * ], sphere())
  */
-export function transform(matrix: any, ...objects: any) { // v, obj or array
+export function transform(matrix: number[], ...objects: any) { // v, obj or array
   const _objects = (objects.length >= 1 && objects[0].length) ? objects[0] : objects;
   let object = _objects[0];
 
@@ -28,11 +28,13 @@ export function transform(matrix: any, ...objects: any) { // v, obj or array
   if (!Array.isArray(matrix)) {
     throw new Error('Matrix needs to be an array');
   }
+
   matrix.forEach(element => {
     if (!Number.isFinite(element)) {
       throw new Error('you can only use a flat array of valid, finite numbers (float and integers)');
     }
   });
-  transformationMatrix = new Matrix4(matrix);
+
+  transformationMatrix = new Matrix4x4(matrix);
   return object.transform(transformationMatrix);
 }

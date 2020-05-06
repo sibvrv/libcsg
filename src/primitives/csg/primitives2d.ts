@@ -1,9 +1,11 @@
-const CAG = require('../../core/CAG');
+// @ts-nocheck
+
+import CAG from '../../core/CAG';
 import {parseOptionAs2DVector, parseOptionAsFloat, parseOptionAsInt} from '../../api/optionParsers';
 import {defaultResolution2D} from '../../core/constants';
 import {fromPath2, fromPoints} from '../../core/CAGFactories';
-const Vector2D = require('../../core/math/Vector2');
-const Path2D = require('../../core/math/Path2');
+import Vector2D from '../../core/math/Vector2';
+import Path2D from '../../core/math/Path2';
 
 /** Construct a circle.
  * @param {Object} [options] - options for construction

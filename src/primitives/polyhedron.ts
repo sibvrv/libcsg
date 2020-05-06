@@ -1,7 +1,10 @@
-const {CSG} = require('../csg');
-const Polygon3 = require('../core/math/Polygon3');
-const Vector3 = require('../core/math/Vector3');
-const Vertex3 = require('../core/math/Vertex3');
+// @ts-nocheck
+
+import CSG from '../core/CSG';
+import Polygon3 from '../core/math/Polygon3';
+import Vector3 from '../core/math/Vector3';
+import {Vertex3} from '../core/math/Vertex3';
+import {fromPolygons} from '../core/CSGFactories';
 
 /** Construct a polyhedron from the given triangles/ polygons/points
  * @param {Object} [options] - options for construction
@@ -39,6 +42,5 @@ export function polyhedron(params: any) {
   }
 
   // forced to import here, otherwise out of order imports mess things up
-  const {fromPolygons} = require('../core/CSGFactories');
   return fromPolygons(pgs);
 }

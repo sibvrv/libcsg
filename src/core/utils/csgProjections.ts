@@ -1,4 +1,6 @@
-const CAG = require('../CAG'); // FIXME: circular dependency !
+// @ts-nocheck
+
+import CAG from '../CAG'; // FIXME: circular dependency !
 import {EPS} from '../constants';
 
 // project the 3D CSG onto a plane
