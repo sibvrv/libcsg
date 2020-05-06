@@ -33,7 +33,8 @@ import * as _Line3D from './math/Line3';
 import * as _Path2D from './math/Path2';
 import * as _OrthoNormalBasis from './math/OrthoNormalBasis';
 import {Matrix4x4 as _Matrix4x4} from './math/Matrix4';
-import {Connector, ConnectorList} from './connectors';
+import {Connector} from './Connector';
+import {ConnectorList} from './ConnectorList';
 import * as _Properties from './Properties';
 import {TransformationMethods} from './TransformationMethods';
 

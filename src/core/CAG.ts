@@ -1,4 +1,4 @@
-import {Connector} from './connectors';
+import {Connector} from './Connector';
 import {Vertex3 as Vertex3D} from './math/Vertex3';
 import {Vector2 as Vector2D} from './math/Vector2';
 import {Vector3 as Vector3D} from './math/Vector3';

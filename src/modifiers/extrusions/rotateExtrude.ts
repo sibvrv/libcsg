@@ -1,7 +1,7 @@
 import {EPS, defaultResolution3D} from '../../core/constants';
 import {parseOptionAsFloat, parseOptionAsInt} from '../../api/optionParsers';
 import Vector3D from '../../core/math/Vector3';
-import {Connector} from '../../core/connectors';
+import {Connector} from '../../core/Connector';
 import {fromPolygons} from '../../core/CSGFactories';
 
 // THIS IS AN OLD untested !!! version of rotate extrude

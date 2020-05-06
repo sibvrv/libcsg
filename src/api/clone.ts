@@ -6,8 +6,11 @@
  * @example
  * let copy = clone(sphere())
  */
-export function clone(obj: any) {
-  if (obj === null || typeof obj !== 'object') return obj;
+export const clone = (obj: any) => {
+  if (obj === null || typeof obj !== 'object') {
+    return obj;
+  }
+
   const copy = obj.constructor();
 
   for (const attr in obj) {

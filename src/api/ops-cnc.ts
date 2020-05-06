@@ -1,13 +1,14 @@
+import {CSG} from '../core/CSG';
 import {Matrix4x4} from '../core/math/Matrix4';
-import {Vector3D} from '../core/math/Vector3';
-import {Connector} from '../core/connectors';
+import {Vector3} from '../core/math/Vector3';
+import {Connector} from '../core/Connector';
 import {fromPoints} from '../core/CAGFactories';
 import {Vector2} from '../core/math/Vector2';
 
 // Get the transformation that transforms this CSG such that it is lying on the z=0 plane,
 // as flat as possible (i.e. the least z-height).
 // So that it is in an orientation suitable for CNC milling
-export const getTransformationAndInverseTransformationToFlatLying = (_csg: any) => {
+export const getTransformationAndInverseTransformationToFlatLying = (_csg: CSG) => {
   if (_csg.polygons.length === 0) {
     const m = new Matrix4x4(); // unity
     return [m, m];
@@ -22,9 +23,9 @@ export const getTransformationAndInverseTransformationToFlatLying = (_csg: any) 
     // gives the least height in z-direction.
     // If two planes give the same height, pick the plane that originally had a normal closest
     // to [0,0,-1].
-    const xvector = new Vector3D(1, 0, 0);
-    const yvector = new Vector3D(0, 1, 0);
-    const zvector = new Vector3D(0, 0, 1);
+    const xvector = new Vector3(1, 0, 0);
+    const yvector = new Vector3(0, 1, 0);
+    const zvector = new Vector3(0, 0, 1);
     const z0connectorx = new Connector([0, 0, 0], [0, 0, -1], xvector);
     const z0connectory = new Connector([0, 0, 0], [0, 0, -1], yvector);
     let isfirst = true;
@@ -69,7 +70,7 @@ export const getTransformationAndInverseTransformationToFlatLying = (_csg: any) 
       }
       if (isbetter) {
         // translate the transformation around the z-axis and onto the z plane:
-        const translation = new Vector3D([-0.5 * (bounds[1].x + bounds[0].x), -0.5 * (bounds[1].y + bounds[0].y), -bounds[0].z]);
+        const translation = new Vector3([-0.5 * (bounds[1].x + bounds[0].x), -0.5 * (bounds[1].y + bounds[0].y), -bounds[0].z]);
         transformation = transformation.multiply(Matrix4x4.translation(translation));
         inversetransformation = Matrix4x4.translation(translation.negated()).multiply(inversetransformation);
         minheight = zheight;

@@ -2,11 +2,11 @@ import {parseOption, parseOptionAs2DVector, parseOptionAs3DVector, parseOptionAs
 import {defaultResolution2D, defaultResolution3D, EPS} from '../../core/constants';
 import {fromPolygons} from '../../core/CSGFactories';
 
-import Vector3 from '../../core/math/Vector3';
+import {Vector3} from '../../core/math/Vector3';
 import {Vertex3} from '../../core/math/Vertex3';
-import Polygon3 from '../../core/math/Polygon3';
-import {Connector} from '../../core/connectors';
-import Properties from '../../core/Properties';
+import {Polygon as Polygon3} from '../../core/math/Polygon3';
+import {Connector} from '../../core/Connector';
+import {Properties} from '../../core/Properties';
 
 /** Construct an axis-aligned solid cuboid.
  * @param {Object} [options] - options for construction

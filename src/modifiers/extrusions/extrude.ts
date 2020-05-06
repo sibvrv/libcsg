@@ -1,9 +1,9 @@
 import {defaultResolution3D} from '../../core/constants';
 import {parseOptionAs3DVector, parseOptionAsFloat, parseOptionAsInt} from '../../api/optionParsers';
 import {fromPolygons} from '../../core/CSGFactories';
-import {Connector} from '../../core/connectors';
+import {Connector} from '../../core/Connector';
 import Vector3D from '../../core/math/Vector3';
-import CSG from '../../core/CSG';
+import {CSG} from '../../core/CSG';
 
 /** linear extrusion of 2D shape, with optional twist
  * @param  {CAG} cag the cag to extrude
