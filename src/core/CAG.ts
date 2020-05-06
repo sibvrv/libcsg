@@ -14,7 +14,7 @@ import {area, getBounds} from './utils/cagMeasurements';
 // all of these are good candidates for elimination in this scope, since they are part of a functional api
 import {overCutInsideCorners} from '../api/ops-cnc';
 import {extrude, extrudeInOrthonormalBasis, extrudeInPlane, rotateExtrude} from '../modifiers/extrusions/';
-import {cagoutlinePaths} from '../api/cagOutlinePaths';
+import {cagOutlinePaths} from '../api/cagOutlinePaths';
 import {center} from '../api/center';
 import {contract, expand, expandedShellOfCAG} from '../modifiers/expansions';
 
@@ -32,7 +32,7 @@ import {TransformationMethods} from './TransformationMethods';
  * @constructor
  */
 export class CAG extends TransformationMethods {
-  sides = [];
+  sides: Side[] = [];
   isCanonicalized = false;
 
   union(cag) {
@@ -177,7 +177,7 @@ export class CAG extends TransformationMethods {
 
   // ALIAS !
   getOutlinePaths() {
-    return cagoutlinePaths(this);
+    return cagOutlinePaths(this);
   }
 
   // ALIAS !

@@ -1,81 +1,115 @@
 import {Path2D} from '../core/math/Path2';
+import {CAG} from '../core/CAG';
+import {Side} from '../core/math/Side';
+import {Vector2} from '../core/math/Vector2';
 
-export const cagoutlinePaths = (_cag) => {
+export const cagOutlinePaths = (_cag: CAG) => {
   const cag = _cag.canonicalized();
-  const sideTagToSideMap = {};
-  const startVertexTagToSideTagMap = {};
 
-  cag.sides.map((side) => {
-    const sidetag = side.getTag();
-    sideTagToSideMap[sidetag] = side;
-    const startvertextag = side.vertex0.getTag();
-    if (!(startvertextag in startVertexTagToSideTagMap)) {
-      startVertexTagToSideTagMap[startvertextag] = [];
+  const sideTagToSideMap: {
+    [hash: number]: Side;
+  } = {};
+
+  const startVertexTagToSideTagMap: {
+    [hash: number]: number[]
+  } = {};
+
+  cag.sides.map((side: Side) => {
+    const sideTag = side.getTag();
+    sideTagToSideMap[sideTag] = side;
+    const startVertexTag = side.vertex0.getTag();
+
+    if (!(startVertexTag in startVertexTagToSideTagMap)) {
+      startVertexTagToSideTagMap[startVertexTag] = [];
     }
-    startVertexTagToSideTagMap[startvertextag].push(sidetag);
+
+    startVertexTagToSideTagMap[startVertexTag].push(sideTag);
   });
 
-  const paths = [];
+  const paths: Path2D[] = [];
   while (true) {
-    let startsidetag = null;
+    let startSideTag = null;
+
+    // tslint:disable-next-line:forin
     for (const aVertexTag in startVertexTagToSideTagMap) {
       const sidesForcagVertex = startVertexTagToSideTagMap[aVertexTag];
-      startsidetag = sidesForcagVertex[0];
+      startSideTag = sidesForcagVertex[0];
       sidesForcagVertex.splice(0, 1);
       if (sidesForcagVertex.length === 0) {
         delete startVertexTagToSideTagMap[aVertexTag];
       }
       break;
     }
-    if (startsidetag === null) break; // we've had all sides
-    const connectedVertexPoints = [];
-    const sidetag = startsidetag;
-    let cagside = sideTagToSideMap[sidetag];
-    const startvertextag = cagside.vertex0.getTag();
+
+    if (startSideTag === null) {
+      break; // we've had all sides
+    }
+
+    const connectedVertexPoints: Vector2[] = [];
+    const sideTag = startSideTag;
+
+    let cagSide = sideTagToSideMap[sideTag];
+    const startVertexTag = cagSide.vertex0.getTag();
     while (true) {
-      connectedVertexPoints.push(cagside.vertex0.pos);
-      const nextvertextag = cagside.vertex1.getTag();
-      if (nextvertextag === startvertextag) break; // we've closed the polygon
-      if (!(nextvertextag in startVertexTagToSideTagMap)) {
+      connectedVertexPoints.push(cagSide.vertex0.pos);
+      const nextVertexTag = cagSide.vertex1.getTag();
+
+      if (nextVertexTag === startVertexTag) {
+        break; // we've closed the polygon
+      }
+
+      if (!(nextVertexTag in startVertexTagToSideTagMap)) {
         throw new Error('Area is not closed!');
       }
-      const nextpossiblesidetags = startVertexTagToSideTagMap[nextvertextag];
-      let nextsideindex = -1;
-      if (nextpossiblesidetags.length === 1) {
-        nextsideindex = 0;
+
+      const nextPossibleSideTags = startVertexTagToSideTagMap[nextVertexTag];
+
+      let nextSideIndex = -1;
+
+      if (nextPossibleSideTags.length === 1) {
+        nextSideIndex = 0;
       } else {
         // more than one side starting at the same vertex. cag means we have
         // two shapes touching at the same corner
-        let bestangle = null;
-        const cagangle = cagside.direction().angleDegrees();
-        for (let sideindex = 0; sideindex < nextpossiblesidetags.length; sideindex++) {
-          const nextpossiblesidetag = nextpossiblesidetags[sideindex];
-          const possibleside = sideTagToSideMap[nextpossiblesidetag];
+
+        let bestAngle = null;
+
+        const cagAngle = cagSide.direction().angleDegrees();
+        for (let sideIndex = 0; sideIndex < nextPossibleSideTags.length; sideIndex++) {
+          const nextPossibleSideTag = nextPossibleSideTags[sideIndex];
+          const possibleside = sideTagToSideMap[nextPossibleSideTag];
           const angle = possibleside.direction().angleDegrees();
-          let angledif = angle - cagangle;
-          if (angledif < -180) angledif += 360;
-          if (angledif >= 180) angledif -= 360;
-          if ((nextsideindex < 0) || (angledif > bestangle)) {
-            nextsideindex = sideindex;
-            bestangle = angledif;
+
+          let angleDiff = angle - cagAngle;
+
+          if (angleDiff < -180) angleDiff += 360;
+          if (angleDiff >= 180) angleDiff -= 360;
+
+          if ((nextSideIndex < 0) || bestAngle === null || (angleDiff > bestAngle)) {
+            nextSideIndex = sideIndex;
+            bestAngle = angleDiff;
           }
         }
       }
-      const nextsidetag = nextpossiblesidetags[nextsideindex];
-      nextpossiblesidetags.splice(nextsideindex, 1);
-      if (nextpossiblesidetags.length === 0) {
-        delete startVertexTagToSideTagMap[nextvertextag];
+
+      const nextSideTag = nextPossibleSideTags[nextSideIndex];
+
+      nextPossibleSideTags.splice(nextSideIndex, 1);
+      if (nextPossibleSideTags.length === 0) {
+        delete startVertexTagToSideTagMap[nextVertexTag];
       }
-      cagside = sideTagToSideMap[nextsidetag];
-    } // inner loop
-    // due to the logic of fromPoints()
-    // move the first point to the last
-    if (connectedVertexPoints.length > 0) {
-      connectedVertexPoints.push(connectedVertexPoints.shift());
+
+      cagSide = sideTagToSideMap[nextSideTag];
     }
+
+    // due to the logic of fromPoints() move the first point to the last
+    if (connectedVertexPoints.length > 0) {
+      connectedVertexPoints.push(connectedVertexPoints.shift()!);
+    }
+
     const path = new Path2D(connectedVertexPoints, true);
     paths.push(path);
-  } // outer loop
+  }
 
   return paths;
 };
