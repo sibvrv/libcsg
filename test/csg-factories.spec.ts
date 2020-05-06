@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import test from 'ava';
 
 import Vertex from '../src/core/math/Vertex3';

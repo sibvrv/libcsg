@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import {Vector3D} from './Vector3';
 import {Line3D} from './Line3';
 import {EPS, getTag} from '../constants';

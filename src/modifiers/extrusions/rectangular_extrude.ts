@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import Path2D from '../../core/math/Path2';
 
 /** rectangular extrusion of the given array of points

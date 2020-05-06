@@ -1,7 +1,3 @@
-// @ts-nocheck
-/* tslint:disable */
-
-
 //import * as _Vertex from './math/Vertex2';
 import './math/Polygon3';
 

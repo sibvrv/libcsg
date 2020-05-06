@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import {EPS} from '../../core/constants';
 import Vertex from '../../core/math/Vertex3';
 import Polygon from '../../core/math/Polygon3';

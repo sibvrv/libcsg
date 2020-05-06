@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import CAG from '../CAG'; // FIXME: circular dependency !
 import {EPS} from '../constants';
 

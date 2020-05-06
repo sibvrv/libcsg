@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import CSG from '../core/CSG';
 import Polygon3 from '../core/math/Polygon3';
 import Vector3 from '../core/math/Vector3';

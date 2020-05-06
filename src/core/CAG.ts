@@ -1,6 +1,3 @@
-// @ts-nocheck
-/* tslint:disable */
-
 import {Connector} from './connectors';
 import {Vertex3 as Vertex3D} from './math/Vertex3';
 import {Vector2 as Vector2D} from './math/Vector2';

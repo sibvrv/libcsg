@@ -1,5 +1,3 @@
-// @ts-nocheck
-/* tslint:disable */
 import {Path2D} from '../core/math/Path2';
 
 export const cagoutlinePaths = (_cag) => {

@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import {Matrix4x4} from './math/Matrix4';
 import Vector3D from './math/Vector3';
 import Plane from './math/Plane';

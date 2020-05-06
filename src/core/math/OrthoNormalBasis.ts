@@ -1,6 +1,3 @@
-// @ts-nocheck
-/* tslint:disable */
-
 import Vector2D from './Vector2';
 import Vector3D from './Vector3';
 import Line2D from './Line2';

@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import {EPS} from '../core/constants';
 import {Plane} from '../core/math/Plane';
 import {Vector2} from '../core/math/Vector2';

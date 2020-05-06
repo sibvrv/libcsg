@@ -1,6 +1,3 @@
-// @ts-nocheck
-/* tslint:disable */
-
 import {geodesicSphere} from './geodesicSphere';
 import {translate} from '../modifiers/transforms';
 import CSG from '../core/CSG';

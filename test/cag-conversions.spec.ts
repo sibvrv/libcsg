@@ -1,6 +1,3 @@
-// @ts-nocheck
-/* tslint:disable */
-
 import test from 'ava';
 import CAG from '../src/core/CAG';
 import {clearTags} from './helpers/clearTags';

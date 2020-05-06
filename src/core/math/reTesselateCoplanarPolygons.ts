@@ -1,6 +1,3 @@
-// @ts-nocheck
-/* tslint:disable */
-
 import {EPS} from '../constants';
 import OrthoNormalBasis from './OrthoNormalBasis';
 import {interpolateBetween2DPointsForY, insertSorted, fnNumberSort} from '../utils';

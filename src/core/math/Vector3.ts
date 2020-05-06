@@ -1,6 +1,3 @@
-// @ts-nocheck
-/* tslint:disable */
-
 import {IsFloat} from '../utils';
 import {Vector2} from './Vector2';
 

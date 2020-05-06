@@ -1,6 +1,3 @@
-// @ts-nocheck
-/* tslint:disable */
-
 import {Polygon} from '../core/math/Polygon3';
 import {fromPolygons} from '../core/CSGFactories';
 import {fnSortByIndex} from '../core/utils';

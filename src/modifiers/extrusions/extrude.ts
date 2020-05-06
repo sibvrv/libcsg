@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import {defaultResolution3D} from '../../core/constants';
 import {parseOptionAs3DVector, parseOptionAsFloat, parseOptionAsInt} from '../../api/optionParsers';
 import {fromPolygons} from '../../core/CSGFactories';

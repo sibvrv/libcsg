@@ -1,6 +1,3 @@
-// @ts-nocheck
-/* tslint:disable */
-
 import {translate} from '../modifiers/transforms';
 
 import CSG from '../core/CSG';

@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import OrthoNormalBasis from '../../core/math/OrthoNormalBasis';
 import {parseOptionAsBool} from '../../api/optionParsers';
 

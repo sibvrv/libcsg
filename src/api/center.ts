@@ -1,6 +1,3 @@
-// @ts-nocheck
-/* tslint:disable */
-
 /**
  * Centers the given object(s) using the given options (if any)
  * @param {Object} [options] - options for centering

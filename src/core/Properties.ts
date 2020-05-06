@@ -1,6 +1,3 @@
-// @ts-nocheck
-/* tslint:disable */
-
 // ////////////////////////////////////
 // # Class Properties
 // This class is used to store properties of a solid

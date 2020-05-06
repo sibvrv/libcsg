@@ -1,6 +1,3 @@
-// @ts-nocheck
-/* tslint:disable */
-
 import {_CSGDEBUG, EPS} from './constants';
 import Vertex from './math/Vertex3';
 import Polygon from './math/Polygon3';

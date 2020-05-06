@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import Vector2D from '../math/Vector2';
 
 // see http://local.wasp.uwa.edu.au/~pbourke/geometry/polyarea/ :

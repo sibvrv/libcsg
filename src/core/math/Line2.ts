@@ -1,6 +1,3 @@
-// @ts-nocheck
-/* tslint:disable */
-
 import {Vector2} from './Vector2';
 import {solve2Linear} from '../utils';
 

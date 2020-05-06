@@ -1,6 +1,3 @@
-// @ts-nocheck
-/* tslint:disable */
-
 import {Vector3} from './Vector3';
 import {Vector2} from './Vector2';
 import {getTag} from '../constants';

@@ -1,6 +1,3 @@
-// @ts-nocheck
-/* tslint:disable */
-
 import {EPS} from '../constants';
 import FuzzyCSGFactory from '../FuzzyFactory3d';
 import FuzzyCAGFactory from '../FuzzyFactory2d';

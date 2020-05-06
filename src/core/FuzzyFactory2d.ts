@@ -1,6 +1,3 @@
-// @ts-nocheck
-/* tslint:disable */
-
 import {FuzzyFactory} from './FuzzyFactory';
 import {EPS} from './constants';
 import Side from './math/Side';

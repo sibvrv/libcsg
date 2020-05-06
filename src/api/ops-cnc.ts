@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import {Matrix4x4} from '../core/math/Matrix4';
 import {Vector3D} from '../core/math/Vector3';
 import {Connector} from '../core/connectors';

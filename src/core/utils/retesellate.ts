@@ -1,6 +1,3 @@
-// @ts-nocheck
-/* tslint:disable */
-
 import FuzzyCSGFactory from '../FuzzyFactory3d';
 import reTesselateCoplanarPolygons from '../math/reTesselateCoplanarPolygons';
 import {fromPolygons} from '../CSGFactories';

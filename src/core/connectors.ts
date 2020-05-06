@@ -1,6 +1,3 @@
-// @ts-nocheck
-/* tslint:disable */
-
 import {Vector3D} from './math/Vector3';
 import {Line3D} from './math/Line3';
 import {Matrix4x4} from './math/Matrix4';

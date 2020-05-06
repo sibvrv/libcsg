@@ -1,6 +1,3 @@
-// @ts-nocheck
-/* tslint:disable */
-
 import {EPS} from '../constants';
 import Polygon from '../math/Polygon3';
 import Plane from '../math/Plane';

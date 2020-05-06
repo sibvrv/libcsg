@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import CAG from '../../core/CAG';
 import {parseOptionAs2DVector, parseOptionAsFloat, parseOptionAsInt} from '../../api/optionParsers';
 import {defaultResolution2D} from '../../core/constants';

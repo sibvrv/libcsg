@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import {EPS, defaultResolution3D} from '../../core/constants';
 import {parseOptionAsFloat, parseOptionAsInt} from '../../api/optionParsers';
 import Vector3D from '../../core/math/Vector3';

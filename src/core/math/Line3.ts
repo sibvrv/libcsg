@@ -1,6 +1,3 @@
-// @ts-nocheck
-/* tslint:disable */
-
 import Vector3D from './Vector3';
 import {EPS} from '../constants';
 import {solve2Linear} from '../utils';

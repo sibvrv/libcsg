@@ -1,6 +1,3 @@
-// @ts-nocheck
-/* tslint:disable */
-
 import {Vector2} from './Vector2';
 import {Vector3} from './Vector3';
 import {Vertex3} from './Vertex3';

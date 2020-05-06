@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import {Vector2} from './Vector2';
 import {Vertex2} from './Vertex2';
 import {Vertex3} from './Vertex3';

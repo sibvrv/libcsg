@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import Vector3D from '../math/Vector3';
 
 /**

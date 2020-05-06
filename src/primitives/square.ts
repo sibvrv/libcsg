@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import CAG from '../core/CSG';// we have to import from top level otherwise prototypes are not complete..
 
 export interface ISquareOptions {
