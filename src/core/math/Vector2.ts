@@ -36,7 +36,7 @@ export class Vector2 extends TransformationMethods {
 
   constructor(x?: number | Vector2 | Vector3 | [number, number] | { x: number | string, y: number | string } | string, y?: number | string) {
     super();
-    if (typeof x === 'object') {
+    if (typeof x === 'object' && x !== null) {
       if (Array.isArray(x)) {
         this._x = x[0] || 0;
         this._y = x[1] || 0;
@@ -48,8 +48,8 @@ export class Vector2 extends TransformationMethods {
         this._y = 'y' in x ? (typeof x.y === 'string' ? parseFloat(x.y) : x.y) : 0;
       }
     } else {
-      this._x = typeof x === 'string' ? parseFloat(x) : (x || 0);
-      this._y = typeof y === 'string' ? parseFloat(y) : (y || 0);
+      this._x = (typeof x === 'string' ? parseFloat(x) : x) || 0;
+      this._y = (typeof y === 'string' ? parseFloat(y) : y) || 0;
     }
 // throw new Error('wrong arguments');
   }
@@ -58,12 +58,12 @@ export class Vector2 extends TransformationMethods {
     return this._x;
   }
 
-  get y() {
-    return this._y;
-  }
-
   set x(v: number) {
     throw new Error('Vector2 is immutable');
+  }
+
+  get y() {
+    return this._y;
   }
 
   set y(v: number) {
@@ -75,7 +75,7 @@ export class Vector2 extends TransformationMethods {
     return new Vector3(this._x, this._y, z);
   }
 
-  equals(a) {
+  equals(a: Vector2) {
     return (this._x === a._x) && (this._y === a._y);
   }
 
@@ -87,27 +87,27 @@ export class Vector2 extends TransformationMethods {
     return Vector2.Create(-this._x, -this._y);
   }
 
-  plus(a) {
+  plus(a: Vector2) {
     return Vector2.Create(this._x + a._x, this._y + a._y);
   }
 
-  minus(a) {
+  minus(a: Vector2) {
     return Vector2.Create(this._x - a._x, this._y - a._y);
   }
 
-  times(a) {
+  times(a: number) {
     return Vector2.Create(this._x * a, this._y * a);
   }
 
-  dividedBy(a) {
+  dividedBy(a: number) {
     return Vector2.Create(this._x / a, this._y / a);
   }
 
-  dot(a) {
+  dot(a: Vector2) {
     return this._x * a._x + this._y * a._y;
   }
 
-  lerp(a, t) {
+  lerp(a: Vector2, t: number) {
     return this.plus(a.minus(this).times(t));
   }
 
@@ -115,11 +115,11 @@ export class Vector2 extends TransformationMethods {
     return Math.sqrt(this.dot(this));
   }
 
-  distanceTo(a) {
+  distanceTo(a: Vector2) {
     return this.minus(a).length();
   }
 
-  distanceToSquared(a) {
+  distanceToSquared(a: Vector2) {
     return this.minus(a).lengthSquared();
   }
 
@@ -131,7 +131,7 @@ export class Vector2 extends TransformationMethods {
     return this.dividedBy(this.length());
   }
 
-  cross(a) {
+  cross(a: Vector2) {
     return this._x * a._y - this._y * a._x;
   }
 
