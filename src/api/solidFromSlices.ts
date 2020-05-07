@@ -2,6 +2,12 @@ import {Polygon3} from '../core/math/Polygon3';
 import {fromPolygons} from '../core/CSGFactories';
 import {fnSortByIndex} from '../core/utils';
 
+export interface ISolidFromSlices {
+  loop: boolean;
+  numslices: number;
+  callback: any;
+}
+
 // FIXME: WHY is this for 3D polygons and not for 2D shapes ?
 /**
  * Creates solid from slices (Polygon) by generating walls
@@ -12,7 +18,7 @@ import {fnSortByIndex} from '../core/utils';
  *          return: Polygon or null to skip
  *  - loop {Boolean} no flats, only walls, it's used to generate solids like a tor
  */
-export const solidFromSlices = (polygon, options) => {
+export const solidFromSlices = (polygon, options: ISolidFromSlices) => {
   const polygons = [];
   let csg = null;
   let prev = null;
@@ -39,9 +45,9 @@ export const solidFromSlices = (polygon, options) => {
       [0, 0, 0],
       [1, 0, 0],
       [1, 1, 0],
-      [0, 1, 0]
+      [0, 1, 0],
     ]);
-    fnCallback = function (t, slice) {
+    fnCallback = (t: number, slice) => {
       return t === 0 || t === 1 ? square.translate([0, 0, t]) : null;
     };
   }
@@ -68,7 +74,7 @@ export const solidFromSlices = (polygon, options) => {
 
   if (bLoop) {
     const bSameTopBottom = bottom.vertices.length === top.vertices.length &&
-      bottom.vertices.every(function (v, index) {
+      bottom.vertices.every(function(v, index) {
         return v.pos.equals(top.vertices[index].pos);
       });
     // if top and bottom are not the same -
@@ -90,7 +96,7 @@ export const solidFromSlices = (polygon, options) => {
  * @param bottom Bottom polygon
  * @param top Top polygon
  */
-const _addWalls = function (walls, bottom, top, bFlipped) {
+const _addWalls = function(walls, bottom, top, bFlipped) {
   let bottomPoints = bottom.vertices.slice(0); // make a copy
   let topPoints = top.vertices.slice(0); // make a copy
   const color = top.shared || null;
@@ -120,7 +126,7 @@ const _addWalls = function (walls, bottom, top, bFlipped) {
   for (let i = Math.abs(iExtra); i > 0; i--) {
     aMin.push({
       len: Infinity,
-      index: -1
+      index: -1,
     });
   }
 
@@ -168,7 +174,7 @@ const _addWalls = function (walls, bottom, top, bFlipped) {
         secondPoint = topPoints[++iT];
         // console.log('<<< extra top: ' + secondPoint + ', ' + tpoint + ', bottom: ' + bpoint);
         walls.push(getTriangle(
-          secondPoint, tpoint, bpoint, color
+          secondPoint, tpoint, bpoint, color,
         ));
         tpoint = secondPoint;
         aMin.shift();
@@ -176,7 +182,7 @@ const _addWalls = function (walls, bottom, top, bFlipped) {
       } else if (bMoreBottoms && iB === aMin[0].index) {
         secondPoint = bottomPoints[++iB];
         walls.push(getTriangle(
-          tpoint, bpoint, secondPoint, color
+          tpoint, bpoint, secondPoint, color,
         ));
         bpoint = secondPoint;
         aMin.shift();
@@ -197,14 +203,14 @@ const _addWalls = function (walls, bottom, top, bFlipped) {
     if (nBotFacet <= nTopFacet) {
       secondPoint = bottomPoints[++iB];
       walls.push(getTriangle(
-        tpoint, bpoint, secondPoint, color
+        tpoint, bpoint, secondPoint, color,
       ));
       bpoint = secondPoint;
     } else if (iT < iTopLen) { // nTopFacet < Infinity
       secondPoint = topPoints[++iT];
       // console.log('<<< top: ' + secondPoint + ', ' + tpoint + ', bottom: ' + bpoint);
       walls.push(getTriangle(
-        secondPoint, tpoint, bpoint, color
+        secondPoint, tpoint, bpoint, color,
       ));
       tpoint = secondPoint;
     }

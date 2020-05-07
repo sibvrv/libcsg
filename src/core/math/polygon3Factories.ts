@@ -1,6 +1,8 @@
 import {Vector3} from './Vector3';
 import {Vertex3} from './Vertex3';
 import {Polygon3} from './Polygon3';
+import {PolygonShared} from './PolygonShared';
+import {Plane} from './Plane';
 
 // FIXME : redundant code with Polygon3.createFromPoints , but unuseable due to circular dependencies
 /** Create a polygon from the given points.
@@ -17,7 +19,7 @@ import {Polygon3} from './Polygon3';
  * ]
  * let polygon = CSG.Polygon.createFromPoints(points)
  */
-export const fromPoints = (points: number[][], shared: any, plane?: any) => {
+export const fromPoints = (points: number[][], shared: PolygonShared, plane?: Plane) => {
   const vertices: any[] = [];
   points.map((p) => {
     const vec = new Vector3(p);

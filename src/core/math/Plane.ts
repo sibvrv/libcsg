@@ -12,9 +12,9 @@ export class Plane extends TransformationMethods {
   tag?: number;
 
 // create from an untyped object with identical property names:
-  static fromObject(obj: Plane | { normal: TVector3Universal, w: number | string }) {
+  static fromObject<T extends Plane | { normal: TVector3Universal, w?: number | string }>(obj: T) {
     const normal = new Vector3(obj.normal);
-    const w = typeof obj.w === 'string' ? parseFloat(obj.w) : obj.w;
+    const w = (typeof obj.w === 'string' ? parseFloat(obj.w) : obj.w) || 0;
     return new Plane(normal, w);
   };
 

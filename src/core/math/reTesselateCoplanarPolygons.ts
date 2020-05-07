@@ -35,7 +35,9 @@ export const reTesselateCoplanarPolygons = (sourcepolygons, destpolygons) => {
       let numvertices = poly3d.vertices.length;
       let minindex = -1;
       if (numvertices > 0) {
-        let miny, maxy, maxindex;
+        let miny;
+        let maxy;
+        let maxindex;
         for (let i = 0; i < numvertices; i++) {
           let pos2d = orthobasis.to2D(poly3d.vertices[i].pos);
           const uvcoordinate = poly3d.vertices[i].uv;
