@@ -1,24 +1,27 @@
 import {areaEPS} from '../constants';
 import {linesIntersect} from '../math/lineUtils';
+import {CAG} from '../CAG';
+import {Vector2} from '../math/Vector2';
 
 // check if we are a valid CAG (for debugging)
 // NOTE(bebbi) uneven side count doesn't work because rounding with EPS isn't taken into account
-export const isCAGValid = (CAG: any) => {
+export const isCAGValid = (cag: CAG) => {
   const errors = [];
-  if (CAG.isSelfIntersecting(true)) {
+  if (cag.isSelfIntersecting(true)) {
     errors.push('Self intersects');
   }
 
-  const pointcount: any = {};
-  CAG.sides.map((side: any) => {
-    function mappoint(p: any) {
-      const tag = p.x + ' ' + p.y;
-      if (!(tag in pointcount)) {
-        pointcount[tag] = 0;
-      }
-      pointcount[tag]++;
-    }
+  const pointcount: { [tagName: string]: number } = {};
 
+  const mappoint = (p: Vector2) => {
+    const tag = p.x + ' ' + p.y;
+    if (!(tag in pointcount)) {
+      pointcount[tag] = 0;
+    }
+    pointcount[tag]++;
+  };
+
+  cag.sides.map((side) => {
     mappoint(side.vertex0.pos);
     mappoint(side.vertex1.pos);
   });
@@ -31,7 +34,7 @@ export const isCAGValid = (CAG: any) => {
     }
   }
 
-  const area = CAG.area();
+  const area = cag.area();
   if (area < areaEPS) {
     errors.push('Area is ' + area);
   }
@@ -45,7 +48,7 @@ export const isCAGValid = (CAG: any) => {
   }
 };
 
-export const isSelfIntersecting = (cag: any, debug?: boolean) => {
+export const isSelfIntersecting = (cag: CAG, debug?: boolean) => {
   const numsides = cag.sides.length;
   for (let i = 0; i < numsides; i++) {
     const side0 = cag.sides[i];
@@ -74,7 +77,7 @@ export const isSelfIntersecting = (cag: any, debug?: boolean) => {
  * @param {Object} p0 - Vertex2 like object
  * @returns {Boolean}
  */
-export const hasPointInside = (cag: any, p0: any) => {
+export const hasPointInside = (cag: CAG, p0: any) => {
   let p1 = null;
   let p2 = null;
   let inside = false;
@@ -96,7 +99,7 @@ hasPointInside.c2 = (p0: any, p1: any, p2: any) => (p0.x < (p2.x - p1.x) * (p0.y
  * @param {Object} cag2 - CAG object
  * @returns {Boolean}
  */
-export const contains = (cag1: any, cag2: any) => {
+export const contains = (cag1: CAG, cag2: CAG) => {
   for (let i = 0, il = cag2.sides.length; i < il; i++) {
     if (!hasPointInside(cag1, cag2.sides[i].vertex0.pos)) {
       return false;

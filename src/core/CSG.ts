@@ -20,17 +20,16 @@ import {contract, expand, expandedShellOfCCSG} from '../modifiers/expansions';
 import {_CSGDEBUG, all, angleEPS, areaEPS, back, bottom, defaultResolution2D, defaultResolution3D, EPS, front, getTag, left, right, staticTag, top} from './constants';
 import {cube, cylinder, cylinderElliptic, polyhedron, roundedCube, roundedCylinder, sphere} from '../primitives/csg/primitives3d';
 import {fromCompactBinary, fromObject, fromPolygons, fromSlices} from './CSGFactories';
-import {addTransformationMethodsToPrototype} from './mutators';
 import * as optionsParsers from '../api/optionParsers';
 
-import {Vector2 as _Vector2D} from './math/Vector2';
-import {Vector3 as _Vector3D} from './math/Vector3';
+import {Vector2} from './math/Vector2';
+import {Vector3} from './math/Vector3';
 import {Vertex3 as _Vertex} from './math/Vertex3';
 import {Polygon2D} from './math/Polygon2';
 import {Line2D} from './math/Line2';
-import * as _Line3D from './math/Line3';
-import * as _Path2D from './math/Path2';
-import {Matrix4x4 as _Matrix4x4} from './math/Matrix4';
+import {Line3D} from './math/Line3';
+import {Path2D} from './math/Path2';
+import {Matrix4x4} from './math/Matrix4';
 import {Connector} from './Connector';
 import {ConnectorList} from './ConnectorList';
 import {TransformationMethods} from './TransformationMethods';
@@ -45,6 +44,7 @@ export class CSG extends TransformationMethods {
   properties = new Properties();
   isCanonicalized = true;
   isRetesselated = true;
+  cachedBoundingBox?: [Vector3, Vector3];
 
   /**
    * Return a new CSG solid representing the space in either this solid or
@@ -226,7 +226,7 @@ export class CSG extends TransformationMethods {
   }
 
   // Affine transformation of CSG object. Returns a new CSG object
-  transform1(matrix4x4) {
+  transform1(matrix4x4: Matrix4x4) {
     const newpolygons = this.polygons.map((p) => {
       return p.transform(matrix4x4);
     });
@@ -247,7 +247,7 @@ export class CSG extends TransformationMethods {
    * m = m.multiply(CSG.Matrix4x4.translation([-.5, 0, 0]))
    * let B = A.transform(m)
    */
-  transform(matrix4x4) {
+  transform(matrix4x4: Matrix4x4) {
     const ismirror = matrix4x4.isMirroring();
     const transformedvertices = {};
     const transformedplanes = {};
@@ -340,7 +340,7 @@ export class CSG extends TransformationMethods {
    * NOTE: this is critical as it is used in UNIONs
    * @param  {CSG} csg
    */
-  mayOverlap(csg) {
+  mayOverlap(csg: CSG) {
     if ((this.polygons.length === 0) || (csg.polygons.length === 0)) {
       return false;
     } else {
@@ -600,17 +600,17 @@ export class CSG extends TransformationMethods {
 // eek ! all this is kept for backwards compatibility...for now
 
 // FIXME: how many are actual useful to be exposed as API ?? looks like a code smell
-  static Vector2D = _Vector2D;
-  static Vector3D = _Vector3D;
+  static Vector2D = Vector2;
+  static Vector3D = Vector3;
   static Vertex = _Vertex;
   static Plane = _Plane;
   static Polygon = Polygon3;
   static Polygon2D = Polygon2D;
   static Line2D = Line2D;
-  static Line3D = _Line3D;
-  static Path2D = _Path2D;
+  static Line3D = Line3D;
+  static Path2D = Path2D;
   static OrthoNormalBasis = _OrthoNormalBasis;
-  static Matrix4x4 = _Matrix4x4;
+  static Matrix4x4 = Matrix4x4;
   static Connector = Connector;
   static ConnectorList = ConnectorList;
   static Properties = Properties;

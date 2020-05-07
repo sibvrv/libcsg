@@ -1,4 +1,5 @@
-import Vector3D from '../math/Vector3';
+import {Vector3} from '../math/Vector3';
+import {CSG} from '../CSG';
 
 /**
  * Returns an array of Vector3D, providing minimum coordinates and maximum coordinates
@@ -8,10 +9,10 @@ import Vector3D from '../math/Vector3';
  * let bounds = A.getBounds()
  * let minX = bounds[0].x
  */
-export const bounds = (csg: any) => {
+export const bounds = (csg: CSG) => {
   if (!csg.cachedBoundingBox) {
-    let minpoint = new Vector3D(0, 0, 0);
-    let maxpoint = new Vector3D(0, 0, 0);
+    let minpoint = new Vector3(0, 0, 0);
+    let maxpoint = new Vector3(0, 0, 0);
     const polygons = csg.polygons;
     const numpolygons = polygons.length;
     for (let i = 0; i < numpolygons; i++) {
@@ -31,7 +32,7 @@ export const bounds = (csg: any) => {
   return csg.cachedBoundingBox;
 };
 
-export const volume = (csg: any) => {
+export const volume = (csg: CSG) => {
   const result = csg.toTriangles().map((triPoly: any) => {
     return triPoly.getTetraFeatures(['volume']);
   });
@@ -39,7 +40,7 @@ export const volume = (csg: any) => {
   console.log('volume', result);
 };
 
-export const area = (csg: any) => {
+export const area = (csg: CSG) => {
   const result = csg.toTriangles().map((triPoly: any) => {
     return triPoly.getTetraFeatures(['area']);
   });
