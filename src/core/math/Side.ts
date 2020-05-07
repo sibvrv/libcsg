@@ -23,7 +23,7 @@ export class Side extends TransformationMethods {
     if (polygon.vertices.length < 4) {
       return null;
     }
-    const vert1Indices = [];
+    const vert1Indices: number[] = [];
     const pts2d = polygon.vertices
       .filter((v, i) => {
         if (v.pos.z > 0) {
@@ -63,7 +63,7 @@ export class Side extends TransformationMethods {
     return this.vertex0 + ' -> ' + this.vertex1;
   }
 
-  toPolygon3D(z0, z1) {
+  toPolygon3D(z0: number, z1: number) {
     // console.log(this.vertex0.pos)
     const vertices = [
       new Vertex3(this.vertex0.pos.toVector3D(z0)),

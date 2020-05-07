@@ -1,6 +1,6 @@
 import {Matrix4x4} from './math/Matrix4';
 import {Plane} from './math/Plane';
-import {Vector3} from './math/Vector3';
+import {TVector3Universal, Vector3} from './math/Vector3';
 
 export abstract class TransformationMethods {
   abstract transform(mat: any): void;
@@ -28,7 +28,7 @@ export abstract class TransformationMethods {
     return this.transform(Matrix4x4.translation(v));
   }
 
-  scale(f: number) {
+  scale(f: TVector3Universal) {
     return this.transform(Matrix4x4.scaling(f));
   }
 

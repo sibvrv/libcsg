@@ -122,7 +122,7 @@ export class Polygon3 extends TransformationMethods {
   /**
    * Polygon3 Constructor
    */
-  constructor(vertices: Vertex3[], shared?: PolygonShared, plane?: Plane) {
+  constructor(vertices: Vertex3[], shared?: PolygonShared | null, plane?: Plane) {
     super();
 
     this.vertices = vertices;

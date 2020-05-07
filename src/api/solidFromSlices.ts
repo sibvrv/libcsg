@@ -96,7 +96,7 @@ export const solidFromSlices = (polygon, options: ISolidFromSlices) => {
  * @param bottom Bottom polygon
  * @param top Top polygon
  */
-const _addWalls = function(walls, bottom, top, bFlipped) {
+const _addWalls = (walls, bottom, top, bFlipped) => {
   let bottomPoints = bottom.vertices.slice(0); // make a copy
   let topPoints = top.vertices.slice(0); // make a copy
   const color = top.shared || null;
@@ -159,7 +159,7 @@ const _addWalls = function(walls, bottom, top, bFlipped) {
   // sort by index
   aMin.sort(fnSortByIndex);
   const getTriangle = function addWallsPutTriangle(pointA, pointB, pointC, color) {
-    return new Polygon([pointA, pointB, pointC], color);
+    return new Polygon3([pointA, pointB, pointC], color);
     // return bFlipped ? triangle.flipped() : triangle;
   };
 

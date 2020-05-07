@@ -5,7 +5,6 @@ import {Plane} from './math/Plane';
 import * as _OrthoNormalBasis from './math/OrthoNormalBasis';
 import {OrthoNormalBasis} from './math/OrthoNormalBasis';
 
-import * as _Properties from './Properties';
 import {Properties} from './Properties';
 import {fixTJunctions} from './utils/fixTJunctions';
 import {canonicalize} from './utils/canonicalize';
@@ -614,7 +613,7 @@ export class CSG extends TransformationMethods {
   static Matrix4x4 = _Matrix4x4;
   static Connector = Connector;
   static ConnectorList = ConnectorList;
-  static Properties = _Properties;
+  static Properties = Properties;
 
   static _CSGDEBUG = _CSGDEBUG;
   static defaultResolution2D = defaultResolution2D;
@@ -653,7 +652,3 @@ export class CSG extends TransformationMethods {
   static parseOptionAsFloat = optionsParsers.parseOptionAsFloat;
   static parseOptionAsInt = optionsParsers.parseOptionAsInt;
 }
-
-addTransformationMethodsToPrototype(CSG.Vertex.prototype);
-addTransformationMethodsToPrototype(CSG.Connector.prototype);
-
