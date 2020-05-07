@@ -1,4 +1,4 @@
-import {Tree} from './trees';
+import {Tree} from './Tree';
 import {Polygon3} from './math/Polygon3';
 import {Plane} from './math/Plane';
 import {OrthoNormalBasis} from './math/OrthoNormalBasis';
