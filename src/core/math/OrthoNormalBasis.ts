@@ -1,6 +1,6 @@
 import Vector2D from './Vector2';
 import Vector3D from './Vector3';
-import Line2D from './Line2';
+import {Line2D} from './Line2';
 import Line3D from './Line3';
 import Plane from './Plane';
 import {Matrix4x4} from './Matrix4';

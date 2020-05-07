@@ -3,7 +3,7 @@ import OrthoNormalBasis from './OrthoNormalBasis';
 import {interpolateBetween2DPointsForY, insertSorted, fnNumberSort} from '../utils';
 import Vertex from './Vertex3';
 import Vector2D from './Vector2';
-import Line2D from './Line2';
+import {Line2D} from './Line2';
 import Polygon from './Polygon3';
 
 

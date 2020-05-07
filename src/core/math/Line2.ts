@@ -1,5 +1,7 @@
 import {Vector2} from './Vector2';
 import {solve2Linear} from '../utils';
+import {Matrix4x4} from './Matrix4';
+import {TransformationMethods} from '../TransformationMethods';
 
 /**  class Line2D
  * Represents a directional line in 2D space
@@ -9,57 +11,65 @@ import {solve2Linear} from '../utils';
  * @param {Vector2} normal normal must be a unit vector!
  * @returns {Line2D}
  */
-export const Line2D = function (normal, w) {
-  normal = new Vector2(normal);
-  w = parseFloat(w);
-  let l = normal.length();
-  // normalize:
-  w *= l;
-  normal = normal.times(1.0 / l);
-  this.normal = normal;
-  this.w = w;
-};
+export class Line2D extends TransformationMethods {
+  normal: Vector2;
+  w: number;
 
-Line2D.fromPoints = function (p1, p2) {
-  p1 = new Vector2(p1);
-  p2 = new Vector2(p2);
-  let direction = p2.minus(p1);
-  let normal = direction.normal().negated().unit();
-  let w = p1.dot(normal);
-  return new Line2D(normal, w);
-};
+  static fromPoints(_p1: Vector2 | [number, number], _p2: Vector2 | [number, number]) {
+    const p1 = new Vector2(_p1);
+    const p2 = new Vector2(_p2);
+    const direction = p2.minus(p1);
+    const normal = direction.normal().negated().unit();
+    const w = p1.dot(normal);
+    return new Line2D(normal, w);
+  };
 
-Line2D.prototype = {
+  /**
+   * Line2D Constructor
+   */
+  constructor(normal: Vector2 | [number, number], w: number | string) {
+    super();
+    normal = new Vector2(normal);
+    w = typeof w === 'string' ? parseFloat(w) : w;
+    const l = normal.length();
+    // normalize:
+    w *= l;
+    normal = normal.times(1.0 / l);
+    this.normal = normal;
+    this.w = w;
+  }
+
   // same line but opposite direction:
-  reverse: function () {
+  reverse() {
     return new Line2D(this.normal.negated(), -this.w);
-  },
+  }
 
-  equals: function (l) {
+  equals(l: Line2D) {
     return (l.normal.equals(this.normal) && (l.w === this.w));
-  },
+  }
 
-  origin: function () {
+  origin() {
     return this.normal.times(this.w);
-  },
+  }
 
-  direction: function () {
+  direction() {
     return this.normal.normal();
-  },
+  }
 
-  xAtY: function (y) {
+  xAtY(y: number) {
     // (py == y) && (normal * p == w)
     // -> px = (w - normal._y * y) / normal.x
-    let x = (this.w - this.normal._y * y) / this.normal.x;
+    const x = (this.w - this.normal._y * y) / this.normal.x;
     return x;
-  },
+  }
 
-  absDistanceToPoint: function (point) {
+  absDistanceToPoint(point: Vector2 | [number, number]) {
     point = new Vector2(point);
-    let pointProjected = point.dot(this.normal);
-    let distance = Math.abs(pointProjected - this.w);
+    const pointProjected = point.dot(this.normal);
+    const distance = Math.abs(pointProjected - this.w);
     return distance;
-  },
+  }
+
   /* FIXME: has error - origin is not defined, the method is never used
    closestPoint: function(point) {
        point = new Vector2(point);
@@ -69,21 +79,20 @@ Line2D.prototype = {
    */
 
   // intersection between two lines, returns point as Vector2
-  intersectWithLine: function (line2d) {
-    let point = solve2Linear(this.normal.x, this.normal.y, line2d.normal.x, line2d.normal.y, this.w, line2d.w);
-    point = new Vector2(point); // make  vector2d
-    return point;
-  },
+  intersectWithLine(line2d: Line2D) {
+    const point = solve2Linear(this.normal.x, this.normal.y, line2d.normal.x, line2d.normal.y, this.w, line2d.w);
+    return new Vector2(point);
+  }
 
-  transform: function (matrix4x4) {
-    let origin = new Vector2(0, 0);
-    let pointOnPlane = this.normal.times(this.w);
-    let neworigin = origin.multiply4x4(matrix4x4);
-    let neworiginPlusNormal = this.normal.multiply4x4(matrix4x4);
-    let newnormal = neworiginPlusNormal.minus(neworigin);
-    let newpointOnPlane = pointOnPlane.multiply4x4(matrix4x4);
-    let neww = newnormal.dot(newpointOnPlane);
+  transform(matrix4x4: Matrix4x4) {
+    const origin = new Vector2(0, 0);
+    const pointOnPlane = this.normal.times(this.w);
+    const neworigin = origin.multiply4x4(matrix4x4);
+    const neworiginPlusNormal = this.normal.multiply4x4(matrix4x4);
+    const newnormal = neworiginPlusNormal.minus(neworigin);
+    const newpointOnPlane = pointOnPlane.multiply4x4(matrix4x4);
+    const neww = newnormal.dot(newpointOnPlane);
     return new Line2D(newnormal, neww);
   }
-};
+}
 

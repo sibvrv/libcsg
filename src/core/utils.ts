@@ -8,7 +8,7 @@ export function fnSortByIndex<T extends { index: number }>(a: T, b: T) {
 
 export const IsFloat = (n: number) => (!isNaN(n)) || (n === Infinity) || (n === -Infinity);
 
-export const solve2Linear = (a: number, b: number, c: number, d: number, u: number, v: number) => {
+export const solve2Linear = (a: number, b: number, c: number, d: number, u: number, v: number): [number, number] => {
   const det = a * d - b * c;
   const invdet = 1.0 / det;
   let x = u * d - b * v;

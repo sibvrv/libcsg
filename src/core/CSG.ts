@@ -28,7 +28,7 @@ import {Vertex3 as _Vertex} from './math/Vertex3';
 import * as _Plane from './math/Plane';
 import * as _Polygon from './math/Polygon3';
 import * as _Polygon2D from './math/Polygon2';
-import * as _Line2D from './math/Line2';
+import {Line2D} from './math/Line2';
 import * as _Line3D from './math/Line3';
 import * as _Path2D from './math/Path2';
 import * as _OrthoNormalBasis from './math/OrthoNormalBasis';
@@ -610,7 +610,7 @@ export class CSG extends TransformationMethods {
   static Plane = _Plane;
   static Polygon = _Polygon;
   static Polygon2D = _Polygon2D;
-  static Line2D = _Line2D;
+  static Line2D = Line2D;
   static Line3D = _Line3D;
   static Path2D = _Path2D;
   static OrthoNormalBasis = _OrthoNormalBasis;
@@ -657,12 +657,10 @@ export class CSG extends TransformationMethods {
   static parseOptionAsInt = optionsParsers.parseOptionAsInt;
 }
 
-addTransformationMethodsToPrototype(CSG.Vector2D.prototype);
 addTransformationMethodsToPrototype(CSG.Vector3D.prototype);
 addTransformationMethodsToPrototype(CSG.Vertex.prototype);
 addTransformationMethodsToPrototype(CSG.Plane.prototype);
 addTransformationMethodsToPrototype(CSG.Polygon.prototype);
-addTransformationMethodsToPrototype(CSG.Line2D.prototype);
 addTransformationMethodsToPrototype(CSG.Line3D.prototype);
 addTransformationMethodsToPrototype(CSG.Path2D.prototype);
 addTransformationMethodsToPrototype(CSG.OrthoNormalBasis.prototype);
