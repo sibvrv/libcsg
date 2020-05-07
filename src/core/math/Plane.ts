@@ -1,25 +1,31 @@
-import {Vector3D} from './Vector3';
+import {TVector3Universal, Vector3} from './Vector3';
 import {Line3D} from './Line3';
 import {EPS, getTag} from '../constants';
+import {Matrix4x4} from './Matrix4';
+import {TransformationMethods} from '../TransformationMethods';
 
 // # class Plane
 // Represents a plane in 3D space.
-export class Plane {
+export class Plane extends TransformationMethods {
+  normal: Vector3;
+  w: number;
+  tag?: number;
+
 // create from an untyped object with identical property names:
-  static fromObject(obj) {
-    const normal = new Vector3D(obj.normal);
-    const w = parseFloat(obj.w);
+  static fromObject(obj: Plane | { normal: TVector3Universal, w: number | string }) {
+    const normal = new Vector3(obj.normal);
+    const w = typeof obj.w === 'string' ? parseFloat(obj.w) : obj.w;
     return new Plane(normal, w);
   };
 
-  static fromVector3Ds(a, b, c) {
+  static fromVector3Ds(a: Vector3, b: Vector3, c: Vector3) {
     const n = b.minus(a).cross(c.minus(a)).unit();
     return new Plane(n, n.dot(a));
   };
 
 // like fromVector3Ds, but allow the vectors to be on one point or one line
 // in such a case a random plane through the given points is constructed
-  static anyPlaneFromVector3Ds(a, b, c) {
+  static anyPlaneFromVector3Ds(a: Vector3, b: Vector3, c: Vector3) {
     let v1 = b.minus(a);
     let v2 = c.minus(a);
     if (v1.length() < EPS) {
@@ -38,22 +44,22 @@ export class Plane {
     return new Plane(normal, normal.dot(a));
   };
 
-  static fromPoints(a, b, c) {
-    a = new Vector3D(a);
-    b = new Vector3D(b);
-    c = new Vector3D(c);
+  static fromPoints(_a: TVector3Universal, _b: TVector3Universal, _c: TVector3Universal) {
+    const a = new Vector3(_a);
+    const b = new Vector3(_b);
+    const c = new Vector3(_c);
     return Plane.fromVector3Ds(a, b, c);
   };
 
-  static fromNormalAndPoint(normal, point) {
-    normal = new Vector3D(normal);
-    point = new Vector3D(point);
-    normal = normal.unit();
+  static fromNormalAndPoint(_normal: TVector3Universal, _point: TVector3Universal) {
+    const normal = new Vector3(_normal).unit();
+    const point = new Vector3(_point);
     const w = point.dot(normal);
     return new Plane(normal, w);
   };
 
-  constructor(normal, w: number) {
+  constructor(normal: Vector3, w: number) {
+    super();
     this.normal = normal;
     this.w = w;
   }
@@ -71,11 +77,11 @@ export class Plane {
     return result;
   }
 
-  equals(n) {
+  equals(n: Plane) {
     return this.normal.equals(n.normal) && this.w === n.w;
   }
 
-  transform(matrix4x4) {
+  transform(matrix4x4: Matrix4x4) {
     const ismirror = matrix4x4.isMirroring();
     // get two vectors in the plane:
     const r = this.normal.randomNonParallelVector();
@@ -101,7 +107,7 @@ export class Plane {
 
   // robust splitting of a line by a plane
   // will work even if the line is parallel to the plane
-  splitLineBetweenPoints(p1, p2) {
+  splitLineBetweenPoints(p1: Vector3, p2: Vector3) {
     const direction = p2.minus(p1);
     let labda = (this.w - this.normal.dot(p1)) / this.normal.dot(direction);
     if (isNaN(labda)) labda = 0;
@@ -112,16 +118,16 @@ export class Plane {
   }
 
   // returns Vector3D
-  intersectWithLine(line3d) {
+  intersectWithLine(line3d: Line3D) {
     return line3d.intersectWithPlane(this);
   }
 
   // intersection of two planes
-  intersectWithPlane(plane) {
+  intersectWithPlane(plane: Plane) {
     return Line3D.fromPlanes(this, plane);
   }
 
-  signedDistanceToPoint(point) {
+  signedDistanceToPoint(point: Vector3) {
     return this.normal.dot(point) - this.w;
   }
 
@@ -129,7 +135,7 @@ export class Plane {
     return '[normal: ' + this.normal.toString() + ', w: ' + this.w + ']';
   }
 
-  mirrorPoint(point3d) {
+  mirrorPoint(point3d: Vector3) {
     const distance = this.signedDistanceToPoint(point3d);
     const mirrored = point3d.minus(this.normal.times(distance * 2.0));
     return mirrored;

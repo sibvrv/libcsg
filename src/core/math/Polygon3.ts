@@ -44,7 +44,7 @@ export const Polygon = function (vertices, shared, plane) {
   if (arguments.length >= 3) {
     this.plane = plane;
   } else {
-    this.plane = Plane.fromVector3s(vertices[0].pos, vertices[1].pos, vertices[2].pos);
+    this.plane = Plane.fromVector3Ds(vertices[0].pos, vertices[1].pos, vertices[2].pos);
   }
 
   if (_CSGDEBUG) {

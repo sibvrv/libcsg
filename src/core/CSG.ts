@@ -659,9 +659,7 @@ export class CSG extends TransformationMethods {
 
 addTransformationMethodsToPrototype(CSG.Vector3D.prototype);
 addTransformationMethodsToPrototype(CSG.Vertex.prototype);
-addTransformationMethodsToPrototype(CSG.Plane.prototype);
 addTransformationMethodsToPrototype(CSG.Polygon.prototype);
-addTransformationMethodsToPrototype(CSG.Line3D.prototype);
 addTransformationMethodsToPrototype(CSG.Path2D.prototype);
 addTransformationMethodsToPrototype(CSG.OrthoNormalBasis.prototype);
 addTransformationMethodsToPrototype(CSG.Connector.prototype);

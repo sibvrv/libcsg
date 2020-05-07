@@ -1,98 +1,109 @@
-import Vector3D from './Vector3';
+import {TVector3Universal, Vector3} from './Vector3';
 import {EPS} from '../constants';
 import {solve2Linear} from '../utils';
+import {Plane} from './Plane';
+import {Matrix4x4} from './Matrix4';
+import {TransformationMethods} from '../TransformationMethods';
 
 // # class Line3D
 // Represents a line in 3D space
 // direction must be a unit vector
 // point is a random point on the line
-export const Line3D = function (point, direction) {
-  point = new Vector3D(point);
-  direction = new Vector3D(direction);
-  this.point = point;
-  this.direction = direction.unit();
-};
+export class Line3D extends TransformationMethods {
+  point: Vector3;
+  direction: Vector3;
 
-Line3D.fromPoints = function (p1, p2) {
-  p1 = new Vector3D(p1);
-  p2 = new Vector3D(p2);
-  let direction = p2.minus(p1);
-  return new Line3D(p1, direction);
-};
-
-Line3D.fromPlanes = function (p1, p2) {
-  let direction = p1.normal.cross(p2.normal);
-  let l = direction.length();
-  if (l < EPS) {
-    throw new Error('Parallel planes');
+  static fromPoints(_p1: TVector3Universal, _p2: TVector3Universal) {
+    const p1 = new Vector3(_p1);
+    const p2 = new Vector3(_p2);
+    const direction = p2.minus(p1);
+    return new Line3D(p1, direction);
   }
-  direction = direction.times(1.0 / l);
 
-  let mabsx = Math.abs(direction.x);
-  let mabsy = Math.abs(direction.y);
-  let mabsz = Math.abs(direction.z);
-  let origin;
-  if ((mabsx >= mabsy) && (mabsx >= mabsz)) {
-    // direction vector is mostly pointing towards x
-    // find a point p for which x is zero:
-    let r = solve2Linear(p1.normal.y, p1.normal.z, p2.normal.y, p2.normal.z, p1.w, p2.w);
-    origin = new Vector3D(0, r[0], r[1]);
-  } else if ((mabsy >= mabsx) && (mabsy >= mabsz)) {
-    // find a point p for which y is zero:
-    let r = solve2Linear(p1.normal.x, p1.normal.z, p2.normal.x, p2.normal.z, p1.w, p2.w);
-    origin = new Vector3D(r[0], 0, r[1]);
-  } else {
-    // find a point p for which z is zero:
-    let r = solve2Linear(p1.normal.x, p1.normal.y, p2.normal.x, p2.normal.y, p1.w, p2.w);
-    origin = new Vector3D(r[0], r[1], 0);
+  static fromPlanes(p1: Plane, p2: Plane) {
+    let direction = p1.normal.cross(p2.normal);
+    const l = direction.length();
+    if (l < EPS) {
+      throw new Error('Parallel planes');
+    }
+    direction = direction.times(1.0 / l);
+
+    const mabsx = Math.abs(direction.x);
+    const mabsy = Math.abs(direction.y);
+    const mabsz = Math.abs(direction.z);
+    let origin;
+    if ((mabsx >= mabsy) && (mabsx >= mabsz)) {
+      // direction vector is mostly pointing towards x
+      // find a point p for which x is zero:
+      const r = solve2Linear(p1.normal.y, p1.normal.z, p2.normal.y, p2.normal.z, p1.w, p2.w);
+      origin = new Vector3(0, r[0], r[1]);
+    } else if ((mabsy >= mabsx) && (mabsy >= mabsz)) {
+      // find a point p for which y is zero:
+      const r = solve2Linear(p1.normal.x, p1.normal.z, p2.normal.x, p2.normal.z, p1.w, p2.w);
+      origin = new Vector3(r[0], 0, r[1]);
+    } else {
+      // find a point p for which z is zero:
+      const r = solve2Linear(p1.normal.x, p1.normal.y, p2.normal.x, p2.normal.y, p1.w, p2.w);
+      origin = new Vector3(r[0], r[1], 0);
+    }
+    return new Line3D(origin, direction);
   }
-  return new Line3D(origin, direction);
-};
 
-Line3D.prototype = {
-  intersectWithPlane: function (plane) {
+  /**
+   * Line3D Constructor
+   */
+  constructor(point: TVector3Universal, direction: TVector3Universal) {
+    super();
+    this.point = new Vector3(point);
+    this.direction = new Vector3(direction).unit();
+  }
+
+  intersectWithPlane(plane: Plane) {
     // plane: plane.normal * p = plane.w
     // line: p=line.point + labda * line.direction
-    let labda = (plane.w - plane.normal.dot(this.point)) / plane.normal.dot(this.direction);
-    let point = this.point.plus(this.direction.times(labda));
+    const labda = (plane.w - plane.normal.dot(this.point)) / plane.normal.dot(this.direction);
+    const point = this.point.plus(this.direction.times(labda));
     return point;
-  },
+  }
 
-  clone: function (line) {
+  clone(line: Line3D) {
     return new Line3D(this.point.clone(), this.direction.clone());
-  },
+  }
 
-  reverse: function () {
+  reverse() {
     return new Line3D(this.point.clone(), this.direction.negated());
-  },
+  }
 
-  transform: function (matrix4x4) {
-    let newpoint = this.point.multiply4x4(matrix4x4);
-    let pointPlusDirection = this.point.plus(this.direction);
-    let newPointPlusDirection = pointPlusDirection.multiply4x4(matrix4x4);
-    let newdirection = newPointPlusDirection.minus(newpoint);
+  transform(matrix4x4: Matrix4x4) {
+    const newpoint = this.point.multiply4x4(matrix4x4);
+    const pointPlusDirection = this.point.plus(this.direction);
+    const newPointPlusDirection = pointPlusDirection.multiply4x4(matrix4x4);
+    const newdirection = newPointPlusDirection.minus(newpoint);
     return new Line3D(newpoint, newdirection);
-  },
+  }
 
-  closestPointOnLine: function (point) {
-    point = new Vector3D(point);
-    let t = point.minus(this.point).dot(this.direction) / this.direction.dot(this.direction);
-    let closestpoint = this.point.plus(this.direction.times(t));
+  closestPointOnLine(_point: TVector3Universal) {
+    const point = new Vector3(_point);
+    const t = point.minus(this.point).dot(this.direction) / this.direction.dot(this.direction);
+    const closestpoint = this.point.plus(this.direction.times(t));
     return closestpoint;
-  },
+  }
 
-  distanceToPoint: function (point) {
-    point = new Vector3D(point);
-    let closestpoint = this.closestPointOnLine(point);
-    let distancevector = point.minus(closestpoint);
-    let distance = distancevector.length();
+  distanceToPoint(_point: TVector3Universal) {
+    const point = new Vector3(_point);
+    const closestpoint = this.closestPointOnLine(point);
+    const distancevector = point.minus(closestpoint);
+    const distance = distancevector.length();
     return distance;
-  },
+  }
 
-  equals: function (line3d) {
+  equals(line3d: Line3D) {
     if (!this.direction.equals(line3d.direction)) return false;
-    let distance = this.distanceToPoint(line3d.point);
-    if (distance > EPS) return false;
+    const distance = this.distanceToPoint(line3d.point);
+
+    if (distance > EPS) {
+      return false;
+    }
     return true;
   }
-};
+}
