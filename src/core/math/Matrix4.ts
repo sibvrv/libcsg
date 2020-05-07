@@ -1,4 +1,4 @@
-import {Vector3} from './Vector3';
+import {TVector3Universal, Vector3} from './Vector3';
 import {Vector2} from './Vector2';
 import {OrthoNormalBasis} from './OrthoNormalBasis';
 import {Plane} from './Plane';
@@ -45,9 +45,9 @@ export class Matrix4x4 {
   };
 
 // Matrix for rotation about arbitrary point and axis
-  static rotation(rotationCenter, rotationAxis, degrees: number) {
-    rotationCenter = new Vector3(rotationCenter);
-    rotationAxis = new Vector3(rotationAxis);
+  static rotation(_rotationCenter: TVector3Universal, _rotationAxis: TVector3Universal, degrees: number) {
+    const rotationCenter = new Vector3(_rotationCenter);
+    const rotationAxis = new Vector3(_rotationAxis);
     const rotationPlane = Plane.fromNormalAndPoint(rotationAxis, rotationCenter);
     const orthobasis = new OrthoNormalBasis(rotationPlane);
     let transformation = Matrix4x4.translation(rotationCenter.negated());
@@ -59,7 +59,7 @@ export class Matrix4x4 {
   };
 
 // Create an affine matrix for translation:
-  static translation(v) {
+  static translation(v: TVector3Universal) {
     // parse as Vector3, so we can pass an array or a Vector3
     const vec = new Vector3(v);
     const els = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, vec.x, vec.y, vec.z, 1];
@@ -67,7 +67,7 @@ export class Matrix4x4 {
   };
 
 // Create an affine matrix for mirroring into an arbitrary plane:
-  static mirroring(plane) {
+  static mirroring(plane: Plane) {
     const nx = plane.normal.x;
     const ny = plane.normal.y;
     const nz = plane.normal.z;
@@ -82,7 +82,7 @@ export class Matrix4x4 {
   };
 
 // Create an affine matrix for scaling:
-  static scaling(v) {
+  static scaling(v: TVector3Universal) {
     // parse as Vector3, so we can pass an array or a Vector3
     const vec = new Vector3(v);
     const els = [
@@ -94,7 +94,7 @@ export class Matrix4x4 {
   constructor(public elements = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]) {
   }
 
-  plus(m) {
+  plus(m: Matrix4x4) {
     const r = [];
     for (let i = 0; i < 16; i++) {
       r[i] = this.elements[i] + m.elements[i];
@@ -102,7 +102,7 @@ export class Matrix4x4 {
     return new Matrix4x4(r);
   }
 
-  minus(m) {
+  minus(m: Matrix4x4) {
     const r = [];
     for (let i = 0; i < 16; i++) {
       r[i] = this.elements[i] - m.elements[i];
@@ -111,7 +111,7 @@ export class Matrix4x4 {
   }
 
   // right multiply by another 4x4 matrix:
-  multiply(m) {
+  multiply(m: Matrix4x4) {
     // cache elements in local variables, for speedup:
     const this0 = this.elements[0];
     const this1 = this.elements[1];
@@ -167,16 +167,13 @@ export class Matrix4x4 {
   }
 
   clone() {
-    const elements = this.elements.map(function(p) {
-      return p;
-    });
-    return new Matrix4x4(elements);
+    return new Matrix4x4([...this.elements]);
   }
 
   // Right multiply the matrix by a Vector3 (interpreted as 3 row, 1 column)
   // (result = M*v)
   // Fourth element is taken as 1
-  rightMultiply1x3Vector(v) {
+  rightMultiply1x3Vector(v: Vector3) {
     const v0 = v._x;
     const v1 = v._y;
     const v2 = v._z;
@@ -198,7 +195,7 @@ export class Matrix4x4 {
   // Multiply a Vector3 (interpreted as 3 column, 1 row) by this matrix
   // (result = v*M)
   // Fourth element is taken as 1
-  leftMultiply1x3Vector(v) {
+  leftMultiply1x3Vector(v: Vector3) {
     const v0 = v._x;
     const v1 = v._y;
     const v2 = v._z;
@@ -220,7 +217,7 @@ export class Matrix4x4 {
   // Right multiply the matrix by a Vector2 (interpreted as 2 row, 1 column)
   // (result = M*v)
   // Fourth element is taken as 1
-  rightMultiply1x2Vector(v) {
+  rightMultiply1x2Vector(v: Vector2) {
     const v0 = v.x;
     const v1 = v.y;
     const v2 = 0;
@@ -242,7 +239,7 @@ export class Matrix4x4 {
   // Multiply a Vector2 (interpreted as 2 column, 1 row) by this matrix
   // (result = v*M)
   // Fourth element is taken as 1
-  leftMultiply1x2Vector(v) {
+  leftMultiply1x2Vector(v: Vector2) {
     const v0 = v.x;
     const v1 = v.y;
     const v2 = 0;

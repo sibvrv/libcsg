@@ -1,5 +1,5 @@
 import {Vector2} from './Vector2';
-import {Vector3} from './Vector3';
+import {TVector3Universal, Vector3} from './Vector3';
 import {Line2D} from './Line2';
 import {Line3D} from './Line3';
 import {Plane} from './Plane';
@@ -144,15 +144,10 @@ export class OrthoNormalBasis extends TransformationMethods {
   /**
    * OrthoNormalBasis Constructor
    */
-  constructor(plane: Plane, rightvector: Vector3) {
+  constructor(plane: Plane, _rightvector?: TVector3Universal) {
     super();
+    const rightvector = typeof _rightvector !== 'undefined' ? new Vector3(_rightvector) : plane.normal.randomNonParallelVector();
 
-    if (arguments.length < 2) {
-      // choose an arbitrary right hand vector, making sure it is somewhat orthogonal to the plane normal:
-      rightvector = plane.normal.randomNonParallelVector();
-    } else {
-      rightvector = new Vector3(rightvector);
-    }
     this.v = plane.normal.cross(rightvector).unit();
     this.u = this.v.cross(plane.normal);
     this.plane = plane;
