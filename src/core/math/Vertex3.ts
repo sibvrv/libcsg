@@ -1,7 +1,8 @@
-import {Vector3} from './Vector3';
+import {TVector3Universal, Vector3} from './Vector3';
 import {Vector2} from './Vector2';
 import {getTag} from '../constants';
 import {TransformationMethods} from '../TransformationMethods';
+import {Matrix4x4} from './Matrix4';
 
 // # class Vertex
 // Represents a vertex of a polygon. Use your own vertex class instead of this
@@ -15,19 +16,20 @@ export class Vertex3 extends TransformationMethods {
   tag?: number;
 
 // create from an untyped object with identical property names:
-  static fromObject(obj) {
+  static fromObject(obj: { pos: TVector3Universal }) {
     const pos = new Vector3(obj.pos);
-    return new Vertex(pos);
+    return new Vertex3(pos);
   }
 
 // create with position and uv coordinates
-  static fromPosAndUV(pos, uv) {
-    const newVertex = new Vertex(pos);
+  static fromPosAndUV(pos: Vector3, uv: Vector2) {
+    const newVertex = new Vertex3(pos);
     newVertex.uv = uv;
     return newVertex;
   };
 
   constructor(public pos: Vector3) {
+    super();
   }
 
   // Return a vertex with all orientation-specific data (e.g. vertex normal) flipped. Called when the
@@ -48,16 +50,16 @@ export class Vertex3 extends TransformationMethods {
   // Create a new vertex between this vertex and `other` by linearly
   // interpolating all properties using a parameter of `t`. Subclasses should
   // override this to interpolate additional properties.
-  interpolate(other, t) {
+  interpolate(other: Vertex3, t: number) {
     const newpos = this.pos.lerp(other.pos, t);
     const newUv = this.uv.lerp(other.uv, t);
-    return Vertex.fromPosAndUV(newpos, newUv);
+    return Vertex3.fromPosAndUV(newpos, newUv);
   }
 
   // Affine transformation of vertex. Returns a new Vertex
-  transform(matrix4x4) {
+  transform(matrix4x4: Matrix4x4) {
     const newpos = this.pos.multiply4x4(matrix4x4);
-    return Vertex.fromPosAndUV(newpos, this.uv);
+    return Vertex3.fromPosAndUV(newpos, this.uv);
   }
 
   toString() {

@@ -12,7 +12,7 @@ export class Matrix4x4 {
   };
 
 // Create a rotation matrix for rotating around the x axis
-  static rotationX(degrees) {
+  static rotationX(degrees: number) {
     const radians = degrees * Math.PI * (1.0 / 180.0);
     const cos = Math.cos(radians);
     const sin = Math.sin(radians);
@@ -23,7 +23,7 @@ export class Matrix4x4 {
   };
 
 // Create a rotation matrix for rotating around the y axis
-  static rotationY(degrees) {
+  static rotationY(degrees: number) {
     const radians = degrees * Math.PI * (1.0 / 180.0);
     const cos = Math.cos(radians);
     const sin = Math.sin(radians);
@@ -34,7 +34,7 @@ export class Matrix4x4 {
   };
 
 // Create a rotation matrix for rotating around the z axis
-  static rotationZ(degrees) {
+  static rotationZ(degrees: number) {
     const radians = degrees * Math.PI * (1.0 / 180.0);
     const cos = Math.cos(radians);
     const sin = Math.sin(radians);
@@ -45,7 +45,7 @@ export class Matrix4x4 {
   };
 
 // Matrix for rotation about arbitrary point and axis
-  static rotation(rotationCenter, rotationAxis, degrees) {
+  static rotation(rotationCenter, rotationAxis, degrees: number) {
     rotationCenter = new Vector3(rotationCenter);
     rotationAxis = new Vector3(rotationAxis);
     const rotationPlane = Plane.fromNormalAndPoint(rotationAxis, rotationCenter);

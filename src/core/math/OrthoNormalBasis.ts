@@ -1,8 +1,8 @@
-import Vector2D from './Vector2';
-import Vector3D from './Vector3';
+import {Vector2} from './Vector2';
+import {Vector3} from './Vector3';
 import {Line2D} from './Line2';
-import Line3D from './Line3';
-import Plane from './Plane';
+import {Line3D} from './Line3';
+import {Plane} from './Plane';
 import {Matrix4x4} from './Matrix4';
 
 /** class OrthoNormalBasis
@@ -16,7 +16,7 @@ export const OrthoNormalBasis = function (plane, rightvector) {
     // choose an arbitrary right hand vector, making sure it is somewhat orthogonal to the plane normal:
     rightvector = plane.normal.randomNonParallelVector();
   } else {
-    rightvector = new Vector3D(rightvector);
+    rightvector = new Vector3(rightvector);
   }
   this.v = plane.normal.cross(rightvector).unit();
   this.u = this.v.cross(plane.normal);
@@ -109,7 +109,7 @@ OrthoNormalBasis.GetCartesian = function (xaxisid, yaxisid) {
   } else {
     throw new Error('OrthoNormalBasis.GetCartesian: invalid combination of axis identifiers. Should pass two string arguments from [X,Y,Z,-X,-Y,-Z], being two different axes.');
   }
-  return new OrthoNormalBasis(new Plane(new Vector3D(planenormal), 0), new Vector3D(rightvector));
+  return new OrthoNormalBasis(new Plane(new Vector3(planenormal), 0), new Vector3(rightvector));
 };
 
 /*
@@ -142,8 +142,8 @@ OrthoNormalBasis.GetCartesian_Test=function() {
 
 // The z=0 plane, with the 3D x and y vectors mapped to the 2D x and y vector
 OrthoNormalBasis.Z0Plane = function () {
-  let plane = new Plane(new Vector3D([0, 0, 1]), 0);
-  return new OrthoNormalBasis(plane, new Vector3D([1, 0, 0]));
+  let plane = new Plane(new Vector3([0, 0, 1]), 0);
+  return new OrthoNormalBasis(plane, new Vector3([1, 0, 0]));
 };
 
 OrthoNormalBasis.prototype = {
@@ -166,15 +166,15 @@ OrthoNormalBasis.prototype = {
     ]);
   },
 
-  to2D: function (vec3) {
-    return new Vector2D(vec3.dot(this.u), vec3.dot(this.v));
+  to2D: function (vec3:Vector3) {
+    return new Vector2(vec3.dot(this.u), vec3.dot(this.v));
   },
 
-  to3D: function (vec2) {
+  to3D: function (vec2:Vector2) {
     return this.planeorigin.plus(this.u.times(vec2.x)).plus(this.v.times(vec2.y));
   },
 
-  line3Dto2D: function (line3d) {
+  line3Dto2D: function (line3d: Line3D) {
     let a = line3d.point;
     let b = line3d.direction.plus(a);
     let a2d = this.to2D(a);
@@ -182,7 +182,7 @@ OrthoNormalBasis.prototype = {
     return Line2D.fromPoints(a2d, b2d);
   },
 
-  line2Dto3D: function (line2d) {
+  line2Dto3D: function (line2d: Line2D) {
     let a = line2d.origin();
     let b = line2d.direction().plus(a);
     let a3d = this.to3D(a);
@@ -194,7 +194,7 @@ OrthoNormalBasis.prototype = {
     // todo: this may not work properly in case of mirroring
     let newplane = this.plane.transform(matrix4x4);
     let rightpointTransformed = this.u.transform(matrix4x4);
-    let originTransformed = new Vector3D(0, 0, 0).transform(matrix4x4);
+    let originTransformed = new Vector3(0, 0, 0).transform(matrix4x4);
     let newrighthandvector = rightpointTransformed.minus(originTransformed);
     let newbasis = new OrthoNormalBasis(newplane, newrighthandvector);
     return newbasis;
