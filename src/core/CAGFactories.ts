@@ -5,12 +5,13 @@ import {areaEPS} from './constants';
 import {isSelfIntersecting, contains} from './utils/cagValidation';
 import {union, difference} from '../modifiers/booleans';
 import {CAG} from './CAG';
+import {CSG} from './CSG';
 
 /** Construct a CAG from a list of `Side` instances.
  * @param {Side[]} sides - list of sides
  * @returns {CAG} new CAG object
  */
-export const fromSides = (sides: any) => {
+export const fromSides = (sides: Side[]) => {
   const cag = new CAG();
   cag.sides = sides;
   return cag;
@@ -18,8 +19,8 @@ export const fromSides = (sides: any) => {
 
 // Converts a CSG to a  The CSG must consist of polygons with only z coordinates +1 and -1
 // as constructed by _toCSGWall(-1, 1). This is so we can use the 3D union(), intersect() etc
-export const fromFakeCSG = (csg: any) => {
-  const sides = csg.polygons.map((p: any) => {
+export const fromFakeCSG = (csg: CSG) => {
+  const sides = csg.polygons.map((p) => {
     return Side._fromFakePolygon(p);
   })
     .filter((s: any) => {

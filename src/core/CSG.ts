@@ -1,8 +1,6 @@
 import {Tree} from './trees';
 import {Polygon3} from './math/Polygon3';
-import * as _Plane from './math/Plane';
 import {Plane} from './math/Plane';
-import * as _OrthoNormalBasis from './math/OrthoNormalBasis';
 import {OrthoNormalBasis} from './math/OrthoNormalBasis';
 
 import {Properties} from './Properties';
@@ -23,8 +21,8 @@ import {fromCompactBinary, fromObject, fromPolygons, fromSlices} from './CSGFact
 import * as optionsParsers from '../api/optionParsers';
 
 import {Vector2} from './math/Vector2';
-import {Vector3} from './math/Vector3';
-import {Vertex3 as _Vertex} from './math/Vertex3';
+import {TVector3Universal, Vector3} from './math/Vector3';
+import {Vertex3, Vertex3 as _Vertex} from './math/Vertex3';
 import {Polygon2D} from './math/Polygon2';
 import {Line2D} from './math/Line2';
 import {Line3D} from './math/Line3';
@@ -33,6 +31,7 @@ import {Matrix4x4} from './math/Matrix4';
 import {Connector} from './Connector';
 import {ConnectorList} from './ConnectorList';
 import {TransformationMethods} from './TransformationMethods';
+import {PolygonShared} from './math/PolygonShared';
 
 /** Class CSG
  * Holds a binary space partition tree representing a 3D solid. Two solids can
@@ -40,7 +39,7 @@ import {TransformationMethods} from './TransformationMethods';
  * @constructor
  */
 export class CSG extends TransformationMethods {
-  polygons = [];
+  polygons: Polygon3[] = [];
   properties = new Properties();
   isCanonicalized = true;
   isRetesselated = true;
@@ -63,7 +62,7 @@ export class CSG extends TransformationMethods {
    *      |       |            |       |
    *      +-------+            +-------+
    */
-  union(csg) {
+  union(csg: CSG | CSG[]) {
     let csgs;
     if (csg instanceof Array) {
       csgs = csg.slice(0);
@@ -80,7 +79,7 @@ export class CSG extends TransformationMethods {
     return csgs[i - 1].reTesselated().canonicalized();
   }
 
-  unionSub(csg, retesselate, canonicalize) {
+  unionSub(csg: CSG, retesselate?: boolean, canonicalize?: boolean) {
     if (!this.mayOverlap(csg)) {
       return this.unionForNonIntersecting(csg);
     } else {
@@ -105,7 +104,7 @@ export class CSG extends TransformationMethods {
 
   // Like union, but when we know that the two solids are not intersecting
   // Do not use if you are not completely sure that the solids do not intersect!
-  unionForNonIntersecting(csg) {
+  unionForNonIntersecting(csg: CSG) {
     const newpolygons = this.polygons.concat(csg.polygons);
     const result = fromPolygons(newpolygons);
     result.properties = this.properties._merge(csg.properties);
@@ -131,14 +130,14 @@ export class CSG extends TransformationMethods {
    *      |       |
    *      +-------+
    */
-  subtract(csg) {
+  subtract(csg: CSG | CSG[]) {
     let csgs;
     if (csg instanceof Array) {
       csgs = csg;
     } else {
       csgs = [csg];
     }
-    let result = this;
+    let result: CSG = this;
     for (let i = 0; i < csgs.length; i++) {
       const islast = (i === (csgs.length - 1));
       result = result.subtractSub(csgs[i], islast, islast);
@@ -146,7 +145,7 @@ export class CSG extends TransformationMethods {
     return result;
   }
 
-  subtractSub(csg, retesselate, canonicalize) {
+  subtractSub(csg: CSG, retesselate?: boolean, canonicalize?: boolean) {
     const a = new Tree(this.polygons);
     const b = new Tree(csg.polygons);
     a.invert();
@@ -178,14 +177,14 @@ export class CSG extends TransformationMethods {
    *      |       |
    *      +-------+
    */
-  intersect(csg) {
+  intersect(csg: CSG | CSG[]) {
     let csgs;
     if (csg instanceof Array) {
       csgs = csg;
     } else {
       csgs = [csg];
     }
-    let result = this;
+    let result: CSG = this;
     for (let i = 0; i < csgs.length; i++) {
       const islast = (i === (csgs.length - 1));
       result = result.intersectSub(csgs[i], islast, islast);
@@ -193,7 +192,7 @@ export class CSG extends TransformationMethods {
     return result;
   }
 
-  intersectSub(csg, retesselate, canonicalize) {
+  intersectSub(csg: CSG, retesselate?: boolean, canonicalize?: boolean) {
     const a = new Tree(this.polygons);
     const b = new Tree(csg.polygons);
     a.invert();
@@ -249,8 +248,9 @@ export class CSG extends TransformationMethods {
    */
   transform(matrix4x4: Matrix4x4) {
     const ismirror = matrix4x4.isMirroring();
-    const transformedvertices = {};
-    const transformedplanes = {};
+    const transformedvertices: { [tag: number]: Vertex3 } = {};
+    const transformedplanes: { [tag: number]: Plane } = {};
+
     const newpolygons = this.polygons.map((p) => {
       let newplane;
       const plane = p.plane;
@@ -275,6 +275,7 @@ export class CSG extends TransformationMethods {
       if (ismirror) newvertices.reverse();
       return new Polygon3(newvertices, p.shared, newplane);
     });
+
     const result = fromPolygons(newpolygons);
     result.properties = this.properties._transform(matrix4x4);
     result.isRetesselated = this.isRetesselated;
@@ -283,28 +284,28 @@ export class CSG extends TransformationMethods {
   }
 
   // ALIAS !
-  center(axes) {
+  center(axes: [boolean, boolean, boolean]) {
     return center({axes}, [this]);
   }
 
   // ALIAS !
-  expand(radius, resolution) {
+  expand(radius: number, resolution: number) {
     return expand(this, radius, resolution);
   }
 
   // ALIAS !
-  contract(radius, resolution) {
+  contract(radius: number, resolution: number) {
     return contract(this, radius, resolution);
   }
 
   // ALIAS !
-  expandedShell(radius, resolution, unionWithThis) {
+  expandedShell(radius: number, resolution: number, unionWithThis?: boolean) {
     return expandedShellOfCCSG(this, radius, resolution, unionWithThis);
   }
 
   // cut the solid at a plane, and stretch the cross-section found along plane normal
   // note: only used in roundedCube() internally
-  stretchAtPlane(normal, point, length) {
+  stretchAtPlane(normal: TVector3Universal, point: TVector3Universal, length: number) {
     const plane = Plane.fromNormalAndPoint(normal, point);
     const onb = new OrthoNormalBasis(plane);
     const crosssect = this.sectionCut(onb);
@@ -371,7 +372,7 @@ export class CSG extends TransformationMethods {
    * connectors
    * @returns {CSG} this csg, tranformed accordingly
    */
-  connectTo(myConnector, otherConnector, mirror, normalrotation) {
+  connectTo(myConnector: Connector, otherConnector: Connector, mirror: boolean, normalrotation: number) {
     const matrix = myConnector.getTransformationTo(otherConnector, mirror, normalrotation);
     return this.transform(matrix);
   }
@@ -381,7 +382,7 @@ export class CSG extends TransformationMethods {
    * @param  {Object} shared
    * @returns {CSG} Returns a new CSG solid, the original is unmodified!
    */
-  setShared(shared) {
+  setShared(shared: PolygonShared) {
     const polygons = this.polygons.map((p) => {
       return new Polygon3(p.vertices, shared, p.plane);
     });
@@ -396,8 +397,8 @@ export class CSG extends TransformationMethods {
    * @param  {Object} args
    * @returns {CSG} a copy of this CSG, with the given color
    */
-  setColor(args) {
-    const newshared = Polygon3.Shared.fromColor.apply(this, arguments);
+  setColor(...args: any[]) {
+    const newshared = Polygon3.Shared.fromColor(...args);
     return this.setShared(newshared);
   }
 
@@ -438,15 +439,16 @@ export class CSG extends TransformationMethods {
    * let volume = A.getFeatures('volume')
    * let values = A.getFeatures('area','volume')
    */
-  getFeatures(features) {
+  getFeatures(features: string | string[]) {
     if (!(features instanceof Array)) {
       features = [features];
     }
-    const result = this.toTriangles().map((triPoly) => {
-      return triPoly.getTetraFeatures(features);
-    })
+    const result = this.toTriangles()
+      .map((triPoly) => {
+        return triPoly.getTetraFeatures(features);
+      })
       .reduce((pv, v) => {
-        return v.map((feat, i) => {
+        return v.map((feat: number, i: number) => {
           return feat + (pv === 0 ? 0 : pv[i]);
         });
       }, 0);
@@ -576,11 +578,12 @@ export class CSG extends TransformationMethods {
     return result;
   }
 
-  /** returns the triangles of this csg
-   * @returns {Polygons} triangulated polygons
+  /**
+   * Returns the triangles of this csg
+   * @returns {Polygon3[]} triangulated polygons
    */
   toTriangles() {
-    const polygons = [];
+    const polygons: Polygon3[] = [];
     this.polygons.forEach((poly) => {
       const firstVertex = poly.vertices[0];
       for (let i = poly.vertices.length - 3; i >= 0; i--) {
@@ -603,13 +606,13 @@ export class CSG extends TransformationMethods {
   static Vector2D = Vector2;
   static Vector3D = Vector3;
   static Vertex = _Vertex;
-  static Plane = _Plane;
+  static Plane = Plane;
   static Polygon = Polygon3;
   static Polygon2D = Polygon2D;
   static Line2D = Line2D;
   static Line3D = Line3D;
   static Path2D = Path2D;
-  static OrthoNormalBasis = _OrthoNormalBasis;
+  static OrthoNormalBasis = OrthoNormalBasis;
   static Matrix4x4 = Matrix4x4;
   static Connector = Connector;
   static ConnectorList = ConnectorList;
@@ -645,7 +648,7 @@ export class CSG extends TransformationMethods {
   static fromSlices = fromSlices;
   static fromPolygons = fromPolygons;
 
-  static parseOptionAs2DVector = optionsParsers.parseOptionAs3DVector;
+  static parseOptionAs2DVector = optionsParsers.parseOptionAs2DVector;
   static parseOptionAs3DVector = optionsParsers.parseOptionAs3DVector;
   static parseOptionAs3DVectorList = optionsParsers.parseOptionAs3DVectorList;
   static parseOptionAsBool = optionsParsers.parseOptionAsBool;

@@ -12,7 +12,7 @@ import {CAG} from '../CAG';
  * @returns {CSG|CAG}
  * @example
  * let rawInput = someCSGORCAGMakingFunction()
- * let canonicalized= canonicalize(rawInput)
+ * let canonicalized = canonicalize(rawInput)
  */
 export const canonicalize = (csgOrCAG: CSG | CAG, options) => {
   if (csgOrCAG.isCanonicalized) {
