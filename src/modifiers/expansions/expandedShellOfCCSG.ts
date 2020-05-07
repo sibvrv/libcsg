@@ -1,8 +1,8 @@
 import {EPS} from '../../core/constants';
-import Vertex from '../../core/math/Vertex3';
-import Polygon from '../../core/math/Polygon3';
+import {Vertex3} from '../../core/math/Vertex3';
+import {Polygon3} from '../../core/math/Polygon3';
 import {fnNumberSort} from '../../core/utils';
-import CSG from '../../core/CSG';
+import {CSG} from '../../core/CSG';
 import {fromPolygons} from '../../core/CSGFactories';
 // import {sphere} from './primitives3d'
 
@@ -137,15 +137,15 @@ export const expandedShellOfCCSG = (_csg: any, radius: number, resolution: numbe
       }
       if (!skip) {
         if (i >= 0) {
-          startfacevertices.push(new Vertex(p1));
-          endfacevertices.push(new Vertex(p2));
+          startfacevertices.push(new Vertex3(p1));
+          endfacevertices.push(new Vertex3(p2));
           const polygonvertices = [
-            new Vertex(prevp2),
-            new Vertex(p2),
-            new Vertex(p1),
-            new Vertex(prevp1),
+            new Vertex3(prevp2),
+            new Vertex3(p2),
+            new Vertex3(p1),
+            new Vertex3(prevp1),
           ];
-          const polygon = new Polygon(polygonvertices);
+          const polygon = new Polygon3(polygonvertices);
           polygons.push(polygon);
         }
         prevp1 = p1;
@@ -153,8 +153,8 @@ export const expandedShellOfCCSG = (_csg: any, radius: number, resolution: numbe
       }
     }
     endfacevertices.reverse();
-    polygons.push(new Polygon(startfacevertices));
-    polygons.push(new Polygon(endfacevertices));
+    polygons.push(new Polygon3(startfacevertices));
+    polygons.push(new Polygon3(endfacevertices));
     const cylinder = fromPolygons(polygons);
     result = result.unionSub(cylinder, false, false);
   }

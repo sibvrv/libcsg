@@ -2,6 +2,8 @@ import {Vector3} from './Vector3';
 import {TransformationMethods} from '../TransformationMethods';
 import {Matrix4x4} from './Matrix4';
 
+export type TVector2Universal = Vector2 | Vector3 | [number, number] | number[] | { x: number | string, y: number | string } | string;
+
 /** Class Vector2
  * Represents a 2D vector with X, Y coordinates
  * @constructor
@@ -34,7 +36,7 @@ export class Vector2 extends TransformationMethods {
     return new Vector2(x, y);
   };
 
-  constructor(x?: number | Vector2 | Vector3 | [number, number] | { x: number | string, y: number | string } | string, y?: number | string) {
+  constructor(x?: number | TVector2Universal, y?: number | string) {
     super();
     if (typeof x === 'object' && x !== null) {
       if (Array.isArray(x)) {

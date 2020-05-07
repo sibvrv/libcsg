@@ -1,5 +1,5 @@
 import {EPS} from './constants';
-import Polygon from './math/Polygon3';
+import {Polygon3} from './math/Polygon3';
 import {FuzzyFactory} from './FuzzyFactory';
 
 // ////////////////////////////////////
@@ -62,7 +62,7 @@ FuzzyCSGFactory.prototype = {
     if (newverticesDedup.length < 3) {
       newverticesDedup = [];
     }
-    return new Polygon(newverticesDedup, newshared, newplane);
+    return new Polygon3(newverticesDedup, newshared, newplane);
   }
 };
 

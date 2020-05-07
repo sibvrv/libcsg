@@ -1,9 +1,8 @@
-import Vector3D from './math/Vector3';
+import {Vector3} from './math/Vector3';
 import {Vertex3} from './math/Vertex3';
-import Plane from './math/Plane';
-import Polygon2D from './math/Polygon2';
-import Polygon3D from './math/Polygon3';
-import CSG from './CSG';
+import {Plane} from './math/Plane';
+import {Polygon3} from './math/Polygon3';
+import {CSG} from './CSG';
 
 /**
  * Construct a CSG solid from a list of `Polygon` instances.
@@ -25,7 +24,7 @@ export const fromPolygons = (polygons: any) => {
  * @returns {CSG} new CSG object
  */
 export function fromSlices(options: any) {
-  return Polygon2D.createFromPoints([
+  return Polygon3.createFromPoints([
     [0, 0, 0],
     [1, 0, 0],
     [1, 1, 0],
@@ -40,7 +39,7 @@ export function fromSlices(options: any) {
  */
 export function fromObject(obj: any) {
   const polygons = obj.polygons.map((p: any) => {
-    return Polygon3D.fromObject(p);
+    return Polygon3.fromObject(p);
   });
   const csg = fromPolygons(polygons);
   csg.isCanonicalized = obj.isCanonicalized;
@@ -70,7 +69,7 @@ export function fromCompactBinary(bin: any) {
     y = planeData[arrayindex++];
     z = planeData[arrayindex++];
     w = planeData[arrayindex++];
-    normal = Vector3D.Create(x, y, z);
+    normal = Vector3.Create(x, y, z);
     plane = new Plane(normal, w);
     planes.push(plane);
   }
@@ -85,13 +84,13 @@ export function fromCompactBinary(bin: any) {
     x = vertexData[arrayindex++];
     y = vertexData[arrayindex++];
     z = vertexData[arrayindex++];
-    pos = Vector3D.Create(x, y, z);
+    pos = Vector3.Create(x, y, z);
     vertex = new Vertex3(pos);
     vertices.push(vertex);
   }
 
   const shareds = bin.shared.map((_shared: any) => {
-    return Polygon3D.Shared.fromObject(_shared);
+    return Polygon3.Shared.fromObject(_shared);
   });
 
   const polygons = [];
@@ -113,7 +112,7 @@ export function fromCompactBinary(bin: any) {
     }
     plane = planes[polygonPlaneIndexes[polygonindex]];
     shared = shareds[polygonSharedIndexes[polygonindex]];
-    polygon = new Polygon3D(polygonvertices, shared, plane);
+    polygon = new Polygon3(polygonvertices, shared, plane);
     polygons.push(polygon);
   }
   const csg = fromPolygons(polygons);

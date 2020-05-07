@@ -5,6 +5,7 @@ import {Vertex2} from './Vertex2';
 import {Side} from './Side';
 import {CAG} from '../CAG';
 import {Matrix4x4} from './Matrix4';
+import {TransformationMethods} from '../TransformationMethods';
 
 export interface IPath2DArcOptions {
   center: any;
@@ -27,7 +28,7 @@ export interface IPath2DArcOptions {
  * new CSG.Path2D()
  * new CSG.Path2D([[10,10], [-10,10], [-10,-10], [10,-10]], true) // closed
  */
-export class Path2D {
+export class Path2D extends TransformationMethods {
   lastBezierControlPoint?: Vector2;
 
   points: Vector2[] = [];
@@ -94,6 +95,8 @@ export class Path2D {
   }
 
   constructor(points: number[][] | Vector2[], closed: boolean = false) {
+    super();
+
     closed = !!closed;
     points = points || [];
     // re-parse the points into Vector2
@@ -223,7 +226,7 @@ export class Path2D {
       if (pointindex < 0) pointindex = numpoints - 1;
       const point = this.points[pointindex];
       const vertex = new Vertex2(point);
-      if (i > startindex) {
+      if (prevvertex && i > startindex) {
         const side = new Side(prevvertex, vertex);
         sides.push(side);
       }

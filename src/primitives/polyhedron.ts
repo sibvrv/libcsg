@@ -1,6 +1,6 @@
-import CSG from '../core/CSG';
-import Polygon3 from '../core/math/Polygon3';
-import Vector3 from '../core/math/Vector3';
+import {CSG} from '../core/CSG';
+import {Polygon3} from '../core/math/Polygon3';
+import {Vector3} from '../core/math/Vector3';
 import {Vertex3} from '../core/math/Vertex3';
 import {fromPolygons} from '../core/CSGFactories';
 

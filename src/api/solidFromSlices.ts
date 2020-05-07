@@ -1,4 +1,4 @@
-import {Polygon} from '../core/math/Polygon3';
+import {Polygon3} from '../core/math/Polygon3';
 import {fromPolygons} from '../core/CSGFactories';
 import {fnSortByIndex} from '../core/utils';
 
@@ -12,8 +12,8 @@ import {fnSortByIndex} from '../core/utils';
  *          return: Polygon or null to skip
  *  - loop {Boolean} no flats, only walls, it's used to generate solids like a tor
  */
-export const solidFromSlices = function (polygon, options) {
-  let polygons = [];
+export const solidFromSlices = (polygon, options) => {
+  const polygons = [];
   let csg = null;
   let prev = null;
   let bottom = null;
@@ -24,7 +24,7 @@ export const solidFromSlices = function (polygon, options) {
   let flipped = null;
 
   if (options) {
-    bLoop = Boolean(options['loop']);
+    bLoop = Boolean(options.loop);
 
     if (options.numslices) {
       numSlices = options.numslices;
@@ -35,7 +35,7 @@ export const solidFromSlices = function (polygon, options) {
     }
   }
   if (!fnCallback) {
-    let square = Polygon.createFromPoints([
+    const square = Polygon3.createFromPoints([
       [0, 0, 0],
       [1, 0, 0],
       [1, 1, 0],
@@ -48,7 +48,7 @@ export const solidFromSlices = function (polygon, options) {
   for (let i = 0, iMax = numSlices - 1; i <= iMax; i++) {
     csg = fnCallback.call(polygon, i / iMax, i);
     if (csg) {
-      if (!(csg instanceof Polygon)) {
+      if (!(csg instanceof Polygon3)) {
         throw new Error('Polygon.solidFromSlices callback error: Polygon expected');
       }
       csg.checkIfConvex();
@@ -67,7 +67,7 @@ export const solidFromSlices = function (polygon, options) {
   top = csg;
 
   if (bLoop) {
-    let bSameTopBottom = bottom.vertices.length === top.vertices.length &&
+    const bSameTopBottom = bottom.vertices.length === top.vertices.length &&
       bottom.vertices.every(function (v, index) {
         return v.pos.equals(top.vertices[index].pos);
       });
@@ -93,7 +93,7 @@ export const solidFromSlices = function (polygon, options) {
 const _addWalls = function (walls, bottom, top, bFlipped) {
   let bottomPoints = bottom.vertices.slice(0); // make a copy
   let topPoints = top.vertices.slice(0); // make a copy
-  let color = top.shared || null;
+  const color = top.shared || null;
 
   // check if bottom perimeter is closed
   if (!bottomPoints[0].pos.equals(bottomPoints[bottomPoints.length - 1].pos)) {
@@ -109,13 +109,13 @@ const _addWalls = function (walls, bottom, top, bFlipped) {
     topPoints = topPoints.reverse();
   }
 
-  let iTopLen = topPoints.length - 1;
-  let iBotLen = bottomPoints.length - 1;
-  let iExtra = iTopLen - iBotLen;// how many extra triangles we need
-  let bMoreTops = iExtra > 0;
-  let bMoreBottoms = iExtra < 0;
+  const iTopLen = topPoints.length - 1;
+  const iBotLen = bottomPoints.length - 1;
+  const iExtra = iTopLen - iBotLen;// how many extra triangles we need
+  const bMoreTops = iExtra > 0;
+  const bMoreBottoms = iExtra < 0;
 
-  let aMin = []; // indexes to start extra triangles (polygon with minimal square)
+  const aMin = []; // indexes to start extra triangles (polygon with minimal square)
   // init - we need exactly /iExtra/ small triangles
   for (let i = Math.abs(iExtra); i > 0; i--) {
     aMin.push({
@@ -152,7 +152,7 @@ const _addWalls = function (walls, bottom, top, bFlipped) {
   } // if
   // sort by index
   aMin.sort(fnSortByIndex);
-  let getTriangle = function addWallsPutTriangle(pointA, pointB, pointC, color) {
+  const getTriangle = function addWallsPutTriangle(pointA, pointB, pointC, color) {
     return new Polygon([pointA, pointB, pointC], color);
     // return bFlipped ? triangle.flipped() : triangle;
   };

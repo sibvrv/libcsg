@@ -2,7 +2,7 @@ import {Connector} from './Connector';
 import {Vertex3 as Vertex3D} from './math/Vertex3';
 import {Vector2 as Vector2D} from './math/Vector2';
 import {Vector3 as Vector3D} from './math/Vector3';
-import {Polygon} from './math/Polygon3';
+import {Polygon3} from './math/Polygon3';
 
 import {fromPolygons} from './CSGFactories';
 import {fromFakeCSG, fromSides, fromObject, fromPoints, fromPointsNoCheck, fromPath2, fromCompactBinary} from './CAGFactories';
@@ -255,7 +255,7 @@ export class CAG extends TransformationMethods {
     bounds[0] = bounds[0].minus(new Vector2D(1, 1));
     bounds[1] = bounds[1].plus(new Vector2D(1, 1));
     const csgshell = this._toCSGWall(-1, 1);
-    let csgplane = fromPolygons([new Polygon([
+    let csgplane = fromPolygons([new Polygon3([
       new Vertex3D(new Vector3D(bounds[0].x, bounds[0].y, 0)),
       new Vertex3D(new Vector3D(bounds[1].x, bounds[0].y, 0)),
       new Vertex3D(new Vector3D(bounds[1].x, bounds[1].y, 0)),
@@ -349,11 +349,11 @@ export class CAG extends TransformationMethods {
         const xtop1 = xtop0 + vps2[j][0].distanceTo(vps2[j][1]);
         const y0 = vp1[0].distanceTo(vps2[j][0]);
         const y1 = vp1[1].distanceTo(vps2[j][1]);
-        const polygon1 = new Polygon(
+        const polygon1 = new Polygon3(
           [Vertex3D.fromPosAndUV(vps2[j][1], new Vector2D(xtop1, y1 * (1 + iteration))),
             Vertex3D.fromPosAndUV(vps2[j][0], new Vector2D(xtop0, y0 * (1 + iteration))),
             Vertex3D.fromPosAndUV(vp1[0], new Vector2D(xbot0, y0 * iteration))]);
-        const polygon2 = new Polygon(
+        const polygon2 = new Polygon3(
           [Vertex3D.fromPosAndUV(vps2[j][1], new Vector2D(xtop1, y1 * (1 + iteration))),
             Vertex3D.fromPosAndUV(vp1[0], new Vector2D(xbot0, y0 * iteration)),
             Vertex3D.fromPosAndUV(vp1[1], new Vector2D(xbot1, y1 * iteration))]);

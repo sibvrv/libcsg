@@ -1,8 +1,11 @@
 import {Tree} from './trees';
-import {Polygon} from './math/Polygon3';
+import {Polygon3} from './math/Polygon3';
+import * as _Plane from './math/Plane';
 import {Plane} from './math/Plane';
+import * as _OrthoNormalBasis from './math/OrthoNormalBasis';
 import {OrthoNormalBasis} from './math/OrthoNormalBasis';
 
+import * as _Properties from './Properties';
 import {Properties} from './Properties';
 import {fixTJunctions} from './utils/fixTJunctions';
 import {canonicalize} from './utils/canonicalize';
@@ -16,28 +19,22 @@ import {center} from '../api/center';
 import {contract, expand, expandedShellOfCCSG} from '../modifiers/expansions';
 
 import {_CSGDEBUG, all, angleEPS, areaEPS, back, bottom, defaultResolution2D, defaultResolution3D, EPS, front, getTag, left, right, staticTag, top} from './constants';
-import {sphere, cube, roundedCube, cylinder, roundedCylinder, cylinderElliptic, polyhedron} from '../primitives/csg/primitives3d';
-import {fromPolygons, fromCompactBinary, fromObject, fromSlices} from './CSGFactories';
+import {cube, cylinder, cylinderElliptic, polyhedron, roundedCube, roundedCylinder, sphere} from '../primitives/csg/primitives3d';
+import {fromCompactBinary, fromObject, fromPolygons, fromSlices} from './CSGFactories';
 import {addTransformationMethodsToPrototype} from './mutators';
 import * as optionsParsers from '../api/optionParsers';
-
 
 import {Vector2 as _Vector2D} from './math/Vector2';
 import {Vector3 as _Vector3D} from './math/Vector3';
 import {Vertex3 as _Vertex} from './math/Vertex3';
-import * as _Plane from './math/Plane';
-import * as _Polygon from './math/Polygon3';
-import * as _Polygon2D from './math/Polygon2';
+import {Polygon2D} from './math/Polygon2';
 import {Line2D} from './math/Line2';
 import * as _Line3D from './math/Line3';
 import * as _Path2D from './math/Path2';
-import * as _OrthoNormalBasis from './math/OrthoNormalBasis';
 import {Matrix4x4 as _Matrix4x4} from './math/Matrix4';
 import {Connector} from './Connector';
 import {ConnectorList} from './ConnectorList';
-import * as _Properties from './Properties';
 import {TransformationMethods} from './TransformationMethods';
-
 
 /** Class CSG
  * Holds a binary space partition tree representing a 3D solid. Two solids can
@@ -277,7 +274,7 @@ export class CSG extends TransformationMethods {
         return newvertex;
       });
       if (ismirror) newvertices.reverse();
-      return new Polygon(newvertices, p.shared, newplane);
+      return new Polygon3(newvertices, p.shared, newplane);
     });
     const result = fromPolygons(newpolygons);
     result.properties = this.properties._transform(matrix4x4);
@@ -361,7 +358,7 @@ export class CSG extends TransformationMethods {
   }
 
   // ALIAS !
-  cutByPlane(plane) {
+  cutByPlane(plane: Plane) {
     return cutByPlane(this, plane);
   }
 
@@ -387,7 +384,7 @@ export class CSG extends TransformationMethods {
    */
   setShared(shared) {
     const polygons = this.polygons.map((p) => {
-      return new Polygon(p.vertices, shared, p.plane);
+      return new Polygon3(p.vertices, shared, p.plane);
     });
     const result = fromPolygons(polygons);
     result.properties = this.properties; // keep original properties
@@ -401,7 +398,7 @@ export class CSG extends TransformationMethods {
    * @returns {CSG} a copy of this CSG, with the given color
    */
   setColor(args) {
-    const newshared = Polygon.Shared.fromColor.apply(this, arguments);
+    const newshared = Polygon3.Shared.fromColor.apply(this, arguments);
     return this.setShared(newshared);
   }
 
@@ -423,13 +420,13 @@ export class CSG extends TransformationMethods {
   // project the 3D CSG onto a plane
   // This returns a 2D CAG with the 'shadow' shape of the 3D solid when projected onto the
   // plane represented by the orthonormal basis
-  projectToOrthoNormalBasis(orthobasis) {
+  projectToOrthoNormalBasis(orthobasis: OrthoNormalBasis) {
     // FIXME:  DEPENDS ON CAG !!
     return projectToOrthoNormalBasis(this, orthobasis);
   }
 
   // FIXME: not finding any uses within our code ?
-  sectionCut(orthobasis) {
+  sectionCut(orthobasis: OrthoNormalBasis) {
     return sectionCut(this, orthobasis);
   }
 
@@ -588,7 +585,7 @@ export class CSG extends TransformationMethods {
     this.polygons.forEach((poly) => {
       const firstVertex = poly.vertices[0];
       for (let i = poly.vertices.length - 3; i >= 0; i--) {
-        polygons.push(new Polygon(
+        polygons.push(new Polygon3(
           [
             firstVertex,
             poly.vertices[i + 1],
@@ -608,8 +605,8 @@ export class CSG extends TransformationMethods {
   static Vector3D = _Vector3D;
   static Vertex = _Vertex;
   static Plane = _Plane;
-  static Polygon = _Polygon;
-  static Polygon2D = _Polygon2D;
+  static Polygon = Polygon3;
+  static Polygon2D = Polygon2D;
   static Line2D = Line2D;
   static Line3D = _Line3D;
   static Path2D = _Path2D;
@@ -657,9 +654,6 @@ export class CSG extends TransformationMethods {
   static parseOptionAsInt = optionsParsers.parseOptionAsInt;
 }
 
-addTransformationMethodsToPrototype(CSG.Vector3D.prototype);
 addTransformationMethodsToPrototype(CSG.Vertex.prototype);
-addTransformationMethodsToPrototype(CSG.Polygon.prototype);
-addTransformationMethodsToPrototype(CSG.Path2D.prototype);
 addTransformationMethodsToPrototype(CSG.Connector.prototype);
 

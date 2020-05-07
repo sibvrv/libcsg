@@ -33,7 +33,7 @@ export class Vector3 extends TransformationMethods {
   /**
    * Vector3 Constructor
    */
-  constructor(x: number | TVector3Universal, y?: number, z?: number) {
+  constructor(x?: number | TVector3Universal, y?: number, z?: number) {
     super();
     if (arguments.length === 3) {
       this._x = parseFloat(x);

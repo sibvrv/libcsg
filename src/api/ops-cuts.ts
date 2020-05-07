@@ -2,15 +2,15 @@ import {EPS} from '../core/constants';
 import {Plane} from '../core/math/Plane';
 import {Vector2} from '../core/math/Vector2';
 import {Vertex3} from '../core/math/Vertex3';
-import Polygon3 from '../core/math/Polygon3';
+import {Polygon3} from '../core/math/Polygon3';
 import {OrthoNormalBasis} from '../core/math/OrthoNormalBasis';
-import {CSG} from '../core/CSG'; // FIXME: circular dependency ! CSG => cutByPlane => CSG
+import {CSG} from '../core/CSG';
 
 /** cuts a csg along a orthobasis
  * @param  {CSG} csg the csg object to cut
  * @param  {Orthobasis} orthobasis the orthobasis to cut along
  */
-export const sectionCut = (csg: any, orthobasis: any) => {
+export const sectionCut = (csg: CSG, orthobasis: OrthoNormalBasis) => {
   let plane1 = orthobasis.plane;
   let plane2 = orthobasis.plane.flipped();
   plane1 = new Plane(plane1.normal, plane1.w);
@@ -21,10 +21,11 @@ export const sectionCut = (csg: any, orthobasis: any) => {
 };
 
 /** Cut the solid by a plane. Returns the solid on the back side of the plane
- * @param  {Plane} plane
+ * @param csg
+ * @param {Plane} plane
  * @returns {CSG} the solid on the back side of the plane
  */
-export const cutByPlane = (csg: any, plane: any) => {
+export const cutByPlane = (csg: CSG, plane: Plane) => {
   if (csg.polygons.length === 0) {
     return new CSG();
   }

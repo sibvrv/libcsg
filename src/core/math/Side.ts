@@ -1,21 +1,23 @@
 import {Vector2} from './Vector2';
 import {Vertex2} from './Vertex2';
 import {Vertex3} from './Vertex3';
-import {Polygon} from './Polygon3';
+import {Polygon3} from './Polygon3';
 import {getTag} from '../constants';
 import {TransformationMethods} from '../TransformationMethods';
+import {Matrix4x4} from './Matrix4';
 
 export class Side extends TransformationMethods {
   vertex0: Vertex2;
   vertex1: Vertex2;
+  tag?: number;
 
   static fromObject(obj: Side) {
-    const vertex0 = Vertex.fromObject(obj.vertex0);
-    const vertex1 = Vertex.fromObject(obj.vertex1);
+    const vertex0 = Vertex2.fromObject(obj.vertex0);
+    const vertex1 = Vertex2.fromObject(obj.vertex1);
     return new Side(vertex0, vertex1);
   };
 
-  _fromFakePolygon(polygon: Polygon) {
+  _fromFakePolygon(polygon: Polygon3) {
     // this can happen based on union, seems to be residuals -
     // return null and handle in caller
     if (polygon.vertices.length < 4) {
@@ -47,11 +49,12 @@ export class Side extends TransformationMethods {
       throw new Error('Assertion failed: _fromFakePolygon: unknown index ordering');
     }
 
-    const result = new Side(new Vertex(pts2d[0]), new Vertex(pts2d[1]));
+    const result = new Side(new Vertex2(pts2d[0]), new Vertex2(pts2d[1]));
     return result;
   };
 
   constructor(vertex0: Vertex2, vertex1: Vertex2) {
+    super();
     this.vertex0 = vertex0;
     this.vertex1 = vertex1;
   }
@@ -68,13 +71,13 @@ export class Side extends TransformationMethods {
       new Vertex3(this.vertex1.pos.toVector3D(z1)),
       new Vertex3(this.vertex0.pos.toVector3D(z1)),
     ];
-    return new Polygon(vertices);
+    return new Polygon3(vertices);
   }
 
-  transform(matrix4x4) {
+  transform(matrix4x4: Matrix4x4) {
     const newp1 = this.vertex0.pos.transform(matrix4x4);
     const newp2 = this.vertex1.pos.transform(matrix4x4);
-    return new Side(new Vertex(newp1), new Vertex(newp2));
+    return new Side(new Vertex2(newp1), new Vertex2(newp2));
   }
 
   flipped() {

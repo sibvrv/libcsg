@@ -1,6 +1,6 @@
 import {EPS} from '../constants';
-import Polygon from '../math/Polygon3';
-import Plane from '../math/Plane';
+import {Polygon3} from '../math/Polygon3';
+import {Plane} from '../math/Plane';
 
 function addSide(sidemap, vertextag2sidestart, vertextag2sideend, vertex0, vertex1, polygonindex) {
   let starttag = vertex0.getTag();
@@ -248,7 +248,7 @@ export const fixTJunctions = function (fromPolygons, csg) {
                     // split the side by inserting the vertex:
                     let newvertices = polygon.vertices.slice(0);
                     newvertices.splice(insertionvertextagindex, 0, endvertex);
-                    let newpolygon = new Polygon(newvertices, polygon.shared /* polygon.plane */);
+                    let newpolygon = new Polygon3(newvertices, polygon.shared /* polygon.plane */);
 
                     // calculate plane with differents point
                     if (isNaN(newpolygon.plane.w)) {

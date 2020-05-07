@@ -3,6 +3,7 @@ import {Matrix4x4} from './math/Matrix4';
 import {Plane} from './math/Plane';
 import {OrthoNormalBasis} from './math/OrthoNormalBasis';
 import {Line3D} from './math/Line3';
+import {TransformationMethods} from './TransformationMethods';
 
 // # class Connector
 // A connector allows to attach two objects at predefined positions
@@ -12,7 +13,7 @@ import {Line3D} from './math/Line3';
 // and the horn is attached to the servo motor at the proper position.
 // Connectors are stored in the properties of a CSG solid so they are
 // ge the same transformations applied as the solid
-export class Connector {
+export class Connector extends TransformationMethods {
   point: Vector3;
   axisvector: Vector3;
   normalvector: Vector3;
@@ -21,6 +22,7 @@ export class Connector {
    * Connector Constructor
    */
   constructor(point: Vector3 | [number, number, number], axisvector: Vector3 | [number, number, number], normalvector: Vector3 | [number, number, number]) {
+    super();
     this.point = new Vector3(point);
     this.axisvector = new Vector3(axisvector).unit();
     this.normalvector = new Vector3(normalvector).unit();

@@ -1,4 +1,4 @@
-import {CAG} from './CAG1';
+import {CAG} from './CAG';
 
 describe('Core CAG', () => {
   it('constructor', () => {

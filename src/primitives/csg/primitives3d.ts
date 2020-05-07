@@ -4,7 +4,7 @@ import {fromPolygons} from '../../core/CSGFactories';
 
 import {Vector3} from '../../core/math/Vector3';
 import {Vertex3} from '../../core/math/Vertex3';
-import {Polygon as Polygon3} from '../../core/math/Polygon3';
+import {Polygon3} from '../../core/math/Polygon3';
 import {Connector} from '../../core/Connector';
 import {Properties} from '../../core/Properties';
 

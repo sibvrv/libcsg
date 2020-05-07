@@ -1,13 +1,15 @@
 import {Vector2} from './Vector2';
-import {Vector3} from './Vector3';
+import {TVector3Universal, Vector3} from './Vector3';
 import {Vertex3} from './Vertex3';
 import {Matrix4x4} from './Matrix4';
-import {_CSGDEBUG, EPS, getTag, areaEPS} from '../constants';
+import {_CSGDEBUG, areaEPS, EPS} from '../constants';
 import {Plane} from './Plane';
 import {CAG} from '../CAG';
 import {solidFromSlices} from '../../api/solidFromSlices';
 import {fromPolygons} from '../CSGFactories';
 import {fromPointsNoCheck} from '../CAGFactories';
+import {PolygonShared} from './PolygonShared';
+import {TransformationMethods} from '../TransformationMethods';
 
 /** Class Polygon
  * Represents a convex polygon. The vertices used to initialize a polygon must
@@ -24,7 +26,7 @@ import {fromPointsNoCheck} from '../CAGFactories';
  *
  * @constructor
  * @param {Vertex[]} vertices - list of vertices
- * @param {Polygon.Shared} [shared=defaultShared] - shared property to apply
+ * @param {Polygon3.Shared} [shared=defaultShared] - shared property to apply
  * @param {Plane} [plane] - plane of the polygon
  *
  * @example
@@ -35,42 +37,126 @@ import {fromPointsNoCheck} from '../CAGFactories';
  * ]
  * let observed = new Polygon(vertices)
  */
-export const Polygon = function (vertices, shared, plane) {
-  this.vertices = vertices;
-  if (!shared) shared = Polygon.defaultShared;
-  this.shared = shared;
-  // let numvertices = vertices.length;
+export class Polygon3 extends TransformationMethods {
+  static defaultShared = new PolygonShared(null);
+  static Shared = PolygonShared;
 
-  if (arguments.length >= 3) {
-    this.plane = plane;
-  } else {
-    this.plane = Plane.fromVector3Ds(vertices[0].pos, vertices[1].pos, vertices[2].pos);
+// create from an untyped object with identical property names:
+  static fromObject(obj) {
+    const vertices = obj.vertices.map((v) => {
+      return Vertex3.fromObject(v);
+    });
+    const shared = Polygon3.Shared.fromObject(obj.shared);
+    const plane = Plane.fromObject(obj.plane);
+    return new Polygon3(vertices, shared, plane);
   }
 
-  if (_CSGDEBUG) {
-    if (!this.checkIfConvex()) {
-      throw new Error('Not convex!');
+  /** Create a polygon from the given points.
+   *
+   * @param {Array[]} points - list of points
+   * @param {Polygon3.Shared} [shared=defaultShared] - shared property to apply
+   * @param {Plane} [plane] - plane of the polygon
+   *
+   * @example
+   * const points = [
+   *   [0,  0, 0],
+   *   [0, 10, 0],
+   *   [0, 10, 10]
+   * ]
+   * let observed = CSG.Polygon3.createFromPoints(points)
+   */
+  static createFromPoints(points, shared?, plane?) {
+    // FIXME : this circular dependency does not work !
+    // const {fromPoints} = require('./polygon3Factories')
+    // return fromPoints(points, shared, plane)
+    const vertices = [];
+    points.map((p) => {
+      const vec = new Vector3(p);
+      const vertex = new Vertex3(vec);
+      vertices.push(vertex);
+    });
+
+    let polygon;
+    if (arguments.length < 3) {
+      polygon = new Polygon3(vertices, shared);
+    } else {
+      polygon = new Polygon3(vertices, shared, plane);
+    }
+    return polygon;
+  }
+
+  static verticesConvex(vertices, planenormal) {
+    const numvertices = vertices.length;
+    if (numvertices > 2) {
+      let prevprevpos = vertices[numvertices - 2].pos;
+      let prevpos = vertices[numvertices - 1].pos;
+      for (let i = 0; i < numvertices; i++) {
+        const pos = vertices[i].pos;
+        if (!Polygon3.isConvexPoint(prevprevpos, prevpos, pos, planenormal)) {
+          return false;
+        }
+        prevprevpos = prevpos;
+        prevpos = pos;
+      }
+    }
+    return true;
+  }
+
+// calculate whether three points form a convex corner
+//  prevpoint, point, nextpoint: the 3 coordinates (Vector3 instances)
+//  normal: the normal vector of the plane
+  static isConvexPoint(prevpoint, point, nextpoint, normal) {
+    const crossproduct = point.minus(prevpoint).cross(nextpoint.minus(point));
+    const crossdotnormal = crossproduct.dot(normal);
+    return (crossdotnormal >= 0);
+  };
+
+  static isStrictlyConvexPoint(prevpoint, point, nextpoint, normal) {
+    const crossproduct = point.minus(prevpoint).cross(nextpoint.minus(point));
+    const crossdotnormal = crossproduct.dot(normal);
+    return (crossdotnormal >= EPS);
+  };
+
+  /**
+   * Polygon3 Constructor
+   */
+  constructor(vertices, shared?, plane?) {
+    super();
+
+    this.vertices = vertices;
+    if (!shared) shared = Polygon3.defaultShared;
+    this.shared = shared;
+    // let numvertices = vertices.length;
+
+    if (arguments.length >= 3) {
+      this.plane = plane;
+    } else {
+      this.plane = Plane.fromVector3Ds(vertices[0].pos, vertices[1].pos, vertices[2].pos);
+    }
+
+    if (_CSGDEBUG) {
+      if (!this.checkIfConvex()) {
+        throw new Error('Not convex!');
+      }
     }
   }
-};
 
-Polygon.prototype = {
   /** Check whether the polygon is convex. (it should be, otherwise we will get unexpected results)
    * @returns {boolean}
    */
-  checkIfConvex: function () {
-    return Polygon.verticesConvex(this.vertices, this.plane.normal);
-  },
+  checkIfConvex() {
+    return Polygon3.verticesConvex(this.vertices, this.plane.normal);
+  }
 
   // FIXME what? why does this return this, and not a new polygon?
   // FIXME is this used?
-  setColor: function (args) {
-    let newshared = Polygon.Shared.fromColor.apply(this, arguments);
+  setColor(args) {
+    const newshared = Polygon3.Shared.fromColor.apply(this, arguments);
     this.shared = newshared;
     return this;
-  },
+  }
 
-  getSignedVolume: function () {
+  getSignedVolume() {
     let signedVolume = 0;
     for (let i = 0; i < this.vertices.length - 2; i++) {
       signedVolume += this.vertices[0].pos.dot(this.vertices[i + 1].pos
@@ -78,10 +164,10 @@ Polygon.prototype = {
     }
     signedVolume /= 6;
     return signedVolume;
-  },
+  }
 
   // Note: could calculate vectors only once to speed up
-  getArea: function () {
+  getArea() {
     let polygonArea = 0;
     for (let i = 0; i < this.vertices.length - 2; i++) {
       polygonArea += this.vertices[i + 1].pos.minus(this.vertices[0].pos)
@@ -89,13 +175,13 @@ Polygon.prototype = {
     }
     polygonArea /= 2;
     return polygonArea;
-  },
+  }
 
   // accepts array of features to calculate
   // returns array of results
-  getTetraFeatures: function (features) {
-    let result = [];
-    features.forEach(function (feature) {
+  getTetraFeatures(features) {
+    const result = [];
+    features.forEach(function(feature) {
       if (feature === 'volume') {
         result.push(this.getSignedVolume());
       } else if (feature === 'area') {
@@ -103,62 +189,62 @@ Polygon.prototype = {
       }
     }, this);
     return result;
-  },
+  }
 
   // Extrude a polygon into the direction offsetvector
   // Returns a CSG object
-  extrude: function (offsetvector) {
-    let newpolygons = [];
+  extrude(offsetvector) {
+    const newpolygons = [];
 
     let polygon1 = this;
-    let direction = polygon1.plane.normal.dot(offsetvector);
+    const direction = polygon1.plane.normal.dot(offsetvector);
     if (direction > 0) {
       polygon1 = polygon1.flipped();
     }
     newpolygons.push(polygon1);
     let polygon2 = polygon1.translate(offsetvector);
-    let numvertices = this.vertices.length;
+    const numvertices = this.vertices.length;
     let x = 0;
-    let y = offsetvector.length();
+    const y = offsetvector.length();
     for (let i = 0; i < numvertices; i++) {
-      let sidefacepoints = [];
-      let nexti = (i < (numvertices - 1)) ? i + 1 : 0;
-      let xn = x + polygon1.vertices[i].pos.distanceTo(polygon1.vertices[nexti].pos);
+      const sidefacepoints = [];
+      const nexti = (i < (numvertices - 1)) ? i + 1 : 0;
+      const xn = x + polygon1.vertices[i].pos.distanceTo(polygon1.vertices[nexti].pos);
       sidefacepoints.push(Vertex3.fromPosAndUV(polygon1.vertices[i].pos, new Vector2(x, 0)));
       sidefacepoints.push(Vertex3.fromPosAndUV(polygon2.vertices[i].pos, new Vector2(x, y)));
       sidefacepoints.push(Vertex3.fromPosAndUV(polygon2.vertices[nexti].pos, new Vector2(xn, y)));
       sidefacepoints.push(Vertex3.fromPosAndUV(polygon1.vertices[nexti].pos, new Vector2(xn, 0)));
-      let sidefacepolygon = new Polygon(sidefacepoints, this.shared);
+      const sidefacepolygon = new Polygon(sidefacepoints, this.shared);
       newpolygons.push(sidefacepolygon);
       x = xn;
     }
     polygon2 = polygon2.flipped();
     newpolygons.push(polygon2);
     return fromPolygons(newpolygons);
-  },
+  }
 
-  translate: function (offset) {
+  translate(offset: TVector3Universal) {
     return this.transform(Matrix4x4.translation(offset));
-  },
+  }
 
   // returns an array with a Vector3 (center point) and a radius
-  boundingSphere: function () {
+  boundingSphere() {
     if (!this.cachedBoundingSphere) {
-      let box = this.boundingBox();
-      let middle = box[0].plus(box[1]).times(0.5);
-      let radius3 = box[1].minus(middle);
-      let radius = radius3.length();
+      const box = this.boundingBox();
+      const middle = box[0].plus(box[1]).times(0.5);
+      const radius3 = box[1].minus(middle);
+      const radius = radius3.length();
       this.cachedBoundingSphere = [middle, radius];
     }
     return this.cachedBoundingSphere;
-  },
+  }
 
   // returns an array of two Vector3s (minimum coordinates and maximum coordinates)
-  boundingBox: function () {
+  boundingBox() {
     if (!this.cachedBoundingBox) {
       let minpoint, maxpoint;
-      let vertices = this.vertices;
-      let numvertices = vertices.length;
+      const vertices = this.vertices;
+      const numvertices = vertices.length;
       if (numvertices === 0) {
         minpoint = new Vector3(0, 0, 0);
       } else {
@@ -166,54 +252,54 @@ Polygon.prototype = {
       }
       maxpoint = minpoint;
       for (let i = 1; i < numvertices; i++) {
-        let point = vertices[i].pos;
+        const point = vertices[i].pos;
         minpoint = minpoint.min(point);
         maxpoint = maxpoint.max(point);
       }
       this.cachedBoundingBox = [minpoint, maxpoint];
     }
     return this.cachedBoundingBox;
-  },
+  }
 
-  flipped: function () {
-    let newvertices = this.vertices.map(function (v) {
+  flipped() {
+    const newvertices = this.vertices.map(function(v) {
       return v.flipped();
     });
     newvertices.reverse();
-    let newplane = this.plane.flipped();
-    return new Polygon(newvertices, this.shared, newplane);
-  },
+    const newplane = this.plane.flipped();
+    return new Polygon3(newvertices, this.shared, newplane);
+  }
 
   // Affine transformation of polygon. Returns a new Polygon
-  transform: function (matrix4x4) {
-    let newvertices = this.vertices.map(function (v) {
+  transform(matrix4x4: Matrix4x4) {
+    const newvertices = this.vertices.map(function(v) {
       return v.transform(matrix4x4);
     });
-    let newplane = this.plane.transform(matrix4x4);
+    const newplane = this.plane.transform(matrix4x4);
     if (matrix4x4.isMirroring()) {
       // need to reverse the vertex order
       // in order to preserve the inside/outside orientation:
       newvertices.reverse();
     }
-    return new Polygon(newvertices, this.shared, newplane);
-  },
+    return new Polygon3(newvertices, this.shared, newplane);
+  }
 
-  toString: function () {
+  toString() {
     let result = 'Polygon plane: ' + this.plane.toString() + '\n';
-    this.vertices.map(function (vertex) {
+    this.vertices.map(function(vertex) {
       result += '  ' + vertex.toString() + '\n';
     });
     return result;
-  },
+  }
 
   // project the 3D polygon onto a plane
-  projectToOrthoNormalBasis: function (orthobasis) {
-    let points2d = this.vertices.map(function (vertex) {
+  projectToOrthoNormalBasis(orthobasis) {
+    const points2d = this.vertices.map(function(vertex) {
       return orthobasis.to2D(vertex.pos);
     });
 
     let result = fromPointsNoCheck(points2d);
-    let area = result.area();
+    const area = result.area();
     if (Math.abs(area) < areaEPS) {
       // the polygon was perpendicular to the orthnormal plane. The resulting 2D polygon would be degenerate
       // return an empty area instead:
@@ -222,154 +308,10 @@ Polygon.prototype = {
       result = result.flipped();
     }
     return result;
-  },
+  }
 
   // ALIAS ONLY!!
-  solidFromSlices: function (options) {
+  solidFromSlices(options) {
     return solidFromSlices(this, options);
   }
-
-};
-
-// create from an untyped object with identical property names:
-Polygon.fromObject = function (obj) {
-  let vertices = obj.vertices.map(function (v) {
-    return Vertex3.fromObject(v);
-  });
-  let shared = Polygon.Shared.fromObject(obj.shared);
-  let plane = Plane.fromObject(obj.plane);
-  return new Polygon(vertices, shared, plane);
-};
-
-/** Create a polygon from the given points.
- *
- * @param {Array[]} points - list of points
- * @param {Polygon.Shared} [shared=defaultShared] - shared property to apply
- * @param {Plane} [plane] - plane of the polygon
- *
- * @example
- * const points = [
- *   [0,  0, 0],
- *   [0, 10, 0],
- *   [0, 10, 10]
- * ]
- * let observed = CSG.Polygon.createFromPoints(points)
- */
-Polygon.createFromPoints = function (points, shared, plane) {
-  // FIXME : this circular dependency does not work !
-  // const {fromPoints} = require('./polygon3Factories')
-  // return fromPoints(points, shared, plane)
-  let vertices = [];
-  points.map(function (p) {
-    let vec = new Vector3(p);
-    let vertex = new Vertex3(vec);
-    vertices.push(vertex);
-  });
-  let polygon;
-  if (arguments.length < 3) {
-    polygon = new Polygon(vertices, shared);
-  } else {
-    polygon = new Polygon(vertices, shared, plane);
-  }
-  return polygon;
-};
-
-Polygon.verticesConvex = function (vertices, planenormal) {
-  let numvertices = vertices.length;
-  if (numvertices > 2) {
-    let prevprevpos = vertices[numvertices - 2].pos;
-    let prevpos = vertices[numvertices - 1].pos;
-    for (let i = 0; i < numvertices; i++) {
-      let pos = vertices[i].pos;
-      if (!Polygon.isConvexPoint(prevprevpos, prevpos, pos, planenormal)) {
-        return false;
-      }
-      prevprevpos = prevpos;
-      prevpos = pos;
-    }
-  }
-  return true;
-};
-
-// calculate whether three points form a convex corner
-//  prevpoint, point, nextpoint: the 3 coordinates (Vector3 instances)
-//  normal: the normal vector of the plane
-Polygon.isConvexPoint = function (prevpoint, point, nextpoint, normal) {
-  let crossproduct = point.minus(prevpoint).cross(nextpoint.minus(point));
-  let crossdotnormal = crossproduct.dot(normal);
-  return (crossdotnormal >= 0);
-};
-
-Polygon.isStrictlyConvexPoint = function (prevpoint, point, nextpoint, normal) {
-  let crossproduct = point.minus(prevpoint).cross(nextpoint.minus(point));
-  let crossdotnormal = crossproduct.dot(normal);
-  return (crossdotnormal >= EPS);
-};
-
-/** Class Polygon.Shared
- * Holds the shared properties for each polygon (Currently only color).
- * @constructor
- * @param {Array[]} color - array containing RGBA values, or null
- *
- * @example
- *   let shared = new CSG.Polygon.Shared([0, 0, 0, 1])
- */
-Polygon.Shared = function (color) {
-  if (color !== null && color !== undefined) {
-    if (color.length !== 4) {
-      throw new Error('Expecting 4 element array');
-    }
-  }
-  this.color = color;
-};
-
-Polygon.Shared.fromObject = function (obj) {
-  return new Polygon.Shared(obj.color);
-};
-
-/** Create Polygon.Shared from color values.
- * @param {number} r - value of RED component
- * @param {number} g - value of GREEN component
- * @param {number} b - value of BLUE component
- * @param {number} [a] - value of ALPHA component
- * @param {Array[]} [color] - OR array containing RGB values (optional Alpha)
- *
- * @example
- * let s1 = Polygon.Shared.fromColor(0,0,0)
- * let s2 = Polygon.Shared.fromColor([0,0,0,1])
- */
-Polygon.Shared.fromColor = function (args) {
-  let color;
-  if (arguments.length === 1) {
-    color = arguments[0].slice(); // make deep copy
-  } else {
-    color = [];
-    for (let i = 0; i < arguments.length; i++) {
-      color.push(arguments[i]);
-    }
-  }
-  if (color.length === 3) {
-    color.push(1);
-  } else if (color.length !== 4) {
-    throw new Error('setColor expects either an array with 3 or 4 elements, or 3 or 4 parameters.');
-  }
-  return new Polygon.Shared(color);
-};
-
-Polygon.Shared.prototype = {
-  getTag: function () {
-    let result = this.tag;
-    if (!result) {
-      result = getTag();
-      this.tag = result;
-    }
-    return result;
-  },
-  // get a string uniquely identifying this object
-  getHash: function () {
-    if (!this.color) return 'null';
-    return this.color.join('/');
-  }
-};
-
-Polygon.defaultShared = new Polygon.Shared(null);
+}
