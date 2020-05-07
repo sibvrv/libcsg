@@ -3,7 +3,7 @@ import {Vector2} from './Vector2';
 import {Matrix4x4} from './Matrix4';
 import {TransformationMethods} from '../TransformationMethods';
 
-export type TVector3Universal = Vector3 | Vector2 | { x?: number, y?: number, z?: number } | [number, number, number];
+export type TVector3Universal = Vector3 | Vector2 | { x?: number, y?: number, z?: number } | [number, number, number] | number[];
 
 /** Class Vector3
  * Represents a 3D vector with X, Y, Z coordinates.

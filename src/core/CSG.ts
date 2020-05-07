@@ -661,6 +661,5 @@ addTransformationMethodsToPrototype(CSG.Vector3D.prototype);
 addTransformationMethodsToPrototype(CSG.Vertex.prototype);
 addTransformationMethodsToPrototype(CSG.Polygon.prototype);
 addTransformationMethodsToPrototype(CSG.Path2D.prototype);
-addTransformationMethodsToPrototype(CSG.OrthoNormalBasis.prototype);
 addTransformationMethodsToPrototype(CSG.Connector.prototype);
 
