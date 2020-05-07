@@ -5,6 +5,14 @@ import {clamp} from '../../math/clamp';
 import {Matrix4x4 as Matrix4} from '../../core/math/Matrix4';
 import {fromPolygons} from '../../core/CSGFactories';
 import {fromPoints} from '../../core/CAGFactories';
+import {Polygon3} from '../../core/math/Polygon3';
+
+const defaults = {
+  fn: 32,
+  startAngle: 0,
+  angle: 360,
+  overflow: 'cap',
+};
 
 /** rotate extrusion / revolve of the given 2d shape
  * @param {Object} [options] - options for construction
@@ -20,13 +28,7 @@ import {fromPoints} from '../../core/CAGFactories';
  * let revolved = rotate_extrude({fn: 10}, square())
  */
 export function rotate_extrude(params?: any, baseShape?: any) {
-  // note, we should perhaps alias this to revolve() as well
-  const defaults = {
-    fn: 32,
-    startAngle: 0,
-    angle: 360,
-    overflow: 'cap',
-  };
+// note, we should perhaps alias this to revolve() as well
   params = Object.assign({}, defaults, params);
   const {fn, startAngle, angle, overflow} = params;
   if (overflow !== 'cap') {
@@ -79,7 +81,7 @@ export function rotate_extrude(params?: any, baseShape?: any) {
   // console.log('negXs', pointsWithNegativeX, 'pointsWithPositiveX', pointsWithPositiveX, 'arePointsWithNegAndPosX', arePointsWithNegAndPosX)
   //  console.log('shapePoints AFTER', shapePoints, baseShape.sides)
 
-  let polygons = [];
+  let polygons: Polygon3[] = [];
 
   // for each of the intermediary steps in the extrusion
   for (let i = 1; i < segments + 1; i++) {

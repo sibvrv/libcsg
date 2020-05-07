@@ -14,7 +14,9 @@ import {CAG} from '../CAG';
  * let rawInput = someCSGORCAGMakingFunction()
  * let canonicalized = canonicalize(rawInput)
  */
-export const canonicalize = (csgOrCAG: CSG | CAG, options) => {
+function canonicalize(csg: CSG, options?: any): CSG;
+function canonicalize(cag: CAG, options?: any): CAG;
+function canonicalize(csgOrCAG: any, options?: any) {
   if (csgOrCAG.isCanonicalized) {
     return csgOrCAG;
   } else {
@@ -24,7 +26,9 @@ export const canonicalize = (csgOrCAG: CSG | CAG, options) => {
       return canonicalizeCSG(csgOrCAG, options);
     }
   }
-};
+}
+
+export {canonicalize};
 
 /**
  * Returns a cannoicalized version of the input csg : ie every very close
@@ -34,7 +38,7 @@ export const canonicalize = (csgOrCAG: CSG | CAG, options) => {
  * let rawCSG = someCSGMakingFunction()
  * let canonicalizedCSG = canonicalize(rawCSG)
  */
-const canonicalizeCSG = (csg: CSG, options) => {
+const canonicalizeCSG = (csg: CSG, options?: any) => {
   if (csg.isCanonicalized) {
     return csg;
   } else {
@@ -47,7 +51,7 @@ const canonicalizeCSG = (csg: CSG, options) => {
   }
 };
 
-const canonicalizeCAG = (cag: CAG, options) => {
+const canonicalizeCAG = (cag: CAG, options?: any) => {
   if (cag.isCanonicalized) {
     return cag;
   } else {

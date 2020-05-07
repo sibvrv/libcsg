@@ -1,6 +1,6 @@
 import {translate} from '../modifiers/transforms';
 
-import CSG from '../core/CSG';
+import {CSG} from '../core/CSG';
 
 export interface ICuboidOptions {
   size: number | [number, number, number];

@@ -1,4 +1,4 @@
-import Path2D from '../../core/math/Path2';
+import {Path2D} from '../../core/math/Path2';
 
 /** rectangular extrusion of the given array of points
  * @param {Array} basePoints array of points (nested) to extrude from
@@ -20,8 +20,8 @@ export function rectangular_extrude(basePoints: any, params?: any) {
     h: 1,
     fn: 8,
     closed: false,
-    round: true,
+    // round: true, // not supported
   };
-  const {w, h, fn, closed, round} = Object.assign({}, defaults, params);
-  return new Path2D(basePoints, closed).rectangularExtrude(w, h, fn, round);
+  const {w, h, fn, closed} = Object.assign({}, defaults, params);
+  return new Path2D(basePoints, closed).rectangularExtrude(w, h, fn);
 }

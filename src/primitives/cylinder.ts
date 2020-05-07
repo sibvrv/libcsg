@@ -1,5 +1,5 @@
 import {translate} from '../modifiers/transforms';
-import CSG from '../core/CSG';
+import {CSG} from '../core/CSG';
 
 /** Construct a cylinder
  * @param {Object} [options] - options for construction

@@ -2,7 +2,7 @@ import {defaultResolution3D} from '../../core/constants';
 import {parseOptionAs3DVector, parseOptionAsFloat, parseOptionAsInt} from '../../api/optionParsers';
 import {fromPolygons} from '../../core/CSGFactories';
 import {Connector} from '../../core/Connector';
-import Vector3D from '../../core/math/Vector3';
+import {Vector3} from '../../core/math/Vector3';
 import {CSG} from '../../core/CSG';
 
 /** linear extrusion of 2D shape, with optional twist
@@ -29,7 +29,7 @@ export const extrude = (cag: any, options: any) => {
   if (twistangle === 0 || twiststeps < 1) {
     twiststeps = 1;
   }
-  const normalVector = Vector3D.Create(0, 1, 0);
+  const normalVector = Vector3.Create(0, 1, 0);
 
   let polygons: any[] = [];
   // bottom and top

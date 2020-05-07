@@ -1,5 +1,7 @@
+import {Matrix4x4} from '../core/math/Matrix4';
+
 // Simplified, array vector rightMultiply1x3Vector
-export const rightMultiply1x3VectorToArray = (matrix: any, vector: any) => {
+export const rightMultiply1x3VectorToArray = (matrix: Matrix4x4, vector: [number, number, number]) => {
   const [v0, v1, v2] = vector;
   const v3 = 1;
   let x = v0 * matrix.elements[0] + v1 * matrix.elements[1] + v2 * matrix.elements[2] + v3 * matrix.elements[3];

@@ -1,5 +1,6 @@
-import OrthoNormalBasis from '../../core/math/OrthoNormalBasis';
+import {OrthoNormalBasis} from '../../core/math/OrthoNormalBasis';
 import {extrudeInOrthonormalBasis} from './extrudeInOrthonormalBasis';
+import {CAG} from '../../main';
 
 /** Extrude in a standard cartesian plane, specified by two axis identifiers. Each identifier can be
  * one of ["X","Y","Z","-X","-Y","-Z"]
@@ -12,6 +13,6 @@ import {extrudeInOrthonormalBasis} from './extrudeInOrthonormalBasis';
  * @param  {Object} [options] - options for construction
  * @param {Boolean} [options.symmetrical=true] - extrude symmetrically in two directions about the plane
  */
-export const extrudeInPlane = (cag: any, axis1: any, axis2: any, depth: number, options: any) => {
+export const extrudeInPlane = (cag: CAG, axis1: string, axis2: string, depth: number, options: any) => {
   return extrudeInOrthonormalBasis(cag, OrthoNormalBasis.GetCartesian(axis1, axis2), depth, options);
 };

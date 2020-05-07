@@ -1,9 +1,9 @@
-import CAG from '../../core/CAG';
+import {CAG} from '../../core/CAG';
 import {parseOptionAs2DVector, parseOptionAsFloat, parseOptionAsInt} from '../../api/optionParsers';
 import {defaultResolution2D} from '../../core/constants';
 import {fromPath2, fromPoints} from '../../core/CAGFactories';
-import Vector2D from '../../core/math/Vector2';
-import Path2D from '../../core/math/Path2';
+import {Vector2} from '../../core/math/Vector2';
+import {Path2D} from '../../core/math/Path2';
 
 /** Construct a circle.
  * @param {Object} [options] - options for construction
@@ -20,7 +20,7 @@ export const circle = (options: any) => {
   const points = [];
   for (let i = 0; i < resolution; i++) {
     const radians = 2 * Math.PI * i / resolution;
-    const point = Vector2D.fromAngleRadians(radians).times(radius).plus(center);
+    const point = Vector2.fromAngleRadians(radians).times(radius).plus(center);
     points.push(point);
   }
   return fromPoints(points);
@@ -86,7 +86,7 @@ export const rectangle = (options: any) => {
     r = parseOptionAs2DVector(options, 'radius', [1, 1]);
   }
   r = r.abs(); // negative radii make no sense
-  const rswap = new Vector2D(r.x, -r.y);
+  const rswap = new Vector2(r.x, -r.y);
   const points = [
     c.plus(r), c.plus(rswap), c.minus(r), c.minus(rswap),
   ];
@@ -134,7 +134,7 @@ export const roundedRectangle = (options: any) => {
   maxroundradius -= 0.1;
   roundradius = Math.min(roundradius, maxroundradius);
   roundradius = Math.max(0, roundradius);
-  radius = new Vector2D(radius.x - roundradius, radius.y - roundradius);
+  radius = new Vector2(radius.x - roundradius, radius.y - roundradius);
   let rect = rectangle({
     center,
     radius,

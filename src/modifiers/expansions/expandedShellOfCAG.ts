@@ -1,7 +1,7 @@
 import {EPS, angleEPS} from '../../core/constants';
-import Vector2D from '../../core/math/Vector2';
+import {Vector2} from '../../core/math/Vector2';
 import {fromPoints, fromPointsNoCheck} from '../../core/CAGFactories';
-import CAG from '../../core/CAG';
+import {CAG} from '../../core/CAG';
 
 /**
  * Expanded Shell Of CAG
@@ -9,7 +9,7 @@ import CAG from '../../core/CAG';
  * @param radius
  * @param resolution
  */
-export const expandedShellOfCAG = (_cag: any, radius: number, resolution: number) => {
+export const expandedShellOfCAG = (_cag: CAG, radius: number, resolution: number) => {
   resolution = resolution || 8;
   if (resolution < 4) resolution = 4;
   const cags = [];
@@ -86,7 +86,7 @@ export const expandedShellOfCAG = (_cag: any, radius: number, resolution: number
       for (let step = 0; step <= numsteps; step++) {
         let angle = angle1 + step / numsteps * (angle2 - angle1);
         if (step === numsteps) angle = angle2; // prevent rounding errors
-        const point = pcenter.plus(Vector2D.fromAngleDegrees(angle).times(radius));
+        const point = pcenter.plus(Vector2.fromAngleDegrees(angle).times(radius));
         if ((!fullcircle) || (step > 0)) {
           points.push(point);
         }

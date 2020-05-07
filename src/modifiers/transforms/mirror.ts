@@ -1,5 +1,5 @@
-import Plane from '../../core/math/Plane';
-import Vector3 from '../../core/math/Vector3';
+import {Plane} from '../../core/math/Plane';
+import {Vector3} from '../../core/math/Vector3';
 
 /** mirror an object in 2D/3D space
  * @param {Array} vector - the axes to mirror the object(s) by

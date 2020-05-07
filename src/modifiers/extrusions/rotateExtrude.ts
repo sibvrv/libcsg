@@ -1,8 +1,14 @@
-import {EPS, defaultResolution3D} from '../../core/constants';
+import {defaultResolution3D, EPS} from '../../core/constants';
 import {parseOptionAsFloat, parseOptionAsInt} from '../../api/optionParsers';
-import Vector3D from '../../core/math/Vector3';
+import {Vector3} from '../../core/math/Vector3';
 import {Connector} from '../../core/Connector';
 import {fromPolygons} from '../../core/CSGFactories';
+import {CAG} from '../../main';
+
+interface IRotateExtrude {
+  angle: number;
+  resolution: number;
+}
 
 // THIS IS AN OLD untested !!! version of rotate extrude
 /** Extrude to into a 3D solid by rotating the origin around the Y axis.
@@ -12,7 +18,7 @@ import {fromPolygons} from '../../core/CSGFactories';
  * @param {Number} [options.resolution=defaultResolution3D] - number of polygons per 360 degree revolution
  * @returns {CSG} new 3D solid
  */
-export const rotateExtrude = (cag: any, options: any) => {
+export const rotateExtrude = (cag: CAG, options?: Partial<IRotateExtrude>) => {
   if (options === undefined) {
     options = {};
   }
@@ -21,7 +27,7 @@ export const rotateExtrude = (cag: any, options: any) => {
 
   alpha = alpha > 360 ? alpha % 360 : alpha;
   const origin = [0, 0, 0];
-  const axisV = Vector3D.Create(0, 1, 0);
+  const axisV = Vector3.Create(0, 1, 0);
   const normalV = [0, 0, 1];
   let polygons: any[] = [];
   // planes only needed if alpha > 0

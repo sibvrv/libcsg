@@ -3,7 +3,7 @@ import {Plane} from './math/Plane';
 import {TVector3Universal, Vector3} from './math/Vector3';
 
 export abstract class TransformationMethods {
-  abstract transform(mat: any): void;
+  abstract transform(mat: Matrix4x4): this;
 
   mirrored(plane: Plane) {
     return this.transform(Matrix4x4.mirroring(plane));
@@ -24,7 +24,7 @@ export abstract class TransformationMethods {
     return this.mirrored(plane);
   }
 
-  translate(v: any) {
+  translate(v: TVector3Universal) {
     return this.transform(Matrix4x4.translation(v));
   }
 
@@ -48,7 +48,7 @@ export abstract class TransformationMethods {
     return this.transform(Matrix4x4.rotation(rotationCenter, rotationAxis, degrees));
   }
 
-  rotateEulerAngles(alpha: number, beta: number, gamma: number, position: any) {
+  rotateEulerAngles(alpha: number, beta: number, gamma: number, position: TVector3Universal) {
     position = position || [0, 0, 0];
 
     const Rz1 = Matrix4x4.rotationZ(alpha);
@@ -59,7 +59,7 @@ export abstract class TransformationMethods {
     return this.transform(Rz2.multiply(Rx).multiply(Rz1).multiply(T));
   }
 
-  rotateEulerXYZ(alpha: number, beta: number, gamma: number, position: any) {
+  rotateEulerXYZ(alpha: number, beta: number, gamma: number, position: TVector3Universal) {
     position = position || [0, 0, 0];
 
     const Rx = Matrix4x4.rotationX(alpha);

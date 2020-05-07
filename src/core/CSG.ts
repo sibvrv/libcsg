@@ -433,25 +433,25 @@ export class CSG extends TransformationMethods {
   /**
    * Returns an array of values for the requested features of this solid.
    * Supported Features: 'volume', 'area'
-   * @param {String[]} features - list of features to calculate
-   * @returns {Float[]} values
+   * @param {string[]} inFeatures - list of features to calculate
+   * @returns {number[]} values
    * @example
    * let volume = A.getFeatures('volume')
    * let values = A.getFeatures('area','volume')
    */
-  getFeatures(features: string | string[]) {
-    if (!(features instanceof Array)) {
-      features = [features];
-    }
+  getFeatures(inFeatures: string | string[]) {
+    const features = Array.isArray(inFeatures) ? inFeatures : [inFeatures];
+
     const result = this.toTriangles()
       .map((triPoly) => {
         return triPoly.getTetraFeatures(features);
       })
       .reduce((pv, v) => {
-        return v.map((feat: number, i: number) => {
-          return feat + (pv === 0 ? 0 : pv[i]);
-        });
-      }, 0);
+          return v.map((feat: number, i: number) => {
+            return feat + (pv === 0 ? 0 : pv[i]);
+          });
+        },
+        0);
     return (result.length === 1) ? result[0] : result;
   }
 

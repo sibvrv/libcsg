@@ -1,4 +1,4 @@
-import {Vector2} from './Vector2';
+import {TVector2Universal, Vector2} from './Vector2';
 import {angleEPS, defaultResolution2D, EPS} from '../constants';
 import {parseOptionAs2DVector, parseOptionAsBool, parseOptionAsFloat, parseOptionAsInt} from '../../api/optionParsers';
 import {Vertex2} from './Vertex2';
@@ -401,7 +401,7 @@ export class Path2D extends TransformationMethods {
    * p1 = p1.appendArc([12.5,-22.96875],{xradius: 15,yradius: -19.6875,xaxisrotation: 0,clockwise: false,large: false});
    * p1 = p1.close();
    */
-  appendArc(endpoint: Vector2, options: any) {
+  appendArc(endpoint: TVector2Universal, options: any) {
     const decimals = 100000;
     if (arguments.length < 2) {
       options = {};

@@ -136,7 +136,7 @@ export class CAG extends TransformationMethods {
   }
 
   // ALIAS !
-  isSelfIntersecting(debug) {
+  isSelfIntersecting(debug?: boolean) {
     return isSelfIntersecting(this, debug);
   }
 

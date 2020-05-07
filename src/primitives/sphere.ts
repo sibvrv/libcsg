@@ -1,6 +1,6 @@
 import {geodesicSphere} from './geodesicSphere';
 import {translate} from '../modifiers/transforms';
-import CSG from '../core/CSG';
+import {CSG} from '../core/CSG';
 
 /**
  * Sphere Type Enum

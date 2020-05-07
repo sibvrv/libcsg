@@ -1,4 +1,4 @@
-import {Vector3} from './math/Vector3';
+import {TVector3Universal, Vector3} from './math/Vector3';
 import {Matrix4x4} from './math/Matrix4';
 import {Plane} from './math/Plane';
 import {OrthoNormalBasis} from './math/OrthoNormalBasis';
@@ -21,7 +21,7 @@ export class Connector extends TransformationMethods {
   /**
    * Connector Constructor
    */
-  constructor(point: Vector3 | [number, number, number], axisvector: Vector3 | [number, number, number], normalvector: Vector3 | [number, number, number]) {
+  constructor(point: TVector3Universal, axisvector: TVector3Universal, normalvector: TVector3Universal) {
     super();
     this.point = new Vector3(point);
     this.axisvector = new Vector3(axisvector).unit();

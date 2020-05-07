@@ -7,6 +7,7 @@ import {Vertex3} from '../../core/math/Vertex3';
 import {Polygon3} from '../../core/math/Polygon3';
 import {Connector} from '../../core/Connector';
 import {Properties} from '../../core/Properties';
+import {CSG} from '../../main';
 
 /** Construct an axis-aligned solid cuboid.
  * @param {Object} [options] - options for construction

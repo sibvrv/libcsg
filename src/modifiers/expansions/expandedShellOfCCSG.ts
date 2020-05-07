@@ -18,7 +18,7 @@ import {fromPolygons} from '../../core/CSGFactories';
  * @param  {Integer} resolution
  * @param  {Boolean} unionWithThis
  */
-export const expandedShellOfCCSG = (_csg: any, radius: number, resolution: number, unionWithThis?: boolean) => {
+export const expandedShellOfCCSG = (_csg: CSG, radius: number, resolution: number, unionWithThis?: boolean) => {
   const csg = _csg.reTesselated();
   let result: any;
   if (unionWithThis) {

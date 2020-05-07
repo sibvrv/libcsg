@@ -9,7 +9,7 @@ import {CSG} from './CSG';
  * @param {Polygon[]} polygons - list of polygons
  * @returns {CSG} new CSG object
  */
-export const fromPolygons = (polygons: any) => {
+export const fromPolygons = (polygons: Polygon3[]) => {
   const csg = new CSG();
   csg.polygons = polygons;
   csg.isCanonicalized = false;
