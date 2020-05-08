@@ -197,7 +197,7 @@ export class OrthoNormalBasis extends TransformationMethods {
     return Line3D.fromPoints(a3d, b3d);
   }
 
-  transform(matrix4x4: Matrix4x4) {
+  transform(matrix4x4: Matrix4x4): OrthoNormalBasis {
     // todo: this may not work properly in case of mirroring
     const newplane = this.plane.transform(matrix4x4);
     const rightpointTransformed = this.u.transform(matrix4x4);

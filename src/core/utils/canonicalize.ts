@@ -79,7 +79,7 @@ const CSGFromCSGFuzzyFactory = (factory: FuzzyCSGFactory, sourcecsg: CSG) => {
   return fromPolygons(newpolygons);
 };
 
-const CAGFromCAGFuzzyFactory = (factory, sourcecag) => {
+const CAGFromCAGFuzzyFactory = (factory: FuzzyCAGFactory, sourcecag: CAG) => {
   const _this = factory;
 
   const newsides = sourcecag.sides

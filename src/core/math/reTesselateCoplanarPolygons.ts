@@ -9,7 +9,7 @@ import {calcInterpolationFactor} from './calcInterpolationFactor';
 
 // Retesselation function for a set of coplanar polygons. See the introduction at the top of
 // this file.
-export const reTesselateCoplanarPolygons = (sourcepolygons, destpolygons) => {
+export const reTesselateCoplanarPolygons = (sourcepolygons: Polygon3[], destpolygons: Polygon3[]) => {
   const numpolygons = sourcepolygons.length;
   if (numpolygons > 0) {
     const plane = sourcepolygons[0].plane;

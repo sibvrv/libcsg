@@ -2,8 +2,8 @@ import {Side} from './math/Side';
 import {Vector2 as Vector2D} from './math/Vector2';
 import {Vertex2} from './math/Vertex2';
 import {areaEPS} from './constants';
-import {isSelfIntersecting, contains} from './utils/cagValidation';
-import {union, difference} from '../modifiers/booleans';
+import {contains, isSelfIntersecting} from './utils/cagValidation';
+import {difference, union} from '../modifiers/booleans';
 import {CAG} from './CAG';
 import {CSG} from './CSG';
 
@@ -20,12 +20,9 @@ export const fromSides = (sides: Side[]) => {
 // Converts a CSG to a  The CSG must consist of polygons with only z coordinates +1 and -1
 // as constructed by _toCSGWall(-1, 1). This is so we can use the 3D union(), intersect() etc
 export const fromFakeCSG = (csg: CSG) => {
-  const sides = csg.polygons.map((p) => {
-    return Side._fromFakePolygon(p);
-  })
-    .filter((s: any) => {
-      return s !== null;
-    });
+  const sides = csg.polygons
+    .map((p) => Side._fromFakePolygon(p)!)
+    .filter(Boolean);
   return fromSides(sides);
 };
 

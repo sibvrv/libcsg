@@ -1,11 +1,11 @@
 import {Connector} from './Connector';
 import {Vertex3 as Vertex3D} from './math/Vertex3';
-import {Vector2 as Vector2D} from './math/Vector2';
-import {Vector3 as Vector3D} from './math/Vector3';
+import {Vector2} from './math/Vector2';
+import {Vector3} from './math/Vector3';
 import {Polygon3} from './math/Polygon3';
 
 import {fromPolygons} from './CSGFactories';
-import {fromFakeCSG, fromSides, fromObject, fromPoints, fromPointsNoCheck, fromPath2, fromCompactBinary} from './CAGFactories';
+import {fromCompactBinary, fromFakeCSG, fromObject, fromPath2, fromPoints, fromPointsNoCheck, fromSides} from './CAGFactories';
 
 import {canonicalize} from './utils/canonicalize';
 import {reTesselate} from './utils/retesellate';
@@ -23,6 +23,9 @@ import {circle, ellipse, rectangle, roundedRectangle} from '../primitives/csg/pr
 import {Vertex2} from './math/Vertex2';
 import {Side} from './math/Side';
 import {TransformationMethods} from './TransformationMethods';
+import {Matrix4x4} from './math/Matrix4';
+import {OrthoNormalBasis} from './math/OrthoNormalBasis';
+import {IRotateExtrude} from '../modifiers/extrusions/rotateExtrude';
 
 /**
  * Class CAG
@@ -35,58 +38,49 @@ export class CAG extends TransformationMethods {
   sides: Side[] = [];
   isCanonicalized = false;
 
-  union(cag) {
-    let cags;
-    if (cag instanceof Array) {
-      cags = cag;
-    } else {
-      cags = [cag];
-    }
+  union(cag: CAG | CAG[]) {
+    const cags = Array.isArray(cag) ? cag : [cag];
     let r = this._toCSGWall(-1, 1);
     r = r.union(
-      cags.map((cag) => {
-        return cag._toCSGWall(-1, 1).reTesselated();
-      }), false, false);
+      cags.map((cagItem) => {
+        return cagItem._toCSGWall(-1, 1).reTesselated();
+      }),
+    );
     return fromFakeCSG(r).canonicalized();
   }
 
-  subtract(cag) {
-    let cags;
-    if (cag instanceof Array) {
-      cags = cag;
-    } else {
-      cags = [cag];
-    }
+  subtract(cag: CAG | CAG[]) {
+    const cags = Array.isArray(cag) ? cag : [cag];
     let r = this._toCSGWall(-1, 1);
-    cags.map((cag) => {
-      r = r.subtractSub(cag._toCSGWall(-1, 1), false, false);
+
+    cags.forEach((cagItem) => {
+      r = r.subtractSub(cagItem._toCSGWall(-1, 1), false, false);
     });
+
     r = r.reTesselated();
     r = r.canonicalized();
-    r = fromFakeCSG(r);
-    r = r.canonicalized();
-    return r;
+
+    let rc = fromFakeCSG(r);
+    rc = rc.canonicalized();
+    return rc;
   }
 
-  intersect(cag) {
-    let cags;
-    if (cag instanceof Array) {
-      cags = cag;
-    } else {
-      cags = [cag];
-    }
+  intersect(cag: CAG | CAG []) {
+    const cags = Array.isArray(cag) ? cag : [cag];
     let r = this._toCSGWall(-1, 1);
-    cags.map((cag) => {
-      r = r.intersectSub(cag._toCSGWall(-1, 1), false, false);
+    cags.map((cagItem) => {
+      r = r.intersectSub(cagItem._toCSGWall(-1, 1), false, false);
     });
+
     r = r.reTesselated();
     r = r.canonicalized();
-    r = fromFakeCSG(r);
-    r = r.canonicalized();
-    return r;
+
+    let rc = fromFakeCSG(r);
+    rc = rc.canonicalized();
+    return rc;
   }
 
-  transform(matrix4x4) {
+  transform(matrix4x4: Matrix4x4): CAG {
     const ismirror = matrix4x4.isMirroring();
     const newsides = this.sides.map((side) => {
       return side.transform(matrix4x4);
@@ -107,21 +101,21 @@ export class CAG extends TransformationMethods {
   }
 
   // ALIAS !
-  center(axes) {
+  center(axes: [boolean, boolean, boolean]) {
     return center({axes}, [this]);
   }
 
   // ALIAS !
-  expandedShell(radius, resolution) {
+  expandedShell(radius: number, resolution: number) {
     return expandedShellOfCAG(this, radius, resolution);
   }
 
   // ALIAS !
-  expand(radius, resolution) {
+  expand(radius: number, resolution: number) {
     return expand(this, radius, resolution);
   }
 
-  contract(radius, resolution) {
+  contract(radius: number, resolution: number) {
     return contract(this, radius, resolution);
   }
 
@@ -141,22 +135,22 @@ export class CAG extends TransformationMethods {
   }
 
   // extrusion: all aliases to simple functions
-  extrudeInOrthonormalBasis(orthonormalbasis, depth, options) {
+  extrudeInOrthonormalBasis(orthonormalbasis: OrthoNormalBasis, depth: number, options?: any) {
     return extrudeInOrthonormalBasis(this, orthonormalbasis, depth, options);
   }
 
   // ALIAS !
-  extrudeInPlane(axis1, axis2, depth, options) {
+  extrudeInPlane(axis1: string, axis2: string, depth: number, options: any) {
     return extrudeInPlane(this, axis1, axis2, depth, options);
   }
 
   // ALIAS !
-  extrude(options) {
+  extrude(options: any) {
     return extrude(this, options);
   }
 
   // ALIAS !
-  rotateExtrude(options) { // FIXME options should be optional
+  rotateExtrude(options: Partial<IRotateExtrude>) { // FIXME options should be optional
     return rotateExtrude(this, options);
   }
 
@@ -170,8 +164,9 @@ export class CAG extends TransformationMethods {
     return canonicalize(this);
   }
 
-  // ALIAS !
+  // ALIAS ! todo fix me
   reTesselated() {
+    // @ts-ignore
     return reTesselate(this);
   }
 
@@ -181,12 +176,12 @@ export class CAG extends TransformationMethods {
   }
 
   // ALIAS !
-  overCutInsideCorners(cutterradius) {
+  overCutInsideCorners(cutterradius: number) {
     return overCutInsideCorners(this, cutterradius);
   }
 
   // ALIAS !
-  hasPointInside(point) {
+  hasPointInside(point: Vector2) {
     return hasPointInside(this, point);
   }
 
@@ -199,20 +194,22 @@ export class CAG extends TransformationMethods {
     return result;
   }
 
-  _toCSGWall(z0, z1) {
+  _toCSGWall(z0: number, z1: number) {
     const polygons = this.sides.map((side) => {
       return side.toPolygon3D(z0, z1);
     });
     return fromPolygons(polygons);
   }
 
-  _toVector3DPairs(m) {
+  _toVector3DPairs(m: Matrix4x4) {
     // transform m
-    let pairs = this.sides.map((side) => {
+    let pairs: Vector3[][] = this.sides.map((side) => {
       const p0 = side.vertex0.pos;
       const p1 = side.vertex1.pos;
-      return [Vector3D.Create(p0.x, p0.y, 0),
-        Vector3D.Create(p1.x, p1.y, 0)];
+      return [
+        Vector3.Create(p0.x, p0.y, 0),
+        Vector3.Create(p1.x, p1.y, 0),
+      ];
     });
     if (typeof m !== 'undefined') {
       pairs = pairs.map((pair) => {
@@ -230,7 +227,7 @@ export class CAG extends TransformationMethods {
     * single translation, axisVector, normalVector arguments
     * (toConnector has precedence over single arguments if provided)
     */
-  _toPlanePolygons(options) {
+  _toPlanePolygons(options: any) {
     const defaults = {
       flipped: false,
     };
@@ -252,15 +249,19 @@ export class CAG extends TransformationMethods {
     const m = thisConnector.getTransformationTo(toConnector, false, 0);
     // create plane as a (partial non-closed) CSG in XY plane
     const bounds = this.getBounds();
-    bounds[0] = bounds[0].minus(new Vector2D(1, 1));
-    bounds[1] = bounds[1].plus(new Vector2D(1, 1));
+    bounds[0] = bounds[0].minus(new Vector2(1, 1));
+    bounds[1] = bounds[1].plus(new Vector2(1, 1));
     const csgshell = this._toCSGWall(-1, 1);
-    let csgplane = fromPolygons([new Polygon3([
-      new Vertex3D(new Vector3D(bounds[0].x, bounds[0].y, 0)),
-      new Vertex3D(new Vector3D(bounds[1].x, bounds[0].y, 0)),
-      new Vertex3D(new Vector3D(bounds[1].x, bounds[1].y, 0)),
-      new Vertex3D(new Vector3D(bounds[0].x, bounds[1].y, 0)),
-    ])]);
+    let csgplane = fromPolygons([
+      new Polygon3(
+        [
+          new Vertex3D(new Vector3(bounds[0].x, bounds[0].y, 0)),
+          new Vertex3D(new Vector3(bounds[1].x, bounds[0].y, 0)),
+          new Vertex3D(new Vector3(bounds[1].x, bounds[1].y, 0)),
+          new Vertex3D(new Vector3(bounds[0].x, bounds[1].y, 0)),
+        ],
+      ),
+    ]);
     if (flipped) {
       csgplane = csgplane.invert();
     }
@@ -274,7 +275,7 @@ export class CAG extends TransformationMethods {
     // points defining the original CAG
     polys.forEach((poly) => {
       poly.vertices.forEach((vertex) => {
-        vertex.uv = new Vector2D(vertex.pos.x, vertex.pos.y);
+        vertex.uv = new Vector2(vertex.pos.x, vertex.pos.y);
       });
     });
 
@@ -289,7 +290,7 @@ export class CAG extends TransformationMethods {
     * copies of this cag, positioned in 3d space as "bottom" and
     * "top" plane per connectors toConnector1, and toConnector2, respectively
     */
-  _toWallPolygons(options, iteration = 0) {
+  _toWallPolygons(options: any, iteration = 0) {
     // normals are going to be correct as long as toConn2.point - toConn1.point
     // points into cag normal direction (check in caller)
     // arguments: options.toConnector1, options.toConnector2, options.cag
@@ -320,10 +321,10 @@ export class CAG extends TransformationMethods {
     const hasMirroredNormals = toConnector1.axisvector.z < 0;
 
     // group the Vector3DPairs by 2D polygon in case of multi-array cag
-    const vps1List = [];
-    const vps2List = [];
-    let vps1Temp = [vps1[0]];
-    let vps2Temp = [vps2[0]];
+    const vps1List: Vector3[][][] = [];
+    const vps2List: Vector3[][][] = [];
+    let vps1Temp: Vector3[][] = [vps1[0]];
+    let vps2Temp: Vector3[][] = [vps2[0]];
     let i = 0;
     for (i = 1; i < vps1.length; ++i) {
       if (!(vps1[i][1].equals(vps1[i - 1][0]) || vps1[i][0].equals(vps1[i - 1][1]))) {
@@ -339,24 +340,24 @@ export class CAG extends TransformationMethods {
     vps2List.push(vps2Temp);
 
     // calculate UV coordinates for each extruded side
-    const polygons = [];
-    vps1List.forEach((vps1, i) => {
+    const polygons: Polygon3[] = [];
+    vps1List.forEach((vps1Item, idx) => {
       let xbot0 = 0;
       let xtop0 = 0;
-      vps2 = vps2List[i];
-      vps1.forEach((vp1, j) => {
+      vps2 = vps2List[idx];
+      vps1Item.forEach((vp1, j) => {
         const xbot1 = xbot0 + vp1[0].distanceTo(vp1[1]);
         const xtop1 = xtop0 + vps2[j][0].distanceTo(vps2[j][1]);
         const y0 = vp1[0].distanceTo(vps2[j][0]);
         const y1 = vp1[1].distanceTo(vps2[j][1]);
         const polygon1 = new Polygon3(
-          [Vertex3D.fromPosAndUV(vps2[j][1], new Vector2D(xtop1, y1 * (1 + iteration))),
-            Vertex3D.fromPosAndUV(vps2[j][0], new Vector2D(xtop0, y0 * (1 + iteration))),
-            Vertex3D.fromPosAndUV(vp1[0], new Vector2D(xbot0, y0 * iteration))]);
+          [Vertex3D.fromPosAndUV(vps2[j][1], new Vector2(xtop1, y1 * (1 + iteration))),
+            Vertex3D.fromPosAndUV(vps2[j][0], new Vector2(xtop0, y0 * (1 + iteration))),
+            Vertex3D.fromPosAndUV(vp1[0], new Vector2(xbot0, y0 * iteration))]);
         const polygon2 = new Polygon3(
-          [Vertex3D.fromPosAndUV(vps2[j][1], new Vector2D(xtop1, y1 * (1 + iteration))),
-            Vertex3D.fromPosAndUV(vp1[0], new Vector2D(xbot0, y0 * iteration)),
-            Vertex3D.fromPosAndUV(vp1[1], new Vector2D(xbot1, y1 * iteration))]);
+          [Vertex3D.fromPosAndUV(vps2[j][1], new Vector2(xtop1, y1 * (1 + iteration))),
+            Vertex3D.fromPosAndUV(vp1[0], new Vector2(xbot0, y0 * iteration)),
+            Vertex3D.fromPosAndUV(vp1[1], new Vector2(xbot1, y1 * iteration))]);
         if (hasMirroredNormals) {
           polygon1.plane = polygon1.plane.flipped();
           polygon2.plane = polygon2.plane.flipped();
@@ -383,7 +384,7 @@ export class CAG extends TransformationMethods {
     // due to the logic of fromPoints()
     // move the first point to the last
     if (points.length > 0) {
-      points.push(points.shift());
+      points.push(points.shift()!);
     }
     return points;
   }
@@ -395,8 +396,10 @@ export class CAG extends TransformationMethods {
   toCompactBinary() {
     const cag = this.canonicalized();
     const numsides = cag.sides.length;
-    const vertexmap = {};
-    const vertices = [];
+    const vertexmap: {
+      [tag: number]: number;
+    } = {};
+    const vertices: Vertex2[] = [];
     let numvertices = 0;
     const sideVertexIndices = new Uint32Array(2 * numsides);
     let sidevertexindicesindex = 0;

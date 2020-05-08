@@ -5,7 +5,7 @@ import {OrthoNormalBasis} from './math/OrthoNormalBasis';
 
 import {Properties} from './Properties';
 import {fixTJunctions} from './utils/fixTJunctions';
-import {canonicalize} from './utils/canonicalize';
+import {canonicalize as canonicalizeFunc} from './utils/canonicalize';
 import {reTesselate} from './utils/retesellate';
 import {bounds} from './utils/csgMeasurements';
 import {projectToOrthoNormalBasis} from './utils/csgProjections';
@@ -246,7 +246,7 @@ export class CSG extends TransformationMethods {
    * m = m.multiply(CSG.Matrix4x4.translation([-.5, 0, 0]))
    * let B = A.transform(m)
    */
-  transform(matrix4x4: Matrix4x4) {
+  transform(matrix4x4: Matrix4x4): CSG {
     const ismirror = matrix4x4.isMirroring();
     const transformedvertices: { [tag: number]: Vertex3 } = {};
     const transformedplanes: { [tag: number]: Plane } = {};
@@ -318,7 +318,7 @@ export class CSG extends TransformationMethods {
 
   // ALIAS !
   canonicalized() {
-    return canonicalize(this);
+    return canonicalizeFunc(this);
   }
 
   // ALIAS !
@@ -446,8 +446,10 @@ export class CSG extends TransformationMethods {
       .map((triPoly) => {
         return triPoly.getTetraFeatures(features);
       })
+      // @ts-ignore TODO FIX ME
       .reduce((pv, v) => {
           return v.map((feat: number, i: number) => {
+            // @ts-ignore TODO FIX ME
             return feat + (pv === 0 ? 0 : pv[i]);
           });
         },
@@ -479,15 +481,21 @@ export class CSG extends TransformationMethods {
     let numpolygonvertices = 0;
 
     let numvertices = 0;
-    const vertexmap = {};
-    const vertices = [];
+    const vertexmap: {
+      [tag: number]: number;
+    } = {};
+    const vertices: Vertex3[] = [];
 
     let numplanes = 0;
-    const planemap = {};
-    const planes = [];
+    const planemap: {
+      [tag: number]: number;
+    } = {};
+    const planes: Plane[] = [];
 
-    const shareds = [];
-    const sharedmap = {};
+    const shareds: PolygonShared[] = [];
+    const sharedmap: {
+      [tag: number]: number;
+    } = {};
     let numshared = 0;
     // for (let i = 0, iMax = csg.polygons.length; i < iMax; i++) {
     //  let p = csg.polygons[i];

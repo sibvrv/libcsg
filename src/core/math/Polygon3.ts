@@ -176,7 +176,7 @@ export class Polygon3 extends TransformationMethods {
   // accepts array of features to calculate
   // returns array of results
   getTetraFeatures(features: string[]) {
-    const result: any[] = [];
+    const result: number[] = [];
     features.forEach((feature) => {
       if (feature === 'volume') {
         result.push(this.getSignedVolume());
@@ -273,7 +273,7 @@ export class Polygon3 extends TransformationMethods {
   }
 
   // Affine transformation of polygon. Returns a new Polygon
-  transform(matrix4x4: Matrix4x4) {
+  transform(matrix4x4: Matrix4x4): Polygon3 {
     const newvertices = this.vertices.map((v) => {
       return v.transform(matrix4x4);
     });

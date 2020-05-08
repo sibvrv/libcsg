@@ -57,7 +57,7 @@ export class Vertex3 extends TransformationMethods {
   }
 
   // Affine transformation of vertex. Returns a new Vertex
-  transform(matrix4x4: Matrix4x4) {
+  transform(matrix4x4: Matrix4x4): Vertex3 {
     const newpos = this.pos.multiply4x4(matrix4x4);
     return Vertex3.fromPosAndUV(newpos, this.uv);
   }

@@ -148,7 +148,7 @@ export class Vector2 extends TransformationMethods {
     return matrix4x4.leftMultiply1x2Vector(this);
   }
 
-  transform(matrix4x4: Matrix4x4) {
+  transform(matrix4x4: Matrix4x4): Vector2 {
     return matrix4x4.leftMultiply1x2Vector(this);
   }
 

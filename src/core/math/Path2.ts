@@ -242,7 +242,7 @@ export class Path2D extends TransformationMethods {
     return CAG.fromPoints(this.points);
   }
 
-  transform(matrix4x4: Matrix4x4) {
+  transform(matrix4x4: Matrix4x4): Path2D {
     const newpoints = this.points.map((point) => point.multiply4x4(matrix4x4));
     return new Path2D(newpoints, this.closed);
   }

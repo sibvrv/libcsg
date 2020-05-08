@@ -77,7 +77,7 @@ export const isSelfIntersecting = (cag: CAG, debug?: boolean) => {
  * @param {Object} p0 - Vertex2 like object
  * @returns {Boolean}
  */
-export const hasPointInside = (cag: CAG, p0: any) => {
+export const hasPointInside = (cag: CAG, p0: Vector2) => {
   let p1 = null;
   let p2 = null;
   let inside = false;

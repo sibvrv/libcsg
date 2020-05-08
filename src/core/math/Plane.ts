@@ -81,7 +81,7 @@ export class Plane extends TransformationMethods {
     return this.normal.equals(n.normal) && this.w === n.w;
   }
 
-  transform(matrix4x4: Matrix4x4) {
+  transform(matrix4x4: Matrix4x4): Plane {
     const ismirror = matrix4x4.isMirroring();
     // get two vectors in the plane:
     const r = this.normal.randomNonParallelVector();

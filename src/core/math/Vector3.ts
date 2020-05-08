@@ -194,7 +194,7 @@ export class Vector3 extends TransformationMethods {
     return matrix4x4.leftMultiply1x3Vector(this);
   }
 
-  transform(matrix4x4: Matrix4x4) {
+  transform(matrix4x4: Matrix4x4): Vector3 {
     return matrix4x4.leftMultiply1x3Vector(this);
   }
 

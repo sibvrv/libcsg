@@ -17,7 +17,7 @@ export class Side extends TransformationMethods {
     return new Side(vertex0, vertex1);
   };
 
-  _fromFakePolygon(polygon: Polygon3) {
+  static _fromFakePolygon(polygon: Polygon3) {
     // this can happen based on union, seems to be residuals -
     // return null and handle in caller
     if (polygon.vertices.length < 4) {
@@ -74,7 +74,7 @@ export class Side extends TransformationMethods {
     return new Polygon3(vertices);
   }
 
-  transform(matrix4x4: Matrix4x4) {
+  transform(matrix4x4: Matrix4x4): Side {
     const newp1 = this.vertex0.pos.transform(matrix4x4);
     const newp2 = this.vertex1.pos.transform(matrix4x4);
     return new Side(new Vertex2(newp1), new Vertex2(newp2));

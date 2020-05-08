@@ -5,7 +5,7 @@ import {Connector} from '../../core/Connector';
 import {fromPolygons} from '../../core/CSGFactories';
 import {CAG} from '../../main';
 
-interface IRotateExtrude {
+export interface IRotateExtrude {
   angle: number;
   resolution: number;
 }

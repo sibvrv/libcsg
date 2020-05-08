@@ -74,7 +74,7 @@ export class Line3D extends TransformationMethods {
     return new Line3D(this.point.clone(), this.direction.negated());
   }
 
-  transform(matrix4x4: Matrix4x4) {
+  transform(matrix4x4: Matrix4x4): Line3D {
     const newpoint = this.point.multiply4x4(matrix4x4);
     const pointPlusDirection = this.point.plus(this.direction);
     const newPointPlusDirection = pointPlusDirection.multiply4x4(matrix4x4);

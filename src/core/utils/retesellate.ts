@@ -2,12 +2,15 @@ import {FuzzyCSGFactory} from '../FuzzyFactory3d';
 import {reTesselateCoplanarPolygons} from '../math/reTesselateCoplanarPolygons';
 import {fromPolygons} from '../CSGFactories';
 import {CSG} from '../CSG';
+import {Polygon3} from '../math/Polygon3';
 
 export const reTesselate = (csg: CSG) => {
   if (csg.isRetesselated) {
     return csg;
   } else {
-    const polygonsPerPlane = {};
+    const polygonsPerPlane: {
+      [tagHash: string]: Polygon3[]
+    } = {};
     const isCanonicalized = csg.isCanonicalized;
     const fuzzyfactory = new FuzzyCSGFactory();
 
@@ -32,13 +35,15 @@ export const reTesselate = (csg: CSG) => {
 
     });
 
-    let destpolygons = [];
+    let destpolygons: Polygon3[] = [];
+
+    // tslint:disable-next-line:forin
     for (const planetag in polygonsPerPlane) {
       const sourcepolygons = polygonsPerPlane[planetag];
       if (sourcepolygons.length < 2) {
         destpolygons = destpolygons.concat(sourcepolygons);
       } else {
-        const retesselayedpolygons = [];
+        const retesselayedpolygons: Polygon3[] = [];
         reTesselateCoplanarPolygons(sourcepolygons, retesselayedpolygons);
         destpolygons = destpolygons.concat(retesselayedpolygons);
       }

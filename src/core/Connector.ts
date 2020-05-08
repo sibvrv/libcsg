@@ -36,7 +36,7 @@ export class Connector extends TransformationMethods {
     return new Connector(this.point, axisvector, normalvector);
   }
 
-  transform(matrix4x4: Matrix4x4) {
+  transform(matrix4x4: Matrix4x4): Connector {
     const point = this.point.multiply4x4(matrix4x4);
     const axisvector = this.point.plus(this.axisvector).multiply4x4(matrix4x4).minus(point);
     const normalvector = this.point.plus(this.normalvector).multiply4x4(matrix4x4).minus(point);

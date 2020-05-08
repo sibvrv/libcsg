@@ -84,7 +84,7 @@ export class Line2D extends TransformationMethods {
     return new Vector2(point);
   }
 
-  transform(matrix4x4: Matrix4x4) {
+  transform(matrix4x4: Matrix4x4): Line2D {
     const origin = new Vector2(0, 0);
     const pointOnPlane = this.normal.times(this.w);
     const neworigin = origin.multiply4x4(matrix4x4);
