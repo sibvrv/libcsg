@@ -1,57 +1,63 @@
 import {EPS} from './constants';
 import {Polygon3} from './math/Polygon3';
 import {FuzzyFactory} from './FuzzyFactory';
+import {PolygonShared} from './math/PolygonShared';
+import {Vertex3} from './math/Vertex3';
+import {Plane} from './math/Plane';
 
 // ////////////////////////////////////
-export const FuzzyCSGFactory = function () {
-  this.vertexfactory = new FuzzyFactory(5, EPS);
-  this.planefactory = new FuzzyFactory(4, EPS);
-  this.polygonsharedfactory = {};
-};
+export class FuzzyCSGFactory {
+  vertexfactory = new FuzzyFactory(5, EPS);
+  planefactory = new FuzzyFactory(4, EPS);
+  polygonsharedfactory: { [hash: string]: PolygonShared } = {};
 
-FuzzyCSGFactory.prototype = {
-  getPolygonShared: function (sourceshared) {
-    let hash = sourceshared.getHash();
+  getPolygonShared(sourceshared: PolygonShared) {
+    const hash = sourceshared.getHash();
     if (hash in this.polygonsharedfactory) {
       return this.polygonsharedfactory[hash];
     } else {
       this.polygonsharedfactory[hash] = sourceshared;
       return sourceshared;
     }
-  },
+  }
 
-  getVertex: function (sourcevertex) {
-    let elements = [sourcevertex.pos._x, sourcevertex.pos._y, sourcevertex.pos._z,
-      sourcevertex.uv._x, sourcevertex.uv._y];
-    let result = this.vertexfactory.lookupOrCreate(elements, function (els) {
+  getVertex(sourcevertex: Vertex3) {
+    const elements = [
+      sourcevertex.pos._x, sourcevertex.pos._y, sourcevertex.pos._z,
+      sourcevertex.uv._x, sourcevertex.uv._y,
+    ];
+    const result = this.vertexfactory.lookupOrCreate(elements, (els) => {
       return sourcevertex;
     });
     return result;
-  },
+  }
 
-  getPlane: function (sourceplane) {
-    let elements = [sourceplane.normal._x, sourceplane.normal._y, sourceplane.normal._z, sourceplane.w];
-    let result = this.planefactory.lookupOrCreate(elements, function (els) {
+  getPlane(sourceplane: Plane) {
+    const elements = [
+      sourceplane.normal._x, sourceplane.normal._y, sourceplane.normal._z,
+      sourceplane.w,
+    ];
+    const result = this.planefactory.lookupOrCreate(elements, (els) => {
       return sourceplane;
     });
     return result;
-  },
+  }
 
-  getPolygon: function (sourcepolygon) {
-    let newplane = this.getPlane(sourcepolygon.plane);
-    let newshared = this.getPolygonShared(sourcepolygon.shared);
-    let _this = this;
-    let newvertices = sourcepolygon.vertices.map(function (vertex) {
+  getPolygon(sourcepolygon: Polygon3) {
+    const newplane = this.getPlane(sourcepolygon.plane);
+    const newshared = this.getPolygonShared(sourcepolygon.shared);
+    const _this = this;
+    const newvertices = sourcepolygon.vertices.map((vertex) => {
       return _this.getVertex(vertex);
     });
     // two vertices that were originally very close may now have become
     // truly identical (referring to the same Vertex object).
     // Remove duplicate vertices:
-    let newverticesDedup = [];
+    let newverticesDedup: Vertex3[] = [];
     if (newvertices.length > 0) {
       let prevvertextag = newvertices[newvertices.length - 1].getTag();
-      newvertices.forEach(function (vertex) {
-        let vertextag = vertex.getTag();
+      newvertices.forEach((vertex) => {
+        const vertextag = vertex.getTag();
         if (vertextag !== prevvertextag) {
           newverticesDedup.push(vertex);
         }
@@ -64,5 +70,5 @@ FuzzyCSGFactory.prototype = {
     }
     return new Polygon3(newverticesDedup, newshared, newplane);
   }
-};
+}
 

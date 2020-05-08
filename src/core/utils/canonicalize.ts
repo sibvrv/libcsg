@@ -5,6 +5,7 @@ import {fromPolygons} from '../CSGFactories';
 import {fromSides} from '../CAGFactories';
 import {CSG} from '../CSG';
 import {CAG} from '../CAG';
+import {Polygon3} from '../math/Polygon3';
 
 /**
  * Returns a cannoicalized version of the input csg/cag : ie every very close
@@ -62,9 +63,9 @@ const canonicalizeCAG = (cag: CAG, options?: any) => {
   }
 };
 
-const CSGFromCSGFuzzyFactory = (factory, sourcecsg: CSG) => {
+const CSGFromCSGFuzzyFactory = (factory: FuzzyCSGFactory, sourcecsg: CSG) => {
   const _this = factory;
-  const newpolygons = [];
+  const newpolygons: Polygon3[] = [];
 
   sourcecsg.polygons
     .forEach((polygon) => {
