@@ -1,6 +1,8 @@
+// @ts-nocheck
+// todo fix it
 import {EPS} from '../constants';
 import {OrthoNormalBasis} from './OrthoNormalBasis';
-import {interpolateBetween2DPointsForY, insertSorted, fnNumberSort} from '../utils';
+import {fnNumberSort, insertSorted, interpolateBetween2DPointsForY} from '../utils';
 import {Vertex3} from './Vertex3';
 import {Vector2} from './Vector2';
 import {Line2D} from './Line2';
@@ -112,15 +114,15 @@ export const reTesselateCoplanarPolygons = (sourcepolygons: Polygon3[], destpoly
     let prevoutpolygonrow = [];
     for (let yindex = 0; yindex < ycoordinates.length; yindex++) {
       const newoutpolygonrow = [];
-      const ycoordinate_as_string = ycoordinates[yindex];
-      const ycoordinate = Number(ycoordinate_as_string);
+      const ycoordinateAsString = ycoordinates[yindex];
+      const ycoordinate = Number(ycoordinateAsString);
 
       // update activepolygons for this y coordinate:
       // - Remove any polygons that end at this y coordinate
       // - update leftvertexindex and rightvertexindex (which point to the current vertex index
       //   at the the left and right side of the polygon
       // Iterate over all polygons that have a corner at this y coordinate:
-      const polygonindexeswithcorner = ycoordinatetopolygonindexes[ycoordinate_as_string];
+      const polygonindexeswithcorner = ycoordinatetopolygonindexes[ycoordinateAsString];
       for (let activepolygonindex = 0; activepolygonindex < activepolygons.length; ++activepolygonindex) {
         const activepolygon = activepolygons[activepolygonindex];
         const polygonindex = activepolygon.polygonindex;
@@ -159,6 +161,8 @@ export const reTesselateCoplanarPolygons = (sourcepolygons: Polygon3[], destpoly
             if (nextleftvertexindex >= numvertices) nextleftvertexindex = 0;
             activepolygon.bottomleft = vertices2d[nextleftvertexindex];
             activepolygon.bottomleftuv = uvcoordinates[nextleftvertexindex];
+
+            // tslint:disable-next-line:no-shadowed-variable
             let nextrightvertexindex = newrightvertexindex - 1;
             if (nextrightvertexindex < 0) nextrightvertexindex = numvertices - 1;
             activepolygon.bottomright = vertices2d[nextrightvertexindex];
@@ -176,9 +180,11 @@ export const reTesselateCoplanarPolygons = (sourcepolygons: Polygon3[], destpoly
         nextycoordinate = Number(ycoordinates[yindex + 1]);
         const middleycoordinate = 0.5 * (ycoordinate + nextycoordinate);
         // update activepolygons by adding any polygons that start here:
-        const startingpolygonindexes = topy2polygonindexes[ycoordinate_as_string];
-        for (const polygonindex_key in startingpolygonindexes) {
-          const polygonindex = startingpolygonindexes[polygonindex_key];
+        const startingpolygonindexes = topy2polygonindexes[ycoordinateAsString];
+
+        // tslint:disable-next-line:forin
+        for (const polygonindexKey in startingpolygonindexes) {
+          const polygonindex = startingpolygonindexes[polygonindexKey];
           const vertices2d = polygonvertices2d[polygonindex];
           const uvcoordinates = polygonuvcoordinates[polygonindex];
           const numvertices = vertices2d.length;
@@ -216,9 +222,9 @@ export const reTesselateCoplanarPolygons = (sourcepolygons: Polygon3[], destpoly
             bottomleft: vertices2d[nextleftvertexindex],
             bottomleftuv: uvcoordinates[nextleftvertexindex],
             bottomright: vertices2d[nextrightvertexindex],
-            bottomrightuv: uvcoordinates[nextrightvertexindex]
+            bottomrightuv: uvcoordinates[nextrightvertexindex],
           };
-          insertSorted(activepolygons, newactivepolygon, function (el1, el2) {
+          insertSorted(activepolygons, newactivepolygon, (el1, el2) => {
             const x1 = interpolateBetween2DPointsForY(
               el1.topleft, el1.bottomleft, middleycoordinate);
             const x2 = interpolateBetween2DPointsForY(
@@ -233,6 +239,8 @@ export const reTesselateCoplanarPolygons = (sourcepolygons: Polygon3[], destpoly
       if (true) {
         // Now activepolygons is up to date
         // Build the output polygons for the next row in newoutpolygonrow:
+
+        // tslint:disable-next-line:forin
         for (const activepolygonKey in activepolygons) {
           const activepolygon = activepolygons[activepolygonKey];
           const polygonindex = activepolygon.polygonindex;
@@ -273,7 +281,7 @@ export const reTesselateCoplanarPolygons = (sourcepolygons: Polygon3[], destpoly
             bottomright,
             bottomrightuv,
             leftline: Line2D.fromPoints(topleft, bottomleft),
-            rightline: Line2D.fromPoints(bottomright, topright)
+            rightline: Line2D.fromPoints(bottomright, topright),
           };
           if (newoutpolygonrow.length > 0) {
             const prevoutpolygon = newoutpolygonrow[newoutpolygonrow.length - 1];
@@ -295,6 +303,8 @@ export const reTesselateCoplanarPolygons = (sourcepolygons: Polygon3[], destpoly
           // try to match the new polygons against the previous row:
           const prevcontinuedindexes = {};
           const matchedindexes = {};
+
+          // tslint:disable-next-line:prefer-for-of
           for (let i = 0; i < newoutpolygonrow.length; i++) {
             const thispolygon = newoutpolygonrow[i];
             for (let ii = 0; ii < prevoutpolygonrow.length; ii++) {
@@ -346,7 +356,7 @@ export const reTesselateCoplanarPolygons = (sourcepolygons: Polygon3[], destpoly
               const points2d = prevpolygon.outpolygon.rightpoints.concat(prevpolygon.outpolygon.leftpoints);
               const uvcoordinates = prevpolygon.outpolygon.rightuvcoordinates.concat(prevpolygon.outpolygon.leftuvcoordinates);
               const vertices3d = [];
-              points2d.map(function (point2d, i) {
+              points2d.map((point2d, i) => {
                 const point3d = orthobasis.to3D(point2d);
                 const vertex3d = Vertex3.fromPosAndUV(point3d, uvcoordinates[i]);
                 vertices3d.push(vertex3d);
@@ -357,6 +367,7 @@ export const reTesselateCoplanarPolygons = (sourcepolygons: Polygon3[], destpoly
           }
         }
 
+        // tslint:disable-next-line:prefer-for-of
         for (let i = 0; i < newoutpolygonrow.length; i++) {
           const thispolygon = newoutpolygonrow[i];
           if (!thispolygon.outpolygon) {
@@ -365,7 +376,7 @@ export const reTesselateCoplanarPolygons = (sourcepolygons: Polygon3[], destpoly
               leftpoints: [],
               leftuvcoordinates: [],
               rightpoints: [],
-              rightuvcoordinates: []
+              rightuvcoordinates: [],
             };
             thispolygon.outpolygon.leftpoints.push(thispolygon.topleft);
             thispolygon.outpolygon.leftuvcoordinates.push(thispolygon.topleftuv);

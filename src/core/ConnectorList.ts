@@ -1,14 +1,15 @@
-import {Vector3} from './math/Vector3';
+import {TVector3Universal, Vector3} from './math/Vector3';
 import {CSG} from './CSG';
 import {Connector} from './Connector';
+import {Path2D} from './math/Path2';
 
 export class ConnectorList {
   closed = false;
-  connectors_: Connector[];
+  connectorsList: Connector[];
 
   static defaultNormal = [0, 0, 1];
 
-  static fromPath2D(path2D, arg1, arg2) {
+  static fromPath2D(path2D: Path2D, arg1: TVector3Universal, arg2: TVector3Universal) {
     if (arguments.length === 3) {
       return ConnectorList._fromPath2DTangents(path2D, arg1, arg2);
     } else if (arguments.length === 2) {
@@ -23,7 +24,7 @@ export class ConnectorList {
    * This is undefined for start and end points, so axis for these have to be manually
    * provided.
    */
-  static _fromPath2DTangents(path2D, start, end) {
+  static _fromPath2DTangents(path2D: Path2D, start: TVector3Universal, end: TVector3Universal) {
     // path2D
     let axis;
     const pathLen = path2D.points.length;
@@ -31,7 +32,7 @@ export class ConnectorList {
       new Connector(path2D.points[0], start, ConnectorList.defaultNormal),
     ]);
     // middle points
-    path2D.points.slice(1, pathLen - 1).forEach(function(p2, i) {
+    path2D.points.slice(1, pathLen - 1).forEach((p2: any, i: any) => {
       axis = path2D.points[i + 2].minus(path2D.points[i]).toVector3D(0);
       result.appendConnector(
         new Connector(p2.toVector3D(0), axis, ConnectorList.defaultNormal),
@@ -48,16 +49,17 @@ export class ConnectorList {
   /*
    * angleIsh: either a static angle, or a function(point) returning an angle
    */
-  static _fromPath2DExplicit(path2D, angleIsh) {
-    function getAngle(angleIsh, pt, i) {
-      if (typeof angleIsh === 'function') {
-        angleIsh = angleIsh(pt, i);
+  static _fromPath2DExplicit(path2D: Path2D, angleIsh: any) {
+
+    function getAngle(angleIshVal: any, pt: any, i: any) {
+      if (typeof angleIshVal === 'function') {
+        angleIshVal = angleIshVal(pt, i);
       }
-      return angleIsh;
+      return angleIshVal;
     }
 
     const result = new ConnectorList(
-      path2D.points.map(function(p2, i) {
+      path2D.points.map((p2, i) => {
         return new Connector(p2.toVector3D(0),
           Vector3.Create(1, 0, 0).rotateZ(getAngle(angleIsh, p2, i)),
           ConnectorList.defaultNormal);
@@ -71,15 +73,15 @@ export class ConnectorList {
    * ConnectorList Constructor
    */
   constructor(connectors: Connector[]) {
-    this.connectors_ = [...connectors];
+    this.connectorsList = [...connectors];
   }
 
-  setClosed(closed) {
+  setClosed(closed: boolean) {
     this.closed = !!closed;
   }
 
-  appendConnector(conn) {
-    this.connectors_.push(conn);
+  appendConnector(conn: Connector) {
+    this.connectorsList.push(conn);
   }
 
   /*
@@ -89,24 +91,24 @@ export class ConnectorList {
    *              Note: don't duplicate connectors in the path
    * TODO: consider an option "maySelfIntersect" to close & force union all single segments
    */
-  followWith(cagish) {
+  followWith(cagish: any) {
     this.verify();
 
-    function getCag(cagish, connector) {
-      if (typeof cagish === 'function') {
-        cagish = cagish(connector.point, connector.axisvector, connector.normalvector);
+    function getCag(cagishVal: any, connector: Connector) {
+      if (typeof cagishVal === 'function') {
+        cagishVal = cagishVal(connector.point, connector.axisvector, connector.normalvector);
       }
-      return cagish;
+      return cagishVal;
     }
 
-    const polygons = [];
+    const polygons: any[] = [];
     let currCag;
-    let prevConnector = this.connectors_[this.connectors_.length - 1];
+    let prevConnector = this.connectorsList[this.connectorsList.length - 1];
     let prevCag = getCag(cagish, prevConnector);
 
     // add walls
 
-    this.connectors_.forEach((connector, notFirst) => {
+    this.connectorsList.forEach((connector, notFirst) => {
       currCag = getCag(cagish, connector);
       if (notFirst || this.closed) {
         polygons.push.apply(polygons, prevCag._toWallPolygons({
@@ -118,7 +120,7 @@ export class ConnectorList {
           currCag._toPlanePolygons({toConnector: connector, flipped: true}));
       }
 
-      if (notFirst === this.connectors_.length - 1 && !this.closed) {
+      if (notFirst === this.connectorsList.length - 1 && !this.closed) {
         // build end wall
         polygons.push.apply(polygons,
           currCag._toPlanePolygons({toConnector: connector}));
@@ -137,9 +139,9 @@ export class ConnectorList {
   verify() {
     let connI;
     let connI1;
-    for (let i = 0; i < this.connectors_.length - 1; i++) {
-      connI = this.connectors_[i];
-      connI1 = this.connectors_[i + 1];
+    for (let i = 0; i < this.connectorsList.length - 1; i++) {
+      connI = this.connectorsList[i];
+      connI1 = this.connectorsList[i + 1];
       if (connI1.point.minus(connI.point).dot(connI.axisvector) <= 0) {
         throw new Error('Invalid ConnectorList. Each connectors position needs to be within a <90deg range of previous connectors axisvector');
       }

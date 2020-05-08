@@ -1,13 +1,14 @@
+// @ts-nocheck
 import {EPS} from '../constants';
 import {Polygon3} from '../math/Polygon3';
 import {Plane} from '../math/Plane';
 
 function addSide(sidemap, vertextag2sidestart, vertextag2sideend, vertex0, vertex1, polygonindex) {
-  let starttag = vertex0.getTag();
-  let endtag = vertex1.getTag();
+  const starttag = vertex0.getTag();
+  const endtag = vertex1.getTag();
   if (starttag === endtag) throw new Error('Assertion failed');
-  let newsidetag = starttag + '/' + endtag;
-  let reversesidetag = endtag + '/' + starttag;
+  const newsidetag = starttag + '/' + endtag;
+  const reversesidetag = endtag + '/' + starttag;
   if (reversesidetag in sidemap) {
     // we have a matching reverse oriented side.
     // Instead of adding the new side, cancel out the reverse side:
@@ -16,10 +17,10 @@ function addSide(sidemap, vertextag2sidestart, vertextag2sideend, vertex0, verte
     return null;
   }
   //  console.log("addSide("+newsidetag+")");
-  let newsideobj = {
-    vertex0: vertex0,
-    vertex1: vertex1,
-    polygonindex: polygonindex
+  const newsideobj = {
+    vertex0,
+    vertex1,
+    polygonindex,
   };
   if (!(newsidetag in sidemap)) {
     sidemap[newsidetag] = [newsideobj];
@@ -40,15 +41,15 @@ function addSide(sidemap, vertextag2sidestart, vertextag2sideend, vertex0, verte
 }
 
 function deleteSide(sidemap, vertextag2sidestart, vertextag2sideend, vertex0, vertex1, polygonindex) {
-  let starttag = vertex0.getTag();
-  let endtag = vertex1.getTag();
-  let sidetag = starttag + '/' + endtag;
+  const starttag = vertex0.getTag();
+  const endtag = vertex1.getTag();
+  const sidetag = starttag + '/' + endtag;
   // console.log("deleteSide("+sidetag+")");
   if (!(sidetag in sidemap)) throw new Error('Assertion failed');
   let idx = -1;
-  let sideobjs = sidemap[sidetag];
+  const sideobjs = sidemap[sidetag];
   for (let i = 0; i < sideobjs.length; i++) {
-    let sideobj = sideobjs[i];
+    const sideobj = sideobjs[i];
     if (sideobj.vertex0 !== vertex0) continue;
     if (sideobj.vertex1 !== vertex1) continue;
     if (polygonindex !== null) {
@@ -97,14 +98,14 @@ function deleteSide(sidemap, vertextag2sidestart, vertextag2sideend, vertex0, ve
      Note that this can create polygons that are slightly non-convex (due to rounding errors). Therefore the result should
      not be used for further CSG operations!
 */
-export const fixTJunctions = function (fromPolygons, csg) {
+export const fixTJunctions = (fromPolygons, csg) => {
   csg = csg.canonicalized();
-  let sidemap = {};
+  const sidemap = {};
 
   // STEP 1
   for (let polygonindex = 0; polygonindex < csg.polygons.length; polygonindex++) {
-    let polygon = csg.polygons[polygonindex];
-    let numvertices = polygon.vertices.length;
+    const polygon = csg.polygons[polygonindex];
+    const numvertices = polygon.vertices.length;
     // should be true
     if (numvertices >= 3) {
       let vertex = polygon.vertices[0];
@@ -112,22 +113,22 @@ export const fixTJunctions = function (fromPolygons, csg) {
       for (let vertexindex = 0; vertexindex < numvertices; vertexindex++) {
         let nextvertexindex = vertexindex + 1;
         if (nextvertexindex === numvertices) nextvertexindex = 0;
-        let nextvertex = polygon.vertices[nextvertexindex];
-        let nextvertextag = nextvertex.getTag();
-        let sidetag = vertextag + '/' + nextvertextag;
-        let reversesidetag = nextvertextag + '/' + vertextag;
+        const nextvertex = polygon.vertices[nextvertexindex];
+        const nextvertextag = nextvertex.getTag();
+        const sidetag = vertextag + '/' + nextvertextag;
+        const reversesidetag = nextvertextag + '/' + vertextag;
         if (reversesidetag in sidemap) {
           // this side matches the same side in another polygon. Remove from sidemap:
-          let ar = sidemap[reversesidetag];
+          const ar = sidemap[reversesidetag];
           ar.splice(-1, 1);
           if (ar.length === 0) {
             delete sidemap[reversesidetag];
           }
         } else {
-          let sideobj = {
+          const sideobj = {
             vertex0: vertex,
             vertex1: nextvertex,
-            polygonindex: polygonindex
+            polygonindex,
           };
           if (!(sidetag in sidemap)) {
             sidemap[sidetag] = [sideobj];
@@ -143,16 +144,18 @@ export const fixTJunctions = function (fromPolygons, csg) {
   // STEP 2
   // now sidemap contains 'unmatched' sides
   // i.e. side AB in one polygon does not have a matching side BA in another polygon
-  let vertextag2sidestart = {};
-  let vertextag2sideend = {};
-  let sidestocheck = {};
+  const vertextag2sidestart = {};
+  const vertextag2sideend = {};
+  const sidestocheck = {};
   let sidemapisempty = true;
-  for (let sidetag in sidemap) {
+
+  // tslint:disable-next-line:forin
+  for (const sidetag in sidemap) {
     sidemapisempty = false;
     sidestocheck[sidetag] = true;
-    sidemap[sidetag].map(function (sideobj) {
-      let starttag = sideobj.vertex0.getTag();
-      let endtag = sideobj.vertex1.getTag();
+    sidemap[sidetag].map((sideobj) => {
+      const starttag = sideobj.vertex0.getTag();
+      const endtag = sideobj.vertex1.getTag();
       if (starttag in vertextag2sidestart) {
         vertextag2sidestart[starttag].push(sidetag);
       } else {
@@ -169,10 +172,13 @@ export const fixTJunctions = function (fromPolygons, csg) {
   // STEP 3 : if sidemap is not empty
   if (!sidemapisempty) {
     // make a copy of the polygons array, since we are going to modify it:
-    let polygons = csg.polygons.slice(0);
+    const polygons = csg.polygons.slice(0);
     while (true) {
+      // tslint:disable-next-line:no-shadowed-variable
       let sidemapisempty = true;
-      for (let sidetag in sidemap) {
+
+      // tslint:disable-next-line:forin
+      for (const sidetag in sidemap) {
         sidemapisempty = false;
         sidestocheck[sidetag] = true;
       }
@@ -180,21 +186,23 @@ export const fixTJunctions = function (fromPolygons, csg) {
       let donesomething = false;
       while (true) {
         let sidetagtocheck = null;
-        for (let sidetag in sidestocheck) {
+
+        // tslint:disable-next-line:forin
+        for (const sidetag in sidestocheck) {
           sidetagtocheck = sidetag;
           break; // FIXME  : say what now ?
         }
         if (sidetagtocheck === null) break; // sidestocheck is empty, we're done!
         let donewithside = true;
         if (sidetagtocheck in sidemap) {
-          let sideobjs = sidemap[sidetagtocheck];
+          const sideobjs = sidemap[sidetagtocheck];
           if (sideobjs.length === 0) throw new Error('Assertion failed');
-          let sideobj = sideobjs[0];
+          const sideobj = sideobjs[0];
           for (let directionindex = 0; directionindex < 2; directionindex++) {
-            let startvertex = (directionindex === 0) ? sideobj.vertex0 : sideobj.vertex1;
-            let endvertex = (directionindex === 0) ? sideobj.vertex1 : sideobj.vertex0;
-            let startvertextag = startvertex.getTag();
-            let endvertextag = endvertex.getTag();
+            const startvertex = (directionindex === 0) ? sideobj.vertex0 : sideobj.vertex1;
+            const endvertex = (directionindex === 0) ? sideobj.vertex1 : sideobj.vertex0;
+            const startvertextag = startvertex.getTag();
+            const endvertextag = endvertex.getTag();
             let matchingsides = [];
             if (directionindex === 0) {
               if (startvertextag in vertextag2sideend) {
@@ -205,13 +213,15 @@ export const fixTJunctions = function (fromPolygons, csg) {
                 matchingsides = vertextag2sidestart[startvertextag];
               }
             }
+
+            // tslint:disable-next-line:prefer-for-of
             for (let matchingsideindex = 0; matchingsideindex < matchingsides.length; matchingsideindex++) {
-              let matchingsidetag = matchingsides[matchingsideindex];
-              let matchingside = sidemap[matchingsidetag][0];
-              let matchingsidestartvertex = (directionindex === 0) ? matchingside.vertex0 : matchingside.vertex1;
-              let matchingsideendvertex = (directionindex === 0) ? matchingside.vertex1 : matchingside.vertex0;
-              let matchingsidestartvertextag = matchingsidestartvertex.getTag();
-              let matchingsideendvertextag = matchingsideendvertex.getTag();
+              const matchingsidetag = matchingsides[matchingsideindex];
+              const matchingside = sidemap[matchingsidetag][0];
+              const matchingsidestartvertex = (directionindex === 0) ? matchingside.vertex0 : matchingside.vertex1;
+              const matchingsideendvertex = (directionindex === 0) ? matchingside.vertex1 : matchingside.vertex0;
+              const matchingsidestartvertextag = matchingsidestartvertex.getTag();
+              const matchingsideendvertextag = matchingsideendvertex.getTag();
               if (matchingsideendvertextag !== startvertextag) throw new Error('Assertion failed');
               if (matchingsidestartvertextag === endvertextag) {
                 // matchingside cancels sidetagtocheck
@@ -222,21 +232,21 @@ export const fixTJunctions = function (fromPolygons, csg) {
                 donesomething = true;
                 break;
               } else {
-                let startpos = startvertex.pos;
-                let endpos = endvertex.pos;
-                let checkpos = matchingsidestartvertex.pos;
-                let direction = checkpos.minus(startpos);
+                const startpos = startvertex.pos;
+                const endpos = endvertex.pos;
+                const checkpos = matchingsidestartvertex.pos;
+                const direction = checkpos.minus(startpos);
                 // Now we need to check if endpos is on the line startpos-checkpos:
-                let t = endpos.minus(startpos).dot(direction) / direction.dot(direction);
+                const t = endpos.minus(startpos).dot(direction) / direction.dot(direction);
                 if ((t > 0) && (t < 1)) {
-                  let closestpoint = startpos.plus(direction.times(t));
-                  let distancesquared = closestpoint.distanceToSquared(endpos);
+                  const closestpoint = startpos.plus(direction.times(t));
+                  const distancesquared = closestpoint.distanceToSquared(endpos);
                   if (distancesquared < (EPS * EPS)) {
                     // Yes it's a t-junction! We need to split matchingside in two:
-                    let polygonindex = matchingside.polygonindex;
-                    let polygon = polygons[polygonindex];
+                    const polygonindex = matchingside.polygonindex;
+                    const polygon = polygons[polygonindex];
                     // find the index of startvertextag in polygon:
-                    let insertionvertextag = matchingside.vertex1.getTag();
+                    const insertionvertextag = matchingside.vertex1.getTag();
                     let insertionvertextagindex = -1;
                     for (let i = 0; i < polygon.vertices.length; i++) {
                       if (polygon.vertices[i].getTag() === insertionvertextag) {
@@ -246,23 +256,23 @@ export const fixTJunctions = function (fromPolygons, csg) {
                     }
                     if (insertionvertextagindex < 0) throw new Error('Assertion failed');
                     // split the side by inserting the vertex:
-                    let newvertices = polygon.vertices.slice(0);
+                    const newvertices = polygon.vertices.slice(0);
                     newvertices.splice(insertionvertextagindex, 0, endvertex);
-                    let newpolygon = new Polygon3(newvertices, polygon.shared /* polygon.plane */);
+                    const newpolygon = new Polygon3(newvertices, polygon.shared /* polygon.plane */);
 
                     // calculate plane with differents point
                     if (isNaN(newpolygon.plane.w)) {
                       let found = false;
-                      let loop = function (callback) {
-                        newpolygon.vertices.forEach(function (item) {
+                      const loop = (callback) => {
+                        newpolygon.vertices.forEach((item) => {
                           if (found) return;
                           callback(item);
                         });
                       };
 
-                      loop(function (a) {
-                        loop(function (b) {
-                          loop(function (c) {
+                      loop((a) => {
+                        loop((b) => {
+                          loop((c) => {
                             newpolygon.plane = Plane.fromPoints(a.pos, b.pos, c.pos);
                             if (!isNaN(newpolygon.plane.w)) {
                               found = true;
@@ -275,8 +285,8 @@ export const fixTJunctions = function (fromPolygons, csg) {
                     // remove the original sides from our maps
                     // deleteSide(sideobj.vertex0, sideobj.vertex1, null)
                     deleteSide(sidemap, vertextag2sidestart, vertextag2sideend, matchingside.vertex0, matchingside.vertex1, polygonindex);
-                    let newsidetag1 = addSide(sidemap, vertextag2sidestart, vertextag2sideend, matchingside.vertex0, endvertex, polygonindex);
-                    let newsidetag2 = addSide(sidemap, vertextag2sidestart, vertextag2sideend, endvertex, matchingside.vertex1, polygonindex);
+                    const newsidetag1 = addSide(sidemap, vertextag2sidestart, vertextag2sideend, matchingside.vertex0, endvertex, polygonindex);
+                    const newsidetag2 = addSide(sidemap, vertextag2sidestart, vertextag2sideend, endvertex, matchingside.vertex1, polygonindex);
                     if (newsidetag1 !== null) sidestocheck[newsidetag1] = true;
                     if (newsidetag2 !== null) sidestocheck[newsidetag2] = true;
                     donewithside = false;
@@ -295,7 +305,7 @@ export const fixTJunctions = function (fromPolygons, csg) {
       }
       if (!donesomething) break;
     }
-    let newcsg = fromPolygons(polygons);
+    const newcsg = fromPolygons(polygons);
     newcsg.properties = csg.properties;
     newcsg.isCanonicalized = true;
     newcsg.isRetesselated = true;
