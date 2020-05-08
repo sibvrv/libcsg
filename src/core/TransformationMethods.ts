@@ -2,8 +2,11 @@ import {Matrix4x4} from './math/Matrix4';
 import {Plane} from './math/Plane';
 import {TVector3Universal, Vector3} from './math/Vector3';
 
+/**
+ * Extra Transformation Methods
+ */
 export abstract class TransformationMethods {
-  abstract transform<T = this>(mat: Matrix4x4): any;
+  abstract transform(mat: Matrix4x4): any;
 
   mirrored(plane: Plane) {
     return this.transform(Matrix4x4.mirroring(plane));

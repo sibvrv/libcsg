@@ -1,13 +1,15 @@
-import {Vector2} from './Vector2';
+import {TVector2Universal, Vector2} from './Vector2';
 import {solve2Linear} from '../utils';
 import {Matrix4x4} from './Matrix4';
 import {TransformationMethods} from '../TransformationMethods';
 
-/**  class Line2D
+/**
+ * Line2D
  * Represents a directional line in 2D space
  * A line is parametrized by its normal vector (perpendicular to the line, rotated 90 degrees counter clockwise)
  * and w. The line passes through the point <normal>.times(w).
  * Equation: p is on line if normal.dot(p)==w
+ *
  * @param {Vector2} normal normal must be a unit vector!
  * @returns {Line2D}
  */
@@ -15,7 +17,7 @@ export class Line2D extends TransformationMethods {
   normal: Vector2;
   w: number;
 
-  static fromPoints(_p1: Vector2 | [number, number], _p2: Vector2 | [number, number]) {
+  static fromPoints(_p1: TVector2Universal, _p2: TVector2Universal) {
     const p1 = new Vector2(_p1);
     const p2 = new Vector2(_p2);
     const direction = p2.minus(p1);
@@ -27,9 +29,9 @@ export class Line2D extends TransformationMethods {
   /**
    * Line2D Constructor
    */
-  constructor(normal: Vector2 | [number, number], w: number | string) {
+  constructor(_normal: TVector2Universal, w: number | string) {
     super();
-    normal = new Vector2(normal);
+    let normal = new Vector2(_normal);
     w = typeof w === 'string' ? parseFloat(w) : w;
     const l = normal.length();
     // normalize:

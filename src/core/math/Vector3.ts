@@ -22,11 +22,7 @@ export class Vector3 extends TransformationMethods {
 // This does the same as new Vector3(x,y,z) but it doesn't go through the constructor
 // and the parameters are not validated. Is much faster.
   static Create(x: number, y: number, z: number) {
-    const result = Object.create(Vector3.prototype);
-    result._x = x;
-    result._y = y;
-    result._z = z;
-    return result;
+    return new Vector3(x, y, z);
   };
 
   /**
