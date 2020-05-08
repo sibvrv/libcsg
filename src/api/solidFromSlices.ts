@@ -1,6 +1,8 @@
 import {Polygon3} from '../core/math/Polygon3';
 import {fromPolygons} from '../core/CSGFactories';
 import {fnSortByIndex} from '../core/utils';
+import {Vertex3} from '../core/math/Vertex3';
+import {PolygonShared} from '../core/math/PolygonShared';
 
 export interface ISolidFromSlices {
   loop: boolean;
@@ -18,16 +20,16 @@ export interface ISolidFromSlices {
  *          return: Polygon or null to skip
  *  - loop {Boolean} no flats, only walls, it's used to generate solids like a tor
  */
-export const solidFromSlices = (polygon, options: ISolidFromSlices) => {
-  const polygons = [];
+export const solidFromSlices = (polygon: Polygon3, options: ISolidFromSlices) => {
+  const polygons: Polygon3[] = [];
   let csg = null;
   let prev = null;
-  let bottom = null;
-  let top = null;
+  let bottom: Polygon3 = null!;
+  let top: Polygon3 = null!;
   let numSlices = 2;
   let bLoop = false;
   let fnCallback;
-  let flipped = null;
+  let flipped: boolean | null = null;
 
   if (options) {
     bLoop = Boolean(options.loop);
@@ -47,7 +49,7 @@ export const solidFromSlices = (polygon, options: ISolidFromSlices) => {
       [1, 1, 0],
       [0, 1, 0],
     ]);
-    fnCallback = (t: number, slice) => {
+    fnCallback = (t: number/* , slice */) => {
       return t === 0 || t === 1 ? square.translate([0, 0, t]) : null;
     };
   }
@@ -74,13 +76,13 @@ export const solidFromSlices = (polygon, options: ISolidFromSlices) => {
 
   if (bLoop) {
     const bSameTopBottom = bottom.vertices.length === top.vertices.length &&
-      bottom.vertices.every(function(v, index) {
+      bottom.vertices.every((v, index) => {
         return v.pos.equals(top.vertices[index].pos);
       });
     // if top and bottom are not the same -
     // generate walls between them
     if (!bSameTopBottom) {
-      _addWalls(polygons, top, bottom, flipped);
+      _addWalls(polygons, top, bottom, Boolean(flipped));
     } // else - already generated
   } else {
     // save top and bottom
@@ -96,7 +98,7 @@ export const solidFromSlices = (polygon, options: ISolidFromSlices) => {
  * @param bottom Bottom polygon
  * @param top Top polygon
  */
-const _addWalls = (walls, bottom, top, bFlipped) => {
+const _addWalls = (walls: Polygon3[], bottom: Polygon3, top: Polygon3, bFlipped: boolean) => {
   let bottomPoints = bottom.vertices.slice(0); // make a copy
   let topPoints = top.vertices.slice(0); // make a copy
   const color = top.shared || null;
@@ -121,7 +123,7 @@ const _addWalls = (walls, bottom, top, bFlipped) => {
   const bMoreTops = iExtra > 0;
   const bMoreBottoms = iExtra < 0;
 
-  const aMin = []; // indexes to start extra triangles (polygon with minimal square)
+  const aMin: any = []; // indexes to start extra triangles (polygon with minimal square)
   // init - we need exactly /iExtra/ small triangles
   for (let i = Math.abs(iExtra); i > 0; i--) {
     aMin.push({
@@ -138,7 +140,7 @@ const _addWalls = (walls, bottom, top, bFlipped) => {
       for (let j = aMin.length - 1; j >= 0; j--) {
         if (aMin[j].len > len) {
           aMin[j].len = len;
-          aMin.index = j;
+          aMin.index = j; // todo !! fix me
           break;
         }
       } // for
@@ -158,8 +160,8 @@ const _addWalls = (walls, bottom, top, bFlipped) => {
   } // if
   // sort by index
   aMin.sort(fnSortByIndex);
-  const getTriangle = function addWallsPutTriangle(pointA, pointB, pointC, color) {
-    return new Polygon3([pointA, pointB, pointC], color);
+  const getTriangle = (pointA: Vertex3, pointB: Vertex3, pointC: Vertex3, triColor: PolygonShared | null) => { // function addWallsPutTriangle
+    return new Polygon3([pointA, pointB, pointC], triColor);
     // return bFlipped ? triangle.flipped() : triangle;
   };
 

@@ -401,7 +401,7 @@ export class Path2D extends TransformationMethods {
    * p1 = p1.appendArc([12.5,-22.96875],{xradius: 15,yradius: -19.6875,xaxisrotation: 0,clockwise: false,large: false});
    * p1 = p1.close();
    */
-  appendArc(endpoint: TVector2Universal, options: any) {
+  appendArc(inEndpoint: TVector2Universal, options: any) {
     const decimals = 100000;
     if (arguments.length < 2) {
       options = {};
@@ -430,7 +430,7 @@ export class Path2D extends TransformationMethods {
     const clockwise = parseOptionAsBool(options, 'clockwise', false);
     const largearc = parseOptionAsBool(options, 'large', false);
     const startpoint = this.points[this.points.length - 1];
-    endpoint = new Vector2(endpoint);
+    let endpoint = new Vector2(inEndpoint);
     // round to precision in order to have determinate calculations
     xradius = Math.round(xradius * decimals) / decimals;
     yradius = Math.round(yradius * decimals) / decimals;
