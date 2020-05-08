@@ -1,9 +1,8 @@
-import {IsFloat} from '../utils';
 import {Vector2} from './Vector2';
 import {Matrix4x4} from './Matrix4';
 import {TransformationMethods} from '../TransformationMethods';
 
-export type TVector3Universal = Vector3 | Vector2 | { x?: number, y?: number, z?: number } | [number, number, number] | number[];
+export type TVector3Universal = Vector3 | Vector2 | { x?: number | string, y?: number | string, z?: number | string } | [number, number, number] | number[];
 
 /** Class Vector3
  * Represents a 3D vector with X, Y, Z coordinates.
@@ -33,69 +32,30 @@ export class Vector3 extends TransformationMethods {
   /**
    * Vector3 Constructor
    */
-  constructor(x?: number | TVector3Universal, y?: number, z?: number) {
+  constructor(x?: number | string | TVector3Universal, y?: number | string, z?: number | string) {
     super();
-    if (arguments.length === 3) {
-      this._x = parseFloat(x);
-      this._y = parseFloat(y);
-      this._z = parseFloat(z);
-    } else if (arguments.length === 2) {
-      this._x = parseFloat(x);
-      this._y = parseFloat(y);
-      this._z = 0;
-    } else {
-      let ok = true;
-      if (arguments.length === 1) {
-        if (typeof (x) === 'object') {
-          if (x instanceof Vector3) {
-            this._x = x._x;
-            this._y = x._y;
-            this._z = x._z;
-          } else if (x instanceof Vector2) {
-            this._x = x._x;
-            this._y = x._y;
-            this._z = 0;
-          } else if (x instanceof Array) {
-            if ((x.length < 2) || (x.length > 3)) {
-              ok = false;
-            } else {
-              this._x = parseFloat(x[0]);
-              this._y = parseFloat(x[1]);
-              if (x.length === 3) {
-                this._z = parseFloat(x[2]);
-              } else {
-                this._z = 0;
-              }
-            }
-          } else if (('x' in x) && ('y' in x)) {
-            this._x = parseFloat(x.x);
-            this._y = parseFloat(x.y);
-            if ('z' in x) {
-              this._z = parseFloat(x.z);
-            } else {
-              this._z = 0;
-            }
-          } else if (('_x' in x) && ('_y' in x)) {
-            this._x = parseFloat(x._x);
-            this._y = parseFloat(x._y);
-            if ('_z' in x) {
-              this._z = parseFloat(x._z);
-            } else {
-              this._z = 0;
-            }
-          } else ok = false;
-        } else {
-          const v = parseFloat(x);
-          this._x = v;
-          this._y = v;
-          this._z = v;
-        }
-      } else ok = false;
-      if (ok) {
-        if ((!IsFloat(this._x)) || (!IsFloat(this._y)) || (!IsFloat(this._z))) ok = false;
+    if (typeof x === 'object') {
+      if (Array.isArray(x)) {
+        this._x = x[0] || 0;
+        this._y = x[1] || 0;
+        this._z = x[2] || 0;
+      } else if (x instanceof Vector2) {
+        this._x = x.x;
+        this._y = x.y;
+        this._z = 0;
+      } else if (x instanceof Vector3) {
+        this._x = x.x;
+        this._y = x.y;
+        this._z = x.z;
       } else {
-        throw new Error('wrong arguments');
+        this._x = ('x' in x ? (typeof x.x === 'string' ? parseFloat(x.x) : x.x) : 0) || 0;
+        this._y = ('y' in x ? (typeof x.y === 'string' ? parseFloat(x.y) : x.y) : 0) || 0;
+        this._z = ('z' in x ? (typeof x.z === 'string' ? parseFloat(x.z) : x.z) : 0) || 0;
       }
+    } else {
+      this._x = (typeof x === 'string' ? parseFloat(x) : x) || 0;
+      this._y = (typeof y === 'string' ? parseFloat(y) : y) || 0;
+      this._z = (typeof z === 'string' ? parseFloat(z) : z) || 0;
     }
   }
 
