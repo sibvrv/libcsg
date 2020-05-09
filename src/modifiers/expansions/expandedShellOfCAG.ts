@@ -1,4 +1,4 @@
-import {EPS, angleEPS} from '../../core/constants';
+import {angleEPS, EPS} from '../../core/constants';
 import {Vector2} from '../../core/math';
 import {fromPoints, fromPointsNoCheck} from '../../core/CAGFactories';
 import {CAG} from '../../core/CAG';

@@ -12,7 +12,8 @@ export interface IPath2DArcOptions {
   maketangent: boolean;
 }
 
-/** Class Path2D
+/**
+ * Class Path2D
  * Represents a series of points, connected by infinitely thin lines.
  * A path can be open or closed, i.e. additional line between first and last points.
  * The difference between Path2D and CAG is that a path is a 'thin' line, whereas a CAG is an enclosed area.
@@ -30,7 +31,8 @@ export class Path2D extends TransformationMethods {
   points: Vector2[] = [];
   closed = false;
 
-  /** Construct an arc.
+  /**
+   * Construct an arc.
    * @param {Object} [options] - options for construction
    * @param {Vector2} [options.center=[0,0]] - center of circle
    * @param {Number} [options.radius=1] - radius of circle

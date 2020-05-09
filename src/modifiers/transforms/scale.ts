@@ -1,4 +1,5 @@
-/** scale an object in 2D/3D space
+/**
+ * Scale an object in 2D/3D space
  * @param {Float|Array} scaleValue - either an array or simple number to scale object(s) by
  * @param {Object(s)|Array} objects either a single or multiple CSG/CAG objects to scale
  * @returns {CSG} new CSG object , scaled by the given amount

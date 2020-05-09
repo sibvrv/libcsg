@@ -1,6 +1,7 @@
 import {getTag} from '../constants';
 
-/** Class Polygon.Shared
+/**
+ * Class Polygon.Shared
  * Holds the shared properties for each polygon (Currently only color).
  * @constructor
  * @param {Array[]} color - array containing RGBA values, or null
@@ -16,7 +17,8 @@ export class PolygonShared {
     return new PolygonShared(obj.color);
   };
 
-  /** Create Polygon.Shared from color values.
+  /**
+   * Create Polygon.Shared from color values.
    * @param {number} r - value of RED component
    * @param {number} g - value of GREEN component
    * @param {number} b - value of BLUE component

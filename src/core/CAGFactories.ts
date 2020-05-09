@@ -5,7 +5,8 @@ import {difference, union} from '../modifiers/booleans';
 import {CAG} from './CAG';
 import {CSG} from './CSG';
 
-/** Construct a CAG from a list of `Side` instances.
+/**
+ * Construct a CAG from a list of `Side` instances.
  * @param {Side[]} sides - list of sides
  * @returns {CAG} new CAG object
  */
@@ -24,7 +25,8 @@ export const fromFakeCSG = (csg: CSG) => {
   return fromSides(sides);
 };
 
-/** Construct a CAG from a list of points (a polygon) or an nested array of points.
+/**
+ * Construct a CAG from a list of points (a polygon) or an nested array of points.
  * The rotation direction of the points is not relevant.
  * The points can define a convex or a concave polygon.
  * The polygon must not self intersect.
@@ -127,7 +129,8 @@ export const fromNestedPointsArray = (points: any) => {
   return cag;
 };
 
-/** Reconstruct a CAG from an object with identical property names.
+/**
+ * Reconstruct a CAG from an object with identical property names.
  * @param {Object} obj - anonymous object, typically from JSON
  * @returns {CAG} new CAG object
  */
@@ -143,7 +146,8 @@ export const fromObject = (obj: any) => {
   return cag;
 };
 
-/** Construct a CAG from a list of points (a polygon).
+/**
+ * Construct a CAG from a list of points (a polygon).
  * Like fromPoints() but does not check if the result is a valid polygon.
  * The points MUST rotate counter clockwise.
  * The points can define a convex or a concave polygon.
@@ -167,7 +171,8 @@ export const fromPointsNoCheck = (points: any) => {
   return fromSides(sides);
 };
 
-/** Construct a CAG from a 2d-path (a closed sequence of points).
+/**
+ * Construct a CAG from a 2d-path (a closed sequence of points).
  * Like fromPoints() but does not check if the result is a valid polygon.
  * @param {path} Path2 - a Path2 path
  * @returns {CAG} new CAG object
@@ -177,7 +182,8 @@ export const fromPath2 = (path: any) => {
   return fromPoints(path.getPoints());
 };
 
-/** Reconstruct a CAG from the output of toCompactBinary().
+/**
+ * Reconstruct a CAG from the output of toCompactBinary().
  * @param {CompactBinary} bin - see toCompactBinary()
  * @returns {CAG} new CAG object
  */

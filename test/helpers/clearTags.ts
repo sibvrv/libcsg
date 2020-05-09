@@ -1,4 +1,5 @@
-/** helper function to remove the very variable 'tags' fields from a CAG object
+/**
+ * Helper function to remove the very variable 'tags' fields from a CAG object
  * @param  {CAG} input CAG
  * @returns {CAG} the MUTATED CAG
  */

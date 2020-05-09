@@ -1,6 +1,6 @@
 import {cube} from '../primitives';
 import {clone} from './clone';
-import {expect, config} from 'chai';
+import {config, expect} from 'chai';
 
 config.truncateThreshold = 0;
 

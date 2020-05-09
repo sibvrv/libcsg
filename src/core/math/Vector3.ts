@@ -2,7 +2,8 @@ import {Matrix4x4, TransformationMethods, Vector2} from '.';
 
 export type TVector3Universal = Vector3 | Vector2 | { x?: number | string, y?: number | string, z?: number | string } | [number, number, number] | number[];
 
-/** Class Vector3
+/**
+ * Class Vector3
  * Represents a 3D vector with X, Y, Z coordinates.
  * @constructor
  *

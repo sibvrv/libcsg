@@ -1,6 +1,6 @@
 import test from 'ava';
-import {cube, sphere, geodesicSphere, cylinder, torus, polyhedron} from '../';
-import {simplifiedPolygon, comparePolygons} from '../../api/test-helpers';
+import {cube, cylinder, polyhedron, sphere, torus} from '../';
+import {comparePolygons, simplifiedPolygon} from '../../api/test-helpers';
 
 /* FIXME : not entirely sure how to deal with this, but for now relies on inspecting
 output data structures: we should have higher level primitives ... */
@@ -13,7 +13,7 @@ test('cube (defaults)', t => {
       {pos: {_x: 0, _y: 1, _z: 1}},
       {pos: {_x: 0, _y: 1, _z: 0}}],
     shared: {color: null},
-    plane: {normal: {_x: -1, _y: -0, _z: -0}, w: -0}
+    plane: {normal: {_x: -1, _y: -0, _z: -0}, w: -0},
   };
 
   const expPoly5 = {
@@ -22,7 +22,7 @@ test('cube (defaults)', t => {
       {pos: {_x: 1, _y: 1, _z: 1}},
       {pos: {_x: 0, _y: 1, _z: 1}}],
     shared: {color: null},
-    plane: {normal: {_x: 0, _y: -0, _z: 1}, w: 1}
+    plane: {normal: {_x: 0, _y: -0, _z: 1}, w: 1},
   };
 
   t.deepEqual(obs.properties.cube.center, {_x: 0.5, _y: 0.5, _z: 0.5});
@@ -39,7 +39,7 @@ test('cube (custom size, single parameter)', t => {
       {pos: {_x: 0, _y: 2, _z: 2}},
       {pos: {_x: 0, _y: 2, _z: 0}}],
     shared: {color: null},
-    plane: {normal: {_x: -1, _y: -0, _z: -0}, w: -0}
+    plane: {normal: {_x: -1, _y: -0, _z: -0}, w: -0},
   };
 
   const expPoly5 = {
@@ -48,7 +48,7 @@ test('cube (custom size, single parameter)', t => {
       {pos: {_x: 2, _y: 2, _z: 2}},
       {pos: {_x: 0, _y: 2, _z: 2}}],
     shared: {color: null},
-    plane: {normal: {_x: 0, _y: -0, _z: 1}, w: 2}
+    plane: {normal: {_x: 0, _y: -0, _z: 1}, w: 2},
   };
 
   t.deepEqual(obs.properties.cube.center, {_x: 1, _y: 1, _z: 1});
@@ -65,7 +65,7 @@ test('cube (custom size, single value, object parameter)', t => {
       {pos: {_x: 0, _y: 2, _z: 2}},
       {pos: {_x: 0, _y: 2, _z: 0}}],
     shared: {color: null},
-    plane: {normal: {_x: -1, _y: -0, _z: -0}, w: -0}
+    plane: {normal: {_x: -1, _y: -0, _z: -0}, w: -0},
   };
 
   const expPoly5 = {
@@ -74,7 +74,7 @@ test('cube (custom size, single value, object parameter)', t => {
       {pos: {_x: 2, _y: 2, _z: 2}},
       {pos: {_x: 0, _y: 2, _z: 2}}],
     shared: {color: null},
-    plane: {normal: {_x: 0, _y: -0, _z: 1}, w: 2}
+    plane: {normal: {_x: 0, _y: -0, _z: 1}, w: 2},
   };
 
   t.deepEqual(obs.properties.cube.center, {_x: 1, _y: 1, _z: 1});
@@ -91,7 +91,7 @@ test('cube (custom size, array value, object parameter)', t => {
       {pos: {_x: 0, _y: 1, _z: 3}},
       {pos: {_x: 0, _y: 1, _z: 0}}],
     shared: {color: null},
-    plane: {normal: {_x: -1, _y: -0, _z: -0}, w: -0}
+    plane: {normal: {_x: -1, _y: -0, _z: -0}, w: -0},
   };
 
   const expPoly5 = {
@@ -100,7 +100,7 @@ test('cube (custom size, array value, object parameter)', t => {
       {pos: {_x: 2, _y: 1, _z: 3}},
       {pos: {_x: 0, _y: 1, _z: 3}}],
     shared: {color: null},
-    plane: {normal: {_x: 0, _y: -0, _z: 1}, w: 3}
+    plane: {normal: {_x: 0, _y: -0, _z: 1}, w: 3},
   };
 
   t.deepEqual(obs.properties.cube.center, {_x: 1, _y: 0.5, _z: 1.5});
@@ -117,7 +117,7 @@ test('cube (standard size, custom center(booleans), object parameter)', t => {
       {pos: {_x: 0, _y: 0.5, _z: 1}},
       {pos: {_x: 0, _y: 0.5, _z: 0}}],
     shared: {color: null},
-    plane: {normal: {_x: -1, _y: -0, _z: -0}, w: -0}
+    plane: {normal: {_x: -1, _y: -0, _z: -0}, w: -0},
   };
 
   const expPoly5 = {
@@ -126,7 +126,7 @@ test('cube (standard size, custom center(booleans), object parameter)', t => {
       {pos: {_x: 1, _y: 0.5, _z: 1}},
       {pos: {_x: 0, _y: 0.5, _z: 1}}],
     shared: {color: null},
-    plane: {normal: {_x: 0, _y: -0, _z: 1}, w: 1}
+    plane: {normal: {_x: 0, _y: -0, _z: 1}, w: 1},
   };
 
   t.deepEqual(obs.properties.cube.center, {_x: 0.5, _y: 0, _z: 0.5});
@@ -143,32 +143,32 @@ test('cube (standard size, rounded)', t => {
         pos: {
           _x: 0.029289321881345254,
           _y: 0.0292893218813452,
-          _z: 0.09999999999999998
-        }
+          _z: 0.09999999999999998,
+        },
       },
       {
         pos: {
           _x: 0.04999999999999999,
           _y: 0.04999999999999993,
-          _z: 0.029289321881345254
-        }
+          _z: 0.029289321881345254,
+        },
       },
       {
         pos: {
           _x: 0.09999999999999998,
           _y: 0.0292893218813452,
-          _z: 0.029289321881345254
-        }
+          _z: 0.029289321881345254,
+        },
       }],
     shared: {color: null, tag: 296},
     plane: {
       normal: {
         _x: -0.3574067443365931,
         _y: -0.8628562094610168,
-        _z: -0.3574067443365933
+        _z: -0.3574067443365933,
       },
-      w: -0.07148134886731874
-    }
+      w: -0.07148134886731874,
+    },
   };
 
   const expPoly5 = {
@@ -177,22 +177,22 @@ test('cube (standard size, rounded)', t => {
         pos: {
           _x: 0.9000000000000005,
           _y: 0.0292893218813452,
-          _z: 0.029289321881345254
-        }
+          _z: 0.029289321881345254,
+        },
       },
       {
         pos: {
           _x: 0.09999999999999998,
           _y: 0.0292893218813452,
-          _z: 0.029289321881345254
-        }
+          _z: 0.029289321881345254,
+        },
       },
       {pos: {_x: 0.09999999999999998, _y: 0.09999999999999998, _z: 0}}],
     shared: {color: null, tag: 296},
     plane: {
       normal: {_x: -0, _y: -0.3826834323650898, _z: -0.9238795325112868},
-      w: -0.03826834323650884
-    }
+      w: -0.03826834323650884,
+    },
   };
 
   t.deepEqual(obs.properties.sphere.center, {_x: 0.09999999999999998, _y: 0.09999999999999998, _z: 0.09999999999999998});
@@ -211,32 +211,32 @@ test('cube (custom size, rounded)', t => {
         pos: {
           _x: 0.14644660940672338,
           _y: 0.14644660940672694,
-          _z: 0.5
-        }
+          _z: 0.5,
+        },
       },
       {
         pos: {
           _x: 0.25,
           _y: 0.25,
-          _z: 0.14644660940672627
-        }
+          _z: 0.14644660940672627,
+        },
       },
       {
         pos: {
           _x: 0.5,
           _y: 0.14644660940672694,
-          _z: 0.14644660940672627
-        }
+          _z: 0.14644660940672627,
+        },
       }],
     shared: {color: null, tag: 296},
     plane: {
       normal: {
         _x: -0.35740674433659303,
         _y: -0.8628562094610174,
-        _z: -0.3574067443365919
+        _z: -0.3574067443365919,
       },
-      w: -0.3574067443365845
-    }
+      w: -0.3574067443365845,
+    },
   };
 
   const expPoly5 = {
@@ -245,22 +245,22 @@ test('cube (custom size, rounded)', t => {
         pos: {
           _x: 68.50000000000003,
           _y: 0.14644660940672694,
-          _z: 0.14644660940672627
-        }
+          _z: 0.14644660940672627,
+        },
       },
       {
         pos: {
           _x: 0.5,
           _y: 0.14644660940672694,
-          _z: 0.14644660940672627
-        }
+          _z: 0.14644660940672627,
+        },
       },
       {pos: {_x: 0.5, _y: 0.5, _z: 0}}],
     shared: {color: null, tag: 296},
     plane: {
       normal: {_x: -0, _y: -0.3826834323650899, _z: -0.9238795325112867},
-      w: -0.19134171618254614
-    }
+      w: -0.19134171618254614,
+    },
   };
 
   t.deepEqual(obs.properties.sphere.center, {_x: 0.5, _y: 0.5, _z: 0.5});
@@ -280,8 +280,8 @@ test('sphere (defaults)', t => {
     shared: {color: null, tag: 296},
     plane: {
       normal: {_x: 0.9904383506609418, _y: -0.09754966309535142, _z: -0.09754966309535128},
-      w: 0.9904383506609418
-    }
+      w: 0.9904383506609418,
+    },
   };
 
   const expPoly511 = {
@@ -292,8 +292,8 @@ test('sphere (defaults)', t => {
     shared: {color: null, tag: 296},
     plane: {
       normal: {_x: 0.09801257320997024, _y: 0.009653395882096847, _z: 0.9951383559288144},
-      w: 0.9951383559288144
-    }
+      w: 0.9951383559288144,
+    },
   };
 
   t.deepEqual(obs.properties.sphere.center, {_x: 0, _y: 0, _z: 0});
@@ -312,8 +312,8 @@ test('sphere (geodesic)', t => {
     shared: {color: null, tag: 296},
     plane: {
       normal: {_x: 0.8962330678097445, _y: -0.07179554325990238, _z: -0.4377347234711329},
-      w: 0.9925121659689756
-    }
+      w: 0.9925121659689756,
+    },
   };
 
   const expPoly499 = {
@@ -324,8 +324,8 @@ test('sphere (geodesic)', t => {
     shared: {color: null, tag: 296},
     plane: {
       normal: {_x: -0, _y: -0.6256977990747257, _z: -0.7800655512410763},
-      w: 0.9925121675324735
-    }
+      w: 0.9925121675324735,
+    },
   };
 
   t.deepEqual(obs.polygons.length, 500);
@@ -345,10 +345,10 @@ test('sphere (custom radius , resolution, center)', t => {
       normal: {
         _x: 0.9216023954604601,
         _y: -0.29944677038053147,
-        _z: -0.24694261760621833
+        _z: -0.24694261760621833,
       },
-      w: 1.3493195557084836
-    }
+      w: 1.3493195557084836,
+    },
   };
 
   const expPoly59 = {
@@ -360,10 +360,10 @@ test('sphere (custom radius , resolution, center)', t => {
       normal: {
         _x: 0.2579086818975185,
         _y: 0.08379961057797093,
-        _z: 0.9625283045546582
+        _z: 0.9625283045546582,
       },
-      w: 3.850113218218633
-    }
+      w: 3.850113218218633,
+    },
   };
 
   t.deepEqual(obs.properties.sphere.center, {_x: 0, _y: 0, _z: 2});
@@ -379,7 +379,7 @@ test('cylinder (defaults)', t => {
       {pos: {_x: 1, _y: 0, _z: 0}},
       {pos: {_x: 0.9807852804032304, _y: -0.19509032201612825, _z: 0}}],
     shared: {color: null, tag: 296},
-    plane: {normal: {_x: 0, _y: 0, _z: -1}, w: 0}
+    plane: {normal: {_x: 0, _y: 0, _z: -1}, w: 0},
   };
 
   const expPoly95 = {
@@ -387,7 +387,7 @@ test('cylinder (defaults)', t => {
       {pos: {_x: 1, _y: 2.4492935982947064e-16, _z: 1}},
       {pos: {_x: 0.9807852804032303, _y: 0.19509032201612872, _z: 1}}],
     shared: {color: null, tag: 296},
-    plane: {normal: {_x: 0, _y: 0, _z: 1}, w: 1}
+    plane: {normal: {_x: 0, _y: 0, _z: 1}, w: 1},
   };
 
   t.deepEqual(obs.properties.cylinder.start, {point: {_x: 0, _y: 0, _z: 0}, axisvector: {_x: -0, _y: -0, _z: -1}, normalvector: {_x: 1, _y: 0, _z: 0}});
@@ -404,7 +404,7 @@ test('cylinder (defaults)', t => {
       {pos: {_x: 1, _y: 0, _z: 0}},
       {pos: {_x: 0.9807852804032304, _y: -0.19509032201612825, _z: 0}}],
     shared: {color: null, tag: 296},
-    plane: {normal: {_x: 0, _y: 0, _z: -1}, w: 0}
+    plane: {normal: {_x: 0, _y: 0, _z: -1}, w: 0},
   };
 
   const expPoly95 = {
@@ -412,7 +412,7 @@ test('cylinder (defaults)', t => {
       {pos: {_x: 1, _y: 2.4492935982947064e-16, _z: 1}},
       {pos: {_x: 0.9807852804032303, _y: 0.19509032201612872, _z: 1}}],
     shared: {color: null, tag: 296},
-    plane: {normal: {_x: 0, _y: 0, _z: 1}, w: 1}
+    plane: {normal: {_x: 0, _y: 0, _z: 1}, w: 1},
   };
 
   t.deepEqual(obs.properties.cylinder.start, {point: {_x: 0, _y: 0, _z: 0}, axisvector: {_x: -0, _y: -0, _z: -1}, normalvector: {_x: 1, _y: 0, _z: 0}});
@@ -429,7 +429,7 @@ test('cylinder (custom radius, height, center, resolution)', t => {
       {pos: {_x: 2, _y: 0, _z: 0}},
       {pos: {_x: 1.618033988749895, _y: -1.1755705045849463, _z: 0}}],
     shared: {color: null, tag: 296},
-    plane: {normal: {_x: 0, _y: 0, _z: -1}, w: 0}
+    plane: {normal: {_x: 0, _y: 0, _z: -1}, w: 0},
   };
 
   const expPoly29 = {
@@ -437,7 +437,7 @@ test('cylinder (custom radius, height, center, resolution)', t => {
       {pos: {_x: 2, _y: 4.898587196589413e-16, _z: 10}},
       {pos: {_x: 1.6180339887498945, _y: 1.1755705045849467, _z: 10}}],
     shared: {color: null, tag: 296},
-    plane: {normal: {_x: 0, _y: 0, _z: 1}, w: 10}
+    plane: {normal: {_x: 0, _y: 0, _z: 1}, w: 10},
   };
 
   t.deepEqual(obs.properties.cylinder.start, {point: {_x: 0, _y: 0, _z: 0}, axisvector: {_x: -0, _y: -0, _z: -1}, normalvector: {_x: 1, _y: 0, _z: 0}});
@@ -457,8 +457,8 @@ test('cylinder (custom double radius, rounded)', t => {
     shared: {color: null, tag: 296},
     plane: {
       normal: {_x: 0.09801714032956071, _y: 0.9951847266721969, _z: 0},
-      w: 0.9951847266721969
-    }
+      w: 0.9951847266721969,
+    },
   };
 
   const expPoly543 = {
@@ -468,8 +468,8 @@ test('cylinder (custom double radius, rounded)', t => {
     shared: {color: null, tag: 296},
     plane: {
       normal: {_x: -0.009653395882096847, _y: 0.09801257320997024, _z: 0.9951383559288144},
-      w: 1.9902767118576288
-    }
+      w: 1.9902767118576288,
+    },
   };
 
   t.deepEqual(obs.properties.roundedCylinder.start, {point: {_x: 0, _y: 0, _z: 0}, axisvector: {_x: -0, _y: -0, _z: -1}, normalvector: {_x: 0, _y: 1, _z: 0}});
@@ -489,8 +489,8 @@ test('cylinder (custom double diameter, rounded)', t => {
     shared: {color: null, tag: 296},
     plane: {
       normal: {_x: 0.09801714032956071, _y: 0.9951847266721969, _z: 0},
-      w: 0.9951847266721969
-    }
+      w: 0.9951847266721969,
+    },
   };
 
   const expPoly543 = {
@@ -500,8 +500,8 @@ test('cylinder (custom double diameter, rounded)', t => {
     shared: {color: null, tag: 296},
     plane: {
       normal: {_x: -0.009653395882096847, _y: 0.09801257320997024, _z: 0.9951383559288144},
-      w: 1.9902767118576288
-    }
+      w: 1.9902767118576288,
+    },
   };
 
   t.deepEqual(obs.properties.roundedCylinder.start, {point: {_x: 0, _y: 0, _z: 0}, axisvector: {_x: -0, _y: -0, _z: -1}, normalvector: {_x: 0, _y: 1, _z: 0}});
@@ -521,8 +521,8 @@ test('cylinder (custom double diameter, rounded, start, end)', t => {
     shared: {color: null, tag: 296},
     plane: {
       normal: {_x: 0.0980171403295607, _y: 0.9951847266721968, _z: 0},
-      w: 0.9951847266721968
-    }
+      w: 0.9951847266721968,
+    },
   };
 
   const expPoly543 = {
@@ -532,8 +532,8 @@ test('cylinder (custom double diameter, rounded, start, end)', t => {
     shared: {color: null, tag: 296},
     plane: {
       normal: {_x: -0.009653395882096847, _y: 0.09801257320997024, _z: 0.9951383559288144},
-      w: 10.946521915216959
-    }
+      w: 10.946521915216959,
+    },
   };
 
   t.deepEqual(obs.properties.roundedCylinder.start, {point: {_x: 0, _y: 0, _z: 0}, axisvector: {_x: -0, _y: -0, _z: -1}, normalvector: {_x: 0, _y: 1, _z: 0}});
@@ -556,9 +556,9 @@ test('torus (defaults)', t => {
     plane:
       {
         normal: [0.9762410328686741, -0.09615134934208333, -0.1941864149810719],
-        w: 4.8812051643433705
+        w: 4.8812051643433705,
       },
-    shared: {color: null, tag: 296}
+    shared: {color: null, tag: 296},
   };
 
   const expLastPoly = {
@@ -577,9 +577,9 @@ test('torus (defaults)', t => {
     plane:
       {
         normal: [0.8286954742331524, 0.08161938021295423, -0.5537166132229949],
-        w: 4.292294858367102
+        w: 4.292294858367102,
       },
-    shared: {color: null, tag: 296}
+    shared: {color: null, tag: 296},
   };
 
   t.deepEqual(obs.polygons.length, 512);
@@ -605,9 +605,9 @@ test('torus (custom all)', t => {
           [0.9238795325112867,
             -0.3826834323650898,
             -1.9341017156376838e-16],
-        w: 6.5792421098709974
+        w: 6.5792421098709974,
       },
-    shared: {color: null, tag: 296}
+    shared: {color: null, tag: 296},
   };
 
   const expLastPoly = {
@@ -628,9 +628,9 @@ test('torus (custom all)', t => {
       {
         normal: [-3.14018491736755e-16,
           1.300707181133076e-16, -1],
-        w: 2.121320343559641
+        w: 2.121320343559641,
       },
-    shared: {color: null, tag: 296}
+    shared: {color: null, tag: 296},
   };
 
   t.deepEqual(obs.polygons.length, 36);
@@ -641,7 +641,7 @@ test('torus (custom all)', t => {
 test('polyhedron (points & triangles)', t => {
   const obs = polyhedron({
     points: [[10, 10, 0], [10, -10, 0], [-10, -10, 0], [-10, 10, 0], [0, 0, 10]], // the apex point
-    triangles: [[0, 1, 4], [1, 2, 4], [2, 3, 4], [3, 0, 4], [1, 0, 3], [2, 1, 3]] // two triangles for square base
+    triangles: [[0, 1, 4], [1, 2, 4], [2, 3, 4], [3, 0, 4], [1, 0, 3], [2, 1, 3]], // two triangles for square base
   });
   const expFirstPoly = {
     vertices: [{pos: {_x: 0, _y: 0, _z: 10}},
@@ -650,8 +650,8 @@ test('polyhedron (points & triangles)', t => {
     shared: {color: null, tag: 296},
     plane: {
       normal: {_x: 0.7071067811865475, _y: 0, _z: 0.7071067811865475},
-      w: 7.071067811865475
-    }
+      w: 7.071067811865475,
+    },
   };
 
   const expLastPoly = {
@@ -659,7 +659,7 @@ test('polyhedron (points & triangles)', t => {
       {pos: {_x: 10, _y: -10, _z: 0}},
       {pos: {_x: -10, _y: -10, _z: 0}}],
     shared: {color: null, tag: 296},
-    plane: {normal: {_x: 0, _y: 0, _z: -1}, w: 0}
+    plane: {normal: {_x: 0, _y: 0, _z: -1}, w: 0},
   };
 
   t.deepEqual(obs.polygons.length, 6);
@@ -670,7 +670,7 @@ test('polyhedron (points & triangles)', t => {
 test('polyhedron (points & polygons)', t => {
   const obs = polyhedron({
     points: [[10, 10, 0], [10, -10, 0], [-10, -10, 0], [-10, 10, 0], [0, 0, 10]], // the apex point
-    polygons: [[0, 1, 4], [1, 2, 4], [2, 3, 4], [3, 0, 4], [1, 0, 3], [2, 1, 3]] // two triangles for square base
+    polygons: [[0, 1, 4], [1, 2, 4], [2, 3, 4], [3, 0, 4], [1, 0, 3], [2, 1, 3]], // two triangles for square base
   });
   const expFirstPoly = {
     vertices: [{pos: {_x: 0, _y: 0, _z: 10}},
@@ -679,8 +679,8 @@ test('polyhedron (points & polygons)', t => {
     shared: {color: null, tag: 296},
     plane: {
       normal: {_x: 0.7071067811865475, _y: 0, _z: 0.7071067811865475},
-      w: 7.071067811865475
-    }
+      w: 7.071067811865475,
+    },
   };
 
   const expLastPoly = {
@@ -688,7 +688,7 @@ test('polyhedron (points & polygons)', t => {
       {pos: {_x: 10, _y: -10, _z: 0}},
       {pos: {_x: -10, _y: -10, _z: 0}}],
     shared: {color: null, tag: 296},
-    plane: {normal: {_x: 0, _y: 0, _z: -1}, w: 0}
+    plane: {normal: {_x: 0, _y: 0, _z: -1}, w: 0},
   };
 
   t.deepEqual(obs.polygons.length, 6);

@@ -1,6 +1,7 @@
 import {isCAG} from '../../core/utils';
 
-/** intersection of the given shapes: ie keep only the common parts between the given shapes
+/**
+ * intersection of the given shapes: ie keep only the common parts between the given shapes
  * @param {Object(s)|Array} objects - objects to intersect
  * can be given
  * - one by one: intersection(a,b,c) or
@@ -23,4 +24,4 @@ export const intersection = (...objects: any[]) => {
     }
   }
   return object;
-}
+};

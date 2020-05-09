@@ -384,7 +384,8 @@ export class CAG extends TransformationMethods {
     return points;
   }
 
-  /** Convert to compact binary form.
+  /**
+   * Convert to compact binary form.
    * See fromCompactBinary.
    * @return {CompactBinary}
    */

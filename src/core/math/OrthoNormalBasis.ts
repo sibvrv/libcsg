@@ -1,6 +1,7 @@
 import {Line2D, Line3D, Matrix4x4, Plane, TransformationMethods, TVector3Universal, Vector2, Vector3} from '.';
 
-/** class OrthoNormalBasis
+/**
+ * class OrthoNormalBasis
  * Reprojects points on a 3D plane onto a 2D plane
  * or from a 2D plane back onto the 3D plane
  * @param  {Plane} plane

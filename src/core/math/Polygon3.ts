@@ -5,7 +5,8 @@ import {fromPolygons} from '../CSGFactories';
 import {fromPointsNoCheck} from '../CAGFactories';
 import {Matrix4x4, OrthoNormalBasis, Plane, PolygonShared, TransformationMethods, TVector3Universal, Vector2, Vector3, Vertex3} from '.';
 
-/** Class Polygon
+/**
+ * Class Polygon
  * Represents a convex polygon. The vertices used to initialize a polygon must
  *   be coplanar and form a convex loop. They do not have to be `Vertex`
  *   instances but they must behave similarly (duck typing can be used for
@@ -51,7 +52,8 @@ export class Polygon3 extends TransformationMethods {
     return new Polygon3(vertices, shared, plane);
   }
 
-  /** Create a polygon from the given points.
+  /**
+   * Create a polygon from the given points.
    *
    * @param {Array[]} points - list of points
    * @param {Polygon3.Shared} [shared=defaultShared] - shared property to apply
@@ -131,7 +133,8 @@ export class Polygon3 extends TransformationMethods {
     }
   }
 
-  /** Check whether the polygon is convex. (it should be, otherwise we will get unexpected results)
+  /**
+   * Check whether the polygon is convex. (it should be, otherwise we will get unexpected results)
    * @returns {boolean}
    */
   checkIfConvex() {

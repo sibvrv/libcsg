@@ -7,8 +7,8 @@ export interface ITranslateLineOptions {
 
 const defaults: ITranslateLineOptions = {
   x: 0,
-  y: 0
-}
+  y: 0,
+};
 
 /**
  * Translate text line

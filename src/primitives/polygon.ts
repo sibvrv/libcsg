@@ -1,7 +1,8 @@
-import {CAG} from '../core/CAG';// we have to import from top level otherwise prototypes are not complete..
+import {CAG} from '../core/CAG'; // we have to import from top level otherwise prototypes are not complete..
 import {fromPoints} from '../core/CAGFactories';
 
-/** Construct a polygon either from arrays of paths and points,
+/**
+ * Construct a polygon either from arrays of paths and points,
  * or just arrays of points nested paths (multiple paths) and flat paths are supported
  * @param {Object} [options] - options for construction or either flat or nested array of points
  * @param {Array} [options.points] - points of the polygon : either flat or nested array of points

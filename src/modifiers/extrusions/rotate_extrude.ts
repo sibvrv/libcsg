@@ -13,7 +13,8 @@ const defaults = {
   overflow: 'cap',
 };
 
-/** rotate extrusion / revolve of the given 2d shape
+/**
+ * Rotate extrusion / revolve of the given 2d shape
  * @param {Object} [options] - options for construction
  * @param {Integer} [options.fn=1] - resolution/number of segments of the extrusion
  * @param {Float} [options.startAngle=1] - start angle of the extrusion, in degrees

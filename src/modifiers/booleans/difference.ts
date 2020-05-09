@@ -1,6 +1,7 @@
 import {isCAG} from '../../core/utils';
 
-/** difference/ subtraction of the given shapes ie:
+/**
+ * Difference / Subtraction of the given shapes ie:
  * cut out C From B From A ie : a - b - c etc
  * @param {Object(s)|Array} objects - objects to subtract
  * can be given

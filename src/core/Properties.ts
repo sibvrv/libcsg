@@ -9,7 +9,7 @@ import {Matrix4x4} from './math';
 // The properties can be stored in a complex nested structure (using arrays and objects)
 export class Properties {
   // todo: replace it with states (setState/getState)
-  [key: string] : any;
+  [key: string]: any;
 
   static transformObj(source: any, result: any, matrix4x4: Matrix4x4) {
     for (const propertyName in source) {

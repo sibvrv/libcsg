@@ -1,4 +1,3 @@
-
 export {extrudeInOrthonormalBasis} from './extrudeInOrthonormalBasis';
 export {extrudeInPlane} from './extrudeInPlane';
 export {extrude} from './extrude';

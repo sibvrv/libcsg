@@ -5,7 +5,8 @@ import {Connector} from '../../core/Connector';
 import {Vector3} from '../../core/math';
 import {CSG} from '../../core/CSG';
 
-/** linear extrusion of 2D shape, with optional twist
+/**
+ * Linear extrusion of 2D shape, with optional twist
  * @param  {CAG} cag the cag to extrude
  * @param  {Object} [options] - options for construction
  * @param {Array} [options.offset=[0,0,1]] - The 2d shape is placed in in z=0 plane and extruded into direction <offset>

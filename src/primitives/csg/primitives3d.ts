@@ -7,7 +7,8 @@ import {Connector} from '../../core/Connector';
 import {Properties} from '../../core/Properties';
 import {CSG} from '../../main';
 
-/** Construct an axis-aligned solid cuboid.
+/**
+ * Construct an axis-aligned solid cuboid.
  * @param {Object} [options] - options for construction
  * @param {Vector3} [options.center=[0,0,0]] - center of cube
  * @param {Vector3} [options.radius=[1,1,1]] - radius of cube, single scalar also possible
@@ -86,7 +87,8 @@ export const cube = (options: any) => {
   return result;
 };
 
-/** Construct a solid sphere
+/**
+ * Construct a solid sphere
  * @param {Object} [options] - options for construction
  * @param {Vector3} [options.center=[0,0,0]] - center of sphere
  * @param {Number} [options.radius=1] - radius of sphere
@@ -167,7 +169,8 @@ export const sphere = (options: any) => {
   return result;
 };
 
-/** Construct a solid cylinder.
+/**
+ * Construct a solid cylinder.
  * @param {Object} [options] - options for construction
  * @param {Vector} [options.start=[0,-1,0]] - start point of cylinder
  * @param {Vector} [options.end=[0,1,0]] - end point of cylinder
@@ -256,7 +259,8 @@ export const cylinder = (options: any) => {
   return result;
 };
 
-/** Construct a cylinder with rounded ends.
+/**
+ * Construct a cylinder with rounded ends.
  * @param {Object} [options] - options for construction
  * @param {Vector3} [options.start=[0,-1,0]] - start point of cylinder
  * @param {Vector3} [options.end=[0,1,0]] - end point of cylinder
@@ -354,7 +358,8 @@ export const roundedCylinder = (options: any) => {
   return result;
 };
 
-/** Construct an elliptic cylinder.
+/**
+ * Construct an elliptic cylinder.
  * @param {Object} [options] - options for construction
  * @param {Vector3} [options.start=[0,-1,0]] - start point of cylinder
  * @param {Vector3} [options.end=[0,1,0]] - end point of cylinder
@@ -433,7 +438,8 @@ export const cylinderElliptic = (options: any) => {
   return result;
 };
 
-/** Construct an axis-aligned solid rounded cuboid.
+/**
+ * Construct an axis-aligned solid rounded cuboid.
  * @param {Object} [options] - options for construction
  * @param {Vector3} [options.center=[0,0,0]] - center of rounded cube
  * @param {Vector3} [options.radius=[1,1,1]] - radius of rounded cube, single scalar is possible
@@ -499,7 +505,8 @@ export const roundedCube = (options: any) => {
   return res;
 };
 
-/** Create a polyhedron using Openscad style arguments.
+/**
+ * Create a polyhedron using Openscad style arguments.
  * Define face vertices clockwise looking from outside.
  * @param {Object} [options] - options for construction
  * @returns {CSG} new 3D solid

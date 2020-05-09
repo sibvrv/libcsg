@@ -20,7 +20,8 @@ import * as optionsParsers from '../api/optionParsers';
 import {Connector} from './Connector';
 import {ConnectorList} from './ConnectorList';
 
-/** Class CSG
+/**
+ * Class CSG
  * Holds a binary space partition tree representing a 3D solid. Two solids can
  * be combined using the `union()`, `subtract()`, and `intersect()` methods.
  * @constructor
@@ -323,7 +324,8 @@ export class CSG extends TransformationMethods {
     return bounds(this);
   }
 
-  /** returns true if there is a possibility that the two solids overlap
+  /**
+   * Returns true if there is a possibility that the two solids overlap
    * returns false if we can be sure that they do not overlap
    * NOTE: this is critical as it is used in UNIONs
    * @param  {CSG} csg
@@ -380,7 +382,8 @@ export class CSG extends TransformationMethods {
     return result;
   }
 
-  /** sets the color of this csg: non mutating, returns a new CSG
+  /**
+   * sets the color of this csg: non mutating, returns a new CSG
    * @param  {Object} args
    * @returns {CSG} a copy of this CSG, with the given color
    */
@@ -444,7 +447,9 @@ export class CSG extends TransformationMethods {
     return (result.length === 1) ? result[0] : result;
   }
 
-  /** @return {Polygon[]} The list of polygons. */
+  /**
+   * @return {Polygon[]} The list of polygons.
+   */
   toPolygons() {
     return this.polygons;
   }
@@ -457,7 +462,8 @@ export class CSG extends TransformationMethods {
     return result;
   }
 
-  /** returns a compact binary representation of this csg
+  /**
+   * Returns a compact binary representation of this csg
    * usually used to transfer CSG objects to/from webworkes
    * NOTE: very interesting compact format, with a lot of reusable ideas
    * @returns {Object} compact binary representation of a CSG

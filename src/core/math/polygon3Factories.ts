@@ -1,7 +1,8 @@
 import {Plane, Polygon3, PolygonShared, Vector3, Vertex3} from '.';
 
 // FIXME : redundant code with Polygon3.createFromPoints , but unuseable due to circular dependencies
-/** Create a polygon from the given points.
+/**
+ * Create a polygon from the given points.
  *
  * @param {Array[]} points - list of points
  * @param {Polygon.Shared} [shared=defaultShared] - shared property to apply

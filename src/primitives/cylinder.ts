@@ -1,7 +1,8 @@
 import {translate} from '../modifiers/transforms';
 import {CSG} from '../core/CSG';
 
-/** Construct a cylinder
+/**
+ * Construct a cylinder
  * @param {Object} [options] - options for construction
  * @param {Float} [options.r=1] - radius of the cylinder
  * @param {Float} [options.r1=1] - radius of the top of the cylinder
@@ -25,7 +26,7 @@ export function cylinder(params?: any) {
     r2: 1,
     h: 1,
     fn: 32,
-    round: false
+    round: false,
   };
 
   // tslint:disable-next-line:prefer-const

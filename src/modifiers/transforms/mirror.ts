@@ -1,6 +1,7 @@
 import {Plane, Vector3} from '../../core/math';
 
-/** mirror an object in 2D/3D space
+/**
+ * Mirror an object in 2D/3D space
  * @param {Array} vector - the axes to mirror the object(s) by
  * @param {Object(s)|Array} objects either a single or multiple CSG/CAG objects to mirror
  * @returns {CSG} new CSG object , mirrored

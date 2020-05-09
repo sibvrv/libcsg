@@ -1,8 +1,9 @@
-import {CAG} from '../core/CAG';// we have to import from top level otherwise prototypes are not complete..
+import {CAG} from '../core/CAG'; // we have to import from top level otherwise prototypes are not complete..
 import {fromPoints} from '../core/CAGFactories';
 
 // FIXME: errr this is kinda just a special case of a polygon , why do we need it ?
-/** Construct a triangle
+/**
+ * Construct a triangle
  * @returns {CAG} new triangle
  *
  * @example

@@ -1,6 +1,7 @@
 import {Path2D} from '../../core/math';
 
-/** rectangular extrusion of the given array of points
+/**
+ * Rectangular extrusion of the given array of points
  * @param {Array} basePoints array of points (nested) to extrude from
  * layed out like [ [0,0], [10,0], [5,10], [0,10] ]
  * @param {Object} [options] - options for construction

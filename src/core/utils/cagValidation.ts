@@ -67,7 +67,8 @@ export const isSelfIntersecting = (cag: CAG, debug?: boolean) => {
   return false;
 };
 
-/** Check if the point stay inside the CAG shape
+/**
+ * Check if the point stay inside the CAG shape
  * ray-casting algorithm based on :
  * https://github.com/substack/point-in-polygon/blob/master/index.js
  * http://www.ecse.rp1.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
@@ -93,7 +94,8 @@ export const hasPointInside = (cag: CAG, p0: Vector2) => {
 hasPointInside.c1 = (p0: any, p1: any, p2: any) => (p1.y > p0.y) !== (p2.y > p0.y);
 hasPointInside.c2 = (p0: any, p1: any, p2: any) => (p0.x < (p2.x - p1.x) * (p0.y - p1.y) / (p2.y - p1.y) + p1.x);
 
-/** Check if all points from one CAG stay inside another CAG
+/**
+ * Check if all points from one CAG stay inside another CAG
  * @param {CAG} cag1 - CAG object
  * @param {Object} cag2 - CAG object
  * @returns {Boolean}

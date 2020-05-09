@@ -1,7 +1,8 @@
 // FIXME: right now linear & rotate extrude take params first, while rectangular_extrude
 // takes params second ! confusing and incoherent ! needs to be changed (BREAKING CHANGE !)
 
-/** linear extrusion of the input 2d shape
+/**
+ * linear extrusion of the input 2d shape
  * @param {Object} [options] - options for construction
  * @param {Float} [options.height=1] - height of the extruded shape
  * @param {Integer} [options.slices=10] - number of intermediary steps/slices

@@ -4,7 +4,8 @@ import {defaultResolution2D} from '../../core/constants';
 import {fromPath2, fromPoints} from '../../core/CAGFactories';
 import {Path2D, Vector2} from '../../core/math';
 
-/** Construct a circle.
+/**
+ * Construct a circle.
  * @param {Object} [options] - options for construction
  * @param {Vector2D} [options.center=[0,0]] - center of circle
  * @param {Number} [options.radius=1] - radius of circle
@@ -25,7 +26,8 @@ export const circle = (options: any) => {
   return fromPoints(points);
 };
 
-/** Construct an ellispe.
+/**
+ * Construct an ellispe.
  * @param {Object} [options] - options for construction
  * @param {Vector2D} [options.center=[0,0]] - center of ellipse
  * @param {Vector2D} [options.radius=[1,1]] - radius of ellipse, width and height
@@ -60,7 +62,8 @@ export const ellipse = (options: any) => {
   return fromPath2(e2);
 };
 
-/** Construct a rectangle.
+/**
+ * Construct a rectangle.
  * @param {Object} [options] - options for construction
  * @param {Vector2D} [options.center=[0,0]] - center of rectangle
  * @param {Vector2D} [options.radius=[1,1]] - radius of rectangle, width and height
@@ -92,7 +95,8 @@ export const rectangle = (options: any) => {
   return fromPoints(points);
 };
 
-/** Construct a rounded rectangle.
+/**
+ * Construct a rounded rectangle.
  * @param {Object} [options] - options for construction
  * @param {Vector2D} [options.center=[0,0]] - center of rounded rectangle
  * @param {Vector2D} [options.radius=[1,1]] - radius of rounded rectangle, width and height

@@ -1,6 +1,6 @@
 import test from 'ava';
-import {square, cube, sphere} from '../../../primitives';
-import {union, difference, intersection} from '../index';
+import {cube, sphere, square} from '../../../primitives';
+import {difference, intersection, union} from '../index';
 
 test('union (defaults)', t => {
   const op1 = cube();
@@ -25,12 +25,12 @@ test('union (complex)', t => {
   const obs = union(
     difference(
       cube({size: 3, center: true}),
-      sphere({r: 2, center: true})
+      sphere({r: 2, center: true}),
     ),
     intersection(
       sphere({r: 1.3, center: true}),
-      cube({size: 2.1, center: true})
-    )
+      cube({size: 2.1, center: true}),
+    ),
   );
 
   t.deepEqual(obs.polygons.length, 610);

@@ -4,6 +4,7 @@ export type TRAWVectorGlyph = (number | undefined)[];
 
 export interface IVectorFont {
   height: number;
+
   [charCode: number]: TRAWVectorGlyph;
 }
 

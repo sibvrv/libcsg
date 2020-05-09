@@ -2,7 +2,8 @@ import {OrthoNormalBasis} from '../../core/math';
 import {extrudeInOrthonormalBasis} from './extrudeInOrthonormalBasis';
 import {CAG} from '../../main';
 
-/** Extrude in a standard cartesian plane, specified by two axis identifiers. Each identifier can be
+/**
+ * Extrude in a standard cartesian plane, specified by two axis identifiers. Each identifier can be
  * one of ["X","Y","Z","-X","-Y","-Z"]
  * The 2d x axis will map to the first given 3D axis, the 2d y axis will map to the second.
  * See OrthoNormalBasis.GetCartesian for details.

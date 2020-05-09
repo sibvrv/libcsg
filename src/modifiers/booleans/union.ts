@@ -1,6 +1,7 @@
 import {isCAG} from '../../core/utils';
 
-/** union/ combine the given shapes
+/**
+ * Union / combine the given shapes
  * @param {Object(s)|Array} objects - objects to combine : can be given
  * - one by one: union(a,b,c) or
  * - as an array: union([a,b,c])
@@ -41,4 +42,4 @@ export const union = (...objects: any[]) => {
     o = o.union(obj);
   }
   return o;
-}
+};

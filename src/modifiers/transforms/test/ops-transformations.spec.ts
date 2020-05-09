@@ -1,11 +1,10 @@
 import test from 'ava';
 import {sideEquals} from '../../../api/test-helpers';
-import {square, circle, cube, sphere} from '../../../primitives';
-import {translate, rotate, scale, transform, center, mirror, expand, contract, minkowski, hull, chain_hull} from '../';
+import {circle, cube, sphere, square} from '../../../primitives';
+import {center, chain_hull, contract, expand, hull, minkowski, mirror, rotate, scale, transform, translate} from '../';
 
 // TODO: since cube, sphere etc rely on some of the transformations, we should be creating csg objects 'from scratch' instead
 // of using those since it is not a very good independant test otherwise
-
 
 test('translate (single item, 3d)', t => {
   const op1 = cube();

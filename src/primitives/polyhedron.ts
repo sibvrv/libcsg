@@ -2,7 +2,8 @@ import {CSG} from '../core/CSG';
 import {Polygon3, Vector3, Vertex3} from '../core/math';
 import {fromPolygons} from '../core/CSGFactories';
 
-/** Construct a polyhedron from the given triangles/ polygons/points
+/**
+ * Construct a polyhedron from the given triangles/ polygons/points
  * @param {Object} [options] - options for construction
  * @param {Array} [options.triangles] - triangles to build the polyhedron from
  * @param {Array} [options.polygons] - polygons to build the polyhedron from

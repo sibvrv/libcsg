@@ -11,7 +11,8 @@ export interface IRotateExtrude {
 }
 
 // THIS IS AN OLD untested !!! version of rotate extrude
-/** Extrude to into a 3D solid by rotating the origin around the Y axis.
+/**
+ * Extrude to into a 3D solid by rotating the origin around the Y axis.
  * (and turning everything into XY plane)
  * @param {Object} options - options for construction
  * @param {Number} [options.angle=360] - angle of rotation

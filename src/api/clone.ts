@@ -18,4 +18,4 @@ export const clone = (obj: any) => {
   }
 
   return copy;
-}
+};

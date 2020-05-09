@@ -1,6 +1,6 @@
 import test from 'ava';
-import {square, circle, triangle, polygon} from '../';
-import {sideEquals, shape2dToNestedArray} from '../../api/test-helpers';
+import {circle, polygon, square, triangle} from '../';
+import {shape2dToNestedArray, sideEquals} from '../../api/test-helpers';
 
 /* FIXME : not entirely sure how to deal with this, but for now relies on inspecting
 output data structures: we should have higher level primitives ... */
@@ -25,7 +25,7 @@ test.failing('triangle (defaults)', t => {
   const expSides = [
     [[0, 1], [0, 0]],
     [[0, 0], [1, 0]],
-    [[1, 0], [1, 1]]
+    [[1, 0], [1, 1]],
   ];
   t.deepEqual(obs.sides.length, 3);
   t.truthy(comparePositonVertices(obs.sides, expSides));
@@ -38,7 +38,7 @@ test.failing('triangle (custom size)', t => {
   const expSides = [
     [[0, 1], [0, 0]],
     [[0, 0], [1, 0]],
-    [[1, 0], [1, 1]]
+    [[1, 0], [1, 1]],
   ];
   t.deepEqual(obs.sides.length, 3);
   t.truthy(comparePositonVertices(obs.sides, expSides));
@@ -51,7 +51,7 @@ test('square (defaults)', t => {
     [[0, 1], [0, 0]],
     [[0, 0], [1, 0]],
     [[1, 0], [1, 1]],
-    [[1, 1], [0, 1]]
+    [[1, 1], [0, 1]],
   ];
   t.deepEqual(obs.sides.length, 4);
   t.truthy(comparePositonVertices(obs.sides, expSides));
@@ -64,7 +64,7 @@ test('square (custom size, 2d array parameter)', t => {
     [[0, 3], [0, 0]],
     [[0, 0], [2, 0]],
     [[2, 0], [2, 3]],
-    [[2, 3], [0, 3]]
+    [[2, 3], [0, 3]],
   ];
 
   t.deepEqual(obs.sides.length, 4);
@@ -78,7 +78,7 @@ test('square (custom size, size object parameter)', t => {
     [[0, 3], [0, 0]],
     [[0, 0], [2, 0]],
     [[2, 0], [2, 3]],
-    [[2, 3], [0, 3]]
+    [[2, 3], [0, 3]],
   ];
 
   t.deepEqual(obs.sides.length, 4);
@@ -92,7 +92,7 @@ test('square (default size, centered)', t => {
     [[-0.5, 0.5], [-0.5, -0.5]],
     [[-0.5, -0.5], [0.5, -0.5]],
     [[0.5, -0.5], [0.5, 0.5]],
-    [[0.5, 0.5], [-0.5, 0.5]]
+    [[0.5, 0.5], [-0.5, 0.5]],
   ];
 
   t.deepEqual(obs.sides.length, 4);
@@ -319,7 +319,7 @@ test('polygon (nested points array, with holes)', t => {
     [[0, 0], [0, 10], [10, 10], [10, 0]],
     [[2, 2], [2, 8], [8, 8], [8, 2]],
     [[3, 3], [3, 7], [7, 7], [7, 3]],
-    [[4, 4], [4, 6], [6, 6], [6, 4]]
+    [[4, 4], [4, 6], [6, 6], [6, 4]],
   ]);
 
   const expSides = [
@@ -338,7 +338,7 @@ test('polygon (nested points array, with holes)', t => {
     [[8, 8], [8, 2]],
     [[2, 8], [8, 8]],
     [[2, 2], [2, 8]],
-    [[8, 2], [2, 2]]
+    [[8, 2], [2, 2]],
   ];
 
   // we just use a sample of points for simplicity
@@ -353,7 +353,7 @@ test('polygon (nested points array, with single path)', t => {
     [[10, 0], [10, 10]],
     [[10, 10], [0, 10]],
     [[0, 10], [0, 0]],
-    [[0, 0], [10, 0]]
+    [[0, 0], [10, 0]],
   ];
 
   // we just use a sample of points for simplicity

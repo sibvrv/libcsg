@@ -2,7 +2,8 @@ import {EPS} from '../core/constants';
 import {OrthoNormalBasis, Plane, Polygon3, Vector2, Vertex3} from '../core/math';
 import {CSG} from '../core/CSG';
 
-/** cuts a csg along a orthobasis
+/**
+ * cuts a csg along a orthobasis
  * @param  {CSG} csg the csg object to cut
  * @param  {Orthobasis} orthobasis the orthobasis to cut along
  */
@@ -16,7 +17,8 @@ export const sectionCut = (csg: CSG, orthobasis: OrthoNormalBasis) => {
   return cut3d.projectToOrthoNormalBasis(orthobasis);
 };
 
-/** Cut the solid by a plane. Returns the solid on the back side of the plane
+/**
+ * Cut the solid by a plane. Returns the solid on the back side of the plane
  * @param csg
  * @param {Plane} plane
  * @returns {CSG} the solid on the back side of the plane

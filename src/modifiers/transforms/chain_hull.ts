@@ -1,7 +1,8 @@
 import {union} from '../booleans';
 import {hull} from './hull';
 
-/** create a chain hull of the given shapes
+/**
+ * Create a chain hull of the given shapes
  * Originally "Whosa whatsis" suggested "Chain Hull" ,
  * as described at https://plus.google.com/u/0/105535247347788377245/posts/aZGXKFX1ACN
  * essentially hull A+B, B+C, C+D and then union those
