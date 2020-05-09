@@ -1,4 +1,3 @@
-import { CAG } from '../../core/CAG';
 /**
  * Construct a circle.
  * @param {Object} [options] - options for construction
@@ -7,7 +6,7 @@ import { CAG } from '../../core/CAG';
  * @param {Number} [options.resolution=defaultResolution2D] - number of sides per 360 rotation
  * @returns {CAG} new CAG object
  */
-export declare const circle: (options?: any) => CAG;
+export declare const circle: (options?: any) => import("../../main").CAG;
 /**
  * Construct an ellispe.
  * @param {Object} [options] - options for construction
@@ -16,7 +15,7 @@ export declare const circle: (options?: any) => CAG;
  * @param {Number} [options.resolution=defaultResolution2D] - number of sides per 360 rotation
  * @returns {CAG} new CAG object
  */
-export declare const ellipse: (options?: any) => CAG;
+export declare const ellipse: (options?: any) => import("../../main").CAG;
 /**
  * Construct a rectangle.
  * @param {Object} [options] - options for construction
@@ -26,7 +25,7 @@ export declare const ellipse: (options?: any) => CAG;
  * @param {Vector2D} [options.corner2=[0,0]] - upper right corner of rectangle (alternate)
  * @returns {CAG} new CAG object
  */
-export declare const rectangle: (options?: any) => CAG;
+export declare const rectangle: (options?: any) => import("../../main").CAG;
 /**
  * Construct a rounded rectangle.
  * @param {Object} [options] - options for construction
@@ -46,5 +45,5 @@ export declare const rectangle: (options?: any) => CAG;
  *   resolution: 36,
  * });
  */
-export declare const roundedRectangle: (options?: any) => CAG;
+export declare const roundedRectangle: (options?: any) => import("../../main").CAG;
 //# sourceMappingURL=primitives2d.d.ts.map

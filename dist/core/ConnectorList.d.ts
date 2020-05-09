@@ -1,5 +1,4 @@
 import { Path2D, TVector3Universal } from './math';
-import { CSG } from './CSG';
 import { Connector } from './Connector';
 export declare class ConnectorList {
     closed: boolean;
@@ -14,7 +13,7 @@ export declare class ConnectorList {
     constructor(connectors: Connector[]);
     setClosed(closed: boolean): void;
     appendConnector(conn: Connector): void;
-    followWith(cagish: any): CSG;
+    followWith(cagish: any): import("./CSG").CSG;
     verify(): void;
 }
 //# sourceMappingURL=ConnectorList.d.ts.map

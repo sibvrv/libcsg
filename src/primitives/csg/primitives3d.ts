@@ -5,7 +5,6 @@ import {fromPolygons} from '../../core/CSGFactories';
 import {Polygon3, Vector3, Vertex3} from '../../core/math';
 import {Connector} from '../../core/Connector';
 import {Properties} from '../../core/Properties';
-import {CSG} from '../../main';
 
 /**
  * Construct an axis-aligned solid cuboid.

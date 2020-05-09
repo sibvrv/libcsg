@@ -1,6 +1,5 @@
 import {translate} from '../modifiers/transforms';
-
-import {CSG} from '../core/CSG';
+import {roundedCube as CSGroundedCube, cube as CSGcube} from './csg/primitives3d';
 
 export interface ICuboidOptions {
   size: number | [number, number, number];
@@ -40,8 +39,8 @@ export function cube(options?: Partial<ICuboidOptions> | [number, number, number
   const halfSize = [width / 2, depth / 2, height / 2];
 
   const mesh = roundRadius
-    ? CSG.roundedCube({radius: [...halfSize], roundradius: roundRadius, resolution: fn})
-    : CSG.cube({radius: [...halfSize]});
+    ? CSGroundedCube({radius: [...halfSize], roundradius: roundRadius, resolution: fn})
+    : CSGcube({radius: [...halfSize]});
 
   const offset = Array.isArray(center) ? [+!!!center[0] * halfSize[0], +!!!center[1] * halfSize[1], +!!!center[2] * halfSize[2]] : (!center ? [...halfSize] : [0, 0, 0]);
 

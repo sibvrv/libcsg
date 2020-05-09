@@ -1,4 +1,3 @@
-import { CSG } from '../../main';
 /**
  * Construct an axis-aligned solid cuboid.
  * @param {Object} [options] - options for construction
@@ -12,7 +11,7 @@ import { CSG } from '../../main';
  *   radius: 5, // scalar radius
  * });
  */
-export declare const cube: (options?: any) => CSG;
+export declare const cube: (options?: any) => import("../../main").CSG;
 /**
  * Construct a solid sphere
  * @param {Object} [options] - options for construction
@@ -30,7 +29,7 @@ export declare const cube: (options?: any) => CSG;
  *   resolution: 32,
  * });
  */
-export declare const sphere: (options?: any) => CSG;
+export declare const sphere: (options?: any) => import("../../main").CSG;
 /**
  * Construct a solid cylinder.
  * @param {Object} [options] - options for construction
@@ -48,7 +47,7 @@ export declare const sphere: (options?: any) => CSG;
  *   resolution: 16
  * });
  */
-export declare const cylinder: (options?: any) => CSG;
+export declare const cylinder: (options?: any) => import("../../main").CSG;
 /**
  * Construct a cylinder with rounded ends.
  * @param {Object} [options] - options for construction
@@ -67,7 +66,7 @@ export declare const cylinder: (options?: any) => CSG;
  *   resolution: 16
  * });
  */
-export declare const roundedCylinder: (options?: any) => CSG;
+export declare const roundedCylinder: (options?: any) => import("../../main").CSG;
 /**
  * Construct an elliptic cylinder.
  * @param {Object} [options] - options for construction
@@ -88,7 +87,7 @@ export declare const roundedCylinder: (options?: any) => CSG;
  *       resolution: 16
  *     });
  */
-export declare const cylinderElliptic: (options?: any) => CSG;
+export declare const cylinderElliptic: (options?: any) => import("../../main").CSG;
 /**
  * Construct an axis-aligned solid rounded cuboid.
  * @param {Object} [options] - options for construction
@@ -106,12 +105,12 @@ export declare const cylinderElliptic: (options?: any) => CSG;
  *   resolution: 36,
  * });
  */
-export declare const roundedCube: (options?: any) => CSG;
+export declare const roundedCube: (options?: any) => import("../../main").CSG;
 /**
  * Create a polyhedron using Openscad style arguments.
  * Define face vertices clockwise looking from outside.
  * @param {Object} [options] - options for construction
  * @returns {CSG} new 3D solid
  */
-export declare const polyhedron: (options: any) => CSG;
+export declare const polyhedron: (options: any) => import("../../main").CSG;
 //# sourceMappingURL=primitives3d.d.ts.map

@@ -1,6 +1,6 @@
 import {geodesicSphere} from './geodesicSphere';
 import {translate} from '../modifiers/transforms';
-import {CSG} from '../core/CSG';
+import {sphere as CSGSphere} from './csg/primitives3d';
 
 /**
  * Sphere Type Enum
@@ -46,7 +46,7 @@ export function sphere(options?: Partial<ISphereOptions> | number) {
   // center: false (default)
   const offset = Array.isArray(center) ? [+!!!center[0] * r, +!!!center[1] * r, +!!!center[2] * r] : (typeof center === 'boolean' && !center ? [r, r, r] : [0, 0, 0]);
 
-  const mesh = type === SPHERE_TYPE.GEODESIC ? geodesicSphere({r, fn}) : CSG.sphere({radius: r, resolution: fn});
+  const mesh = type === SPHERE_TYPE.GEODESIC ? geodesicSphere({r, fn}) : CSGSphere({radius: r, resolution: fn});
 
   return (offset[0] || offset[1] || offset[2]) ? translate(offset, mesh) : mesh;
 }

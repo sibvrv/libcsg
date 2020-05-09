@@ -1,5 +1,5 @@
 import {translate} from '../modifiers/transforms';
-import {CSG} from '../core/CSG';
+import {roundedCylinder as CSGroundedCylinder, cylinder as CSGcylinder} from './csg/primitives3d';
 
 /**
  * Construct a cylinder
@@ -64,12 +64,12 @@ export function cylinder(params?: any) {
   let object;
   if (params && (params.start && params.end)) {
     object = round
-      ? CSG.roundedCylinder({start: params.start, end: params.end, radiusStart: r1, radiusEnd: r2, resolution: fn})
-      : CSG.cylinder({start: params.start, end: params.end, radiusStart: r1, radiusEnd: r2, resolution: fn});
+      ? CSGroundedCylinder({start: params.start, end: params.end, radiusStart: r1, radiusEnd: r2, resolution: fn})
+      : CSGcylinder({start: params.start, end: params.end, radiusStart: r1, radiusEnd: r2, resolution: fn});
   } else {
     object = round
-      ? CSG.roundedCylinder({start: [0, 0, 0], end: [0, 0, h], radiusStart: r1, radiusEnd: r2, resolution: fn})
-      : CSG.cylinder({start: [0, 0, 0], end: [0, 0, h], radiusStart: r1, radiusEnd: r2, resolution: fn});
+      ? CSGroundedCylinder({start: [0, 0, 0], end: [0, 0, h], radiusStart: r1, radiusEnd: r2, resolution: fn})
+      : CSGcylinder({start: [0, 0, 0], end: [0, 0, h], radiusStart: r1, radiusEnd: r2, resolution: fn});
     const r = r1 > r2 ? r1 : r2;
     if (params && params.center && params.center.length) { // preparing individual x,y,z center
       offset = [params.center[0] ? 0 : r, params.center[1] ? 0 : r, params.center[2] ? -h / 2 : 0];

@@ -1,6 +1,6 @@
 import {Path2D, TVector3Universal, Vector3} from './math';
-import {CSG} from './CSG';
 import {Connector} from './Connector';
+import {fromPolygons} from './CSGFactories';
 
 export class ConnectorList {
   closed = false;
@@ -128,7 +128,7 @@ export class ConnectorList {
       prevConnector = connector;
     });
 
-    return CSG.fromPolygons(polygons).reTesselated().canonicalized();
+    return fromPolygons(polygons).reTesselated().canonicalized();
   }
 
   /*

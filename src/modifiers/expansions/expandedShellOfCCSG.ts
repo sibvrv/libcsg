@@ -3,7 +3,7 @@ import {Polygon3, Vertex3} from '../../core/math';
 import {fnNumberSort} from '../../core/utils';
 import {CSG} from '../../core/CSG';
 import {fromPolygons} from '../../core/CSGFactories';
-// import {sphere} from './primitives3d'
+import {sphere as CSGsphere} from '../../primitives/csg/primitives3d';
 
 /**
  * Create the expanded shell of the solid:
@@ -206,7 +206,7 @@ export const expandedShellOfCCSG = (_csg: CSG, radius: number, resolution: numbe
     }
     const yaxis = xaxis.cross(bestzaxis).unit();
     const zaxis = yaxis.cross(xaxis);
-    const _sphere = CSG.sphere({
+    const _sphere = CSGsphere({
       center: vertexobj.pos,
       radius,
       resolution,
