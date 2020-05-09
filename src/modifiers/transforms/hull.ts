@@ -1,6 +1,6 @@
-import {ConvexHull} from './helpers/ConvexHull';
-import {fromPoints} from '../../core/CAGFactories';
-import {isCAG} from '../../core/utils';
+import {ConvexHull} from '@helpers/ConvexHull';
+import {fromPoints} from '@core/CAGFactories';
+import {isCAG} from '@core/utils';
 
 /**
  * Create a convex hull of the given shapes

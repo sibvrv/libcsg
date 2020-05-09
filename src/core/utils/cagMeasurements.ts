@@ -1,5 +1,5 @@
-import {Vector2} from '../math';
-import {CAG} from '../CAG';
+import {Vector2} from '@core/math';
+import {CAG} from '@core/CAG';
 
 // see http://local.wasp.uwa.edu.au/~pbourke/geometry/polyarea/ :
 // Area of the polygon. For a counter clockwise rotating polygon the area is positive, otherwise negative

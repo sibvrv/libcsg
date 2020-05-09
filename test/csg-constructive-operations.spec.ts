@@ -1,5 +1,5 @@
 import test from 'ava';
-import {CSG} from '../src/csg';
+import {CSG} from '@core/CSG';
 import {assertSameGeometry} from './helpers/asserts';
 
 function createOperands() {

@@ -1,4 +1,4 @@
-import {Vector2, Vector3} from '../core/math';
+import {Vector2, Vector3} from '@core/math';
 
 // Parse an option from the options object
 // If the option is not present, return the default value

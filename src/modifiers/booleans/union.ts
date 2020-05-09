@@ -1,4 +1,4 @@
-import {isCAG} from '../../core/utils';
+import {isCAG} from '@core/utils';
 
 /**
  * Union / combine the given shapes

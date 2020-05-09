@@ -1,4 +1,4 @@
-import { CAG } from '../core/CAG';
+import { CAG } from '@core/CAG';
 /**
  * Construct a polygon either from arrays of paths and points,
  * or just arrays of points nested paths (multiple paths) and flat paths are supported

@@ -1,7 +1,7 @@
 ﻿{
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
+    "target": "ES5",
+    "module": "CommonJS",
     "lib": [
       "ES5",
       "ES6",
@@ -9,11 +9,34 @@
       "ES2015"
     ],
     "declaration": true,
-    "baseUrl": "src",
+    "baseUrl": ".",
     "outDir": "dist",
     "strict": true,
     "sourceMap": true,
-    "declarationMap": true
+    "declarationMap": true,
+    "paths": {
+      "@api/*": [
+        "./src/api/*"
+      ],
+      "@core/*": [
+        "./src/core/*"
+      ],
+      "@math/*": [
+        "./src/math/*"
+      ],
+      "@helpers/*": [
+        "./src/helpers/*"
+      ],
+      "@modifiers/*": [
+        "./src/modifiers/*"
+      ],
+      "@primitives/*": [
+        "./src/primitives/*"
+      ],
+      "@root/*": [
+        "./src/*"
+      ]
+    }
   },
   "exclude": [
     "dist",

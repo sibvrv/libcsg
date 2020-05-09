@@ -1,4 +1,4 @@
-import {Matrix4x4} from '../../core/math';
+import {Matrix4x4} from '@core/math';
 
 /**
  * Apply the given matrix transform to the given objects

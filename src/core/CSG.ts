@@ -1,24 +1,24 @@
-import {Tree} from './Tree';
-import {Line2D, Line3D, Matrix4x4, OrthoNormalBasis, Path2D, Plane, Polygon2D, Polygon3, PolygonShared, TransformationMethods, TVector3Universal, Vector2, Vector3, Vertex3} from './math';
+import {Tree} from '@core/Tree';
+import {Line2D, Line3D, Matrix4x4, OrthoNormalBasis, Path2D, Plane, Polygon2D, Polygon3, PolygonShared, TransformationMethods, TVector3Universal, Vector2, Vector3, Vertex3} from '@core/math';
 
-import {Properties} from './Properties';
-import {fixTJunctions} from './utils/fixTJunctions';
-import {canonicalize as canonicalizeFunc} from './utils/canonicalize';
-import {reTesselate} from './utils/retesellate';
-import {bounds} from './utils/csgMeasurements';
-import {projectToOrthoNormalBasis} from './utils/csgProjections';
+import {Properties} from '@core/Properties';
+import {fixTJunctions} from '@core/utils/fixTJunctions';
+import {canonicalize as canonicalizeFunc} from '@core/utils/canonicalize';
+import {reTesselate} from '@core/utils/retesellate';
+import {bounds} from '@core/utils/csgMeasurements';
+import {projectToOrthoNormalBasis} from '@core/utils/csgProjections';
 
-import {getTransformationAndInverseTransformationToFlatLying, getTransformationToFlatLying, lieFlat} from '../api/ops-cnc';
-import {cutByPlane, sectionCut} from '../api/ops-cuts';
-import {center} from '../api/center';
-import {contract, expand, expandedShellOfCCSG} from '../modifiers/expansions';
+import {getTransformationAndInverseTransformationToFlatLying, getTransformationToFlatLying, lieFlat} from '@api/ops-cnc';
+import {cutByPlane, sectionCut} from '@api/ops-cuts';
+import {center} from '@api/center';
+import {contract, expand, expandedShellOfCCSG} from '@modifiers/expansions';
 
-import {_CSGDEBUG, all, angleEPS, areaEPS, back, bottom, defaultResolution2D, defaultResolution3D, EPS, front, getTag, left, right, staticTag, top} from './constants';
-import {cube, cylinder, cylinderElliptic, polyhedron, roundedCube, roundedCylinder, sphere} from '../primitives/csg/primitives3d';
+import {_CSGDEBUG, all, angleEPS, areaEPS, back, bottom, defaultResolution2D, defaultResolution3D, EPS, front, getTag, left, right, staticTag, top} from '@core/constants';
+import {cube, cylinder, cylinderElliptic, polyhedron, roundedCube, roundedCylinder, sphere} from '@primitives/csg/primitives3d';
 import {fromCompactBinary, fromObject, fromPolygons, fromSlices} from './CSGFactories';
-import * as optionsParsers from '../api/optionParsers';
-import {Connector} from './Connector';
-import {ConnectorList} from './ConnectorList';
+import * as optionsParsers from '@api/optionParsers';
+import {Connector} from '@core/Connector';
+import {ConnectorList} from '@core/ConnectorList';
 
 /**
  * Class CSG

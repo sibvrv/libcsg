@@ -1,5 +1,6 @@
 import test from 'ava';
-import {CAG, CSG} from '../src/csg';
+import {CSG} from '@core/CSG';
+import {CAG} from '@core/CAG';
 
 import {nearlyEqual} from './helpers/nearlyEqual';
 

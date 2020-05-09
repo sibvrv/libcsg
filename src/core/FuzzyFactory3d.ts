@@ -1,6 +1,6 @@
-import {EPS} from './constants';
-import {Plane, Polygon3, PolygonShared, Vertex3} from './math';
-import {FuzzyFactory} from './FuzzyFactory';
+import {EPS} from '@core/constants';
+import {Plane, Polygon3, PolygonShared, Vertex3} from '@core/math';
+import {FuzzyFactory} from '@core/FuzzyFactory';
 
 // ////////////////////////////////////
 export class FuzzyCSGFactory {

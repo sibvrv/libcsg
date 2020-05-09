@@ -9,14 +9,14 @@ import {reTesselate} from './utils/retesellate';
 import {hasPointInside, isCAGValid, isSelfIntersecting} from './utils/cagValidation';
 import {area, getBounds} from './utils/cagMeasurements';
 // all of these are good candidates for elimination in this scope, since they are part of a functional api
-import {overCutInsideCorners} from '../api/ops-cnc';
-import {extrude, extrudeInOrthonormalBasis, extrudeInPlane, rotateExtrude} from '../modifiers/extrusions/';
-import {cagOutlinePaths} from '../api/cagOutlinePaths';
-import {center} from '../api/center';
-import {contract, expand, expandedShellOfCAG} from '../modifiers/expansions';
+import {overCutInsideCorners} from '@api/ops-cnc';
+import {extrude, extrudeInOrthonormalBasis, extrudeInPlane, rotateExtrude} from '@modifiers/extrusions/';
+import {cagOutlinePaths} from '@api/cagOutlinePaths';
+import {center} from '@api/center';
+import {contract, expand, expandedShellOfCAG} from '@modifiers/expansions';
 
-import {circle, ellipse, rectangle, roundedRectangle} from '../primitives/csg/primitives2d';
-import {IRotateExtrude} from '../modifiers/extrusions/rotateExtrude';
+import {circle, ellipse, rectangle, roundedRectangle} from '@primitives/csg/primitives2d';
+import {IRotateExtrude} from '@modifiers/extrusions/rotateExtrude';
 
 /**
  * Class CAG
@@ -136,12 +136,12 @@ export class CAG extends TransformationMethods {
   }
 
   // ALIAS !
-  extrude(options: any) {
+  extrude(options?: any) {
     return extrude(this, options);
   }
 
   // ALIAS !
-  rotateExtrude(options: Partial<IRotateExtrude>) { // FIXME options should be optional
+  rotateExtrude(options?: Partial<IRotateExtrude>) { // FIXME options should be optional
     return rotateExtrude(this, options);
   }
 

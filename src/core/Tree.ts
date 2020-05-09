@@ -1,6 +1,6 @@
-import {Polygon3} from './math';
-import {PolygonTreeNode} from './PolygonTreeNode';
-import {Node} from './Node';
+import {Polygon3} from '@core/math';
+import {PolygonTreeNode} from '@core/PolygonTreeNode';
+import {Node} from '@core/Node';
 
 // # class Tree
 // This is the root of a BSP tree

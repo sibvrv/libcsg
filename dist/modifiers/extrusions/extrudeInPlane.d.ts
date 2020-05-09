@@ -1,4 +1,4 @@
-import { CAG } from '../../main';
+import { CAG } from '@core/CAG';
 /**
  * Extrude in a standard cartesian plane, specified by two axis identifiers. Each identifier can be
  * one of ["X","Y","Z","-X","-Y","-Z"]

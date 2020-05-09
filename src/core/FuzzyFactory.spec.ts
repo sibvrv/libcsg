@@ -1,5 +1,5 @@
-import {EPS} from './constants';
-import {FuzzyFactory} from './FuzzyFactory';
+import {EPS} from '@core/constants';
+import {FuzzyFactory} from '@core/FuzzyFactory';
 import {expect} from 'chai';
 
 describe('Core: FuzzyFactory', () => {

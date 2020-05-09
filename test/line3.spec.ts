@@ -1,6 +1,6 @@
 import test from 'ava';
-import {CSG} from '../src/csg';
-import {Line3D, Plane, Vector3} from '../src/core/math';
+import {CSG} from '@core/CSG';
+import {Line3D, Plane, Vector3} from '@core/math';
 
 function planeEquals(t: any, observed: any, expected: any) {
   t.is(observed.w, expected.w);

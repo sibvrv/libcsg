@@ -1,6 +1,6 @@
-import { Side } from './math';
-import { CAG } from './CAG';
-import { CSG } from './CSG';
+import { Side } from '@core/math';
+import { CAG } from '@core/CAG';
+import { CSG } from '@core/CSG';
 /**
  * Construct a CAG from a list of `Side` instances.
  * @param {Side[]} sides - list of sides

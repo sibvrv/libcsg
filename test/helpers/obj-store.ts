@@ -1,5 +1,7 @@
 import * as fs from 'fs';
-import {CAG, CSG} from '../../src/csg'; // FIXME: BAD!! tests are supposed to be independant from our CODE !!
+// FIXME: BAD!! tests are supposed to be independant from our CODE !!
+import {CSG} from '@core/CSG';
+import {CAG} from '@core/CAG';
 
 // import the required modules if necessary
 

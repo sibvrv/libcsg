@@ -1,6 +1,6 @@
-import {_CSGDEBUG, EPS} from './constants';
-import {splitPolygonByPlane} from './splitPolygonByPlane';
-import {Plane, Polygon3} from './math';
+import {_CSGDEBUG, EPS} from '@core/constants';
+import {splitPolygonByPlane} from '@core/splitPolygonByPlane';
+import {Plane, Polygon3} from '@core/math';
 
 // # class PolygonTreeNode
 // This class manages hierarchical splits of polygons

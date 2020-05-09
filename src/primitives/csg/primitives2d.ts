@@ -1,7 +1,7 @@
-import {parseOptionAs2DVector, parseOptionAsFloat, parseOptionAsInt} from '../../api/optionParsers';
-import {defaultResolution2D} from '../../core/constants';
-import {fromPath2, fromPoints} from '../../core/CAGFactories';
-import {Path2D, Vector2} from '../../core/math';
+import {parseOptionAs2DVector, parseOptionAsFloat, parseOptionAsInt} from '@api/optionParsers';
+import {defaultResolution2D} from '@core/constants';
+import {fromPath2, fromPoints} from '@core/CAGFactories';
+import {Path2D, Vector2} from '@core/math';
 
 /**
  * Construct a circle.

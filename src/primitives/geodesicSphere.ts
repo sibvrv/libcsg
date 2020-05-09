@@ -1,5 +1,5 @@
 import {polyhedron} from './polyhedron';
-import {scale} from '../modifiers/transforms';
+import {scale} from '@modifiers/transforms';
 
 export interface IGeodesicSphereOptions {
   r: number;

@@ -1,4 +1,4 @@
-import {fromPoints} from '../CAGFactories';
+import {fromPoints} from '@core/CAGFactories';
 
 /*
 2D polygons are now supported through the CAG class.

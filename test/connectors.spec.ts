@@ -1,6 +1,6 @@
-import {CSG} from '../src/csg';
+import {CSG} from '@core/CSG';
 import {expect} from 'chai';
-import {ConnectorList} from '../src/core/ConnectorList';
+import {ConnectorList} from '@core/ConnectorList';
 
 describe('CSG Connectors', () => {
   it('CSG.Connector exists', () => {

@@ -1,4 +1,4 @@
-import { Line3D, Matrix4x4, TransformationMethods, TVector3Universal, Vector3 } from './math';
+import { Line3D, Matrix4x4, TransformationMethods, TVector3Universal, Vector3 } from '@core/math';
 export declare class Connector extends TransformationMethods {
     point: Vector3;
     axisvector: Vector3;

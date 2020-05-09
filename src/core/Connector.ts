@@ -1,4 +1,4 @@
-import {Line3D, Matrix4x4, OrthoNormalBasis, Plane, TransformationMethods, TVector3Universal, Vector3} from './math';
+import {Line3D, Matrix4x4, OrthoNormalBasis, Plane, TransformationMethods, TVector3Universal, Vector3} from '@core/math';
 
 // # class Connector
 // A connector allows to attach two objects at predefined positions

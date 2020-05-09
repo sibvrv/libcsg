@@ -1,6 +1,6 @@
-import {OrthoNormalBasis} from '../../core/math';
+import {OrthoNormalBasis} from '@core/math';
 import {extrudeInOrthonormalBasis} from './extrudeInOrthonormalBasis';
-import {CAG} from '../../main';
+import {CAG} from '@core/CAG';
 
 /**
  * Extrude in a standard cartesian plane, specified by two axis identifiers. Each identifier can be

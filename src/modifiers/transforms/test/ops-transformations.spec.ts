@@ -1,6 +1,6 @@
 import test from 'ava';
-import {sideEquals} from '../../../api/test-helpers';
-import {circle, cube, sphere, square} from '../../../primitives';
+import {sideEquals} from '@api/test-helpers';
+import {circle, cube, sphere, square} from '@root/primitives';
 import {center, chain_hull, contract, expand, hull, minkowski, mirror, rotate, scale, transform, translate} from '../';
 
 // TODO: since cube, sphere etc rely on some of the transformations, we should be creating csg objects 'from scratch' instead

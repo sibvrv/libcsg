@@ -1,5 +1,5 @@
-import { Plane, Polygon3, PolygonShared, Vertex3 } from './math';
-import { FuzzyFactory } from './FuzzyFactory';
+import { Plane, Polygon3, PolygonShared, Vertex3 } from '@core/math';
+import { FuzzyFactory } from '@core/FuzzyFactory';
 export declare class FuzzyCSGFactory {
     vertexfactory: FuzzyFactory;
     planefactory: FuzzyFactory;

@@ -1,5 +1,5 @@
 import test from 'ava';
-import {circle, cube, cylinder, sphere, square} from '../../primitives';
+import {circle, cube, cylinder, sphere, square} from '@root/primitives';
 import {color, css2rgb, hsl2rgb, hsv2rgb, html2rgb, rgb2hsl, rgb2hsv, rgb2html} from '../';
 
 test('css2rgb', t => {

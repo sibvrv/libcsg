@@ -1,4 +1,4 @@
-import {Path2D} from '../../core/math';
+import {Path2D} from '@core/math';
 
 /**
  * Rectangular extrusion of the given array of points

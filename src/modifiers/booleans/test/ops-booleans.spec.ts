@@ -1,5 +1,5 @@
 import test from 'ava';
-import {cube, sphere, square} from '../../../primitives';
+import {cube, sphere, square} from '@root/primitives';
 import {difference, intersection, union} from '../index';
 
 test('union (defaults)', t => {

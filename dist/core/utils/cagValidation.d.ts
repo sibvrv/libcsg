@@ -1,5 +1,5 @@
-import { Vector2 } from '../math';
-import { CAG } from '../CAG';
+import { Vector2 } from '@core/math';
+import { CAG } from '@core/CAG';
 export declare const isCAGValid: (cag: CAG) => void;
 export declare const isSelfIntersecting: (cag: CAG, debug?: boolean | undefined) => boolean;
 /**

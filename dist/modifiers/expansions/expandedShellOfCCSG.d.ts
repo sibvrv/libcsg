@@ -1,4 +1,4 @@
-import { CSG } from '../../core/CSG';
+import { CSG } from '@core/CSG';
 /**
  * Create the expanded shell of the solid:
  * All faces are extruded to get a thickness of 2*radius

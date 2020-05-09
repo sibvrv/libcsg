@@ -1,9 +1,9 @@
 import test from 'ava';
-import {CSG} from '../src/csg';
+import {CSG} from '@core/CSG';
 import {OBJ} from './helpers/obj-store';
 import {assertSameGeometry} from './helpers/asserts';
-import {Vector2} from '../src/core/math';
-import {fromPoints} from '../src/core/CAGFactories';
+import {Vector2} from '@core/math';
+import {fromPoints} from '@core/CAGFactories';
 
 // Testing common shape generation can only be done by comparing
 // with previously human validated shapes. It would be trivially

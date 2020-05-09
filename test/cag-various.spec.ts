@@ -1,5 +1,6 @@
 import test from 'ava';
-import {CAG, CSG} from '../src/csg';
+import {CSG} from '@core/CSG';
+import {CAG} from '@core/CAG';
 
 // helper function, gives a much more compact variant of the the side data
 // hint : this could also be used to streamline the cag implementation in the future

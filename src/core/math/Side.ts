@@ -1,4 +1,4 @@
-import {getTag} from '../constants';
+import {getTag} from '@core/constants';
 import {Matrix4x4, Polygon3, TransformationMethods, Vector2, Vertex2, Vertex3} from '.';
 
 export class Side extends TransformationMethods {

@@ -1,4 +1,4 @@
-import {Polygon3, TVector3Universal, Vector3, Vertex3} from '../core/math';
+import {Polygon3, TVector3Universal, Vector3, Vertex3} from '@core/math';
 
 /**
  * Polygon From Points

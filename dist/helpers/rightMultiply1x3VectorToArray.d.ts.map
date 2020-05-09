@@ -1,1 +1,1 @@
-{"version":3,"file":"rightMultiply1x3VectorToArray.d.ts","sourceRoot":"","sources":["../../src/helpers/rightMultiply1x3VectorToArray.ts"],"names":[],"mappings":"AAAA,OAAO,EAAC,SAAS,EAAC,MAAM,cAAc,CAAC;AAGvC,eAAO,MAAM,6BAA6B,mEAgBzC,CAAC"}
+{"version":3,"file":"rightMultiply1x3VectorToArray.d.ts","sourceRoot":"","sources":["../../src/helpers/rightMultiply1x3VectorToArray.ts"],"names":[],"mappings":"AAAA,OAAO,EAAC,SAAS,EAAC,MAAM,YAAY,CAAC;AAGrC,eAAO,MAAM,6BAA6B,mEAgBzC,CAAC"}

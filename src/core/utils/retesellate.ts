@@ -1,7 +1,7 @@
-import {FuzzyCSGFactory} from '../FuzzyFactory3d';
-import {Polygon3, reTesselateCoplanarPolygons} from '../math';
-import {fromPolygons} from '../CSGFactories';
-import {CSG} from '../CSG';
+import {FuzzyCSGFactory} from '@core/FuzzyFactory3d';
+import {Polygon3, reTesselateCoplanarPolygons} from '@core/math';
+import {fromPolygons} from '@core/CSGFactories';
+import {CSG} from '@core/CSG';
 
 export const reTesselate = (csg: CSG) => {
   if (csg.isRetesselated) {

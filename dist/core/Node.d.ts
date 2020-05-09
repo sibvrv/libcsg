@@ -1,6 +1,6 @@
-import { Plane, Vector3 } from './math';
-import { Tree } from './Tree';
-import { PolygonTreeNode } from './PolygonTreeNode';
+import { Plane, Vector3 } from '@core/math';
+import { Tree } from '@core/Tree';
+import { PolygonTreeNode } from '@core/PolygonTreeNode';
 export declare class Node {
     parent: Node | null;
     plane: Plane | null;

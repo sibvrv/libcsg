@@ -1,6 +1,6 @@
 // @ts-nocheck
-import {EPS} from '../constants';
-import {Plane, Polygon3} from '../math';
+import {EPS} from '@core/constants';
+import {Plane, Polygon3} from '@core/math';
 
 function addSide(sidemap, vertextag2sidestart, vertextag2sideend, vertex0, vertex1, polygonindex) {
   const starttag = vertex0.getTag();

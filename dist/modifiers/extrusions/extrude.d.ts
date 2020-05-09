@@ -1,4 +1,4 @@
-import { CSG } from '../../core/CSG';
+import { CSG } from '@core/CSG';
 /**
  * Linear extrusion of 2D shape, with optional twist
  * @param  {CAG} cag the cag to extrude

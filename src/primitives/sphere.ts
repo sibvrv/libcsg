@@ -1,5 +1,5 @@
 import {geodesicSphere} from './geodesicSphere';
-import {translate} from '../modifiers/transforms';
+import {translate} from '@modifiers/transforms';
 import {sphere as CSGSphere} from './csg/primitives3d';
 
 /**

@@ -1,4 +1,4 @@
-import { Matrix4x4 } from './math';
+import { Matrix4x4 } from '@core/math';
 export declare class Properties {
     [key: string]: any;
     static transformObj(source: any, result: any, matrix4x4: Matrix4x4): void;

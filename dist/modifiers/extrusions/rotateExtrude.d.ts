@@ -1,4 +1,4 @@
-import { CAG } from '../../main';
+import { CAG } from '@core/CAG';
 export interface IRotateExtrude {
     angle: number;
     resolution: number;

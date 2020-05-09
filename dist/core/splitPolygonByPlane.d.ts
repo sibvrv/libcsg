@@ -1,4 +1,4 @@
-import { Plane, Polygon3 } from './math';
+import { Plane, Polygon3 } from '@core/math';
 export declare function splitPolygonByPlane(plane: Plane, polygon: Polygon3): {
     type: number | null;
     front: Polygon3 | null;

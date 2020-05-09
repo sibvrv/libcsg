@@ -1,7 +1,7 @@
-import {EPS} from '../constants';
-import {CSG} from '../CSG';
-import {CAG} from '../CAG';
-import {OrthoNormalBasis} from '../math';
+import {EPS} from '@core/constants';
+import {CSG} from '@core/CSG';
+import {CAG} from '@core/CAG';
+import {OrthoNormalBasis} from '@core/math';
 
 // project the 3D CSG onto a plane
 // This returns a 2D CAG with the 'shadow' shape of the 3D solid when projected onto the

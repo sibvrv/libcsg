@@ -1,4 +1,4 @@
-import {getTag} from '../constants';
+import {getTag} from '@core/constants';
 
 /**
  * Class Polygon.Shared

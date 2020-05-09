@@ -1,4 +1,4 @@
-import { CAG } from '../../core/CAG';
+import { CAG } from '@core/CAG';
 /**
  * Expanded Shell Of CAG
  * @param _cag

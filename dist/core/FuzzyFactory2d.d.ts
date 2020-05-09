@@ -1,5 +1,5 @@
-import { FuzzyFactory } from './FuzzyFactory';
-import { Side, Vertex2 } from './math';
+import { FuzzyFactory } from '@core/FuzzyFactory';
+import { Side, Vertex2 } from '@core/math';
 export declare class FuzzyCAGFactory {
     vertexfactory: FuzzyFactory;
     getVertex(sourcevertex: Vertex2): any;

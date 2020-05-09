@@ -1,4 +1,4 @@
-import {EPS, getTag} from '../constants';
+import {EPS, getTag} from '@core/constants';
 import {Line3D, Matrix4x4, TransformationMethods, TVector3Universal, Vector3} from '.';
 
 // # class Plane

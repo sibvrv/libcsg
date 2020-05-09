@@ -1,1 +1,1 @@
-{"version":3,"file":"splitPolygonByPlane.d.ts","sourceRoot":"","sources":["../../src/core/splitPolygonByPlane.ts"],"names":[],"mappings":"AAAA,OAAO,EAA0B,KAAK,EAAE,QAAQ,EAAC,MAAM,QAAQ,CAAC;AAahE,wBAAgB,mBAAmB,CAAC,KAAK,EAAE,KAAK,EAAE,OAAO,EAAE,QAAQ;;;;EA2GlE"}
+{"version":3,"file":"splitPolygonByPlane.d.ts","sourceRoot":"","sources":["../../src/core/splitPolygonByPlane.ts"],"names":[],"mappings":"AAAA,OAAO,EAA0B,KAAK,EAAE,QAAQ,EAAC,MAAM,YAAY,CAAC;AAapE,wBAAgB,mBAAmB,CAAC,KAAK,EAAE,KAAK,EAAE,OAAO,EAAE,QAAQ;;;;EA2GlE"}

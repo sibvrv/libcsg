@@ -1,1 +1,1 @@
-{"version":3,"file":"polygon.d.ts","sourceRoot":"","sources":["../../src/primitives/polygon.ts"],"names":[],"mappings":"AAAA,OAAO,EAAC,GAAG,EAAC,MAAM,aAAa,CAAC;AAGhC;;;;;;;;;;;;;;;;;;;;;;;;;GAyBG;AACH,wBAAgB,OAAO,CAAC,MAAM,EAAE,GAAG,OAoBlC"}
+{"version":3,"file":"polygon.d.ts","sourceRoot":"","sources":["../../src/primitives/polygon.ts"],"names":[],"mappings":"AAAA,OAAO,EAAC,GAAG,EAAC,MAAM,WAAW,CAAC;AAG9B;;;;;;;;;;;;;;;;;;;;;;;;;GAyBG;AACH,wBAAgB,OAAO,CAAC,MAAM,EAAE,GAAG,OAoBlC"}

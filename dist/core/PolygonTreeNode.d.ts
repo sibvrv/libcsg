@@ -1,4 +1,4 @@
-import { Plane, Polygon3 } from './math';
+import { Plane, Polygon3 } from '@core/math';
 export declare class PolygonTreeNode {
     parent: PolygonTreeNode | null;
     children: PolygonTreeNode[];

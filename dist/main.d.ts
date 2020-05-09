@@ -1,4 +1,4 @@
-import { circle, cube, cylinder, geodesicSphere, polygon, polyhedron, sphere, square, torus, triangle } from './primitives';
+import { circle, cube, cylinder, geodesicSphere, polygon, polyhedron, sphere, square, torus, triangle } from '@root/primitives';
 export * as color from './color';
 export declare const primitives2d: {
     circle: typeof circle;
@@ -14,14 +14,14 @@ export declare const primitives3d: {
     torus: typeof torus;
     polyhedron: typeof polyhedron;
 };
-export * as booleanOps from './modifiers/booleans';
-export * as transformations from './modifiers/transforms';
-export * as extrusions from './modifiers/extrusions';
-export * as maths from './math/mathsHelpersAPI';
+export * as booleanOps from '@modifiers/booleans';
+export * as transformations from '@modifiers/transforms';
+export * as extrusions from '@modifiers/extrusions';
+export * as maths from '@math/mathsHelpersAPI';
 export * as text from './text';
-export { CSG } from './core/CSG';
-export { CAG } from './core/CAG';
-export { isCAG, isCSG } from './core/utils';
+export { CSG } from '@core/CSG';
+export { CAG } from '@core/CAG';
+export { isCAG, isCSG } from '@core/utils';
 export declare const version: {
     build: string;
     date: string;

@@ -1,5 +1,5 @@
-import { Polygon3 } from './math';
-import { CSG } from './CSG';
+import { Polygon3 } from '@core/math';
+import { CSG } from '@core/CSG';
 /**
  * Construct a CSG solid from a list of `Polygon` instances.
  * @param {Polygon[]} polygons - list of polygons

@@ -1,7 +1,7 @@
 import test from 'ava';
-import {circle, cube, torus} from '../primitives';
-import {linear_extrude} from '../modifiers/extrusions';
-import {intersection, union} from '../modifiers/booleans';
+import {circle, cube, torus} from '@root/primitives';
+import {linear_extrude} from '@modifiers/extrusions';
+import {intersection, union} from '@modifiers/booleans';
 
 // any tests that involve multiple operands (extrude with union translate with difference etc)
 // and are not testing a specific feature (union, difference, translate etc)

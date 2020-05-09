@@ -1,5 +1,5 @@
-import { CSG } from '../core/CSG';
-import { Matrix4x4 } from '../core/math';
+import { CSG } from '@core/CSG';
+import { Matrix4x4 } from '@core/math';
 export declare const getTransformationAndInverseTransformationToFlatLying: (_csg: CSG) => (Matrix4x4 | undefined)[];
 export declare const getTransformationToFlatLying: (csg: any) => any;
 export declare const lieFlat: (csg: any) => any;

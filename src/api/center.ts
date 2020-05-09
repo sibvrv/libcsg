@@ -1,5 +1,5 @@
-import {CSG} from '../core/CSG';
-import {CAG} from '../core/CAG';
+import {CSG} from '@core/CSG';
+import {CAG} from '@core/CAG';
 
 /**
  * Center Options Interface

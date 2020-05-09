@@ -1,6 +1,6 @@
 import test from 'ava';
 import {nearlyEqual} from './helpers/nearlyEqual';
-import {Matrix4x4, Vector3} from '../src/core/math';
+import {Matrix4x4, Vector3} from '@core/math';
 
 test('CSG.Vector3 constructor', t => {
   const v1 = new Vector3([1, 2, 3]);

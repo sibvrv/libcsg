@@ -1,5 +1,5 @@
-import {Vector3} from '../math';
-import {CSG} from '../CSG';
+import {Vector3} from '@core/math';
+import {CSG} from '@core/CSG';
 
 /**
  * Returns an array of Vector3D, providing minimum coordinates and maximum coordinates

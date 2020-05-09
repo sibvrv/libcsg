@@ -1,5 +1,5 @@
-import { Path2D, TVector3Universal } from './math';
-import { Connector } from './Connector';
+import { Path2D, TVector3Universal } from '@core/math';
+import { Connector } from '@core/Connector';
 export declare class ConnectorList {
     closed: boolean;
     connectorsList: Connector[];

@@ -1,4 +1,4 @@
-import { Polygon3 } from '../core/math';
+import { Polygon3 } from '@core/math';
 export interface ISolidFromSlices {
     loop: boolean;
     numslices: number;

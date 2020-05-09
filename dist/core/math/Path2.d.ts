@@ -1,4 +1,4 @@
-import { CAG } from '../CAG';
+import { CAG } from '@core/CAG';
 import { Matrix4x4, TransformationMethods, TVector2Universal, Vector2 } from '.';
 export interface IPath2DArcOptions {
     center: any;

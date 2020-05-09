@@ -1,4 +1,4 @@
-import {translate} from '../modifiers/transforms';
+import {translate} from '@modifiers/transforms';
 import {roundedCylinder as CSGroundedCylinder, cylinder as CSGcylinder} from './csg/primitives3d';
 
 /**

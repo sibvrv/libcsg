@@ -1,6 +1,6 @@
 import test from 'ava';
 import {nearlyEqual} from './helpers/nearlyEqual';
-import {Vector2, Vector3} from '../src/core/math';
+import {Vector2, Vector3} from '@core/math';
 
 test('Vector2 creation', t => {
   // FAILS const v1 = new Vector2()

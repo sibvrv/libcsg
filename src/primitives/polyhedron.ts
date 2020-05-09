@@ -1,6 +1,6 @@
-import {CSG} from '../core/CSG';
-import {Polygon3, Vector3, Vertex3} from '../core/math';
-import {fromPolygons} from '../core/CSGFactories';
+import {CSG} from '@core/CSG';
+import {Polygon3, Vector3, Vertex3} from '@core/math';
+import {fromPolygons} from '@core/CSGFactories';
 
 /**
  * Construct a polyhedron from the given triangles/ polygons/points

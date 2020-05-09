@@ -1,6 +1,6 @@
-import {Plane, Vector3} from './math';
-import {Tree} from './Tree';
-import {PolygonTreeNode} from './PolygonTreeNode';
+import {Plane, Vector3} from '@core/math';
+import {Tree} from '@core/Tree';
+import {PolygonTreeNode} from '@core/PolygonTreeNode';
 
 // # class Node
 // Holds a node in a BSP tree. A BSP tree is built from a collection of polygons

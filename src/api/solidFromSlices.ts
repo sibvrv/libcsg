@@ -1,6 +1,6 @@
-import {Polygon3, PolygonShared, Vertex3} from '../core/math';
-import {fromPolygons} from '../core/CSGFactories';
-import {fnSortByIndex} from '../core/utils';
+import {Polygon3, PolygonShared, Vertex3} from '@core/math';
+import {fromPolygons} from '@core/CSGFactories';
+import {fnSortByIndex} from '@core/utils';
 
 export interface ISolidFromSlices {
   loop: boolean;

@@ -1,6 +1,6 @@
-import {FuzzyFactory} from './FuzzyFactory';
-import {EPS} from './constants';
-import {Side, Vertex2} from './math';
+import {FuzzyFactory} from '@core/FuzzyFactory';
+import {EPS} from '@core/constants';
+import {Side, Vertex2} from '@core/math';
 
 export class FuzzyCAGFactory {
   vertexfactory = new FuzzyFactory(2, EPS);

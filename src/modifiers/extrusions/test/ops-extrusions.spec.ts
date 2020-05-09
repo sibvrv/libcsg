@@ -1,7 +1,7 @@
 import test from 'ava';
-import {square} from '../../../primitives';
+import {square} from '@root/primitives';
 import {linear_extrude, rectangular_extrude, rotate_extrude} from '../';
-import {simplifiedPolygon} from '../../../api/test-helpers';
+import {simplifiedPolygon} from '@api/test-helpers';
 
 test('linear_extrude (height)', t => {
   const op1 = square();

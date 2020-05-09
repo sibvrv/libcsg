@@ -1,10 +1,10 @@
-import {polygonFromPoints} from '../../helpers/polygonFromPoints';
-import {rightMultiply1x3VectorToArray} from '../../helpers/rightMultiply1x3VectorToArray';
-import {cagToPointsArray} from '../../helpers/cagToPointsArray';
-import {clamp} from '../../math/clamp';
-import {Matrix4x4, Polygon3} from '../../core/math';
-import {fromPolygons} from '../../core/CSGFactories';
-import {fromPoints} from '../../core/CAGFactories';
+import {polygonFromPoints} from '@helpers/polygonFromPoints';
+import {rightMultiply1x3VectorToArray} from '@helpers/rightMultiply1x3VectorToArray';
+import {cagToPointsArray} from '@helpers/cagToPointsArray';
+import {clamp} from '@math/clamp';
+import {Matrix4x4, Polygon3} from '@core/math';
+import {fromPolygons} from '@core/CSGFactories';
+import {fromPoints} from '@core/CAGFactories';
 
 const defaults = {
   fn: 32,

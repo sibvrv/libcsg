@@ -1,5 +1,5 @@
-import {calcInterpolationFactor, Plane, Polygon3} from './math';
-import {EPS} from './constants';
+import {calcInterpolationFactor, Plane, Polygon3} from '@core/math';
+import {EPS} from '@core/constants';
 
 // Returns object:
 // .type:

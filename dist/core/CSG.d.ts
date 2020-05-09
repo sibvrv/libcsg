@@ -1,8 +1,8 @@
-import { Line2D, Line3D, Matrix4x4, OrthoNormalBasis, Path2D, Plane, Polygon2D, Polygon3, PolygonShared, TransformationMethods, TVector3Universal, Vector2, Vector3, Vertex3 } from './math';
-import { Properties } from './Properties';
+import { Line2D, Line3D, Matrix4x4, OrthoNormalBasis, Path2D, Plane, Polygon2D, Polygon3, PolygonShared, TransformationMethods, TVector3Universal, Vector2, Vector3, Vertex3 } from '@core/math';
+import { Properties } from '@core/Properties';
 import { fromCompactBinary, fromObject, fromSlices } from './CSGFactories';
-import { Connector } from './Connector';
-import { ConnectorList } from './ConnectorList';
+import { Connector } from '@core/Connector';
+import { ConnectorList } from '@core/ConnectorList';
 /**
  * Class CSG
  * Holds a binary space partition tree representing a 3D solid. Two solids can

@@ -1,6 +1,6 @@
 import test from 'ava';
 import {circle, polygon, square, triangle} from '../';
-import {shape2dToNestedArray, sideEquals} from '../../api/test-helpers';
+import {shape2dToNestedArray, sideEquals} from '@api/test-helpers';
 
 /* FIXME : not entirely sure how to deal with this, but for now relies on inspecting
 output data structures: we should have higher level primitives ... */

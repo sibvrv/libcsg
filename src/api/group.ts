@@ -1,4 +1,4 @@
-import {CAG} from '../core/CAG';
+import {CAG} from '@core/CAG';
 
 // FIXME : is this used anywhere ?
 export function group() { // experimental

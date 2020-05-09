@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as sinon from 'sinon';
 import {getObjectPath, OBJ} from './obj-store';
-import {circle} from '../../src/primitives/csg/primitives2d';
+import {circle} from '@primitives/csg/primitives2d';
 import {expect} from 'chai';
 
 describe('OBJ store', () => {

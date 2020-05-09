@@ -1,5 +1,5 @@
-import { OrthoNormalBasis, Plane } from '../core/math';
-import { CSG } from '../core/CSG';
+import { OrthoNormalBasis, Plane } from '@core/math';
+import { CSG } from '@core/CSG';
 /**
  * cuts a csg along a orthobasis
  * @param  {CSG} csg the csg object to cut

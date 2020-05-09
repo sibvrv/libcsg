@@ -1,6 +1,6 @@
-import {EPS} from '../core/constants';
-import {OrthoNormalBasis, Plane, Polygon3, Vector2, Vertex3} from '../core/math';
-import {CSG} from '../core/CSG';
+import {EPS} from '@core/constants';
+import {OrthoNormalBasis, Plane, Polygon3, Vector2, Vertex3} from '@core/math';
+import {CSG} from '@core/CSG';
 
 /**
  * cuts a csg along a orthobasis

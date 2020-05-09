@@ -1,4 +1,4 @@
-import { CSG } from '../core/CSG';
+import { CSG } from '@core/CSG';
 export interface ITorusOptions {
     ri: number;
     ro: number;

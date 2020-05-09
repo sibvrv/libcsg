@@ -1,4 +1,4 @@
-import { CAG } from '../core/CAG';
+import { CAG } from '@core/CAG';
 export interface ISquareOptions {
     center: boolean;
     size: number | [number, number];

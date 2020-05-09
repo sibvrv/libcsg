@@ -1,11 +1,11 @@
-import {EPS} from '../constants';
-import {FuzzyCSGFactory} from '../FuzzyFactory3d';
-import {FuzzyCAGFactory} from '../FuzzyFactory2d';
-import {fromPolygons} from '../CSGFactories';
-import {fromSides} from '../CAGFactories';
-import {CSG} from '../CSG';
-import {CAG} from '../CAG';
-import {Polygon3} from '../math';
+import {EPS} from '@core/constants';
+import {FuzzyCSGFactory} from '@core/FuzzyFactory3d';
+import {FuzzyCAGFactory} from '@core/FuzzyFactory2d';
+import {fromPolygons} from '@core/CSGFactories';
+import {fromSides} from '@core/CAGFactories';
+import {CSG} from '@core/CSG';
+import {CAG} from '@core/CAG';
+import {Polygon3} from '@core/math';
 
 /**
  * Returns a cannoicalized version of the input csg/cag : ie every very close

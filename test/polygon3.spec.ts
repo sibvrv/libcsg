@@ -1,6 +1,7 @@
 import test from 'ava';
-import {CAG, CSG} from '../src/csg';
-import {Polygon3, Vector3, Vertex3} from '../src/core/math';
+import {CSG} from '@core/CSG';
+import {CAG} from '@core/CAG';
+import {Polygon3, Vector3, Vertex3} from '@core/math';
 
 function planeEquals(t: any, observed: any, expected: any) {
   t.is(observed.w, expected.w);

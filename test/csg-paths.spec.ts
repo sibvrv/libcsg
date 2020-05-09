@@ -1,8 +1,8 @@
 import test from 'ava';
 import {OBJ} from './helpers/obj-store';
 import {assertSameGeometry} from './helpers/asserts';
-import {Matrix4x4, Path2D, Vector2} from '../src/core/math';
-import {defaultResolution2D} from '../src/core/constants';
+import {Matrix4x4, Path2D, Vector2} from '@core/math';
+import {defaultResolution2D} from '@core/constants';
 
 // Testing common shape generation can only be done by comparing
 // with previously human validated shapes. It would be trivially

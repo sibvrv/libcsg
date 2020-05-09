@@ -1,5 +1,5 @@
-import {CAG} from '../core/CAG'; // we have to import from top level otherwise prototypes are not complete..
-import {fromPoints} from '../core/CAGFactories';
+import {CAG} from '@core/CAG'; // we have to import from top level otherwise prototypes are not complete..
+import {fromPoints} from '@core/CAGFactories';
 
 /**
  * Construct a polygon either from arrays of paths and points,

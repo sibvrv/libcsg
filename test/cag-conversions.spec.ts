@@ -1,5 +1,5 @@
 import test from 'ava';
-import CAG from '../src/core/CAG';
+import {CAG} from '@core/CAG';
 import {clearTags} from './helpers/clearTags';
 
 //

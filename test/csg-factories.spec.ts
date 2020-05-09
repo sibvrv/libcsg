@@ -1,7 +1,7 @@
 import test from 'ava';
 
-import {Polygon3, Vector3, Vertex3} from '../src/core/math';
-import {fromObject, fromPolygons} from '../src/core/CSGFactories';
+import {Polygon3, Vector3, Vertex3} from '@core/math';
+import {fromObject, fromPolygons} from '@core/CSGFactories';
 
 test('CSG can be created from polygons', t => {
   const vertices = [

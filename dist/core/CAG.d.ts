@@ -1,5 +1,5 @@
 import { Matrix4x4, OrthoNormalBasis, Polygon3, Side, TransformationMethods, Vector2, Vector3, Vertex2 } from './math';
-import { IRotateExtrude } from '../modifiers/extrusions/rotateExtrude';
+import { IRotateExtrude } from '@modifiers/extrusions/rotateExtrude';
 /**
  * Class CAG
  * Holds a solid area geometry like CSG but 2D.
@@ -24,8 +24,8 @@ export declare class CAG extends TransformationMethods {
     isSelfIntersecting(debug?: boolean): boolean;
     extrudeInOrthonormalBasis(orthonormalbasis: OrthoNormalBasis, depth: number, options?: any): any;
     extrudeInPlane(axis1: string, axis2: string, depth: number, options: any): any;
-    extrude(options: any): import("./CSG").CSG;
-    rotateExtrude(options: Partial<IRotateExtrude>): import("./CSG").CSG;
+    extrude(options?: any): import("./CSG").CSG;
+    rotateExtrude(options?: Partial<IRotateExtrude>): import("./CSG").CSG;
     check(): void;
     canonicalized(): CAG;
     reTesselated(): any;

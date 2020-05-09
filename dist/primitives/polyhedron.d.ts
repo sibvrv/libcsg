@@ -1,4 +1,4 @@
-import { CSG } from '../core/CSG';
+import { CSG } from '@core/CSG';
 /**
  * Construct a polyhedron from the given triangles/ polygons/points
  * @param {Object} [options] - options for construction

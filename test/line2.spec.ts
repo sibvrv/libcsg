@@ -1,5 +1,5 @@
 import test from 'ava';
-import {Line2D, Matrix4x4} from '../src/core/math';
+import {Line2D, Matrix4x4} from '@core/math';
 
 function vector2Equals(t: any, observed: any, expected: any) {
   const obs = [observed._x, observed._y];

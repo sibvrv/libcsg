@@ -1,4 +1,4 @@
-import {Matrix4x4} from './math';
+import {Matrix4x4} from '@core/math';
 
 // ////////////////////////////////////
 // # Class Properties

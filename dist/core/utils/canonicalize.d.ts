@@ -1,5 +1,5 @@
-import { CSG } from '../CSG';
-import { CAG } from '../CAG';
+import { CSG } from '@core/CSG';
+import { CAG } from '@core/CAG';
 /**
  * Returns a cannoicalized version of the input csg/cag : ie every very close
  * points get deduplicated

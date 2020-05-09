@@ -1,1 +1,1 @@
-{"version":3,"file":"extrudeInPlane.d.ts","sourceRoot":"","sources":["../../../src/modifiers/extrusions/extrudeInPlane.ts"],"names":[],"mappings":"AAEA,OAAO,EAAC,GAAG,EAAC,MAAM,YAAY,CAAC;AAE/B;;;;;;;;;;;GAWG;AACH,eAAO,MAAM,cAAc,8EAE1B,CAAC"}
+{"version":3,"file":"extrudeInPlane.d.ts","sourceRoot":"","sources":["../../../src/modifiers/extrusions/extrudeInPlane.ts"],"names":[],"mappings":"AAEA,OAAO,EAAC,GAAG,EAAC,MAAM,WAAW,CAAC;AAE9B;;;;;;;;;;;GAWG;AACH,eAAO,MAAM,cAAc,8EAE1B,CAAC"}

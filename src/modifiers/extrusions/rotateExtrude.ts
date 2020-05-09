@@ -1,9 +1,9 @@
-import {defaultResolution3D, EPS} from '../../core/constants';
-import {parseOptionAsFloat, parseOptionAsInt} from '../../api/optionParsers';
-import {Vector3} from '../../core/math';
-import {Connector} from '../../core/Connector';
-import {fromPolygons} from '../../core/CSGFactories';
-import {CAG} from '../../main';
+import {defaultResolution3D, EPS} from '@core/constants';
+import {parseOptionAsFloat, parseOptionAsInt} from '@api/optionParsers';
+import {Vector3} from '@core/math';
+import {Connector} from '@core/Connector';
+import {fromPolygons} from '@core/CSGFactories';
+import {CAG} from '@core/CAG';
 
 export interface IRotateExtrude {
   angle: number;

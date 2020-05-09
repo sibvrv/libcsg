@@ -1,4 +1,6 @@
-import {CAG, CSG, isCAG, isCSG} from '../src/csg';
+import {CSG} from '@core/CSG';
+import {CAG} from '@core/CAG';
+import {isCAG, isCSG} from '@core/utils';
 import {expect} from 'chai';
 
 describe('Utils', () => {

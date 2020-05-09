@@ -1,4 +1,4 @@
-import {getTag} from '../constants';
+import {getTag} from '@core/constants';
 import {Matrix4x4, TransformationMethods, TVector3Universal, Vector2, Vector3} from '.';
 
 // # class Vertex

@@ -1,4 +1,4 @@
-import { CAG } from '../core/CAG';
+import { CAG } from '@core/CAG';
 /**
  * Construct a triangle
  * @returns {CAG} new triangle

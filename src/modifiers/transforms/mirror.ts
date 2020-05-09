@@ -1,4 +1,4 @@
-import {Plane, Vector3} from '../../core/math';
+import {Plane, Vector3} from '@core/math';
 
 /**
  * Mirror an object in 2D/3D space

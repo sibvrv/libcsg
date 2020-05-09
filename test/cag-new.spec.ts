@@ -1,6 +1,7 @@
 import test from 'ava';
-import {CAG, CSG} from '../src/csg';
-import {Matrix4x4} from '../src/core/math';
+import {CSG} from '@core/CSG';
+import {CAG} from '@core/CAG';
+import {Matrix4x4} from '@core/math';
 
 //
 // Test suite for CAG initialization (new)

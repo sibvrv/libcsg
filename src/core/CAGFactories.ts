@@ -1,9 +1,9 @@
-import {Side, Vector2, Vertex2} from './math';
-import {areaEPS} from './constants';
+import {Side, Vector2, Vertex2} from '@core/math';
+import {areaEPS} from '@core/constants';
 import {contains, isSelfIntersecting} from './utils/cagValidation';
-import {difference, union} from '../modifiers/booleans';
-import {CAG} from './CAG';
-import {CSG} from './CSG';
+import {difference, union} from '@modifiers/booleans';
+import {CAG} from '@core/CAG';
+import {CSG} from '@core/CSG';
 
 /**
  * Construct a CAG from a list of `Side` instances.

@@ -1,6 +1,6 @@
-import {Path2D, TVector3Universal, Vector3} from './math';
-import {Connector} from './Connector';
-import {fromPolygons} from './CSGFactories';
+import {Path2D, TVector3Universal, Vector3} from '@core/math';
+import {Connector} from '@core/Connector';
+import {fromPolygons} from '@core/CSGFactories';
 
 export class ConnectorList {
   closed = false;

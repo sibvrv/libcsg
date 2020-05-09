@@ -1,4 +1,5 @@
-import {CAG, CSG} from '../src/csg';
+import {CSG} from '@core/CSG';
+import {CAG} from '@core/CAG';
 import {expect} from 'chai';
 
 // returns positions and tags for simplicity
@@ -11,7 +12,7 @@ const flatPolygons = (polygon: any) => {
 describe('CSG Utils', () => {
 
   it('CSG.fixTJunctions fixes ...tjunctions', () => {
-    const input = new CSG.cube().fixTJunctions();
+    const input = CSG.cube().fixTJunctions();
     // not strictily needed as there are no tjunctions, but polygons should stay intact
     const obsPolygons = input.polygons.map(flatPolygons).sort();
     const expPolygons = [[[-1, -1, -1, 2],

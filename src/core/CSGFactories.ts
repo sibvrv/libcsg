@@ -1,5 +1,5 @@
-import {Plane, Polygon3, Vector3, Vertex3} from './math';
-import {CSG} from './CSG';
+import {Plane, Polygon3, Vector3, Vertex3} from '@core/math';
+import {CSG} from '@core/CSG';
 
 /**
  * Construct a CSG solid from a list of `Polygon` instances.

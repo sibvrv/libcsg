@@ -1,4 +1,4 @@
-import {translate} from '../modifiers/transforms';
+import {translate} from '@modifiers/transforms';
 import {roundedCube as CSGroundedCube, cube as CSGcube} from './csg/primitives3d';
 
 export interface ICuboidOptions {
