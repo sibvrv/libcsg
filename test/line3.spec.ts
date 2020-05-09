@@ -1,5 +1,6 @@
 import test from 'ava';
 import {CSG} from '../src/csg';
+import {Line3D, Plane, Vector3} from '../src/core/math';
 
 function planeEquals(t: any, observed: any, expected: any) {
   t.is(observed.w, expected.w);
@@ -17,12 +18,8 @@ function vector3Equals(t: any, observed: any, expected: any) {
 }
 
 test('CSG.Line3 constructors create valid lines', t => {
-  const Line3 = CSG.Line3D;
-  const Vector3 = CSG.Vector3D;
-  const Plane = CSG.Plane;
-
-  const l1 = Line3.fromPoints([0, 0, 0], [10, -10, 10]);
-  const l2 = new Line3(l1.point, l1.direction);
+  const l1 = Line3D.fromPoints([0, 0, 0], [10, -10, 10]);
+  const l2 = new Line3D(l1.point, l1.direction);
 
   t.deepEqual(l1, l2);
   t.is(l1.equals(l2), true);
@@ -35,7 +32,7 @@ test('CSG.Line3 constructors create valid lines', t => {
   b = new Vector3(10, 10, 0);
   c = new Vector3(10, 10, 10);
   const p2 = Plane.fromVector3Ds(a, b, c);
-  const l3 = Line3.fromPlanes(p1, p2);
+  const l3 = Line3D.fromPlanes(p1, p2);
 
   vector3Equals(t, l3.point, [10, 0, 0]);
   vector3Equals(t, l3.direction, [-0, 1, 0]);
@@ -45,11 +42,7 @@ test('CSG.Line3 constructors create valid lines', t => {
 });
 
 test('CSG.Line3 transforms', t => {
-  const Line3 = CSG.Line3D;
-  const Vector3 = CSG.Vector3D;
-  const Plane = CSG.Plane;
-
-  const l1 = Line3.fromPoints([0, 0, 0], [10, -10, 10]);
+  const l1 = Line3D.fromPoints([0, 0, 0], [10, -10, 10]);
   vector3Equals(t, l1.point, [0, 0, 0]);
   vector3Equals(t, l1.direction, [0.5773502691896257, -0.5773502691896257, 0.5773502691896257]);
 
@@ -66,11 +59,7 @@ test('CSG.Line3 transforms', t => {
 });
 
 test('CSG.Line3 geometry calculations', t => {
-  const Line3 = CSG.Line3D;
-  const Vector3 = CSG.Vector3D;
-  const Plane = CSG.Plane;
-
-  const l1 = Line3.fromPoints([-10, -10, -10], [0, 0, 0]);
+  const l1 = Line3D.fromPoints([-10, -10, -10], [0, 0, 0]);
   vector3Equals(t, l1.point, [-10, -10, -10]);
   vector3Equals(t, l1.direction, [0.5773502691896257, 0.5773502691896257, 0.5773502691896257]);
 

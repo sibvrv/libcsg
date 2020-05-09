@@ -1,15 +1,5 @@
 import test from 'ava';
-import {CSG} from '../src/csg';
-
-function planeEquals(t: any, observed: any, expected: any) {
-  t.is(observed.w, expected.w);
-  return t.deepEqual(observed.normal, expected.normal);
-}
-
-function vertexEquals(t: any, observed: any, expected: any) {
-  const obs = [observed.pos._x, observed.pos._y, observed.pos._z];
-  return t.deepEqual(obs, expected);
-}
+import {Line2D, Matrix4x4} from '../src/core/math';
 
 function vector2Equals(t: any, observed: any, expected: any) {
   const obs = [observed._x, observed._y];
@@ -17,32 +7,30 @@ function vector2Equals(t: any, observed: any, expected: any) {
 }
 
 test('CSG.Line2 constructors creates valid lines', t => {
-  const Line2 = CSG.Line2D;
-
-  let l1 = Line2.fromPoints([0, 0], [10, -10]);
-  const l2 = new Line2(l1.normal, l1.w);
+  let l1 = Line2D.fromPoints([0, 0], [10, -10]);
+  const l2 = new Line2D(l1.normal, l1.w);
 
   t.deepEqual(l1, l2);
   t.is(l1.equals(l2), true);
 
 // test W calculations
-  l1 = Line2.fromPoints([0, 0], [10, 0]);
+  l1 = Line2D.fromPoints([0, 0], [10, 0]);
   t.is(l1.w, 0);
-  l1 = Line2.fromPoints([10, 0], [10, 10]);
+  l1 = Line2D.fromPoints([10, 0], [10, 10]);
   t.is(l1.w, -10);
-  l1 = Line2.fromPoints([10, 10], [0, 10]);
+  l1 = Line2D.fromPoints([10, 10], [0, 10]);
   t.is(l1.w, -10);
-  l1 = Line2.fromPoints([0, 10], [-10, 10]);
+  l1 = Line2D.fromPoints([0, 10], [-10, 10]);
   t.is(l1.w, -10);
-  l1 = Line2.fromPoints([-10, -10], [-10, 0]);
+  l1 = Line2D.fromPoints([-10, -10], [-10, 0]);
   t.is(l1.w, 10);
-  l1 = Line2.fromPoints([-10, 0], [-10, -10]);
+  l1 = Line2D.fromPoints([-10, 0], [-10, -10]);
   t.is(l1.w, -10);
-  l1 = Line2.fromPoints([-10, -10], [0, -10]);
+  l1 = Line2D.fromPoints([-10, -10], [0, -10]);
   t.is(l1.w, -10);
-  l1 = Line2.fromPoints([0, -10], [10, -10]);
+  l1 = Line2D.fromPoints([0, -10], [10, -10]);
   t.is(l1.w, -10);
-  l1 = Line2.fromPoints([10, -10], [10, 0]);
+  l1 = Line2D.fromPoints([10, -10], [10, 0]);
 
   t.is(l1.w, -10);
   t.is(l1.equals(l2), false);
@@ -55,12 +43,10 @@ test('CSG.Line2 constructors creates valid lines', t => {
 });
 
 test('CSG.Line2 transforms', t => {
-  const Line2 = CSG.Line2D;
+  let matrix = Matrix4x4.rotationX(90);
+  matrix = matrix.multiply(Matrix4x4.translation([-10, 0, -10]));
 
-  let matrix = CSG.Matrix4x4.rotationX(90);
-  matrix = matrix.multiply(CSG.Matrix4x4.translation([-10, 0, -10]));
-
-  const l1 = Line2.fromPoints([-10, -10], [-10, 0]);
+  const l1 = Line2D.fromPoints([-10, -10], [-10, 0]);
   vector2Equals(t, l1.normal, [-1, 0]);
   t.is(l1.w, 10);
 
@@ -74,9 +60,7 @@ test('CSG.Line2 transforms', t => {
 });
 
 test('CSG.Line2 geometry calculations', t => {
-  const Line2 = CSG.Line2D;
-
-  const l1 = Line2.fromPoints([-10, -10], [-10, 0]);
+  const l1 = Line2D.fromPoints([-10, -10], [-10, 0]);
   vector2Equals(t, l1.normal, [-1, 0]);
   t.is(l1.w, 10);
 
@@ -86,11 +70,11 @@ test('CSG.Line2 geometry calculations', t => {
   const d1 = l1.absDistanceToPoint([0, 0]);
   t.is(d1, 10);
 
-  const l2 = Line2.fromPoints([0, -10], [0, 0]); // paralell
+  const l2 = Line2D.fromPoints([0, -10], [0, 0]); // paralell
   // FIXME throws as solve2Linear() returns [NaN,Infinity]
   // let i2 = l1.intersectWithLine(l2)
 
-  const l3 = Line2.fromPoints([0, 0], [10, 0]);
+  const l3 = Line2D.fromPoints([0, 0], [10, 0]);
   const i3 = l1.intersectWithLine(l3);
   vector2Equals(t, i3, [-10, 0]);
 });

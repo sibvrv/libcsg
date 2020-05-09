@@ -205,12 +205,12 @@ export declare class CSG extends TransformationMethods {
     static back: number;
     static staticTag: number;
     static getTag: () => number;
-    static sphere: (options: any) => CSG;
-    static cube: (options: any) => CSG;
-    static roundedCube: (options: any) => CSG;
-    static cylinder: (options: any) => CSG;
-    static roundedCylinder: (options: any) => CSG;
-    static cylinderElliptic: (options: any) => CSG;
+    static sphere: (options?: any) => CSG;
+    static cube: (options?: any) => CSG;
+    static roundedCube: (options?: any) => CSG;
+    static cylinder: (options?: any) => CSG;
+    static roundedCylinder: (options?: any) => CSG;
+    static cylinderElliptic: (options?: any) => CSG;
     static polyhedron: (options: any) => CSG;
     static fromCompactBinary: typeof fromCompactBinary;
     static fromObject: typeof fromObject;

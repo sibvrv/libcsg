@@ -309,7 +309,7 @@ export class Polygon3 extends TransformationMethods {
   }
 
   // ALIAS ONLY!!
-  solidFromSlices(options: ISolidFromSlices) {
+  solidFromSlices(options: Partial<ISolidFromSlices>) {
     return solidFromSlices(this, options);
   }
 }

@@ -2,6 +2,8 @@ import test from 'ava';
 import {CSG} from '../src/csg';
 import {OBJ} from './helpers/obj-store';
 import {assertSameGeometry} from './helpers/asserts';
+import {Vector2} from '../src/core/math';
+import {fromPoints} from '../src/core/CAGFactories';
 
 // Testing common shape generation can only be done by comparing
 // with previously human validated shapes. It would be trivially
@@ -72,13 +74,16 @@ test('CSG should produce solids from slices', t => {
     [10, 10, 0],
   ]);
 
+  // @ts-ignore
+  // tslint:disable-next-line:no-shadowed-variable
+  function rotateZ(t, slice) { // todo fix me
+    // @ts-ignore
+    return this.rotateZ(5 * slice);
+  }
+
   const observed = hex.solidFromSlices({
     numslices: 3,
-    // @ts-ignore
-    // tslint:disable-next-line:no-shadowed-variable
-    callback(t, slice) {
-      return this.rotateZ(5 * slice);
-    },
+    callback: rotateZ,
   });
 
   t.deepEqual(observed.polygons.length, 14);
@@ -94,8 +99,8 @@ function getSimpleSides(cag: any) {
 }
 
 test('Polygon2D can create ...2D polygons', t => {
-  const points = [new CSG.Vector2D(0, 0), new CSG.Vector2D(0, 10), new CSG.Vector2D(10, 10)];
-  const observed = getSimpleSides(new CSG.Polygon2D(points));
+  const points = [new Vector2(0, 0), new Vector2(0, 10), new Vector2(10, 10)];
+  const observed = getSimpleSides(new (fromPoints as any)(points));
   const expected = {positions: [[10, 10], [0, 10], [0, 0]]};
   t.deepEqual(observed, expected);
 });

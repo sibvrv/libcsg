@@ -1,1 +1,1 @@
-{"version":3,"file":"triangle.d.ts","sourceRoot":"","sources":["../../src/primitives/triangle.ts"],"names":[],"mappings":"AAIA;;;;;;;;GAQG;AACH,wBAAgB,QAAQ,QAIvB"}
+{"version":3,"file":"triangle.d.ts","sourceRoot":"","sources":["../../src/primitives/triangle.ts"],"names":[],"mappings":"AAAA,OAAO,EAAC,GAAG,EAAC,MAAM,aAAa,CAAC;AAIhC;;;;;;;;GAQG;AACH,wBAAgB,QAAQ,QAIvB"}

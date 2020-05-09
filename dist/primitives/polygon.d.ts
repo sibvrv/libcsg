@@ -1,3 +1,4 @@
+import { CAG } from '../core/CAG';
 /**
  * Construct a polygon either from arrays of paths and points,
  * or just arrays of points nested paths (multiple paths) and flat paths are supported
@@ -24,5 +25,5 @@
  * or
  * let poly = polygon({ points: roof.concat(wall), paths: [[0, 1, 2], [3, 4, 5], [3, 6, 5]] })
  */
-export declare function polygon(params: any): any;
+export declare function polygon(params: any): CAG;
 //# sourceMappingURL=polygon.d.ts.map

@@ -1,5 +1,6 @@
 import test from 'ava';
 import {CAG, CSG} from '../src/csg';
+import {Matrix4x4} from '../src/core/math';
 
 //
 // Test suite for CAG initialization (new)
@@ -49,7 +50,7 @@ test('New CAG should do nothing', t => {
   // FIXME : t.deepEqual(cag3,cag);
 
 // tests for basic functionality
-  const matrixB = CSG.Matrix4x4.translation([10, 10, 0]);
+  const matrixB = Matrix4x4.translation([10, 10, 0]);
   const cag4 = cag.transform(matrixB);
   t.deepEqual(cag4, cag);
   const cag5 = cag.flipped();

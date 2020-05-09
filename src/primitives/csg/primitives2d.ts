@@ -12,7 +12,7 @@ import {Path2D, Vector2} from '../../core/math';
  * @param {Number} [options.resolution=defaultResolution2D] - number of sides per 360 rotation
  * @returns {CAG} new CAG object
  */
-export const circle = (options: any) => {
+export const circle = (options?: any) => {
   options = options || {};
   const center = parseOptionAs2DVector(options, 'center', [0, 0]);
   const radius = parseOptionAsFloat(options, 'radius', 1);
@@ -34,7 +34,7 @@ export const circle = (options: any) => {
  * @param {Number} [options.resolution=defaultResolution2D] - number of sides per 360 rotation
  * @returns {CAG} new CAG object
  */
-export const ellipse = (options: any) => {
+export const ellipse = (options?: any) => {
   options = options || {};
   const c = parseOptionAs2DVector(options, 'center', [0, 0]);
   let r = parseOptionAs2DVector(options, 'radius', [1, 1]);
@@ -71,7 +71,7 @@ export const ellipse = (options: any) => {
  * @param {Vector2D} [options.corner2=[0,0]] - upper right corner of rectangle (alternate)
  * @returns {CAG} new CAG object
  */
-export const rectangle = (options: any) => {
+export const rectangle = (options?: any) => {
   options = options || {};
   let c;
   let r;
@@ -114,7 +114,7 @@ export const rectangle = (options: any) => {
  *   resolution: 36,
  * });
  */
-export const roundedRectangle = (options: any) => {
+export const roundedRectangle = (options?: any) => {
   options = options || {};
   let center;
   let radius;

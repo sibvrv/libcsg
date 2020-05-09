@@ -9,7 +9,7 @@ export declare class Line3D extends TransformationMethods {
      */
     constructor(point: TVector3Universal, direction: TVector3Universal);
     intersectWithPlane(plane: Plane): Vector3;
-    clone(line: Line3D): Line3D;
+    clone(): Line3D;
     reverse(): Line3D;
     transform(matrix4x4: Matrix4x4): Line3D;
     closestPointOnLine(_point: TVector3Universal): Vector3;

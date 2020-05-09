@@ -35,7 +35,7 @@ export const fromFakeCSG = (csg: CSG) => {
  * @param {points[]|Array.<points[]>} points - (nested) list of points in 2D space
  * @returns {CAG} new CAG object
  */
-export const fromPoints = (points: any): any => {
+export const fromPoints = (points: any): CAG => {
   if (!points) {
     throw new Error('points parameter must be defined');
   }

@@ -1,25 +1,8 @@
 import test from 'ava';
-import {CSG} from '../src/csg';
 import {nearlyEqual} from './helpers/nearlyEqual';
-
-function planeEquals(t: any, observed: any, expected: any) {
-  t.is(observed.w, expected.w);
-  return t.deepEqual(observed.normal, expected.normal);
-}
-
-function vertexEquals(t: any, observed: any, expected: any) {
-  const obs = [observed.pos._x, observed.pos._y, observed.pos._z];
-  return t.deepEqual(obs, expected);
-}
-
-function vector3Equals(t: any, observed: any, expected: any) {
-  const obs = [observed._x, observed._y, observed._z];
-  return t.deepEqual(obs, expected);
-}
+import {Matrix4x4, Vector3} from '../src/core/math';
 
 test('CSG.Vector3 constructor', t => {
-  const Vector3 = CSG.Vector3D;
-
   const v1 = new Vector3([1, 2, 3]);
 
   t.is(v1._x, 1);
@@ -31,7 +14,7 @@ test('CSG.Vector3 constructor', t => {
 
   t.is(v1.toString(), '(1.00000, 2.00000, 3.00000)');
 
-  const v2 = CSG.Vector3D.Create(4, 5, 6);
+  const v2 = Vector3.Create(4, 5, 6);
 
   t.is(v2._x, 4);
   t.is(v2.x, 4);
@@ -44,8 +27,6 @@ test('CSG.Vector3 constructor', t => {
 });
 
 test('CSG.Vector3 production operations', t => {
-  const Vector3 = CSG.Vector3D;
-
   const v1 = new Vector3([1, 2, 3]);
   const p1 = v1.clone();
 
@@ -77,8 +58,6 @@ test('CSG.Vector3 production operations', t => {
 });
 
 test('CSG.Vector3 math operations', t => {
-  const Vector3 = CSG.Vector3D;
-
   const v1 = new Vector3([1, 1, 1]);
   const v2 = new Vector3([2, 2, 2]);
   const v3 = new Vector3([3, 3, 3]);
@@ -172,12 +151,11 @@ test('CSG.Vector3 math operations', t => {
   t.is(v1.equals(x1), true);
   t.is(v3.equals(x2), true);
 
-  const matrix = CSG.Matrix4x4.rotationX(45);
+  const matrix = Matrix4x4.rotationX(45);
   const t1 = v3.transform(matrix);
 
   nearlyEqual(t, t1.x, 3.0000000000, 1e-10);
   // to small to compare nearlyEqual(t, t1.y, 0.0000000000000004, 1e-16)
   nearlyEqual(t, t1.z, 4.2426406871, 1e-10);
-
 });
 

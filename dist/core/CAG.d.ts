@@ -54,15 +54,15 @@ export declare class CAG extends TransformationMethods {
     };
     static Vertex: typeof Vertex2;
     static Side: typeof Side;
-    static circle: (options: any) => any;
-    static ellipse: (options: any) => any;
-    static rectangle: (options: any) => any;
-    static roundedRectangle: (options: any) => any;
+    static circle: (options?: any) => CAG;
+    static ellipse: (options?: any) => CAG;
+    static rectangle: (options?: any) => CAG;
+    static roundedRectangle: (options?: any) => CAG;
     static fromSides: (sides: Side[]) => CAG;
     static fromObject: (obj: any) => CAG;
-    static fromPoints: (points: any) => any;
+    static fromPoints: (points: any) => CAG;
     static fromPointsNoCheck: (points: any) => CAG;
-    static fromPath2: (path: any) => any;
+    static fromPath2: (path: any) => CAG;
     static fromFakeCSG: (csg: import("./CSG").CSG) => CAG;
     static fromCompactBinary: (bin: any) => CAG;
 }

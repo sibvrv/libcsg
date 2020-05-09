@@ -63,7 +63,7 @@ export class Line3D extends TransformationMethods {
     return point;
   }
 
-  clone(line: Line3D) {
+  clone() {
     return new Line3D(this.point.clone(), this.direction.clone());
   }
 

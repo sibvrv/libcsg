@@ -81,6 +81,6 @@ export declare class Polygon3 extends TransformationMethods {
     transform(matrix4x4: Matrix4x4): Polygon3;
     toString(): string;
     projectToOrthoNormalBasis(orthobasis: OrthoNormalBasis): CAG;
-    solidFromSlices(options: ISolidFromSlices): import("../CSG").CSG;
+    solidFromSlices(options: Partial<ISolidFromSlices>): import("../CSG").CSG;
 }
 //# sourceMappingURL=Polygon3.d.ts.map

@@ -18,7 +18,7 @@ export interface ISolidFromSlices {
  *          return: Polygon or null to skip
  *  - loop {Boolean} no flats, only walls, it's used to generate solids like a tor
  */
-export const solidFromSlices = (polygon: Polygon3, options: ISolidFromSlices) => {
+export const solidFromSlices = (polygon: Polygon3, options: Partial<ISolidFromSlices>) => {
   const polygons: Polygon3[] = [];
   let csg = null;
   let prev = null;

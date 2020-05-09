@@ -6,5 +6,5 @@
  * @example
  * let hulled = hull(rect(), circle())
  */
-export declare function hull(...objects: any[]): any;
+export declare function hull(...objects: any[]): import("../../main").CAG | undefined;
 //# sourceMappingURL=hull.d.ts.map

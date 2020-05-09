@@ -1,5 +1,6 @@
 import test from 'ava';
 import {CAG, CSG} from '../src/csg';
+import {Polygon3, Vector3, Vertex3} from '../src/core/math';
 
 function planeEquals(t: any, observed: any, expected: any) {
   t.is(observed.w, expected.w);
@@ -17,16 +18,12 @@ function vector3Equals(t: any, observed: any, expected: any) {
 }
 
 test('CSG.Polygon3 constructor creates a 3D polygon', t => {
-  const Vertex3 = CSG.Vertex;
-  const Vector3 = CSG.Vector3D;
-  const Polygon = CSG.Polygon;
-
   const vertices = [
     new Vertex3(new Vector3([0, 0, 0])), // you gotta be kidding me ...WAY too complex for what it is
     new Vertex3(new Vector3([0, 10, 0])),
     new Vertex3(new Vector3([0, 10, 10])),
   ];
-  let observed = new Polygon(vertices);
+  let observed = new Polygon3(vertices);
 
   t.deepEqual(observed.vertices.length, 3);
   vertexEquals(t, observed.vertices[0], [0, 0, 0]);
@@ -37,7 +34,7 @@ test('CSG.Polygon3 constructor creates a 3D polygon', t => {
   const shared = CSG.Polygon.defaultShared;
   const plane = CSG.Plane.fromVector3Ds(vertices[0].pos, vertices[1].pos, vertices[2].pos);
 
-  observed = new Polygon(vertices, shared, plane);
+  observed = new Polygon3(vertices, shared, plane);
 
   t.deepEqual(observed.vertices.length, 3);
   vertexEquals(t, observed.vertices[0], [0, 0, 0]);
@@ -50,16 +47,12 @@ test('CSG.Polygon3 constructor creates a 3D polygon', t => {
 
 // check that generic objects are possible via JSON
   const oo = JSON.parse(JSON.stringify(observed));
-  const op = Polygon.fromObject(oo);
+  const op = Polygon3.fromObject(oo);
 
   t.deepEqual(oo, JSON.parse(JSON.stringify(op)));
 });
 
 test('CSG.Polygon3 createsFromPoints a 3D polygon', t => {
-  const Vertex3 = CSG.Vertex;
-  const Vector3 = CSG.Vector3D;
-  const Polygon = CSG.Polygon;
-
   const points = [
     [0, 0, 0],
     [0, 10, 0],
@@ -71,7 +64,7 @@ test('CSG.Polygon3 createsFromPoints a 3D polygon', t => {
     new Vector3([0, 10, 10]),
   ];
 
-  let observed = Polygon.createFromPoints(points);
+  let observed = Polygon3.createFromPoints(points);
 
   t.deepEqual(observed.vertices.length, 3);
   vertexEquals(t, observed.vertices[0], [0, 0, 0]);
@@ -81,7 +74,7 @@ test('CSG.Polygon3 createsFromPoints a 3D polygon', t => {
   const shared = CSG.Polygon.defaultShared;
   const plane = CSG.Plane.fromVector3Ds(vectors[0], vectors[1], vectors[2]);
 
-  observed = Polygon.createFromPoints(points, shared, plane);
+  observed = Polygon3.createFromPoints(points, shared, plane);
 
   t.deepEqual(observed.vertices.length, 3);
   vertexEquals(t, observed.vertices[0], [0, 0, 0]);
@@ -116,7 +109,7 @@ test('CSG.Polygon3 createsFromPoints a 3D polygon', t => {
     [0, 5, 3],
     [10, 10, 3],
   ];
-  observed = Polygon.createFromPoints(points2ccw);
+  observed = Polygon3.createFromPoints(points2ccw);
 
   t.deepEqual(observed.vertices.length, 4);
   t.is(observed.checkIfConvex(), false);
@@ -125,21 +118,17 @@ test('CSG.Polygon3 createsFromPoints a 3D polygon', t => {
   const c = observed.vertices[2].pos;
   const n = observed.vertices[3].pos;
   const m = observed.plane.normal;
-  t.is(Polygon.isConvexPoint(p, c, n, m), false);
-  t.is(Polygon.isStrictlyConvexPoint(p, c, n, m), false);
+  t.is(Polygon3.isConvexPoint(p, c, n, m), false);
+  t.is(Polygon3.isStrictlyConvexPoint(p, c, n, m), false);
 });
 
 test('CSG.Polygon3 transformations', t => {
-  const Vertex3 = CSG.Vertex;
-  const Vector3 = CSG.Vector3D;
-  const Polygon = CSG.Polygon;
-
   const points = [
     [0, 0, 0],
     [0, 10, 0],
     [0, 10, 10],
   ];
-  const original = Polygon.createFromPoints(points);
+  const original = Polygon3.createFromPoints(points);
 
   t.deepEqual(original.vertices.length, 3);
   vertexEquals(t, original.vertices[0], [0, 0, 0]);
@@ -174,16 +163,12 @@ test('CSG.Polygon3 transformations', t => {
 });
 
 test('CSG.Polygon3 conversions to CAG CSG', t => {
-  const Vertex3 = CSG.Vertex;
-  const Vector3 = CSG.Vector3D;
-  const Polygon = CSG.Polygon;
-
   const points = [
     [0, 0, 0],
     [0, 10, 0],
     [10, 10, 10],
   ];
-  const original = Polygon.createFromPoints(points);
+  const original = Polygon3.createFromPoints(points);
 
   t.deepEqual(original.vertices.length, 3);
   vertexEquals(t, original.vertices[0], [0, 0, 0]);

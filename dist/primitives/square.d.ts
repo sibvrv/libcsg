@@ -1,3 +1,4 @@
+import { CAG } from '../core/CAG';
 export interface ISquareOptions {
     center: boolean;
     size: number | [number, number];
@@ -14,5 +15,5 @@ export interface ISquareOptions {
  *   size: 10
  * })
  */
-export declare function square(options?: Partial<ISquareOptions> | number | [number, number]): any;
+export declare function square(options?: Partial<ISquareOptions> | number | [number, number]): CAG;
 //# sourceMappingURL=square.d.ts.map

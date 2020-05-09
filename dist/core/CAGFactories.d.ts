@@ -18,9 +18,9 @@ export declare const fromFakeCSG: (csg: CSG) => CAG;
  * @param {points[]|Array.<points[]>} points - (nested) list of points in 2D space
  * @returns {CAG} new CAG object
  */
-export declare const fromPoints: (points: any) => any;
+export declare const fromPoints: (points: any) => CAG;
 export declare const fromPointsArray: (points: any) => CAG;
-export declare const fromNestedPointsArray: (points: any) => any;
+export declare const fromNestedPointsArray: (points: any) => CAG;
 /**
  * Reconstruct a CAG from an object with identical property names.
  * @param {Object} obj - anonymous object, typically from JSON
@@ -43,7 +43,7 @@ export declare const fromPointsNoCheck: (points: any) => CAG;
  * @param {path} Path2 - a Path2 path
  * @returns {CAG} new CAG object
  */
-export declare const fromPath2: (path: any) => any;
+export declare const fromPath2: (path: any) => CAG;
 /**
  * Reconstruct a CAG from the output of toCompactBinary().
  * @param {CompactBinary} bin - see toCompactBinary()

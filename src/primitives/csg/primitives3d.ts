@@ -20,7 +20,7 @@ import {CSG} from '../../main';
  *   radius: 5, // scalar radius
  * });
  */
-export const cube = (options: any) => {
+export const cube = (options?: any) => {
   let c: any;
   let r: any;
   let corner1;
@@ -104,7 +104,7 @@ export const cube = (options: any) => {
  *   resolution: 32,
  * });
  */
-export const sphere = (options: any) => {
+export const sphere = (options?: any) => {
   options = options || {};
   const center = parseOptionAs3DVector(options, 'center', [0, 0, 0]);
   const radius = parseOptionAsFloat(options, 'radius', 1);
@@ -186,7 +186,7 @@ export const sphere = (options: any) => {
  *   resolution: 16
  * });
  */
-export const cylinder = (options: any) => {
+export const cylinder = (options?: any) => {
   const s = parseOptionAs3DVector(options, 'start', [0, -1, 0]);
   const e = parseOptionAs3DVector(options, 'end', [0, 1, 0]);
   const r = parseOptionAsFloat(options, 'radius', 1);
@@ -277,7 +277,7 @@ export const cylinder = (options: any) => {
  *   resolution: 16
  * });
  */
-export const roundedCylinder = (options: any) => {
+export const roundedCylinder = (options?: any) => {
   const p1 = parseOptionAs3DVector(options, 'start', [0, -1, 0]);
   const p2 = parseOptionAs3DVector(options, 'end', [0, 1, 0]);
   const radius = parseOptionAsFloat(options, 'radius', 1);
@@ -379,7 +379,7 @@ export const roundedCylinder = (options: any) => {
  *     });
  */
 
-export const cylinderElliptic = (options: any) => {
+export const cylinderElliptic = (options?: any) => {
   const s = parseOptionAs3DVector(options, 'start', [0, -1, 0]);
   const e = parseOptionAs3DVector(options, 'end', [0, 1, 0]);
   const r = parseOptionAs2DVector(options, 'radius', [1, 1]);
@@ -455,7 +455,7 @@ export const cylinderElliptic = (options: any) => {
  *   resolution: 36,
  * });
  */
-export const roundedCube = (options: any) => {
+export const roundedCube = (options?: any) => {
   const minRR = 1e-2; // minroundradius 1e-3 gives rounding errors already
   let center;
   let cuberadius;

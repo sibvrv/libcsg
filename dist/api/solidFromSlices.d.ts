@@ -13,5 +13,5 @@ export interface ISolidFromSlices {
  *          return: Polygon or null to skip
  *  - loop {Boolean} no flats, only walls, it's used to generate solids like a tor
  */
-export declare const solidFromSlices: (polygon: Polygon3, options: ISolidFromSlices) => import("../main").CSG;
+export declare const solidFromSlices: (polygon: Polygon3, options: Partial<ISolidFromSlices>) => import("../main").CSG;
 //# sourceMappingURL=solidFromSlices.d.ts.map

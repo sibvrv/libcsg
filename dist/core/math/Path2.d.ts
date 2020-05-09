@@ -46,8 +46,8 @@ export declare class Path2D extends TransformationMethods {
      *   maketangent: true
      * });
      */
-    arc(options: IPath2DArcOptions): Path2D;
-    constructor(points: number[][] | Vector2[], closed?: boolean);
+    static arc(options?: Partial<IPath2DArcOptions>): Path2D;
+    constructor(points?: number[][] | Vector2[], closed?: boolean);
     concat(otherpath: Path2D): Path2D;
     /**
      * Get the points that make up the path.
@@ -81,7 +81,7 @@ export declare class Path2D extends TransformationMethods {
     getTurn(): "clockwise" | "counter-clockwise" | "straight";
     rectangularExtrude(width: number, height: number, resolution: number): import("../CSG").CSG;
     expandToCAG(pathradius: number, resolution: number): CAG;
-    innerToCAG(): any;
+    innerToCAG(): CAG;
     transform(matrix4x4: Matrix4x4): Path2D;
     /**
      * Append a Bezier curve to the end of the path, using the control points to transition the curve through start and end points.
@@ -102,7 +102,7 @@ export declare class Path2D extends TransformationMethods {
      * p5 = p5.appendBezier([[10,-10],[25,-10],[25,-20]]);
      * p5 = p5.appendBezier([[25,-30],[40,-30],[40,-20]]);
      */
-    appendBezier(controlpoints: number[][] | Vector2[], options: any): Path2D;
+    appendBezier(controlpoints: number[][] | Vector2[], options?: any): Path2D;
     /**
      * Append an arc to the end of the path.
      * This implementation follows the SVG arc specs. For the details see

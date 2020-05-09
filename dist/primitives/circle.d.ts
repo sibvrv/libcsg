@@ -1,3 +1,4 @@
+import { CAG } from '../core/CAG';
 export interface ICircleOptions {
     r: number;
     fn: number;
@@ -16,5 +17,5 @@ export interface ICircleOptions {
  *   r: 10
  * })
  */
-export declare function circle(options?: Partial<ICircleOptions> | number): any;
+export declare function circle(options?: Partial<ICircleOptions> | number): CAG;
 //# sourceMappingURL=circle.d.ts.map
