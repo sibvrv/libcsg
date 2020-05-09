@@ -1,13 +1,13 @@
 // Primitives 2D
-export {square} from './square';
-export {circle} from './circle';
-export {polygon} from './polygon';
-export {triangle} from './triangle';
+export * from './square';
+export * from './circle';
+export * from './polygon';
+export * from './triangle';
 
 // Primitives 3D
-export {cube} from './cube';
-export {sphere} from './sphere';
-export {geodesicSphere} from './geodesicSphere';
-export {cylinder} from './cylinder';
-export {torus} from './torus';
-export {polyhedron} from './polyhedron';
+export * from './cube';
+export * from './sphere';
+export * from './geodesicSphere';
+export * from './cylinder';
+export * from './torus';
+export * from './polyhedron';
