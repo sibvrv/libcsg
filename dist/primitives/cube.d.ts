@@ -18,5 +18,5 @@ export interface ICuboidOptions {
  *   fn: 20
  * })
  */
-export declare function cube(options?: Partial<ICuboidOptions> | [number, number, number]): any;
+export declare function cube(options?: Partial<ICuboidOptions> | [number, number, number] | number): any;
 //# sourceMappingURL=cube.d.ts.map
