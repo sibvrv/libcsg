@@ -31,8 +31,8 @@ const defaults: ICuboidOptions = {
  *   fn: 20
  * })
  */
-export function cube(options?: Partial<ICuboidOptions> | [number, number, number]) {
-  const {round, radius, fn, size, center} = {...defaults, ...(Array.isArray(options) ? {size: options} : options)} as ICuboidOptions;
+export function cube(options?: Partial<ICuboidOptions> | [number, number, number] | number) {
+  const {round, radius, fn, size, center} = {...defaults, ...(typeof options === 'number' ? {size: [options, options, options]} : Array.isArray(options) ? {size: options} : options)} as ICuboidOptions;
 
   const [width, depth, height] = Array.isArray(size) ? size : [size, size, size];
   const roundRadius = (round || radius) && (radius ? radius : (width + depth + height) / 30) || 0;

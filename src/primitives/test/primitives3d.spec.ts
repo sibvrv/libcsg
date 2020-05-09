@@ -1,5 +1,5 @@
 import test from 'ava';
-import {cube, cylinder, polyhedron, sphere, torus} from '../';
+import {cube, cylinder, polyhedron, sphere, SPHERE_TYPE, torus} from '../';
 import {comparePolygons, simplifiedPolygon} from '../../api/test-helpers';
 
 /* FIXME : not entirely sure how to deal with this, but for now relies on inspecting
@@ -303,7 +303,7 @@ test('sphere (defaults)', t => {
 });
 
 test('sphere (geodesic)', t => {
-  const obs = sphere({type: 'geodesic'});
+  const obs = sphere({type: SPHERE_TYPE.GEODESIC});
   const expFirstPoly = {
     vertices: [
       {pos: {_x: 0.9376113117392494, _y: 0, _z: -0.3476852428542286}},
