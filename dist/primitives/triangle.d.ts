@@ -1,4 +1,5 @@
-/** Construct a triangle
+/**
+ * Construct a triangle
  * @returns {CAG} new triangle
  *
  * @example

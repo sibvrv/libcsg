@@ -1,1 +1,1 @@
-{"version":3,"file":"intersection.d.ts","sourceRoot":"","sources":["../../../src/modifiers/booleans/intersection.ts"],"names":[],"mappings":"AAEA;;;;;;;;;GASG;AACH,eAAO,MAAM,YAAY,4BAaxB,CAAA"}
+{"version":3,"file":"intersection.d.ts","sourceRoot":"","sources":["../../../src/modifiers/booleans/intersection.ts"],"names":[],"mappings":"AAEA;;;;;;;;;;GAUG;AACH,eAAO,MAAM,YAAY,4BAaxB,CAAC"}

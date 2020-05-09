@@ -1,4 +1,5 @@
-/** extrude the CAG in a certain plane.
+/**
+ * Extrude the CAG in a certain plane.
  * Giving just a plane is not enough, multiple different extrusions in the same plane would be possible
  * by rotating around the plane's origin. An additional right-hand vector should be specified as well,
  * and this is exactly a OrthoNormalBasis.

@@ -1,3 +1,4 @@
+import { CSG } from '../../core/CSG';
 /**
  * Create the expanded shell of the solid:
  * All faces are extruded to get a thickness of 2*radius
@@ -10,5 +11,5 @@
  * @param  {Integer} resolution
  * @param  {Boolean} unionWithThis
  */
-export declare const expandedShellOfCCSG: (_csg: any, radius: number, resolution: number, unionWithThis?: boolean | undefined) => any;
+export declare const expandedShellOfCCSG: (_csg: CSG, radius: number, resolution: number, unionWithThis?: boolean | undefined) => any;
 //# sourceMappingURL=expandedShellOfCCSG.d.ts.map

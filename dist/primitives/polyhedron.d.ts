@@ -1,4 +1,6 @@
-/** Construct a polyhedron from the given triangles/ polygons/points
+import { CSG } from '../core/CSG';
+/**
+ * Construct a polyhedron from the given triangles/ polygons/points
  * @param {Object} [options] - options for construction
  * @param {Array} [options.triangles] - triangles to build the polyhedron from
  * @param {Array} [options.polygons] - polygons to build the polyhedron from
@@ -11,5 +13,5 @@
  *   points: [...]
  * })
  */
-export declare function polyhedron(params: any): any;
+export declare function polyhedron(params: any): CSG;
 //# sourceMappingURL=polyhedron.d.ts.map

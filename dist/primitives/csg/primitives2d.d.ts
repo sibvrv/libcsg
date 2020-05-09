@@ -1,4 +1,5 @@
-/** Construct a circle.
+/**
+ * Construct a circle.
  * @param {Object} [options] - options for construction
  * @param {Vector2D} [options.center=[0,0]] - center of circle
  * @param {Number} [options.radius=1] - radius of circle
@@ -6,7 +7,8 @@
  * @returns {CAG} new CAG object
  */
 export declare const circle: (options: any) => any;
-/** Construct an ellispe.
+/**
+ * Construct an ellispe.
  * @param {Object} [options] - options for construction
  * @param {Vector2D} [options.center=[0,0]] - center of ellipse
  * @param {Vector2D} [options.radius=[1,1]] - radius of ellipse, width and height
@@ -14,7 +16,8 @@ export declare const circle: (options: any) => any;
  * @returns {CAG} new CAG object
  */
 export declare const ellipse: (options: any) => any;
-/** Construct a rectangle.
+/**
+ * Construct a rectangle.
  * @param {Object} [options] - options for construction
  * @param {Vector2D} [options.center=[0,0]] - center of rectangle
  * @param {Vector2D} [options.radius=[1,1]] - radius of rectangle, width and height
@@ -23,7 +26,8 @@ export declare const ellipse: (options: any) => any;
  * @returns {CAG} new CAG object
  */
 export declare const rectangle: (options: any) => any;
-/** Construct a rounded rectangle.
+/**
+ * Construct a rounded rectangle.
  * @param {Object} [options] - options for construction
  * @param {Vector2D} [options.center=[0,0]] - center of rounded rectangle
  * @param {Vector2D} [options.radius=[1,1]] - radius of rounded rectangle, width and height

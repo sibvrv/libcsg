@@ -1,1 +1,1 @@
-{"version":3,"file":"rotateExtrude.d.ts","sourceRoot":"","sources":["../../../src/modifiers/extrusions/rotateExtrude.ts"],"names":[],"mappings":"AAOA;;;;;;GAMG;AACH,eAAO,MAAM,aAAa,iCAkCzB,CAAC"}
+{"version":3,"file":"rotateExtrude.d.ts","sourceRoot":"","sources":["../../../src/modifiers/extrusions/rotateExtrude.ts"],"names":[],"mappings":"AAKA,OAAO,EAAC,GAAG,EAAC,MAAM,YAAY,CAAC;AAE/B,MAAM,WAAW,cAAc;IAC7B,KAAK,EAAE,MAAM,CAAC;IACd,UAAU,EAAE,MAAM,CAAC;CACpB;AAGD;;;;;;;GAOG;AACH,eAAO,MAAM,aAAa,uFAkCzB,CAAC"}

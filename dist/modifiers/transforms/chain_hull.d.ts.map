@@ -1,1 +1,1 @@
-{"version":3,"file":"chain_hull.d.ts","sourceRoot":"","sources":["../../../src/modifiers/transforms/chain_hull.ts"],"names":[],"mappings":"AAGA;;;;;;;;;GASG;AACH,wBAAgB,UAAU,CAAC,MAAM,EAAE,GAAG,EAAE,OAAO,EAAE,GAAG,OAwBnD"}
+{"version":3,"file":"chain_hull.d.ts","sourceRoot":"","sources":["../../../src/modifiers/transforms/chain_hull.ts"],"names":[],"mappings":"AAGA;;;;;;;;;;GAUG;AACH,wBAAgB,UAAU,CAAC,MAAM,EAAE,GAAG,EAAE,OAAO,EAAE,GAAG,OAwBnD"}

@@ -1,1 +1,1 @@
-{"version":3,"file":"linear_extrude.d.ts","sourceRoot":"","sources":["../../../src/modifiers/extrusions/linear_extrude.ts"],"names":[],"mappings":"AAGA;;;;;;;;;;;GAWG;AACH,wBAAgB,cAAc,CAAC,MAAM,EAAE,GAAG,EAAE,SAAS,EAAE,GAAG,OAkBzD"}
+{"version":3,"file":"linear_extrude.d.ts","sourceRoot":"","sources":["../../../src/modifiers/extrusions/linear_extrude.ts"],"names":[],"mappings":"AAGA;;;;;;;;;;;;GAYG;AACH,wBAAgB,cAAc,CAAC,MAAM,EAAE,GAAG,EAAE,SAAS,EAAE,GAAG,OAkBzD"}

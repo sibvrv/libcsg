@@ -1,4 +1,5 @@
-/** expand an object in 2D/3D space
+/**
+ * Expand an object in 2D/3D space
  * @param {float} radius - the radius to expand by
  * @param {Object} object a CSG/CAG objects to expand
  * @returns {CSG/CAG} new CSG/CAG object , expanded

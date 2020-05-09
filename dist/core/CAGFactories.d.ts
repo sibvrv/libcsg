@@ -1,10 +1,15 @@
-/** Construct a CAG from a list of `Side` instances.
+import { Side } from './math';
+import { CAG } from './CAG';
+import { CSG } from './CSG';
+/**
+ * Construct a CAG from a list of `Side` instances.
  * @param {Side[]} sides - list of sides
  * @returns {CAG} new CAG object
  */
-export declare const fromSides: (sides: any) => any;
-export declare const fromFakeCSG: (csg: any) => any;
-/** Construct a CAG from a list of points (a polygon) or an nested array of points.
+export declare const fromSides: (sides: Side[]) => CAG;
+export declare const fromFakeCSG: (csg: CSG) => CAG;
+/**
+ * Construct a CAG from a list of points (a polygon) or an nested array of points.
  * The rotation direction of the points is not relevant.
  * The points can define a convex or a concave polygon.
  * The polygon must not self intersect.
@@ -14,14 +19,16 @@ export declare const fromFakeCSG: (csg: any) => any;
  * @returns {CAG} new CAG object
  */
 export declare const fromPoints: (points: any) => any;
-export declare const fromPointsArray: (points: any) => any;
+export declare const fromPointsArray: (points: any) => CAG;
 export declare const fromNestedPointsArray: (points: any) => any;
-/** Reconstruct a CAG from an object with identical property names.
+/**
+ * Reconstruct a CAG from an object with identical property names.
  * @param {Object} obj - anonymous object, typically from JSON
  * @returns {CAG} new CAG object
  */
-export declare const fromObject: (obj: any) => any;
-/** Construct a CAG from a list of points (a polygon).
+export declare const fromObject: (obj: any) => CAG;
+/**
+ * Construct a CAG from a list of points (a polygon).
  * Like fromPoints() but does not check if the result is a valid polygon.
  * The points MUST rotate counter clockwise.
  * The points can define a convex or a concave polygon.
@@ -29,16 +36,18 @@ export declare const fromObject: (obj: any) => any;
  * @param {points[]} points - list of points in 2D space
  * @returns {CAG} new CAG object
  */
-export declare const fromPointsNoCheck: (points: any) => any;
-/** Construct a CAG from a 2d-path (a closed sequence of points).
+export declare const fromPointsNoCheck: (points: any) => CAG;
+/**
+ * Construct a CAG from a 2d-path (a closed sequence of points).
  * Like fromPoints() but does not check if the result is a valid polygon.
  * @param {path} Path2 - a Path2 path
  * @returns {CAG} new CAG object
  */
 export declare const fromPath2: (path: any) => any;
-/** Reconstruct a CAG from the output of toCompactBinary().
+/**
+ * Reconstruct a CAG from the output of toCompactBinary().
  * @param {CompactBinary} bin - see toCompactBinary()
  * @returns {CAG} new CAG object
  */
-export declare const fromCompactBinary: (bin: any) => any;
+export declare const fromCompactBinary: (bin: any) => CAG;
 //# sourceMappingURL=CAGFactories.d.ts.map

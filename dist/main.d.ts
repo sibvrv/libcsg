@@ -19,7 +19,9 @@ export * as transformations from './modifiers/transforms';
 export * as extrusions from './modifiers/extrusions';
 export * as maths from './math/mathsHelpersAPI';
 export * as text from './text';
-export declare const CAG: any, CSG: any, isCAG: any, isCSG: any;
+export { CSG } from './core/CSG';
+export { CAG } from './core/CAG';
+export { isCAG, isCSG } from './core/utils';
 export declare const version: {
     build: string;
     date: string;

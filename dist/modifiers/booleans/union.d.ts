@@ -1,4 +1,5 @@
-/** union/ combine the given shapes
+/**
+ * Union / combine the given shapes
  * @param {Object(s)|Array} objects - objects to combine : can be given
  * - one by one: union(a,b,c) or
  * - as an array: union([a,b,c])

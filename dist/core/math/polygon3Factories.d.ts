@@ -1,4 +1,6 @@
-/** Create a polygon from the given points.
+import { Plane, Polygon3, PolygonShared } from '.';
+/**
+ * Create a polygon from the given points.
  *
  * @param {Array[]} points - list of points
  * @param {Polygon.Shared} [shared=defaultShared] - shared property to apply
@@ -12,5 +14,5 @@
  * ]
  * let polygon = CSG.Polygon.createFromPoints(points)
  */
-export declare const fromPoints: (points: number[][], shared: any, plane?: any) => any;
+export declare const fromPoints: (points: number[][], shared: PolygonShared, plane?: Plane | undefined) => Polygon3;
 //# sourceMappingURL=polygon3Factories.d.ts.map

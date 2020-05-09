@@ -1,1 +1,1 @@
-{"version":3,"file":"polygonFromPoints.d.ts","sourceRoot":"","sources":["../../src/helpers/polygonFromPoints.ts"],"names":[],"mappings":"AAIA;;;GAGG;AACH,eAAO,MAAM,iBAAiB,6BAI7B,CAAC"}
+{"version":3,"file":"polygonFromPoints.d.ts","sourceRoot":"","sources":["../../src/helpers/polygonFromPoints.ts"],"names":[],"mappings":"AAAA,OAAO,EAAC,QAAQ,EAAE,iBAAiB,EAAmB,MAAM,cAAc,CAAC;AAE3E;;;GAGG;AACH,eAAO,MAAM,iBAAiB,2CAI7B,CAAC"}

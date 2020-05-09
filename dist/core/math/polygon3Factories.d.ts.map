@@ -1,1 +1,1 @@
-{"version":3,"file":"polygon3Factories.d.ts","sourceRoot":"","sources":["../../../src/core/math/polygon3Factories.ts"],"names":[],"mappings":"AAKA;;;;;;;;;;;;;GAaG;AACH,eAAO,MAAM,UAAU,uDAStB,CAAC"}
+{"version":3,"file":"polygon3Factories.d.ts","sourceRoot":"","sources":["../../../src/core/math/polygon3Factories.ts"],"names":[],"mappings":"AAAA,OAAO,EAAC,KAAK,EAAE,QAAQ,EAAE,aAAa,EAAmB,MAAM,GAAG,CAAC;AAGnE;;;;;;;;;;;;;;GAcG;AACH,eAAO,MAAM,UAAU,oFAStB,CAAC"}

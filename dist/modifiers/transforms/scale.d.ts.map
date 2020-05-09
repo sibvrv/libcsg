@@ -1,1 +1,1 @@
-{"version":3,"file":"scale.d.ts","sourceRoot":"","sources":["../../../src/modifiers/transforms/scale.ts"],"names":[],"mappings":"AAAA;;;;;;;GAOG;AACH,wBAAgB,KAAK,CAAC,UAAU,EAAE,GAAG,EAAE,GAAG,OAAO,EAAE,GAAG,EAAE,OAUvD"}
+{"version":3,"file":"scale.d.ts","sourceRoot":"","sources":["../../../src/modifiers/transforms/scale.ts"],"names":[],"mappings":"AAAA;;;;;;;;GAQG;AACH,wBAAgB,KAAK,CAAC,UAAU,EAAE,GAAG,EAAE,GAAG,OAAO,EAAE,GAAG,EAAE,OAUvD"}

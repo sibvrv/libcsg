@@ -1,4 +1,6 @@
-/** linear extrusion of 2D shape, with optional twist
+import { CSG } from '../../core/CSG';
+/**
+ * Linear extrusion of 2D shape, with optional twist
  * @param  {CAG} cag the cag to extrude
  * @param  {Object} [options] - options for construction
  * @param {Array} [options.offset=[0,0,1]] - The 2d shape is placed in in z=0 plane and extruded into direction <offset>
@@ -8,5 +10,5 @@
  * @returns {CSG} the extrude shape, as a CSG object
  * @example extruded=cag.extrude({offset: [0,0,10], twistangle: 360, twiststeps: 100});
  */
-export declare const extrude: (cag: any, options: any) => any;
+export declare const extrude: (cag: any, options: any) => CSG;
 //# sourceMappingURL=extrude.d.ts.map

@@ -1,4 +1,5 @@
-/** linear extrusion of the input 2d shape
+/**
+ * linear extrusion of the input 2d shape
  * @param {Object} [options] - options for construction
  * @param {Float} [options.height=1] - height of the extruded shape
  * @param {Integer} [options.slices=10] - number of intermediary steps/slices

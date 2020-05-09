@@ -13,7 +13,8 @@ export interface ISphereOptions {
     center: boolean | [boolean, boolean, boolean];
     type: SPHERE_TYPE;
 }
-/** Construct a sphere
+/**
+ * Construct a sphere
  * @param {ISphereOptions} [options] - options for construction
  * @param {number} options.r - radius of the sphere
  * @param {number} options.fn - segments of the sphere (ie quality/resolution)

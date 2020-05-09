@@ -1,3 +1,4 @@
+import { CSG } from '../core/CSG';
 export interface ITorusOptions {
     ri: number;
     ro: number;
@@ -20,5 +21,5 @@ export interface ITorusOptions {
  *   ri: 10
  * })
  */
-export declare function torus(options?: Partial<ITorusOptions>): any;
+export declare function torus(options?: Partial<ITorusOptions>): CSG;
 //# sourceMappingURL=torus.d.ts.map

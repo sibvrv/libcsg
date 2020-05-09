@@ -1,0 +1,7 @@
+import { Plane, Polygon3 } from './math';
+export declare function splitPolygonByPlane(plane: Plane, polygon: Polygon3): {
+    type: number | null;
+    front: Polygon3 | null;
+    back: Polygon3 | null;
+};
+//# sourceMappingURL=splitPolygonByPlane.d.ts.map

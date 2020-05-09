@@ -1,1 +1,1 @@
-{"version":3,"file":"polyhedron.d.ts","sourceRoot":"","sources":["../../src/primitives/polyhedron.ts"],"names":[],"mappings":"AAKA;;;;;;;;;;;;GAYG;AACH,wBAAgB,UAAU,CAAC,MAAM,EAAE,GAAG,OAyBrC"}
+{"version":3,"file":"polyhedron.d.ts","sourceRoot":"","sources":["../../src/primitives/polyhedron.ts"],"names":[],"mappings":"AAAA,OAAO,EAAC,GAAG,EAAC,MAAM,aAAa,CAAC;AAIhC;;;;;;;;;;;;;GAaG;AACH,wBAAgB,UAAU,CAAC,MAAM,EAAE,GAAG,OAwBrC"}

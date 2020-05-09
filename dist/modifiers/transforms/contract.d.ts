@@ -1,4 +1,5 @@
-/** contract an object(s) in 2D/3D space
+/**
+ * Contract an object(s) in 2D/3D space
  * @param {float} radius - the radius to contract by
  * @param {Object} object a CSG/CAG objects to contract
  * @returns {CSG/CAG} new CSG/CAG object , contracted

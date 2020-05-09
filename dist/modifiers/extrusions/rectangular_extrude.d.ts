@@ -1,4 +1,5 @@
-/** rectangular extrusion of the given array of points
+/**
+ * Rectangular extrusion of the given array of points
  * @param {Array} basePoints array of points (nested) to extrude from
  * layed out like [ [0,0], [10,0], [5,10], [0,10] ]
  * @param {Object} [options] - options for construction
@@ -12,5 +13,5 @@
  * @example
  * let revolved = rectangular_extrude({height: 10}, square())
  */
-export declare function rectangular_extrude(basePoints: any, params?: any): any;
+export declare function rectangular_extrude(basePoints: any, params?: any): import("../../main").CSG;
 //# sourceMappingURL=rectangular_extrude.d.ts.map

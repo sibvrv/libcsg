@@ -1,4 +1,5 @@
-/** rotate extrusion / revolve of the given 2d shape
+/**
+ * Rotate extrusion / revolve of the given 2d shape
  * @param {Object} [options] - options for construction
  * @param {Integer} [options.fn=1] - resolution/number of segments of the extrusion
  * @param {Float} [options.startAngle=1] - start angle of the extrusion, in degrees
@@ -11,5 +12,5 @@
  * @example
  * let revolved = rotate_extrude({fn: 10}, square())
  */
-export declare function rotate_extrude(params?: any, baseShape?: any): any;
+export declare function rotate_extrude(params?: any, baseShape?: any): import("../../main").CSG;
 //# sourceMappingURL=rotate_extrude.d.ts.map

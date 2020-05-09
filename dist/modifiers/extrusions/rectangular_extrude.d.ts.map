@@ -1,1 +1,1 @@
-{"version":3,"file":"rectangular_extrude.d.ts","sourceRoot":"","sources":["../../../src/modifiers/extrusions/rectangular_extrude.ts"],"names":[],"mappings":"AAEA;;;;;;;;;;;;;GAaG;AACH,wBAAgB,mBAAmB,CAAC,UAAU,EAAE,GAAG,EAAE,MAAM,CAAC,EAAE,GAAG,OAUhE"}
+{"version":3,"file":"rectangular_extrude.d.ts","sourceRoot":"","sources":["../../../src/modifiers/extrusions/rectangular_extrude.ts"],"names":[],"mappings":"AAEA;;;;;;;;;;;;;;GAcG;AACH,wBAAgB,mBAAmB,CAAC,UAAU,EAAE,GAAG,EAAE,MAAM,CAAC,EAAE,GAAG,4BAUhE"}

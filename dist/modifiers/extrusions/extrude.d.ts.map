@@ -1,1 +1,1 @@
-{"version":3,"file":"extrude.d.ts","sourceRoot":"","sources":["../../../src/modifiers/extrusions/extrude.ts"],"names":[],"mappings":"AAMA;;;;;;;;;GASG;AACH,eAAO,MAAM,OAAO,iCAwCnB,CAAC"}
+{"version":3,"file":"extrude.d.ts","sourceRoot":"","sources":["../../../src/modifiers/extrusions/extrude.ts"],"names":[],"mappings":"AAKA,OAAO,EAAC,GAAG,EAAC,MAAM,gBAAgB,CAAC;AAEnC;;;;;;;;;;GAUG;AACH,eAAO,MAAM,OAAO,iCAuCnB,CAAC"}
