@@ -1,8 +1,5 @@
-import {TVector3Universal, Vector3} from './Vector3';
-import {Vector2} from './Vector2';
 import {getTag} from '../constants';
-import {TransformationMethods} from '../TransformationMethods';
-import {Matrix4x4} from './Matrix4';
+import {Matrix4x4, TransformationMethods, TVector3Universal, Vector2, Vector3} from '.';
 
 // # class Vertex
 // Represents a vertex of a polygon. Use your own vertex class instead of this

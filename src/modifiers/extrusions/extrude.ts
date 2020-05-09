@@ -2,7 +2,7 @@ import {defaultResolution3D} from '../../core/constants';
 import {parseOptionAs3DVector, parseOptionAsFloat, parseOptionAsInt} from '../../api/optionParsers';
 import {fromPolygons} from '../../core/CSGFactories';
 import {Connector} from '../../core/Connector';
-import {Vector3} from '../../core/math/Vector3';
+import {Vector3} from '../../core/math';
 import {CSG} from '../../core/CSG';
 
 /** linear extrusion of 2D shape, with optional twist
@@ -36,13 +36,13 @@ export const extrude = (cag: any, options: any) => {
   polygons = polygons.concat(cag._toPlanePolygons({
       translation: [0, 0, 0],
       normalVector,
-      flipped: !(offsetVector.z < 0)
-    }
+      flipped: !(offsetVector.z < 0),
+    },
   ));
   polygons = polygons.concat(cag._toPlanePolygons({
     translation: offsetVector,
     normalVector: normalVector.rotateZ(twistangle),
-    flipped: offsetVector.z < 0
+    flipped: offsetVector.z < 0,
   }));
   // walls
   for (let i = 0; i < twiststeps; i++) {

@@ -1,7 +1,6 @@
 import {areaEPS} from '../constants';
-import {linesIntersect} from '../math/lineUtils';
+import {linesIntersect, Vector2} from '../math';
 import {CAG} from '../CAG';
-import {Vector2} from '../math/Vector2';
 
 // check if we are a valid CAG (for debugging)
 // NOTE(bebbi) uneven side count doesn't work because rounding with EPS isn't taken into account

@@ -1,7 +1,4 @@
-import {TVector3Universal, Vector3} from './Vector3';
-import {Vector2} from './Vector2';
-import {OrthoNormalBasis} from './OrthoNormalBasis';
-import {Plane} from './Plane';
+import {TVector3Universal, Vector3, Vector2, OrthoNormalBasis, Plane} from '.';
 
 // # class Matrix4x4:
 // Represents a 4x4 matrix. Elements are specified in row order

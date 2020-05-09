@@ -1,6 +1,4 @@
-import {Vector3} from './Vector3';
-import {TransformationMethods} from '../TransformationMethods';
-import {Matrix4x4} from './Matrix4';
+import {Matrix4x4, TransformationMethods, Vector3} from '.';
 
 export type TVector2Universal = Vector2 | Vector3 | [number, number] | number[] | { x?: number | string, y?: number | string };
 

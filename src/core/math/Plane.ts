@@ -1,8 +1,5 @@
-import {TVector3Universal, Vector3} from './Vector3';
-import {Line3D} from './Line3';
 import {EPS, getTag} from '../constants';
-import {Matrix4x4} from './Matrix4';
-import {TransformationMethods} from '../TransformationMethods';
+import {Line3D, Matrix4x4, TransformationMethods, TVector3Universal, Vector3} from '.';
 
 // # class Plane
 // Represents a plane in 3D space.

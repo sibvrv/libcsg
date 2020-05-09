@@ -1,4 +1,4 @@
-import {OrthoNormalBasis} from '../../core/math/OrthoNormalBasis';
+import {OrthoNormalBasis} from '../../core/math';
 import {parseOptionAsBool} from '../../api/optionParsers';
 
 /** extrude the CAG in a certain plane.

@@ -5,7 +5,7 @@ import {fromPolygons} from '../CSGFactories';
 import {fromSides} from '../CAGFactories';
 import {CSG} from '../CSG';
 import {CAG} from '../CAG';
-import {Polygon3} from '../math/Polygon3';
+import {Polygon3} from '../math';
 
 /**
  * Returns a cannoicalized version of the input csg/cag : ie every very close

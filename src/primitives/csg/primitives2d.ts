@@ -2,8 +2,7 @@ import {CAG} from '../../core/CAG';
 import {parseOptionAs2DVector, parseOptionAsFloat, parseOptionAsInt} from '../../api/optionParsers';
 import {defaultResolution2D} from '../../core/constants';
 import {fromPath2, fromPoints} from '../../core/CAGFactories';
-import {Vector2} from '../../core/math/Vector2';
-import {Path2D} from '../../core/math/Path2';
+import {Path2D, Vector2} from '../../core/math';
 
 /** Construct a circle.
  * @param {Object} [options] - options for construction

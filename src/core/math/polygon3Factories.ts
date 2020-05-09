@@ -1,8 +1,4 @@
-import {Vector3} from './Vector3';
-import {Vertex3} from './Vertex3';
-import {Polygon3} from './Polygon3';
-import {PolygonShared} from './PolygonShared';
-import {Plane} from './Plane';
+import {Plane, Polygon3, PolygonShared, Vector3, Vertex3} from '.';
 
 // FIXME : redundant code with Polygon3.createFromPoints , but unuseable due to circular dependencies
 /** Create a polygon from the given points.

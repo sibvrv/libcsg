@@ -1,7 +1,4 @@
-import {Vector3} from './math/Vector3';
-import {Vertex3} from './math/Vertex3';
-import {Plane} from './math/Plane';
-import {Polygon3} from './math/Polygon3';
+import {Plane, Polygon3, Vector3, Vertex3} from './math';
 import {CSG} from './CSG';
 
 /**

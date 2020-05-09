@@ -1,7 +1,5 @@
-import {Path2D} from '../core/math/Path2';
+import {Path2D, Side, Vector2} from '../core/math';
 import {CAG} from '../core/CAG';
-import {Side} from '../core/math/Side';
-import {Vector2} from '../core/math/Vector2';
 
 export const cagOutlinePaths = (_cag: CAG) => {
   const cag = _cag.canonicalized();

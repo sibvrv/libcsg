@@ -1,10 +1,5 @@
-import {Vector2} from './Vector2';
-import {Vertex2} from './Vertex2';
-import {Vertex3} from './Vertex3';
-import {Polygon3} from './Polygon3';
 import {getTag} from '../constants';
-import {TransformationMethods} from '../TransformationMethods';
-import {Matrix4x4} from './Matrix4';
+import {Matrix4x4, Polygon3, TransformationMethods, Vector2, Vertex2, Vertex3} from '.';
 
 export class Side extends TransformationMethods {
   vertex0: Vertex2;

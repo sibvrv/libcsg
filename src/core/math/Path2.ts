@@ -1,11 +1,7 @@
-import {TVector2Universal, Vector2} from './Vector2';
 import {angleEPS, defaultResolution2D, EPS} from '../constants';
 import {parseOptionAs2DVector, parseOptionAsBool, parseOptionAsFloat, parseOptionAsInt} from '../../api/optionParsers';
-import {Vertex2} from './Vertex2';
-import {Side} from './Side';
 import {CAG} from '../CAG';
-import {Matrix4x4} from './Matrix4';
-import {TransformationMethods} from '../TransformationMethods';
+import {Matrix4x4, Side, TransformationMethods, TVector2Universal, Vector2, Vertex2} from '.';
 
 export interface IPath2DArcOptions {
   center: any;

@@ -1,6 +1,4 @@
-import {Side} from './math/Side';
-import {Vector2 as Vector2D} from './math/Vector2';
-import {Vertex2} from './math/Vertex2';
+import {Side, Vector2, Vertex2} from './math';
 import {areaEPS} from './constants';
 import {contains, isSelfIntersecting} from './utils/cagValidation';
 import {difference, union} from '../modifiers/booleans';
@@ -57,9 +55,9 @@ export const fromPointsArray = (points: any) => {
     throw new Error('CAG shape needs at least 3 points');
   }
   const sides: any[] = [];
-  let prevvertex = new Vertex2(new Vector2D(points[points.length - 1]));
+  let prevvertex = new Vertex2(new Vector2(points[points.length - 1]));
   points.map((point: any) => {
-    const vertex = new Vertex2(new Vector2D(point));
+    const vertex = new Vertex2(new Vector2(point));
     sides.push(new Side(prevvertex, vertex));
     prevvertex = vertex;
   });
@@ -155,12 +153,12 @@ export const fromObject = (obj: any) => {
  */
 export const fromPointsNoCheck = (points: any) => {
   const sides: any[] = [];
-  const prevpoint = new Vector2D(points[points.length - 1]);
+  const prevpoint = new Vector2(points[points.length - 1]);
 
   let prevvertex = new Vertex2(prevpoint);
 
   points.map((p: any) => {
-    const point = new Vector2D(p);
+    const point = new Vector2(p);
     const vertex = new Vertex2(point);
     const side = new Side(prevvertex, vertex);
     sides.push(side);
@@ -192,7 +190,7 @@ export const fromCompactBinary = (bin: any) => {
   for (let vertexindex = 0; vertexindex < numvertices; vertexindex++) {
     const x = vertexData[arrayindex++];
     const y = vertexData[arrayindex++];
-    const pos = new Vector2D(x, y);
+    const pos = new Vector2(x, y);
     const vertex = new Vertex2(pos);
     vertices.push(vertex);
   }

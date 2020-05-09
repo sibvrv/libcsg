@@ -1,7 +1,6 @@
 import {FuzzyFactory} from './FuzzyFactory';
 import {EPS} from './constants';
-import {Side} from './math/Side';
-import {Vertex2} from './math/Vertex2';
+import {Side, Vertex2} from './math';
 
 export class FuzzyCAGFactory {
   vertexfactory = new FuzzyFactory(2, EPS);

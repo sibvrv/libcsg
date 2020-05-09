@@ -2,10 +2,9 @@ import {polygonFromPoints} from '../../helpers/polygonFromPoints';
 import {rightMultiply1x3VectorToArray} from '../../helpers/rightMultiply1x3VectorToArray';
 import {cagToPointsArray} from '../../helpers/cagToPointsArray';
 import {clamp} from '../../math/clamp';
-import {Matrix4x4 as Matrix4} from '../../core/math/Matrix4';
+import {Matrix4x4, Polygon3} from '../../core/math';
 import {fromPolygons} from '../../core/CSGFactories';
 import {fromPoints} from '../../core/CAGFactories';
-import {Polygon3} from '../../core/math/Polygon3';
 
 const defaults = {
   fn: 32,
@@ -66,8 +65,8 @@ export function rotate_extrude(params?: any, baseShape?: any) {
 
   // console.log('shapePoints BEFORE', shapePoints, baseShape.sides)
 
-  const pointsWithNegativeX = shapePoints.filter((x:any) => x[0] < 0);
-  const pointsWithPositiveX = shapePoints.filter((x:any) => x[0] >= 0);
+  const pointsWithNegativeX = shapePoints.filter((x: any) => x[0] < 0);
+  const pointsWithPositiveX = shapePoints.filter((x: any) => x[0] >= 0);
   const arePointsWithNegAndPosX = pointsWithNegativeX.length > 0 && pointsWithPositiveX.length > 0;
 
   if (arePointsWithNegAndPosX && overflow === 'cap') {
@@ -92,8 +91,8 @@ export function rotate_extrude(params?: any, baseShape?: any) {
       const nextPoint = shapePoints[j + 1];
 
       // compute matrix for current and next segment angle
-      const prevMatrix = Matrix4.rotationZ((i - 1) / segments * angle + startAngle);
-      const curMatrix = Matrix4.rotationZ(i / segments * angle + startAngle);
+      const prevMatrix = Matrix4x4.rotationZ((i - 1) / segments * angle + startAngle);
+      const curMatrix = Matrix4x4.rotationZ(i / segments * angle + startAngle);
 
       const pointA = rightMultiply1x3VectorToArray(prevMatrix, [curPoint[0], 0, curPoint[1]]);
       const pointAP = rightMultiply1x3VectorToArray(curMatrix, [curPoint[0], 0, curPoint[1]]);
@@ -131,14 +130,14 @@ export function rotate_extrude(params?: any, baseShape?: any) {
     if (Math.abs(angle) < 360) {
       // we need to recreate the side with capped points where applicable
       const sideShape = fromPoints(shapePoints);
-      const endMatrix = Matrix4.rotationX(90).multiply(
-        Matrix4.rotationZ(-startAngle),
+      const endMatrix = Matrix4x4.rotationX(90).multiply(
+        Matrix4x4.rotationZ(-startAngle),
       );
       const endCap = sideShape._toPlanePolygons({flipped})
         .map((x: any) => x.transform(endMatrix));
 
-      const startMatrix = Matrix4.rotationX(90).multiply(
-        Matrix4.rotationZ(-angle - startAngle),
+      const startMatrix = Matrix4x4.rotationX(90).multiply(
+        Matrix4x4.rotationZ(-angle - startAngle),
       );
       const startCap = sideShape._toPlanePolygons({flipped: !flipped})
         .map((x: any) => x.transform(startMatrix));

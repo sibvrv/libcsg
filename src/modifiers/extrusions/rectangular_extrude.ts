@@ -1,4 +1,4 @@
-import {Path2D} from '../../core/math/Path2';
+import {Path2D} from '../../core/math';
 
 /** rectangular extrusion of the given array of points
  * @param {Array} basePoints array of points (nested) to extrude from

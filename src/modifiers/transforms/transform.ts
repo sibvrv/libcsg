@@ -1,4 +1,4 @@
-import {Matrix4x4} from '../../core/math/Matrix4';
+import {Matrix4x4} from '../../core/math';
 
 /** apply the given matrix transform to the given objects
  * @param {Array} matrix - the 4x4 matrix to apply, as a simple 1d array of 16 elements

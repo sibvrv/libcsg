@@ -1,16 +1,9 @@
-import {Vector2} from './Vector2';
-import {TVector3Universal, Vector3} from './Vector3';
-import {Vertex3} from './Vertex3';
-import {Matrix4x4} from './Matrix4';
 import {_CSGDEBUG, areaEPS, EPS} from '../constants';
-import {Plane} from './Plane';
 import {CAG} from '../CAG';
 import {ISolidFromSlices, solidFromSlices} from '../../api/solidFromSlices';
 import {fromPolygons} from '../CSGFactories';
 import {fromPointsNoCheck} from '../CAGFactories';
-import {PolygonShared} from './PolygonShared';
-import {TransformationMethods} from '../TransformationMethods';
-import {OrthoNormalBasis} from './OrthoNormalBasis';
+import {Matrix4x4, OrthoNormalBasis, Plane, PolygonShared, TransformationMethods, TVector3Universal, Vector2, Vector3, Vertex3} from '.';
 
 /** Class Polygon
  * Represents a convex polygon. The vertices used to initialize a polygon must

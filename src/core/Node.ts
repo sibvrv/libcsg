@@ -1,5 +1,4 @@
-import {Plane} from './math/Plane';
-import {Vector3} from './math/Vector3';
+import {Plane, Vector3} from './math';
 import {Tree} from './Tree';
 import {PolygonTreeNode} from './PolygonTreeNode';
 

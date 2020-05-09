@@ -1,6 +1,5 @@
 import {EPS} from '../../core/constants';
-import {Vertex3} from '../../core/math/Vertex3';
-import {Polygon3} from '../../core/math/Polygon3';
+import {Polygon3, Vertex3} from '../../core/math';
 import {fnNumberSort} from '../../core/utils';
 import {CSG} from '../../core/CSG';
 import {fromPolygons} from '../../core/CSGFactories';

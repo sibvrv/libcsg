@@ -1,9 +1,7 @@
 import {CSG} from '../core/CSG';
-import {Matrix4x4} from '../core/math/Matrix4';
-import {Vector3} from '../core/math/Vector3';
+import {Matrix4x4, Vector2, Vector3} from '../core/math';
 import {Connector} from '../core/Connector';
 import {fromPoints} from '../core/CAGFactories';
-import {Vector2} from '../core/math/Vector2';
 
 // Get the transformation that transforms this CSG such that it is lying on the z=0 plane,
 // as flat as possible (i.e. the least z-height).

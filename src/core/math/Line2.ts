@@ -1,7 +1,5 @@
-import {TVector2Universal, Vector2} from './Vector2';
 import {solve2Linear} from '../utils';
-import {Matrix4x4} from './Matrix4';
-import {TransformationMethods} from '../TransformationMethods';
+import {Matrix4x4, TransformationMethods, TVector2Universal, Vector2} from '.';
 
 /**
  * Line2D

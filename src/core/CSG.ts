@@ -1,7 +1,5 @@
 import {Tree} from './Tree';
-import {Polygon3} from './math/Polygon3';
-import {Plane} from './math/Plane';
-import {OrthoNormalBasis} from './math/OrthoNormalBasis';
+import {Line2D, Line3D, Matrix4x4, OrthoNormalBasis, Path2D, Plane, Polygon2D, Polygon3, PolygonShared, TransformationMethods, TVector3Universal, Vector2, Vector3, Vertex3} from './math';
 
 import {Properties} from './Properties';
 import {fixTJunctions} from './utils/fixTJunctions';
@@ -19,19 +17,8 @@ import {_CSGDEBUG, all, angleEPS, areaEPS, back, bottom, defaultResolution2D, de
 import {cube, cylinder, cylinderElliptic, polyhedron, roundedCube, roundedCylinder, sphere} from '../primitives/csg/primitives3d';
 import {fromCompactBinary, fromObject, fromPolygons, fromSlices} from './CSGFactories';
 import * as optionsParsers from '../api/optionParsers';
-
-import {Vector2} from './math/Vector2';
-import {TVector3Universal, Vector3} from './math/Vector3';
-import {Vertex3, Vertex3 as _Vertex} from './math/Vertex3';
-import {Polygon2D} from './math/Polygon2';
-import {Line2D} from './math/Line2';
-import {Line3D} from './math/Line3';
-import {Path2D} from './math/Path2';
-import {Matrix4x4} from './math/Matrix4';
 import {Connector} from './Connector';
 import {ConnectorList} from './ConnectorList';
-import {TransformationMethods} from './TransformationMethods';
-import {PolygonShared} from './math/PolygonShared';
 
 /** Class CSG
  * Holds a binary space partition tree representing a 3D solid. Two solids can
@@ -613,7 +600,7 @@ export class CSG extends TransformationMethods {
 // FIXME: how many are actual useful to be exposed as API ?? looks like a code smell
   static Vector2D = Vector2;
   static Vector3D = Vector3;
-  static Vertex = _Vertex;
+  static Vertex = Vertex3;
   static Plane = Plane;
   static Polygon = Polygon3;
   static Polygon2D = Polygon2D;

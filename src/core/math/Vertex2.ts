@@ -1,5 +1,5 @@
-import {Vector2} from './Vector2';
 import {getTag} from '../constants';
+import {Vector2} from '.';
 
 /**
  * Vertex2

@@ -1,4 +1,4 @@
-import {Polygon3} from './math/Polygon3';
+import {Polygon3} from './math';
 import {PolygonTreeNode} from './PolygonTreeNode';
 import {Node} from './Node';
 

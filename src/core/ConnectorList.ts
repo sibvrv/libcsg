@@ -1,7 +1,6 @@
-import {TVector3Universal, Vector3} from './math/Vector3';
+import {Path2D, TVector3Universal, Vector3} from './math';
 import {CSG} from './CSG';
 import {Connector} from './Connector';
-import {Path2D} from './math/Path2';
 
 export class ConnectorList {
   closed = false;

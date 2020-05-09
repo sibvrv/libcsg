@@ -1,13 +1,8 @@
 // @ts-nocheck
 // todo fix it
 import {EPS} from '../constants';
-import {OrthoNormalBasis} from './OrthoNormalBasis';
 import {fnNumberSort, insertSorted, interpolateBetween2DPointsForY} from '../utils';
-import {Vertex3} from './Vertex3';
-import {Vector2} from './Vector2';
-import {Line2D} from './Line2';
-import {Polygon3} from './Polygon3';
-import {calcInterpolationFactor} from './calcInterpolationFactor';
+import {calcInterpolationFactor, Line2D, OrthoNormalBasis, Polygon3, Vector2, Vertex3} from '.';
 
 // Retesselation function for a set of coplanar polygons. See the introduction at the top of
 // this file.

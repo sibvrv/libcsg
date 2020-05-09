@@ -1,6 +1,4 @@
-import {Matrix4x4} from './math/Matrix4';
-import {Plane} from './math/Plane';
-import {TVector3Universal, Vector3} from './math/Vector3';
+import {Matrix4x4, Plane, TVector3Universal, Vector3} from '.';
 
 /**
  * Extra Transformation Methods

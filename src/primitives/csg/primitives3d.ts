@@ -2,9 +2,7 @@ import {parseOption, parseOptionAs2DVector, parseOptionAs3DVector, parseOptionAs
 import {defaultResolution2D, defaultResolution3D, EPS} from '../../core/constants';
 import {fromPolygons} from '../../core/CSGFactories';
 
-import {Vector3} from '../../core/math/Vector3';
-import {Vertex3} from '../../core/math/Vertex3';
-import {Polygon3} from '../../core/math/Polygon3';
+import {Polygon3, Vector3, Vertex3} from '../../core/math';
 import {Connector} from '../../core/Connector';
 import {Properties} from '../../core/Properties';
 import {CSG} from '../../main';

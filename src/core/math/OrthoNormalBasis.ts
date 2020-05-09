@@ -1,10 +1,4 @@
-import {Vector2} from './Vector2';
-import {TVector3Universal, Vector3} from './Vector3';
-import {Line2D} from './Line2';
-import {Line3D} from './Line3';
-import {Plane} from './Plane';
-import {Matrix4x4} from './Matrix4';
-import {TransformationMethods} from '../TransformationMethods';
+import {Line2D, Line3D, Matrix4x4, Plane, TransformationMethods, TVector3Universal, Vector2, Vector3} from '.';
 
 /** class OrthoNormalBasis
  * Reprojects points on a 3D plane onto a 2D plane

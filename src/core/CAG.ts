@@ -1,8 +1,5 @@
 import {Connector} from './Connector';
-import {Vertex3 as Vertex3D} from './math/Vertex3';
-import {Vector2} from './math/Vector2';
-import {Vector3} from './math/Vector3';
-import {Polygon3} from './math/Polygon3';
+import {Matrix4x4, OrthoNormalBasis, Polygon3, Side, TransformationMethods, Vector2, Vector3, Vertex2, Vertex3} from './math';
 
 import {fromPolygons} from './CSGFactories';
 import {fromCompactBinary, fromFakeCSG, fromObject, fromPath2, fromPoints, fromPointsNoCheck, fromSides} from './CAGFactories';
@@ -19,12 +16,6 @@ import {center} from '../api/center';
 import {contract, expand, expandedShellOfCAG} from '../modifiers/expansions';
 
 import {circle, ellipse, rectangle, roundedRectangle} from '../primitives/csg/primitives2d';
-
-import {Vertex2} from './math/Vertex2';
-import {Side} from './math/Side';
-import {TransformationMethods} from './TransformationMethods';
-import {Matrix4x4} from './math/Matrix4';
-import {OrthoNormalBasis} from './math/OrthoNormalBasis';
 import {IRotateExtrude} from '../modifiers/extrusions/rotateExtrude';
 
 /**
@@ -255,10 +246,10 @@ export class CAG extends TransformationMethods {
     let csgplane = fromPolygons([
       new Polygon3(
         [
-          new Vertex3D(new Vector3(bounds[0].x, bounds[0].y, 0)),
-          new Vertex3D(new Vector3(bounds[1].x, bounds[0].y, 0)),
-          new Vertex3D(new Vector3(bounds[1].x, bounds[1].y, 0)),
-          new Vertex3D(new Vector3(bounds[0].x, bounds[1].y, 0)),
+          new Vertex3(new Vector3(bounds[0].x, bounds[0].y, 0)),
+          new Vertex3(new Vector3(bounds[1].x, bounds[0].y, 0)),
+          new Vertex3(new Vector3(bounds[1].x, bounds[1].y, 0)),
+          new Vertex3(new Vector3(bounds[0].x, bounds[1].y, 0)),
         ],
       ),
     ]);
@@ -351,13 +342,17 @@ export class CAG extends TransformationMethods {
         const y0 = vp1[0].distanceTo(vps2[j][0]);
         const y1 = vp1[1].distanceTo(vps2[j][1]);
         const polygon1 = new Polygon3(
-          [Vertex3D.fromPosAndUV(vps2[j][1], new Vector2(xtop1, y1 * (1 + iteration))),
-            Vertex3D.fromPosAndUV(vps2[j][0], new Vector2(xtop0, y0 * (1 + iteration))),
-            Vertex3D.fromPosAndUV(vp1[0], new Vector2(xbot0, y0 * iteration))]);
+          [
+            Vertex3.fromPosAndUV(vps2[j][1], new Vector2(xtop1, y1 * (1 + iteration))),
+            Vertex3.fromPosAndUV(vps2[j][0], new Vector2(xtop0, y0 * (1 + iteration))),
+            Vertex3.fromPosAndUV(vp1[0], new Vector2(xbot0, y0 * iteration)),
+          ]);
         const polygon2 = new Polygon3(
-          [Vertex3D.fromPosAndUV(vps2[j][1], new Vector2(xtop1, y1 * (1 + iteration))),
-            Vertex3D.fromPosAndUV(vp1[0], new Vector2(xbot0, y0 * iteration)),
-            Vertex3D.fromPosAndUV(vp1[1], new Vector2(xbot1, y1 * iteration))]);
+          [
+            Vertex3.fromPosAndUV(vps2[j][1], new Vector2(xtop1, y1 * (1 + iteration))),
+            Vertex3.fromPosAndUV(vp1[0], new Vector2(xbot0, y0 * iteration)),
+            Vertex3.fromPosAndUV(vp1[1], new Vector2(xbot1, y1 * iteration)),
+          ]);
         if (hasMirroredNormals) {
           polygon1.plane = polygon1.plane.flipped();
           polygon2.plane = polygon2.plane.flipped();

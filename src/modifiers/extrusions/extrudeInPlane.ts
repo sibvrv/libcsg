@@ -1,4 +1,4 @@
-import {OrthoNormalBasis} from '../../core/math/OrthoNormalBasis';
+import {OrthoNormalBasis} from '../../core/math';
 import {extrudeInOrthonormalBasis} from './extrudeInOrthonormalBasis';
 import {CAG} from '../../main';
 
