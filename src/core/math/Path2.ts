@@ -52,7 +52,7 @@ export class Path2D extends TransformationMethods {
    *   maketangent: true
    * });
    */
-  arc(options: IPath2DArcOptions) {
+  static arc(options: Partial<IPath2DArcOptions> = {}) {
     const center = parseOptionAs2DVector(options, 'center', 0);
     const radius = parseOptionAsFloat(options, 'radius', 1);
     const startangle = parseOptionAsFloat(options, 'startangle', 0);
@@ -92,7 +92,7 @@ export class Path2D extends TransformationMethods {
     return new Path2D(points, false);
   }
 
-  constructor(points: number[][] | Vector2[], closed: boolean = false) {
+  constructor(points?: number[][] | Vector2[], closed: boolean = false) {
     super();
 
     closed = !!closed;
@@ -264,7 +264,7 @@ export class Path2D extends TransformationMethods {
    * p5 = p5.appendBezier([[10,-10],[25,-10],[25,-20]]);
    * p5 = p5.appendBezier([[25,-30],[40,-30],[40,-20]]);
    */
-  appendBezier(controlpoints: number[][] | Vector2[], options: any) {
+  appendBezier(controlpoints: number[][] | Vector2[], options?: any) {
     if (arguments.length < 2) {
       options = {};
     }

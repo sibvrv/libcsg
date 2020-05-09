@@ -18,7 +18,6 @@ function vector2Equals(t: any, observed: any, expected: any) {
 
 test('CSG.Line2 constructors creates valid lines', t => {
   const Line2 = CSG.Line2D;
-  const Vector2 = CSG.Vector2D;
 
   let l1 = Line2.fromPoints([0, 0], [10, -10]);
   const l2 = new Line2(l1.normal, l1.w);
@@ -57,7 +56,6 @@ test('CSG.Line2 constructors creates valid lines', t => {
 
 test('CSG.Line2 transforms', t => {
   const Line2 = CSG.Line2D;
-  const Vector2 = CSG.Vector2D;
 
   let matrix = CSG.Matrix4x4.rotationX(90);
   matrix = matrix.multiply(CSG.Matrix4x4.translation([-10, 0, -10]));
@@ -77,7 +75,6 @@ test('CSG.Line2 transforms', t => {
 
 test('CSG.Line2 geometry calculations', t => {
   const Line2 = CSG.Line2D;
-  const Vector2 = CSG.Vector2D;
 
   const l1 = Line2.fromPoints([-10, -10], [-10, 0]);
   vector2Equals(t, l1.normal, [-1, 0]);

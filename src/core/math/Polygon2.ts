@@ -1,8 +1,4 @@
 import {fromPoints} from '../CAGFactories';
-import {CAG} from '../CAG';
-
-// tslint:disable-next-line:no-console
-console.log('CAG >>>', CAG);
 
 /*
 2D polygons are now supported through the CAG class.
@@ -13,12 +9,6 @@ With many improvements (see documentation):
 
 But we'll keep CSG.Polygon2D as a stub for backwards compatibility
 */
-
-export class Polygon2D extends CAG {
-  constructor(points: any) {
-    super();
-
-    const cag = fromPoints(points);
-    this.sides = cag.sides;
-  }
+export function Polygon2D(points: any) {
+  return fromPoints(points);
 }

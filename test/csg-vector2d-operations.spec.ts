@@ -1,44 +1,44 @@
 import test from 'ava';
-import {CSG} from '../src/csg';
 import {nearlyEqual} from './helpers/nearlyEqual';
+import {Vector2, Vector3} from '../src/core/math';
 
-test('CSG.Vector2D creation', t => {
-  // FAILS const v1 = new CSG.Vector2D()
-  const v2 = new CSG.Vector2D(5, 5);
+test('Vector2 creation', t => {
+  // FAILS const v1 = new Vector2()
+  const v2 = new Vector2(5, 5);
   t.is(v2.x, 5);
   t.is(v2.y, 5);
 
-  const v3 = new CSG.Vector2D([-5, -5]);
+  const v3 = new Vector2([-5, -5]);
   t.is(v3.x, -5);
   t.is(v3.y, -5);
 
-  const v4 = new CSG.Vector2D({x: 1, y: -1});
+  const v4 = new Vector2({x: 1, y: -1});
   t.is(v4.x, 1);
   t.is(v4.y, -1);
 
-  const v5 = new CSG.Vector2D(v2);
+  const v5 = new Vector2(v2);
   t.is(v5.x, 5);
   t.is(v5.y, 5);
 
-  const v6 = CSG.Vector2D.Create(-5, 5);
+  const v6 = Vector2.Create(-5, 5);
   t.is(v6.x, -5);
   t.is(v6.y, 5);
 
-  const v7 = CSG.Vector2D.fromAngleRadians(2);
+  const v7 = Vector2.fromAngleRadians(2);
   nearlyEqual(t, v7.x, -0.4161468365, 1e-10);
   nearlyEqual(t, v7.y, 0.9092974268, 1e-10);
 
-  const v8 = CSG.Vector2D.fromAngle(-2);
+  const v8 = Vector2.fromAngle(-2);
   nearlyEqual(t, v8.x, -0.4161468365, 1e-10);
   nearlyEqual(t, v8.y, -0.9092974268, 1e-10);
 
-  const v9 = CSG.Vector2D.fromAngleDegrees(45);
+  const v9 = Vector2.fromAngleDegrees(45);
   nearlyEqual(t, v9.x, 0.7071067811, 1e-10);
   nearlyEqual(t, v9.y, 0.7071067811, 1e-10);
 });
 
-test('CSG.Vector2D operations', t => {
-  const v1 = CSG.Vector2D.fromAngleDegrees(45);
+test('Vector2 operations', t => {
+  const v1 = Vector2.fromAngleDegrees(45);
 
   let v2 = v1.clone();
   nearlyEqual(t, v2.x, 0.7071067811, 1e-10);
@@ -75,10 +75,10 @@ test('CSG.Vector2D operations', t => {
   t.true(v1.equals(v2));
 
 // use the 4 corners
-  const c1 = new CSG.Vector2D(5, 0);
-  const c2 = new CSG.Vector2D(0, 5);
-  const c3 = new CSG.Vector2D(-5, 0);
-  const c4 = new CSG.Vector2D(0, -5);
+  const c1 = new Vector2(5, 0);
+  const c2 = new Vector2(0, 5);
+  const c3 = new Vector2(-5, 0);
+  const c4 = new Vector2(0, -5);
 
   v2 = c1.dividedBy(2);
   t.is(v2.x, 2.5);
@@ -142,8 +142,8 @@ test('CSG.Vector2D operations', t => {
    */
 });
 
-test('CSG.Vector2D conversions', t => {
-  const v1 = new CSG.Vector2D({x: 1, y: -1});
+test('Vector2 conversions', t => {
+  const v1 = new Vector2({x: 1, y: -1});
 
   const s1 = v1.toString();
   t.is(v1.toString(), '(1.00000, -1.00000)');
@@ -153,7 +153,7 @@ test('CSG.Vector2D conversions', t => {
   t.is(v3.y, -1);
   t.is(v3.z, 5);
 
-  v3 = new CSG.Vector3D(v1);
+  v3 = new Vector3(v1);
   t.is(v3.x, 1);
   t.is(v3.y, -1);
   t.is(v3.z, 0);

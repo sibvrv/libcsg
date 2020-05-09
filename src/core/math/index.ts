@@ -8,6 +8,7 @@ export * from './reTesselateCoplanarPolygons';
 // Extra
 
 export * from './PolygonShared';
+export * from './Polygon2';
 
 // Classes
 
@@ -18,7 +19,6 @@ export * from './Matrix4';
 export * from './OrthoNormalBasis';
 export * from './Path2';
 export * from './Plane';
-export * from './Polygon2';
 export * from './Polygon3';
 export * from './Side';
 export * from './Vector2';
