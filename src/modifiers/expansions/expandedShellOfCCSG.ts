@@ -1,9 +1,9 @@
 import {EPS} from '@core/constants';
 import {Polygon3, Vertex3} from '@core/math';
-import {fnNumberSort} from '@core/utils';
 import {CSG} from '@core/CSG';
 import {fromPolygons} from '@core/CSGFactories';
 import {sphere as CSGsphere} from '@primitives/csg/primitives3d';
+import {fnNumberSort} from '@core/utils/sortHelpers';
 
 /**
  * Create the expanded shell of the solid:

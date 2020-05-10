@@ -1,4 +1,4 @@
-import {isCAG} from '@core/utils';
+import {isCAG} from '@core/utils/utils';
 
 /**
  * intersection of the given shapes: ie keep only the common parts between the given shapes

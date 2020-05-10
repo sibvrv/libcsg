@@ -1,4 +1,4 @@
-import {isCAG} from '@core/utils';
+import {isCAG} from '@core/utils/utils';
 
 /**
  * Difference / Subtraction of the given shapes ie:

@@ -1,5 +1,5 @@
 import {EPS} from '@core/constants';
-import {solve2Linear} from '@core/utils';
+import {solve2Linear} from '@core/utils/utils';
 import {Matrix4x4, Plane, TransformationMethods, TVector3Universal, Vector3} from '.';
 
 // # class Line3D

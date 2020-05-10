@@ -1,4 +1,4 @@
-import {solve2Linear} from '@core/utils';
+import {solve2Linear} from '@core/utils/utils';
 import {Matrix4x4, TransformationMethods, TVector2Universal, Vector2} from '.';
 
 /**

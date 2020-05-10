@@ -98,7 +98,7 @@ export * as text from './text';
 export {CSG} from '@core/CSG';
 export {CAG} from '@core/CAG';
 
-export {isCAG, isCSG} from '@core/utils';
+export {isCAG, isCSG} from '@core/utils/utils';
 
 declare var __LIB_VERSION__: { build: string; date: string; stamp: number; };
 export const version = __LIB_VERSION__;

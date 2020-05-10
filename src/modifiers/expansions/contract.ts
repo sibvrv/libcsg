@@ -1,6 +1,6 @@
 import {expandedShellOfCCSG} from './expandedShellOfCCSG';
 import {expandedShellOfCAG} from './expandedShellOfCAG';
-import {isCSG} from '@core/utils';
+import {isCSG} from '@core/utils/utils';
 
 /**
  * Contract
