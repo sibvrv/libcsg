@@ -1,5 +1,5 @@
 import {EPS} from '@core/constants';
-import {solve2Linear} from '@core/utils/utils';
+import {solve2Linear} from '@core/utils/solve2Linear';
 
 // see if the line between p0start and p0end intersects with the line between p1start and p1end
 // returns true if the lines strictly intersect, the end points are not counted!

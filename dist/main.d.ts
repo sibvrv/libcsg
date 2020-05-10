@@ -21,7 +21,8 @@ export * as maths from '@math/mathsHelpersAPI';
 export * as text from './text';
 export { CSG } from '@core/CSG';
 export { CAG } from '@core/CAG';
-export { isCAG, isCSG } from '@core/utils/utils';
+export { isCSG } from '@core/utils/isCSG';
+export { isCAG } from '@core/utils/isCAG';
 export declare const version: {
     build: string;
     date: string;

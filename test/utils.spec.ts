@@ -1,7 +1,8 @@
 import {CSG} from '@core/CSG';
 import {CAG} from '@core/CAG';
-import {isCAG, isCSG} from '@core/utils/utils';
 import {expect} from 'chai';
+import {isCSG} from '@core/utils/isCSG';
+import {isCAG} from '@core/utils/isCAG';
 
 describe('Utils', () => {
   it('isCSG() is correctly determining if object is a CSG', () => {
