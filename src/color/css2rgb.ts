@@ -7,6 +7,6 @@ import {cssColors3ub, TCssColorNames} from './colorTable/cssColors';
  * @return  Array           The RGB representation, or [0,0,0] default
  */
 export function css2rgb(colorName: TCssColorNames | string) {
-  const [r, g, b] = cssColors3ub[colorName.toLowerCase() as TCssColorNames];
+  const [r, g, b] = cssColors3ub[colorName.toLowerCase() as TCssColorNames] || [0, 0, 0];
   return [r / 255, g / 255, b / 255];
 }

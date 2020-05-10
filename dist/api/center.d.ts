@@ -18,5 +18,5 @@ export interface ICenterOptions {
  * @example
  * let csg = center({axes: [true,false,false]}, sphere()) // center about the X axis
  */
-export declare const center: (options: Partial<ICenterOptions>, objects: CSG | CAG | (CSG | CAG)[]) => any;
+export declare const center: (options: Partial<ICenterOptions>, objects: CAG | CSG | (CAG | CSG)[]) => any;
 //# sourceMappingURL=center.d.ts.map
