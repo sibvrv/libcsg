@@ -1,9 +1,10 @@
 import {CAG} from '@core/CAG';
+import { expect } from 'chai';
 
 describe('Core CAG', () => {
   it('constructor', () => {
     const cag = new CAG();
-    // tslint:disable-next-line:no-console
-    console.log(cag, CAG);
+    expect(cag).to.have.own.property('sides');
+    expect(cag).to.have.own.property('isCanonicalized');
   });
 });
