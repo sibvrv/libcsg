@@ -4,6 +4,7 @@ const path = require('path');
 const TSConfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const {DefinePlugin, BannerPlugin} = require("webpack");
+const CircularDependencyPlugin = require('circular-dependency-plugin')
 
 // Variables
 const sourcePath = path.join(__dirname, './src/');
@@ -52,7 +53,14 @@ module.exports = (env, argv) => {
           stamp: Math.floor(buildDate.getTime() / 1000)
         })
       }),
-      new BannerPlugin(`LibCSG version ${npm_package_version}\nBuild Date: ${buildDate.toISOString()}\nHomepage: ${npm_package_homepage}\nRepository: ${npm_package_repository_url}`)
+      new BannerPlugin(`LibCSG version ${npm_package_version}\nBuild Date: ${buildDate.toISOString()}\nHomepage: ${npm_package_homepage}\nRepository: ${npm_package_repository_url}`),
+      new CircularDependencyPlugin({
+        exclude: /node_modules/,
+        include: /src/,
+        failOnError: true,
+        allowAsyncCycles: false,
+        cwd: process.cwd(),
+      })
     ],
     devtool: isProduction ? 'hidden-source-map' : 'cheap-module-eval-source-map'
   };

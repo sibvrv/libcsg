@@ -74,6 +74,7 @@
     "@types/webpack-merge": "*",
     "ava": "*",
     "chai": "*",
+    "circular-dependency-plugin": "^5.2.0",
     "clean-webpack-plugin": "*",
     "conventional-changelog-cli": "*",
     "jsdoc": "*",
