@@ -4,4 +4,4 @@ import { CSG } from '@core/CSG';
  * @param csg
  */
 export declare const reTessellate: (csg: CSG) => CSG;
-//# sourceMappingURL=reTesellate.d.ts.map
+//# sourceMappingURL=reTessellate.d.ts.map
