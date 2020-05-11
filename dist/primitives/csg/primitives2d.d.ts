@@ -1,3 +1,9 @@
+import { TVector2Universal } from '@core/math';
+export interface ICircleOptions {
+    center: TVector2Universal;
+    radius: number;
+    resolution: number;
+}
 /**
  * Construct a circle.
  * @param {Object} [options] - options for construction
@@ -6,7 +12,12 @@
  * @param {Number} [options.resolution=defaultResolution2D] - number of sides per 360 rotation
  * @returns {CAG} new CAG object
  */
-export declare const circle: (options?: any) => import("../../main").CAG;
+export declare const circle: (options?: Partial<ICircleOptions>) => import("../../main").CAG;
+export interface IEllipse {
+    center: TVector2Universal;
+    radius: TVector2Universal;
+    resolution: number;
+}
 /**
  * Construct an ellispe.
  * @param {Object} [options] - options for construction
@@ -15,7 +26,13 @@ export declare const circle: (options?: any) => import("../../main").CAG;
  * @param {Number} [options.resolution=defaultResolution2D] - number of sides per 360 rotation
  * @returns {CAG} new CAG object
  */
-export declare const ellipse: (options?: any) => import("../../main").CAG;
+export declare const ellipse: (options?: Partial<IEllipse>) => import("../../main").CAG;
+export interface IRectangle {
+    corner1: TVector2Universal;
+    corner2: TVector2Universal;
+    center: TVector2Universal;
+    radius: TVector2Universal;
+}
 /**
  * Construct a rectangle.
  * @param {Object} [options] - options for construction
@@ -25,7 +42,19 @@ export declare const ellipse: (options?: any) => import("../../main").CAG;
  * @param {Vector2D} [options.corner2=[0,0]] - upper right corner of rectangle (alternate)
  * @returns {CAG} new CAG object
  */
-export declare const rectangle: (options?: any) => import("../../main").CAG;
+export declare const rectangle: (options?: Partial<IRectangle>) => import("../../main").CAG;
+export interface IRoundedRectangle {
+    roundradius: number;
+    resolution: number;
+}
+export interface IRoundedRectangleNormal {
+    center: TVector2Universal;
+    radius: TVector2Universal;
+}
+export interface IRoundedRectangleCorner {
+    corner1: TVector2Universal;
+    corner2: TVector2Universal;
+}
 /**
  * Construct a rounded rectangle.
  * @param {Object} [options] - options for construction
@@ -45,5 +74,5 @@ export declare const rectangle: (options?: any) => import("../../main").CAG;
  *   resolution: 36,
  * });
  */
-export declare const roundedRectangle: (options?: any) => import("../../main").CAG;
+export declare const roundedRectangle: (options?: Partial<IRoundedRectangleNormal & IRoundedRectangle> | Partial<IRoundedRectangleCorner & IRoundedRectangle>) => import("../../main").CAG;
 //# sourceMappingURL=primitives2d.d.ts.map

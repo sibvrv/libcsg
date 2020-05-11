@@ -192,10 +192,10 @@ export declare class CAG extends TransformationMethods {
     };
     static Vertex: typeof Vertex2;
     static Side: typeof Side;
-    static circle: (options?: any) => CAG;
-    static ellipse: (options?: any) => CAG;
-    static rectangle: (options?: any) => CAG;
-    static roundedRectangle: (options?: any) => CAG;
+    static circle: (options?: Partial<import("../primitives/csg/primitives2d").ICircleOptions>) => CAG;
+    static ellipse: (options?: Partial<import("../primitives/csg/primitives2d").IEllipse>) => CAG;
+    static rectangle: (options?: Partial<import("../primitives/csg/primitives2d").IRectangle>) => CAG;
+    static roundedRectangle: (options?: Partial<import("../primitives/csg/primitives2d").IRoundedRectangleNormal & import("../primitives/csg/primitives2d").IRoundedRectangle> | Partial<import("../primitives/csg/primitives2d").IRoundedRectangleCorner & import("../primitives/csg/primitives2d").IRoundedRectangle>) => CAG;
     static fromSides: (sides: Side[]) => CAG;
     static fromObject: (obj: any) => CAG;
     static fromPoints: (points: any) => CAG;

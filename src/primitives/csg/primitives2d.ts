@@ -1,7 +1,13 @@
 import {parseOptionAs2DVector, parseOptionAsFloat, parseOptionAsInt} from '@api/optionParsers';
 import {defaultResolution2D} from '@core/constants';
 import {fromPath2, fromPoints} from '@core/CAGFactories';
-import {Path2D, Vector2} from '@core/math';
+import {Path2D, TVector2Universal, Vector2} from '@core/math';
+
+export interface ICircleOptions {
+  center: TVector2Universal;
+  radius: number;
+  resolution: number;
+}
 
 /**
  * Construct a circle.
@@ -11,11 +17,11 @@ import {Path2D, Vector2} from '@core/math';
  * @param {Number} [options.resolution=defaultResolution2D] - number of sides per 360 rotation
  * @returns {CAG} new CAG object
  */
-export const circle = (options?: any) => {
-  options = options || {};
+export const circle = (options: Partial<ICircleOptions> = {}) => {
   const center = parseOptionAs2DVector(options, 'center', [0, 0]);
   const radius = parseOptionAsFloat(options, 'radius', 1);
   const resolution = parseOptionAsInt(options, 'resolution', defaultResolution2D);
+
   const points = [];
   for (let i = 0; i < resolution; i++) {
     const radians = 2 * Math.PI * i / resolution;
@@ -25,6 +31,12 @@ export const circle = (options?: any) => {
   return fromPoints(points);
 };
 
+export interface IEllipse {
+  center: TVector2Universal;
+  radius: TVector2Universal;
+  resolution: number;
+}
+
 /**
  * Construct an ellispe.
  * @param {Object} [options] - options for construction
@@ -33,8 +45,7 @@ export const circle = (options?: any) => {
  * @param {Number} [options.resolution=defaultResolution2D] - number of sides per 360 rotation
  * @returns {CAG} new CAG object
  */
-export const ellipse = (options?: any) => {
-  options = options || {};
+export const ellipse = (options: Partial<IEllipse> = {}) => {
   const c = parseOptionAs2DVector(options, 'center', [0, 0]);
   let r = parseOptionAs2DVector(options, 'radius', [1, 1]);
   r = r.abs(); // negative radii make no sense
@@ -61,6 +72,13 @@ export const ellipse = (options?: any) => {
   return fromPath2(e2);
 };
 
+export interface IRectangle {
+  corner1: TVector2Universal;
+  corner2: TVector2Universal;
+  center: TVector2Universal;
+  radius: TVector2Universal;
+}
+
 /**
  * Construct a rectangle.
  * @param {Object} [options] - options for construction
@@ -70,8 +88,7 @@ export const ellipse = (options?: any) => {
  * @param {Vector2D} [options.corner2=[0,0]] - upper right corner of rectangle (alternate)
  * @returns {CAG} new CAG object
  */
-export const rectangle = (options?: any) => {
-  options = options || {};
+export const rectangle = (options: Partial<IRectangle> = {}) => {
   let c;
   let r;
   if (('corner1' in options) || ('corner2' in options)) {
@@ -94,6 +111,23 @@ export const rectangle = (options?: any) => {
   return fromPoints(points);
 };
 
+export interface IRoundedRectangle {
+  roundradius: number;
+  resolution: number;
+}
+
+export interface IRoundedRectangleNormal {
+  center: TVector2Universal;
+  radius: TVector2Universal;
+
+}
+
+export interface IRoundedRectangleCorner {
+  corner1: TVector2Universal;
+  corner2: TVector2Universal;
+
+}
+
 /**
  * Construct a rounded rectangle.
  * @param {Object} [options] - options for construction
@@ -113,8 +147,7 @@ export const rectangle = (options?: any) => {
  *   resolution: 36,
  * });
  */
-export const roundedRectangle = (options?: any) => {
-  options = options || {};
+export const roundedRectangle = (options: Partial<IRoundedRectangleNormal & IRoundedRectangle> | Partial<IRoundedRectangleCorner & IRoundedRectangle> = {}) => {
   let center;
   let radius;
   if (('corner1' in options) || ('corner2' in options)) {
