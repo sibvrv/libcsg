@@ -1,6 +1,7 @@
 import {areaEPS} from '@core/constants';
-import {linesIntersect, Vector2} from '@core/math';
+import {Vector2} from '@core/math';
 import {CAG} from '@core/CAG';
+import {linesIntersect} from '@core/utils/linesIntersect';
 
 /**
  * Check if we are a valid CAG (for debugging)

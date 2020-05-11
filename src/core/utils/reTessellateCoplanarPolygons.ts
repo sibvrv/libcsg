@@ -1,8 +1,9 @@
 import {EPS} from '@core/constants';
-import {calcInterpolationFactor, Line2D, OrthoNormalBasis, Polygon3, Vector2, Vertex3} from '../math';
+import {Line2D, OrthoNormalBasis, Polygon3, Vector2, Vertex3} from '../math';
 import {fnNumberSort} from '@core/utils/sortHelpers';
 import {insertSorted} from '@core/utils/insertSorted';
 import {interpolateBetween2DPointsForY} from '@core/utils/interpolateBetween2DPointsForY';
+import {calcInterpolationFactor} from '@core/utils/calcInterpolationFactor';
 
 /**
  * Re-Tessellation function for a set of coplanar polygons.

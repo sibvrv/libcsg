@@ -1,7 +1,5 @@
 // Utils
 
-export * from './calcInterpolationFactor';
-export * from './lineUtils';
 export * from './polygon3Factories';
 
 // Extra

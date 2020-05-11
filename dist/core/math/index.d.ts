@@ -1,5 +1,3 @@
-export * from './calcInterpolationFactor';
-export * from './lineUtils';
 export * from './polygon3Factories';
 export * from './PolygonShared';
 export * from './Polygon2';

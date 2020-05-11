@@ -1,4 +1,4 @@
-import { Vector2, Vector3 } from '.';
+import { Vector2, Vector3 } from '../math';
 /**
  * Calc Interpolation Factor
  * @param pointa

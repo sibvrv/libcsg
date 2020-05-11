@@ -1,5 +1,6 @@
-import {calcInterpolationFactor, Plane, Polygon3} from '@core/math';
+import {Plane, Polygon3} from '@core/math';
 import {EPS} from '@core/constants';
+import {calcInterpolationFactor} from '@core/utils/calcInterpolationFactor';
 
 /**
  * Split Polygon By Plane
@@ -76,8 +77,7 @@ export function splitPolygonByPlane(plane: Plane, polygon: Polygon3) {
           // line segment intersects plane:
           const point = vertex.pos;
           const nextpoint = vertices[nextvertexindex].pos;
-          const interpolationFactor =
-            calcInterpolationFactor(point, nextpoint, plane.splitLineBetweenPoints(point, nextpoint));
+          const interpolationFactor = calcInterpolationFactor(point, nextpoint, plane.splitLineBetweenPoints(point, nextpoint));
           const intersectionvertex = vertex.interpolate(vertices[nextvertexindex], interpolationFactor);
           if (isback) {
             backvertices.push(vertex);
