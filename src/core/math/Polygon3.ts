@@ -42,7 +42,10 @@ export class Polygon3 extends TransformationMethods {
   static defaultShared = new PolygonShared(null);
   static Shared = PolygonShared;
 
-// create from an untyped object with identical property names:
+  /**
+   * create from an untyped object with identical property names:
+   * @param obj
+   */
   static fromObject<T extends Polygon3 | { vertices: Vertex3[], shared?: PolygonShared, plane?: Plane }>(obj: T) {
     const vertices = obj.vertices.map((v: Vertex3) => {
       return Vertex3.fromObject(v);
@@ -82,6 +85,11 @@ export class Polygon3 extends TransformationMethods {
     return polygon;
   }
 
+  /**
+   * Vertices Convex
+   * @param vertices
+   * @param planenormal
+   */
   static verticesConvex(vertices: Vertex3[], planenormal: Vector3) {
     const numvertices = vertices.length;
     if (numvertices > 2) {
@@ -99,15 +107,27 @@ export class Polygon3 extends TransformationMethods {
     return true;
   }
 
-// calculate whether three points form a convex corner
-//  prevpoint, point, nextpoint: the 3 coordinates (Vector3 instances)
-//  normal: the normal vector of the plane
+  /**
+   * calculate whether three points form a convex corner
+   * prevpoint, point, nextpoint: the 3 coordinates (Vector3 instances)
+   * @param prevpoint
+   * @param point
+   * @param nextpoint
+   * @param normal - the normal vector of the plane
+   */
   static isConvexPoint(prevpoint: Vector3, point: Vector3, nextpoint: Vector3, normal: Vector3) {
     const crossproduct = point.minus(prevpoint).cross(nextpoint.minus(point));
     const crossdotnormal = crossproduct.dot(normal);
     return (crossdotnormal >= 0);
   };
 
+  /**
+   * Is Strictly Convex Point
+   * @param prevpoint
+   * @param point
+   * @param nextpoint
+   * @param normal
+   */
   static isStrictlyConvexPoint(prevpoint: Vector3, point: Vector3, nextpoint: Vector3, normal: Vector3) {
     const crossproduct = point.minus(prevpoint).cross(nextpoint.minus(point));
     const crossdotnormal = crossproduct.dot(normal);
@@ -116,6 +136,9 @@ export class Polygon3 extends TransformationMethods {
 
   /**
    * Polygon3 Constructor
+   * @param vertices
+   * @param shared
+   * @param plane
    */
   constructor(vertices: Vertex3[], shared?: PolygonShared | null, plane?: Plane) {
     super();
@@ -143,11 +166,18 @@ export class Polygon3 extends TransformationMethods {
 
   // FIXME what? why does this return this, and not a new polygon?
   // FIXME is this used?
+  /**
+   * Set Color
+   * @param args
+   */
   setColor(...args: any[]) {
     this.shared = Polygon3.Shared.fromColor(...args);
     return this;
   }
 
+  /**
+   * Get Signed Volume
+   */
   getSignedVolume() {
     let signedVolume = 0;
     for (let i = 0; i < this.vertices.length - 2; i++) {
@@ -158,7 +188,10 @@ export class Polygon3 extends TransformationMethods {
     return signedVolume;
   }
 
-  // Note: could calculate vectors only once to speed up
+  /**
+   * Get Area
+   * Note: could calculate vectors only once to speed up
+   */
   getArea() {
     let polygonArea = 0;
     for (let i = 0; i < this.vertices.length - 2; i++) {
@@ -169,8 +202,12 @@ export class Polygon3 extends TransformationMethods {
     return polygonArea;
   }
 
-  // accepts array of features to calculate
-  // returns array of results
+  /**
+   * Get Tetra Features
+   * accepts array of features to calculate
+   * returns array of results
+   * @param features
+   */
   getTetraFeatures(features: string[]) {
     const result: number[] = [];
     features.forEach((feature) => {
@@ -183,8 +220,11 @@ export class Polygon3 extends TransformationMethods {
     return result;
   }
 
-  // Extrude a polygon into the direction offsetvector
-  // Returns a CSG object
+  /**
+   * Extrude a polygon into the direction offsetvector
+   * Returns a CSG object
+   * @param offsetvector
+   */
   extrude(offsetvector: Vector3) {
     const newpolygons = [];
 
@@ -220,11 +260,18 @@ export class Polygon3 extends TransformationMethods {
     return fromPolygons(newpolygons);
   }
 
+  /**
+   * Translate polygon
+   * @param offset
+   */
   translate(offset: TVector3Universal) {
     return this.transform(Matrix4x4.translation(offset));
   }
 
-  // returns an array with a Vector3 (center point) and a radius
+  /**
+   * Bounding Sphere
+   * returns an array with a Vector3 (center point) and a radius
+   */
   boundingSphere() {
     if (!this.cachedBoundingSphere) {
       const box = this.boundingBox();
@@ -236,7 +283,10 @@ export class Polygon3 extends TransformationMethods {
     return this.cachedBoundingSphere;
   }
 
-  // returns an array of two Vector3s (minimum coordinates and maximum coordinates)
+  /**
+   * Bounding Box
+   * returns an array of two Vector3s (minimum coordinates and maximum coordinates)
+   */
   boundingBox() {
     if (!this.cachedBoundingBox) {
       let minpoint;
@@ -259,6 +309,9 @@ export class Polygon3 extends TransformationMethods {
     return this.cachedBoundingBox;
   }
 
+  /**
+   * get Flipped Polygon
+   */
   flipped() {
     const newvertices = this.vertices.map((v) => {
       return v.flipped();
@@ -268,7 +321,10 @@ export class Polygon3 extends TransformationMethods {
     return new Polygon3(newvertices, this.shared, newplane);
   }
 
-  // Affine transformation of polygon. Returns a new Polygon
+  /**
+   * Affine transformation of polygon. Returns a new Polygon
+   * @param matrix4x4
+   */
   transform(matrix4x4: Matrix4x4): Polygon3 {
     const newvertices = this.vertices.map((v) => {
       return v.transform(matrix4x4);
@@ -282,6 +338,9 @@ export class Polygon3 extends TransformationMethods {
     return new Polygon3(newvertices, this.shared, newplane);
   }
 
+  /**
+   * To String helper
+   */
   toString() {
     let result = 'Polygon plane: ' + this.plane.toString() + '\n';
     this.vertices.map((vertex) => {
@@ -290,7 +349,10 @@ export class Polygon3 extends TransformationMethods {
     return result;
   }
 
-  // project the 3D polygon onto a plane
+  /**
+   * Project the 3D polygon onto a plane
+   * @param orthobasis
+   */
   projectToOrthoNormalBasis(orthobasis: OrthoNormalBasis) {
     const points2d = this.vertices.map((vertex) => {
       return orthobasis.to2D(vertex.pos);
@@ -308,7 +370,11 @@ export class Polygon3 extends TransformationMethods {
     return result;
   }
 
-  // ALIAS ONLY!!
+  /**
+   * Solid From Slices
+   * ALIAS ONLY!!
+   * @param options
+   */
   solidFromSlices(options: Partial<ISolidFromSlices>) {
     return solidFromSlices(this, options);
   }

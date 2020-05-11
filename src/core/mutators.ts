@@ -1,4 +1,10 @@
 // TODO: consider generalization and adding to addTransformationMethodsToPrototype
+/**
+ * Add Centering To Prototype
+ * mixin
+ * @param prot
+ * @param axes
+ */
 export const addCenteringToPrototype = (prot: any, axes: any) => {
   prot.center = function(cAxes: any) {
     cAxes = Array.prototype.map.call(arguments, (a) => {

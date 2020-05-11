@@ -2,10 +2,12 @@ import {Polygon3} from '@core/math';
 import {PolygonTreeNode} from '@core/PolygonTreeNode';
 import {Node} from '@core/Node';
 
-// # class Tree
-// This is the root of a BSP tree
-// We are using this separate class for the root of the tree, to hold the PolygonTreeNode root
-// The actual tree is kept in this.rootnode
+/**
+ * @class Tree
+ * This is the root of a BSP tree
+ * We are using this separate class for the root of the tree, to hold the PolygonTreeNode root
+ * The actual tree is kept in this.rootnode
+ */
 export class Tree {
   polygonTree = new PolygonTreeNode();
   rootnode = new Node(null);
@@ -19,24 +21,38 @@ export class Tree {
     }
   }
 
+  /**
+   * Invert
+   */
   invert() {
     this.polygonTree.invert();
     this.rootnode.invert();
   }
 
-  // Remove all polygons in this BSP tree that are inside the other BSP tree
-  // `tree`.
+  /**
+   * Remove all polygons in this BSP tree that are inside the other BSP tree
+   * `tree`.
+   * @param tree
+   * @param alsoRemovecoplanarFront
+   */
   clipTo(tree: Tree, alsoRemovecoplanarFront?: boolean) {
     alsoRemovecoplanarFront = !!alsoRemovecoplanarFront;
     this.rootnode.clipTo(tree, alsoRemovecoplanarFront);
   }
 
+  /**
+   * All Polygons
+   */
   allPolygons() {
     const result: Polygon3[] = [];
     this.polygonTree.getPolygons(result);
     return result;
   }
 
+  /**
+   * Add Polygons
+   * @param polygons
+   */
   addPolygons(polygons: Polygon3[]) {
     const _this = this;
     const polygontreenodes = polygons.map((p) => {

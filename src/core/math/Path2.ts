@@ -13,10 +13,12 @@ export interface IPath2DArcOptions {
 }
 
 /**
- * Class Path2D
+ * @class Path2D
+ *
  * Represents a series of points, connected by infinitely thin lines.
  * A path can be open or closed, i.e. additional line between first and last points.
  * The difference between Path2D and CAG is that a path is a 'thin' line, whereas a CAG is an enclosed area.
+ *
  * @constructor
  * @param {Vector2[]} [points=[]] - list of points
  * @param {boolean} [closed=false] - closer of path
@@ -92,6 +94,11 @@ export class Path2D extends TransformationMethods {
     return new Path2D(points, false);
   }
 
+  /**
+   * Path2D Constructor
+   * @param points
+   * @param closed
+   */
   constructor(points?: number[][] | Vector2[], closed: boolean = false) {
     super();
 
@@ -118,6 +125,10 @@ export class Path2D extends TransformationMethods {
     this.closed = closed;
   }
 
+  /**
+   * Create a new Path2D by merging two Path2D
+   * @param otherpath
+   */
   concat(otherpath: Path2D) {
     if (this.closed || otherpath.closed) {
       throw new Error('Paths must not be closed');
@@ -165,6 +176,9 @@ export class Path2D extends TransformationMethods {
     return new Path2D(newpoints);
   }
 
+  /**
+   * Close Path2D
+   */
   close() {
     return new Path2D(this.points, true);
   }
@@ -198,11 +212,13 @@ export class Path2D extends TransformationMethods {
     }
   }
 
-  // Extrude the path by following it with a rectangle (upright, perpendicular to the path direction)
-  // Returns a CSG solid
-  //   width: width of the extrusion, in the z=0 plane
-  //   height: height of the extrusion in the z direction
-  //   resolution: number of segments per 360 degrees for the curve in a corner
+  /**
+   * Extrude the path by following it with a rectangle (upright, perpendicular to the path direction)
+   * Returns a CSG solid
+   * @param width - width of the extrusion, in the z=0 plane
+   * @param height - height of the extrusion in the z direction
+   * @param resolution - number of segments per 360 degrees for the curve in a corner
+   */
   rectangularExtrude(width: number, height: number, resolution: number) {
     const cag = this.expandToCAG(width / 2, resolution);
     const result = cag.extrude({
@@ -211,8 +227,12 @@ export class Path2D extends TransformationMethods {
     return result;
   }
 
-  // Expand the path to a CAG
-  // This traces the path with a circle with radius pathradius
+  /**
+   * Expand the path to a CAG
+   * This traces the path with a circle with radius pathradius
+   * @param pathradius
+   * @param resolution
+   */
   expandToCAG(pathradius: number, resolution: number) {
     const sides = [];
     const numpoints = this.points.length;
@@ -235,11 +255,18 @@ export class Path2D extends TransformationMethods {
     return expanded;
   }
 
+  /**
+   * Inner to CAG
+   */
   innerToCAG() {
     if (!this.closed) throw new Error('The path should be closed!');
     return CAG.fromPoints(this.points);
   }
 
+  /**
+   * Transform helper
+   * @param matrix4x4
+   */
   transform(matrix4x4: Matrix4x4): Path2D {
     const newpoints = this.points.map((point) => point.multiply4x4(matrix4x4));
     return new Path2D(newpoints, this.closed);
@@ -501,4 +528,3 @@ export class Path2D extends TransformationMethods {
     return result;
   }
 }
-

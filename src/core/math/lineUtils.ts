@@ -1,8 +1,14 @@
 import {EPS} from '@core/constants';
 import {solve2Linear} from '@core/utils/solve2Linear';
 
-// see if the line between p0start and p0end intersects with the line between p1start and p1end
-// returns true if the lines strictly intersect, the end points are not counted!
+/**
+ * See if the line between p0start and p0end intersects with the line between p1start and p1end
+ * returns true if the lines strictly intersect, the end points are not counted!
+ * @param p0start
+ * @param p0end
+ * @param p1start
+ * @param p1end
+ */
 export const linesIntersect = (p0start: any, p0end: any, p1start: any, p1end: any) => {
   if (p0end.equals(p1start) || p1end.equals(p0start)) {
     const d = p1end.minus(p1start).unit().plus(p0end.minus(p0start).unit()).length();

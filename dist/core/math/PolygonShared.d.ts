@@ -10,6 +10,10 @@
 export declare class PolygonShared {
     color: [number, number, number, number];
     tag?: number;
+    /**
+     * make from object
+     * @param obj
+     */
     static fromObject(obj: any): PolygonShared;
     /**
      * Create Polygon.Shared from color values.
@@ -28,7 +32,13 @@ export declare class PolygonShared {
      * PolygonShared Constructor
      */
     constructor(color?: [number, number, number, number] | null);
+    /**
+     * get Tag
+     */
     getTag(): number;
+    /**
+     * get a string uniquely identifying this object
+     */
     getHash(): string;
 }
 //# sourceMappingURL=PolygonShared.d.ts.map

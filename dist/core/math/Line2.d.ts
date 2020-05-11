@@ -17,13 +17,43 @@ export declare class Line2D extends TransformationMethods {
      * Line2D Constructor
      */
     constructor(_normal: TVector2Universal, w: number | string);
+    /**
+     * Reverse
+     * same line but opposite direction:
+     */
     reverse(): Line2D;
+    /**
+     * Line-Line equals
+     * @param l
+     */
     equals(l: Line2D): boolean;
+    /**
+     * get Origin
+     */
     origin(): Vector2;
+    /**
+     * get Direction
+     */
     direction(): Vector2;
+    /**
+     * get x at y
+     * @param y
+     */
     xAtY(y: number): number;
+    /**
+     * |distance| to point
+     * @param point
+     */
     absDistanceToPoint(point: Vector2 | [number, number]): number;
+    /**
+     * Intersection between two lines, returns point as Vector2
+     * @param line2d
+     */
     intersectWithLine(line2d: Line2D): Vector2;
+    /**
+     * Transform helper
+     * @param matrix4x4
+     */
     transform(matrix4x4: Matrix4x4): Line2D;
 }
 //# sourceMappingURL=Line2.d.ts.map

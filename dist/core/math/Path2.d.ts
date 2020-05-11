@@ -9,10 +9,12 @@ export interface IPath2DArcOptions {
     maketangent: boolean;
 }
 /**
- * Class Path2D
+ * @class Path2D
+ *
  * Represents a series of points, connected by infinitely thin lines.
  * A path can be open or closed, i.e. additional line between first and last points.
  * The difference between Path2D and CAG is that a path is a 'thin' line, whereas a CAG is an enclosed area.
+ *
  * @constructor
  * @param {Vector2[]} [points=[]] - list of points
  * @param {boolean} [closed=false] - closer of path
@@ -47,7 +49,16 @@ export declare class Path2D extends TransformationMethods {
      * });
      */
     static arc(options?: Partial<IPath2DArcOptions>): Path2D;
+    /**
+     * Path2D Constructor
+     * @param points
+     * @param closed
+     */
     constructor(points?: number[][] | Vector2[], closed?: boolean);
+    /**
+     * Create a new Path2D by merging two Path2D
+     * @param otherpath
+     */
     concat(otherpath: Path2D): Path2D;
     /**
      * Get the points that make up the path.
@@ -67,6 +78,9 @@ export declare class Path2D extends TransformationMethods {
      * @returns {Path2D} new Path2D object (not closed)
      */
     appendPoints(points: number[][] | Vector2[]): Path2D;
+    /**
+     * Close Path2D
+     */
     close(): Path2D;
     /**
      * Determine if the path is a closed or not.
@@ -79,9 +93,29 @@ export declare class Path2D extends TransformationMethods {
      * @returns {String} One of ['clockwise', 'counter-clockwise', 'straight'].
      */
     getTurn(): "clockwise" | "counter-clockwise" | "straight";
+    /**
+     * Extrude the path by following it with a rectangle (upright, perpendicular to the path direction)
+     * Returns a CSG solid
+     * @param width - width of the extrusion, in the z=0 plane
+     * @param height - height of the extrusion in the z direction
+     * @param resolution - number of segments per 360 degrees for the curve in a corner
+     */
     rectangularExtrude(width: number, height: number, resolution: number): import("../CSG").CSG;
+    /**
+     * Expand the path to a CAG
+     * This traces the path with a circle with radius pathradius
+     * @param pathradius
+     * @param resolution
+     */
     expandToCAG(pathradius: number, resolution: number): CAG;
+    /**
+     * Inner to CAG
+     */
     innerToCAG(): CAG;
+    /**
+     * Transform helper
+     * @param matrix4x4
+     */
     transform(matrix4x4: Matrix4x4): Path2D;
     /**
      * Append a Bezier curve to the end of the path, using the control points to transition the curve through start and end points.

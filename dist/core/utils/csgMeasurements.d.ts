@@ -9,6 +9,14 @@ import { CSG } from '@core/CSG';
  * let minX = bounds[0].x
  */
 export declare const bounds: (csg: CSG) => [Vector3, Vector3];
-export declare const volume: (csg: CSG) => void;
-export declare const area: (csg: CSG) => void;
+/**
+ * Get CSG Volume
+ * @param csg
+ */
+export declare const volume: (csg: CSG) => any[];
+/**
+ * Get CSG Area
+ * @param csg
+ */
+export declare const area: (csg: CSG) => any[];
 //# sourceMappingURL=csgMeasurements.d.ts.map

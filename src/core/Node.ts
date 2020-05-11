@@ -2,14 +2,16 @@ import {Plane, Vector3} from '@core/math';
 import {Tree} from '@core/Tree';
 import {PolygonTreeNode} from '@core/PolygonTreeNode';
 
-// # class Node
-// Holds a node in a BSP tree. A BSP tree is built from a collection of polygons
-// by picking a polygon to split along.
-// Polygons are not stored directly in the tree, but in PolygonTreeNodes, stored in
-// this.polygontreenodes. Those PolygonTreeNodes are children of the owning
-// Tree.polygonTree
-// This is not a leafy BSP tree since there is
-// no distinction between internal and leaf nodes.
+/**
+ * @class Node
+ * Holds a node in a BSP tree. A BSP tree is built from a collection of polygons
+ * by picking a polygon to split along.
+ * Polygons are not stored directly in the tree, but in PolygonTreeNodes, stored in
+ * this.polygontreenodes. Those PolygonTreeNodes are children of the owning
+ * Tree.polygonTree
+ * This is not a leafy BSP tree since there is
+ * no distinction between internal and leaf nodes.
+ */
 export class Node {
   plane: Plane | null = null;
   front: Node | null = null;
@@ -23,7 +25,9 @@ export class Node {
 
   }
 
-  // Convert solid space to empty space and empty space to solid space.
+  /**
+   * Convert solid space to empty space and empty space to solid space.
+   */
   invert() {
     const queue: Node[] = [this];
 
@@ -47,8 +51,12 @@ export class Node {
     }
   }
 
-  // clip polygontreenodes to our plane
-  // calls remove() for all clipped PolygonTreeNodes
+  /**
+   * clip polygontreenodes to our plane
+   * calls remove() for all clipped PolygonTreeNodes
+   * @param polygontreenodes
+   * @param alsoRemovecoplanarFront
+   */
   clipPolygons(polygontreenodes: PolygonTreeNode[], alsoRemovecoplanarFront?: boolean) {
     let args = {
       'node': this as Node,
@@ -92,8 +100,12 @@ export class Node {
     } while (typeof (args) !== 'undefined');
   }
 
-  // Remove all polygons in this BSP tree that are inside the other BSP tree
-  // `tree`.
+  /**
+   * Remove all polygons in this BSP tree that are inside the other BSP tree
+   * `tree`.
+   * @param tree
+   * @param alsoRemovecoplanarFront
+   */
   clipTo(tree: Tree, alsoRemovecoplanarFront?: boolean) {
     let node: Node = this;
     const stack = [];
@@ -108,6 +120,10 @@ export class Node {
     } while (typeof (node) !== 'undefined');
   }
 
+  /**
+   * Add Polygon Tree Nodes
+   * @param polygontreenodes
+   */
   addPolygonTreeNodes(polygontreenodes: PolygonTreeNode[]) {
     let args = {
       'node': this as Node,
@@ -161,6 +177,11 @@ export class Node {
     } while (typeof (args) !== 'undefined');
   }
 
+  /**
+   * Get Parent Plane Normals
+   * @param normals
+   * @param maxdepth
+   */
   getParentPlaneNormals(normals: Vector3[], maxdepth: number) {
     if (maxdepth > 0) {
       if (this.parent && this.parent.plane) {

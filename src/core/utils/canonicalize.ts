@@ -52,6 +52,11 @@ const canonicalizeCSG = (csg: CSG, options?: any) => {
   }
 };
 
+/**
+ * Returns a cannoicalized version of the input cag
+ * @param cag
+ * @param options
+ */
 const canonicalizeCAG = (cag: CAG, options?: any) => {
   if (cag.isCanonicalized) {
     return cag;
@@ -63,6 +68,12 @@ const canonicalizeCAG = (cag: CAG, options?: any) => {
   }
 };
 
+/**
+ * CSGFromCSGFuzzyFactory
+ * @param factory
+ * @param sourcecsg
+ * @constructor
+ */
 const CSGFromCSGFuzzyFactory = (factory: FuzzyCSGFactory, sourcecsg: CSG) => {
   const _this = factory;
   const newpolygons: Polygon3[] = [];
@@ -79,6 +90,12 @@ const CSGFromCSGFuzzyFactory = (factory: FuzzyCSGFactory, sourcecsg: CSG) => {
   return fromPolygons(newpolygons);
 };
 
+/**
+ * CAGFromCAGFuzzyFactory
+ * @param factory
+ * @param sourcecag
+ * @constructor
+ */
 const CAGFromCAGFuzzyFactory = (factory: FuzzyCAGFactory, sourcecag: CAG) => {
   const _this = factory;
 

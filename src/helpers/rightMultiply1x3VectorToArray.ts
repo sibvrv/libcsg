@@ -1,6 +1,10 @@
 import {Matrix4x4} from '@core/math';
 
-// Simplified, array vector rightMultiply1x3Vector
+/**
+ * Simplified, array vector rightMultiply1x3Vector
+ * @param matrix
+ * @param vector
+ */
 export const rightMultiply1x3VectorToArray = (matrix: Matrix4x4, vector: [number, number, number]) => {
   const [v0, v1, v2] = vector;
   const v3 = 1;

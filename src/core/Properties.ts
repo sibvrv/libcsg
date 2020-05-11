@@ -1,16 +1,23 @@
 import {Matrix4x4} from '@core/math';
 
-// ////////////////////////////////////
-// # Class Properties
-// This class is used to store properties of a solid
-// A property can for example be a Vertex, a Plane or a Line3D
-// Whenever an affine transform is applied to the CSG solid, all its properties are
-// transformed as well.
-// The properties can be stored in a complex nested structure (using arrays and objects)
+/**
+ * @class Properties
+ * This class is used to store properties of a solid
+ * A property can for example be a Vertex, a Plane or a Line3D
+ * Whenever an affine transform is applied to the CSG solid, all its properties are
+ * transformed as well.
+ * The properties can be stored in a complex nested structure (using arrays and objects)
+ */
 export class Properties {
   // todo: replace it with states (setState/getState)
   [key: string]: any;
 
+  /**
+   * Transform Obj
+   * @param source
+   * @param result
+   * @param matrix4x4
+   */
   static transformObj(source: any, result: any, matrix4x4: Matrix4x4) {
     for (const propertyName in source) {
       if (propertyName === '_transform') continue;
@@ -32,6 +39,11 @@ export class Properties {
     }
   }
 
+  /**
+   * Clone Obj
+   * @param source
+   * @param result
+   */
   static cloneObj(source: any, result: any) {
     for (const propertyName in source) {
       if (propertyName === '_transform') continue;
@@ -55,6 +67,11 @@ export class Properties {
     }
   }
 
+  /**
+   * Add From
+   * @param result
+   * @param otherproperties
+   */
   static addFrom(result: any, otherproperties: any) {
     for (const propertyName in otherproperties) {
       if (propertyName === '_transform') continue;
@@ -71,12 +88,22 @@ export class Properties {
     }
   }
 
+  /**
+   * Transform helper
+   * @param matrix4x4
+   * @private
+   */
   _transform(matrix4x4: Matrix4x4) {
     const result = new Properties();
     Properties.transformObj(this, result, matrix4x4);
     return result;
   }
 
+  /**
+   * Merge helper
+   * @param otherproperties
+   * @private
+   */
   _merge(otherproperties: any) {
     const result = new Properties();
     Properties.cloneObj(this, result);

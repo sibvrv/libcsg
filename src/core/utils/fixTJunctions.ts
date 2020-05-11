@@ -1,8 +1,16 @@
-// @ts-nocheck
 import {EPS} from '@core/constants';
 import {Plane, Polygon3} from '@core/math';
 
-function addSide(sidemap, vertextag2sidestart, vertextag2sideend, vertex0, vertex1, polygonindex) {
+/**
+ * Add Side
+ * @param sidemap
+ * @param vertextag2sidestart
+ * @param vertextag2sideend
+ * @param vertex0
+ * @param vertex1
+ * @param polygonindex
+ */
+function addSide(sidemap: any, vertextag2sidestart: any, vertextag2sideend: any, vertex0: any, vertex1: any, polygonindex: any) {
   const starttag = vertex0.getTag();
   const endtag = vertex1.getTag();
   if (starttag === endtag) throw new Error('Assertion failed');
@@ -39,7 +47,16 @@ function addSide(sidemap, vertextag2sidestart, vertextag2sideend, vertex0, verte
   return newsidetag;
 }
 
-function deleteSide(sidemap, vertextag2sidestart, vertextag2sideend, vertex0, vertex1, polygonindex) {
+/**
+ * Delete Side
+ * @param sidemap
+ * @param vertextag2sidestart
+ * @param vertextag2sideend
+ * @param vertex0
+ * @param vertex1
+ * @param polygonindex
+ */
+function deleteSide(sidemap: any, vertextag2sidestart: any, vertextag2sideend: any, vertex0: any, vertex1: any, polygonindex: any) {
   const starttag = vertex0.getTag();
   const endtag = vertex1.getTag();
   const sidetag = starttag + '/' + endtag;
@@ -77,29 +94,31 @@ function deleteSide(sidemap, vertextag2sidestart, vertextag2sideend, vertex0, ve
   }
 }
 
-/*
-     fixTJunctions:
-
-     Suppose we have two polygons ACDB and EDGF:
-
-      A-----B
-      |     |
-      |     E--F
-      |     |  |
-      C-----D--G
-
-     Note that vertex E forms a T-junction on the side BD. In this case some STL slicers will complain
-     that the solid is not watertight. This is because the watertightness check is done by checking if
-     each side DE is matched by another side ED.
-
-     This function will return a new solid with ACDB replaced by ACDEB
-
-     Note that this can create polygons that are slightly non-convex (due to rounding errors). Therefore the result should
-     not be used for further CSG operations!
-*/
-export const fixTJunctions = (fromPolygons, csg) => {
+/**
+ * Fix TJunctions
+ *     Suppose we have two polygons ACDB and EDGF:
+ *
+ *     A-----B
+ *     |     |
+ *     |     E--F
+ *     |     |  |
+ *     C-----D--G
+ *
+ *     Note that vertex E forms a T-junction on the side BD. In this case some STL slicers will complain
+ *     that the solid is not watertight. This is because the watertightness check is done by checking if
+ *     each side DE is matched by another side ED.
+ *
+ *     This function will return a new solid with ACDB replaced by ACDEB
+ *
+ *     Note that this can create polygons that are slightly non-convex (due to rounding errors). Therefore the result should
+ *     not be used for further CSG operations!
+ *
+ * @param fromPolygons
+ * @param csg
+ */
+export const fixTJunctions = (fromPolygons: any, csg: any) => {
   csg = csg.canonicalized();
-  const sidemap = {};
+  const sidemap: any = {};
 
   // STEP 1
   for (let polygonindex = 0; polygonindex < csg.polygons.length; polygonindex++) {
@@ -143,16 +162,16 @@ export const fixTJunctions = (fromPolygons, csg) => {
   // STEP 2
   // now sidemap contains 'unmatched' sides
   // i.e. side AB in one polygon does not have a matching side BA in another polygon
-  const vertextag2sidestart = {};
-  const vertextag2sideend = {};
-  const sidestocheck = {};
+  const vertextag2sidestart: any = {};
+  const vertextag2sideend: any = {};
+  const sidestocheck: any = {};
   let sidemapisempty = true;
 
   // tslint:disable-next-line:forin
   for (const sidetag in sidemap) {
     sidemapisempty = false;
     sidestocheck[sidetag] = true;
-    sidemap[sidetag].map((sideobj) => {
+    sidemap[sidetag].map((sideobj: any) => {
       const starttag = sideobj.vertex0.getTag();
       const endtag = sideobj.vertex1.getTag();
       if (starttag in vertextag2sidestart) {
@@ -262,16 +281,16 @@ export const fixTJunctions = (fromPolygons, csg) => {
                     // calculate plane with differents point
                     if (isNaN(newpolygon.plane.w)) {
                       let found = false;
-                      const loop = (callback) => {
+                      const loop = (callback: any) => {
                         newpolygon.vertices.forEach((item) => {
                           if (found) return;
                           callback(item);
                         });
                       };
 
-                      loop((a) => {
-                        loop((b) => {
-                          loop((c) => {
+                      loop((a: any) => {
+                        loop((b: any) => {
+                          loop((c: any) => {
                             newpolygon.plane = Plane.fromPoints(a.pos, b.pos, c.pos);
                             if (!isNaN(newpolygon.plane.w)) {
                               found = true;

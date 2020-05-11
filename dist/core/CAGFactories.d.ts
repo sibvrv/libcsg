@@ -7,6 +7,11 @@ import { CSG } from '@core/CSG';
  * @returns {CAG} new CAG object
  */
 export declare const fromSides: (sides: Side[]) => CAG;
+/**
+ * Converts a CSG to a  The CSG must consist of polygons with only z coordinates +1 and -1
+ * as constructed by _toCSGWall(-1, 1). This is so we can use the 3D union(), intersect() etc
+ * @param csg
+ */
 export declare const fromFakeCSG: (csg: CSG) => CAG;
 /**
  * Construct a CAG from a list of points (a polygon) or an nested array of points.
@@ -19,7 +24,15 @@ export declare const fromFakeCSG: (csg: CSG) => CAG;
  * @returns {CAG} new CAG object
  */
 export declare const fromPoints: (points: any) => CAG;
+/**
+ * Do not export the two following function (code splitting for fromPoints())
+ * @param points
+ */
 export declare const fromPointsArray: (points: any) => CAG;
+/**
+ * From Nested Points Array
+ * @param points
+ */
 export declare const fromNestedPointsArray: (points: any) => CAG;
 /**
  * Reconstruct a CAG from an object with identical property names.

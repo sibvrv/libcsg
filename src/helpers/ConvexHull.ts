@@ -4,20 +4,33 @@ import {ConvexHullPoint} from './ConvexHullPoint';
  * Convex Hull
  * from http://www.psychedelicdevelopment.com/grahamscan/
  * see also at https://github.com/bkiers/GrahamScan/blob/master/src/main/cg/GrahamScan.java
+ * @class ConvexHull
  */
 export class ConvexHull {
   points: any[] = null!;
   indices: number[] = null!;
 
+  /**
+   * Get Indices
+   */
   getIndices() {
     return this.indices;
   };
 
+  /**
+   * Clear
+   */
   clear() {
     this.indices = null!;
     this.points = null!;
   }
 
+  /**
+   * CCW
+   * @param p1
+   * @param p2
+   * @param p3
+   */
   ccw(p1: number, p2: number, p3: number) {
     const ccw = (this.points[p2].x - this.points[p1].x) * (this.points[p3].y - this.points[p1].y) -
       (this.points[p2].y - this.points[p1].y) * (this.points[p3].x - this.points[p1].x);
@@ -28,16 +41,30 @@ export class ConvexHull {
     return ccw;
   }
 
+  /**
+   * Angle
+   * @param o
+   * @param a
+   */
   angle(o: number, a: number) {
     // return Math.atan((this.points[a].y-this.points[o].y) / (this.points[a].x - this.points[o].x));
     return Math.atan2((this.points[a].y - this.points[o].y), (this.points[a].x - this.points[o].x));
   }
 
+  /**
+   * Distance
+   * @param a
+   * @param b
+   */
   distance(a: number, b: number) {
     return ((this.points[b].x - this.points[a].x) * (this.points[b].x - this.points[a].x) +
       (this.points[b].y - this.points[a].y) * (this.points[b].y - this.points[a].y));
   };
 
+  /**
+   * Compute
+   * @param _points
+   */
   compute(_points: any[]) {
     this.indices = null!;
     if (_points.length < 3) {

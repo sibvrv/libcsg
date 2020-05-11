@@ -1,11 +1,12 @@
 import {Line2D, Line3D, Matrix4x4, Plane, TransformationMethods, TVector3Universal, Vector2, Vector3} from '.';
 
 /**
- * class OrthoNormalBasis
  * Reprojects points on a 3D plane onto a 2D plane
  * or from a 2D plane back onto the 3D plane
  * @param  {Plane} plane
  * @param  {Vector3D|Vector2D} rightvector
+ *
+ * @class OrthoNormalBasis
  */
 export class OrthoNormalBasis extends TransformationMethods {
   v: Vector3;
@@ -13,13 +14,19 @@ export class OrthoNormalBasis extends TransformationMethods {
   plane: Plane;
   planeorigin: Vector3;
 
-  // Get an orthonormal basis for the standard XYZ planes.
-  // Parameters: the names of two 3D axes. The 2d x axis will map to the first given 3D axis, the 2d y
-  // axis will map to the second.
-  // Prepend the axis with a "-" to invert the direction of this axis.
-  // For example: OrthoNormalBasis.GetCartesian("-Y","Z")
-  //   will return an orthonormal basis where the 2d X axis maps to the 3D inverted Y axis, and
-  //   the 2d Y axis maps to the 3D Z axis.
+  /**
+   * Get an orthonormal basis for the standard XYZ planes.
+   * Parameters: the names of two 3D axes. The 2d x axis will map to the first given 3D axis, the 2d y
+   * axis will map to the second.
+   *
+   * Prepend the axis with a "-" to invert the direction of this axis.
+   * For example: OrthoNormalBasis.GetCartesian("-Y","Z")
+   * will return an orthonormal basis where the 2d X axis maps to the 3D inverted Y axis, and
+   * the 2d Y axis maps to the 3D Z axis.
+   * @param xaxisid
+   * @param yaxisid
+   * @constructor
+   */
   static GetCartesian(xaxisid: string, yaxisid: string) {
     const axisid = `${xaxisid}/${yaxisid}`;
     let planenormal;
@@ -130,7 +137,10 @@ export class OrthoNormalBasis extends TransformationMethods {
   };
   */
 
-// The z=0 plane, with the 3D x and y vectors mapped to the 2D x and y vector
+  /**
+   * The z=0 plane, with the 3D x and y vectors mapped to the 2D x and y vector
+   * @constructor
+   */
   static Z0Plane() {
     const plane = new Plane(new Vector3([0, 0, 1]), 0);
     return new OrthoNormalBasis(plane, new Vector3([1, 0, 0]));
@@ -149,6 +159,9 @@ export class OrthoNormalBasis extends TransformationMethods {
     this.planeorigin = plane.normal.times(plane.w);
   }
 
+  /**
+   * Get projection matrix
+   */
   getProjectionMatrix() {
     return new Matrix4x4([
       this.u.x, this.v.x, this.plane.normal.x, 0,
@@ -158,6 +171,9 @@ export class OrthoNormalBasis extends TransformationMethods {
     ]);
   }
 
+  /**
+   * Get inverse projection matrix
+   */
   getInverseProjectionMatrix() {
     const p = this.plane.normal.times(this.plane.w);
     return new Matrix4x4([
@@ -168,14 +184,26 @@ export class OrthoNormalBasis extends TransformationMethods {
     ]);
   }
 
+  /**
+   * to Vector2
+   * @param vec3
+   */
   to2D(vec3: Vector3) {
     return new Vector2(vec3.dot(this.u), vec3.dot(this.v));
   }
 
+  /**
+   * to Vector3
+   * @param vec2
+   */
   to3D(vec2: Vector2) {
     return this.planeorigin.plus(this.u.times(vec2.x)).plus(this.v.times(vec2.y));
   }
 
+  /**
+   * Line 3D to 2D
+   * @param line3d
+   */
   line3Dto2D(line3d: Line3D) {
     const a = line3d.point;
     const b = line3d.direction.plus(a);
@@ -184,6 +212,10 @@ export class OrthoNormalBasis extends TransformationMethods {
     return Line2D.fromPoints(a2d, b2d);
   }
 
+  /**
+   * Line 2D to 3D
+   * @param line2d
+   */
   line2Dto3D(line2d: Line2D) {
     const a = line2d.origin();
     const b = line2d.direction().plus(a);
@@ -192,6 +224,10 @@ export class OrthoNormalBasis extends TransformationMethods {
     return Line3D.fromPoints(a3d, b3d);
   }
 
+  /**
+   * Transform helper
+   * @param matrix4x4
+   */
   transform(matrix4x4: Matrix4x4): OrthoNormalBasis {
     // todo: this may not work properly in case of mirroring
     const newplane = this.plane.transform(matrix4x4);

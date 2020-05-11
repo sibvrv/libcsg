@@ -13,6 +13,10 @@ export class PolygonShared {
   color: [number, number, number, number];
   tag?: number;
 
+  /**
+   * make from object
+   * @param obj
+   */
   static fromObject(obj: any) {
     return new PolygonShared(obj.color);
   };
@@ -61,6 +65,9 @@ export class PolygonShared {
     this.color = color as any;
   }
 
+  /**
+   * get Tag
+   */
   getTag() {
     let result = this.tag;
     if (!result) {
@@ -70,7 +77,9 @@ export class PolygonShared {
     return result;
   }
 
-  // get a string uniquely identifying this object
+  /**
+   * get a string uniquely identifying this object
+   */
   getHash() {
     if (!this.color) return 'null';
     return this.color.join('/');

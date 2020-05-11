@@ -1,17 +1,30 @@
 import {getTag} from '@core/constants';
 import {Matrix4x4, Polygon3, TransformationMethods, Vector2, Vertex2, Vertex3} from '.';
 
+/**
+ * Side
+ * @class Side
+ */
 export class Side extends TransformationMethods {
   vertex0: Vertex2;
   vertex1: Vertex2;
   tag?: number;
 
+  /**
+   * make from object
+   * @param obj
+   */
   static fromObject(obj: Side) {
     const vertex0 = Vertex2.fromObject(obj.vertex0);
     const vertex1 = Vertex2.fromObject(obj.vertex1);
     return new Side(vertex0, vertex1);
   };
 
+  /**
+   * from fake polygon
+   * @param polygon
+   * @private
+   */
   static _fromFakePolygon(polygon: Polygon3) {
     // this can happen based on union, seems to be residuals -
     // return null and handle in caller
@@ -48,16 +61,29 @@ export class Side extends TransformationMethods {
     return result;
   };
 
+  /**
+   * Side Constructor
+   * @param vertex0
+   * @param vertex1
+   */
   constructor(vertex0: Vertex2, vertex1: Vertex2) {
     super();
     this.vertex0 = vertex0;
     this.vertex1 = vertex1;
   }
 
+  /**
+   * To String Helper
+   */
   toString() {
     return this.vertex0 + ' -> ' + this.vertex1;
   }
 
+  /**
+   * Convert to Polygon3
+   * @param z0
+   * @param z1
+   */
   toPolygon3D(z0: number, z1: number) {
     // console.log(this.vertex0.pos)
     const vertices = [
@@ -69,20 +95,33 @@ export class Side extends TransformationMethods {
     return new Polygon3(vertices);
   }
 
+  /**
+   * Transform helper
+   * @param matrix4x4
+   */
   transform(matrix4x4: Matrix4x4): Side {
     const newp1 = this.vertex0.pos.transform(matrix4x4);
     const newp2 = this.vertex1.pos.transform(matrix4x4);
     return new Side(new Vertex2(newp1), new Vertex2(newp2));
   }
 
+  /**
+   * Get Flipped side
+   */
   flipped() {
     return new Side(this.vertex1, this.vertex0);
   }
 
+  /**
+   * Get Direction
+   */
   direction() {
     return this.vertex1.pos.minus(this.vertex0.pos);
   }
 
+  /**
+   * Get Tag
+   */
   getTag() {
     let result = this.tag;
     if (!result) {
@@ -92,12 +131,18 @@ export class Side extends TransformationMethods {
     return result;
   }
 
+  /**
+   * Length Squared
+   */
   lengthSquared() {
     const x = this.vertex1.pos.x - this.vertex0.pos.x;
     const y = this.vertex1.pos.y - this.vertex0.pos.y;
     return x * x + y * y;
   }
 
+  /**
+   * Get Length
+   */
   length() {
     return Math.sqrt(this.lengthSquared());
   }

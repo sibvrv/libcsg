@@ -39,23 +39,40 @@ export class Line2D extends TransformationMethods {
     this.w = w;
   }
 
-  // same line but opposite direction:
+  /**
+   * Reverse
+   * same line but opposite direction:
+   */
   reverse() {
     return new Line2D(this.normal.negated(), -this.w);
   }
 
+  /**
+   * Line-Line equals
+   * @param l
+   */
   equals(l: Line2D) {
     return (l.normal.equals(this.normal) && (l.w === this.w));
   }
 
+  /**
+   * get Origin
+   */
   origin() {
     return this.normal.times(this.w);
   }
 
+  /**
+   * get Direction
+   */
   direction() {
     return this.normal.normal();
   }
 
+  /**
+   * get x at y
+   * @param y
+   */
   xAtY(y: number) {
     // (py == y) && (normal * p == w)
     // -> px = (w - normal._y * y) / normal.x
@@ -63,6 +80,10 @@ export class Line2D extends TransformationMethods {
     return x;
   }
 
+  /**
+   * |distance| to point
+   * @param point
+   */
   absDistanceToPoint(point: Vector2 | [number, number]) {
     point = new Vector2(point);
     const pointProjected = point.dot(this.normal);
@@ -78,12 +99,19 @@ export class Line2D extends TransformationMethods {
    },
    */
 
-  // intersection between two lines, returns point as Vector2
+  /**
+   * Intersection between two lines, returns point as Vector2
+   * @param line2d
+   */
   intersectWithLine(line2d: Line2D) {
     const point = solve2Linear(this.normal.x, this.normal.y, line2d.normal.x, line2d.normal.y, this.w, line2d.w);
     return new Vector2(point);
   }
 
+  /**
+   * Transform helper
+   * @param matrix4x4
+   */
   transform(matrix4x4: Matrix4x4): Line2D {
     const origin = new Vector2(0, 0);
     const pointOnPlane = this.normal.times(this.w);

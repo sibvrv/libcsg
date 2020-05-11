@@ -5,7 +5,7 @@ import {fromPolygons} from './CSGFactories';
 import {fromCompactBinary, fromFakeCSG, fromObject, fromPath2, fromPoints, fromPointsNoCheck, fromSides} from './CAGFactories';
 
 import {canonicalize} from './utils/canonicalize';
-import {reTesselate} from './utils/retesellate';
+import {reTessellate} from './utils/reTesellate';
 import {hasPointInside, isCAGValid, isSelfIntersecting} from './utils/cagValidation';
 import {area, getBounds} from './utils/cagMeasurements';
 // all of these are good candidates for elimination in this scope, since they are part of a functional api
@@ -19,16 +19,20 @@ import {circle, ellipse, rectangle, roundedRectangle} from '@primitives/csg/prim
 import {IRotateExtrude} from '@modifiers/extrusions/rotateExtrude';
 
 /**
- * Class CAG
  * Holds a solid area geometry like CSG but 2D.
  * Each area consists of a number of sides.
  * Each side is a line between 2 points.
+ * @class CAG
  * @constructor
  */
 export class CAG extends TransformationMethods {
   sides: Side[] = [];
   isCanonicalized = false;
 
+  /**
+   * Union
+   * @param cag
+   */
   union(cag: CAG | CAG[]) {
     const cags = Array.isArray(cag) ? cag : [cag];
     let r = this._toCSGWall(-1, 1);
@@ -40,6 +44,10 @@ export class CAG extends TransformationMethods {
     return fromFakeCSG(r).canonicalized();
   }
 
+  /**
+   * Subtract
+   * @param cag
+   */
   subtract(cag: CAG | CAG[]) {
     const cags = Array.isArray(cag) ? cag : [cag];
     let r = this._toCSGWall(-1, 1);
@@ -56,6 +64,10 @@ export class CAG extends TransformationMethods {
     return rc;
   }
 
+  /**
+   * Intersect
+   * @param cag
+   */
   intersect(cag: CAG | CAG []) {
     const cags = Array.isArray(cag) ? cag : [cag];
     let r = this._toCSGWall(-1, 1);
@@ -71,6 +83,10 @@ export class CAG extends TransformationMethods {
     return rc;
   }
 
+  /**
+   * Transform helper
+   * @param matrix4x4
+   */
   transform(matrix4x4: Matrix4x4): CAG {
     const ismirror = matrix4x4.isMirroring();
     const newsides = this.sides.map((side) => {
@@ -83,6 +99,9 @@ export class CAG extends TransformationMethods {
     return result;
   }
 
+  /**
+   * get Flipped
+   */
   flipped() {
     const newsides = this.sides.map((side) => {
       return side.flipped();
@@ -91,92 +110,165 @@ export class CAG extends TransformationMethods {
     return fromSides(newsides);
   }
 
-  // ALIAS !
+  /**
+   * Center
+   * @alias center
+   * @param axes
+   */
   center(axes: [boolean, boolean, boolean]) {
     return center({axes}, [this]);
   }
 
-  // ALIAS !
+  /**
+   * Expanded Shell
+   * @alias expandedShellOfCAG
+   * @param radius
+   * @param resolution
+   */
   expandedShell(radius: number, resolution: number) {
     return expandedShellOfCAG(this, radius, resolution);
   }
 
-  // ALIAS !
+  /**
+   * Expand
+   * @alias expand
+   * @param radius
+   * @param resolution
+   */
   expand(radius: number, resolution: number) {
     return expand(this, radius, resolution);
   }
 
+  /**
+   * Contract
+   * @alias contract
+   * @param radius
+   * @param resolution
+   */
   contract(radius: number, resolution: number) {
     return contract(this, radius, resolution);
   }
 
-  // ALIAS !
+  /**
+   * get Area
+   * @alias area
+   */
   area() {
     return area(this);
   }
 
-  // ALIAS !
+  /**
+   * get Bounds
+   * @alias getBounds
+   */
   getBounds() {
     return getBounds(this);
   }
 
-  // ALIAS !
+  /**
+   * Is self intersecting
+   * @alias isSelfIntersecting
+   * @param debug
+   */
   isSelfIntersecting(debug?: boolean) {
     return isSelfIntersecting(this, debug);
   }
 
-  // extrusion: all aliases to simple functions
+  /**
+   * Extrude In OrthonormalBasis
+   * extrusion: all aliases to simple functions
+   * @alias extrudeInOrthonormalBasis
+   * @param orthonormalbasis
+   * @param depth
+   * @param options
+   */
   extrudeInOrthonormalBasis(orthonormalbasis: OrthoNormalBasis, depth: number, options?: any) {
     return extrudeInOrthonormalBasis(this, orthonormalbasis, depth, options);
   }
 
-  // ALIAS !
+  /**
+   * Extrude In Plane
+   * @alias extrudeInPlane
+   * @param axis1
+   * @param axis2
+   * @param depth
+   * @param options
+   */
   extrudeInPlane(axis1: string, axis2: string, depth: number, options: any) {
     return extrudeInPlane(this, axis1, axis2, depth, options);
   }
 
-  // ALIAS !
+  /**
+   * Extrude
+   * @alias extrude
+   * @param options
+   */
   extrude(options?: any) {
     return extrude(this, options);
   }
 
-  // ALIAS !
+  /**
+   * Rotate Extrude
+   * @alias rotateExtrude
+   * @param options
+   */
   rotateExtrude(options?: Partial<IRotateExtrude>) { // FIXME options should be optional
     return rotateExtrude(this, options);
   }
 
-  // ALIAS !
+  /**
+   * Check
+   * @alias isCAGValid
+   */
   check() {
     return isCAGValid(this);
   }
 
-  // ALIAS !
+  /**
+   * Canonicalized
+   * @alias canonicalize
+   */
   canonicalized() {
     return canonicalize(this);
   }
 
-  // ALIAS ! todo fix me
+  // todo fix me
+  /**
+   * reTessellated
+   * @alias reTessellate
+   */
   reTesselated() {
-    // @ts-ignore
-    return reTesselate(this);
+    return reTessellate(this as any);
   }
 
-  // ALIAS !
+  /**
+   * getOutlinePaths
+   * @alias cagOutlinePaths
+   */
   getOutlinePaths() {
     return cagOutlinePaths(this);
   }
 
-  // ALIAS !
+  /**
+   * Over Cut Inside Corners
+   * @alias overCutInsideCorners
+   * @param cutterradius
+   */
   overCutInsideCorners(cutterradius: number) {
     return overCutInsideCorners(this, cutterradius);
   }
 
-  // ALIAS !
+  /**
+   * Has Point Inside
+   * @param point
+   */
   hasPointInside(point: Vector2) {
     return hasPointInside(this, point);
   }
 
-  // All the toXXX functions
+  /**
+   * To String helper
+   */
   toString() {
     let result = 'CAG (' + this.sides.length + ' sides):\n';
     this.sides.map((side) => {
@@ -185,6 +277,12 @@ export class CAG extends TransformationMethods {
     return result;
   }
 
+  /**
+   * _toCSGWall
+   * @param z0
+   * @param z1
+   * @private
+   */
   _toCSGWall(z0: number, z1: number) {
     const polygons = this.sides.map((side) => {
       return side.toPolygon3D(z0, z1);
@@ -192,6 +290,11 @@ export class CAG extends TransformationMethods {
     return fromPolygons(polygons);
   }
 
+  /**
+   * _toVector3DPairs
+   * @param m
+   * @private
+   */
   _toVector3DPairs(m: Matrix4x4) {
     // transform m
     let pairs: Vector3[][] = this.sides.map((side) => {
@@ -212,12 +315,15 @@ export class CAG extends TransformationMethods {
     return pairs;
   }
 
-  /*
-    * transform a cag into the polygons of a corresponding 3d plane, positioned per options
-    * Accepts a connector for plane positioning, or optionally
-    * single translation, axisVector, normalVector arguments
-    * (toConnector has precedence over single arguments if provided)
-    */
+  /**
+   * _toPlanePolygons
+   * transform a cag into the polygons of a corresponding 3d plane, positioned per options
+   * Accepts a connector for plane positioning, or optionally
+   * single translation, axisVector, normalVector arguments
+   * (toConnector has precedence over single arguments if provided)
+   * @param options
+   * @private
+   */
   _toPlanePolygons(options: any) {
     const defaults = {
       flipped: false,
@@ -256,7 +362,7 @@ export class CAG extends TransformationMethods {
     if (flipped) {
       csgplane = csgplane.invert();
     }
-    // intersectSub -> prevent premature retesselate/canonicalize
+    // intersectSub -> prevent premature reTessellate/canonicalize
     csgplane = csgplane.intersectSub(csgshell);
     // only keep the polygons in the z plane:
     const polys = csgplane.polygons.filter((polygon) => {
@@ -276,11 +382,15 @@ export class CAG extends TransformationMethods {
     });
   }
 
-  /*
-    * given 2 connectors, this returns all polygons of a "wall" between 2
-    * copies of this cag, positioned in 3d space as "bottom" and
-    * "top" plane per connectors toConnector1, and toConnector2, respectively
-    */
+  /**
+   * _toWallPolygons
+   * given 2 connectors, this returns all polygons of a "wall" between 2
+   * copies of this cag, positioned in 3d space as "bottom" and
+   * "top" plane per connectors toConnector1, and toConnector2, respectively
+   * @param options
+   * @param iteration
+   * @private
+   */
   _toWallPolygons(options: any, iteration = 0) {
     // normals are going to be correct as long as toConn2.point - toConn1.point
     // points into cag normal direction (check in caller)

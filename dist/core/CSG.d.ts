@@ -4,9 +4,9 @@ import { fromCompactBinary, fromObject, fromSlices } from './CSGFactories';
 import { Connector } from '@core/Connector';
 import { ConnectorList } from '@core/ConnectorList';
 /**
- * Class CSG
  * Holds a binary space partition tree representing a 3D solid. Two solids can
  * be combined using the `union()`, `subtract()`, and `intersect()` methods.
+ * @class CSG
  * @constructor
  */
 export declare class CSG extends TransformationMethods {
@@ -33,7 +33,19 @@ export declare class CSG extends TransformationMethods {
      *      +-------+            +-------+
      */
     union(csg: CSG | CSG[]): CSG;
+    /**
+     * Union Sub
+     * @param csg
+     * @param retesselate
+     * @param canonicalize
+     */
     unionSub(csg: CSG, retesselate?: boolean, canonicalize?: boolean): CSG;
+    /**
+     * unionForNonIntersecting
+     * Like union, but when we know that the two solids are not intersecting
+     * Do not use if you are not completely sure that the solids do not intersect!
+     * @param csg
+     */
     unionForNonIntersecting(csg: CSG): CSG;
     /**
      * Return a new CSG solid representing space in this solid but
@@ -53,6 +65,12 @@ export declare class CSG extends TransformationMethods {
      *      +-------+
      */
     subtract(csg: CSG | CSG[]): CSG;
+    /**
+     * Subtract Sub
+     * @param csg
+     * @param retesselate
+     * @param canonicalize
+     */
     subtractSub(csg: CSG, retesselate?: boolean, canonicalize?: boolean): CSG;
     /**
      * Return a new CSG solid representing space in both this solid and
@@ -72,7 +90,13 @@ export declare class CSG extends TransformationMethods {
      *      +-------+
      */
     intersect(csg: CSG | CSG[]): CSG;
-    intersectSub(csg: CSG, retesselate?: boolean, canonicalize?: boolean): CSG;
+    /**
+     * Intersect Sub
+     * @param csg
+     * @param _reTessellate
+     * @param canonicalize
+     */
+    intersectSub(csg: CSG, _reTessellate?: boolean, canonicalize?: boolean): CSG;
     /**
      * Return a new CSG solid with solid and empty space switched.
      * This solid is not modified.
@@ -81,6 +105,10 @@ export declare class CSG extends TransformationMethods {
      * let B = A.invert()
      */
     invert(): CSG;
+    /**
+     * Affine transformation of CSG object. Returns a new CSG object
+     * @param matrix4x4
+     */
     transform1(matrix4x4: Matrix4x4): CSG;
     /**
      * Return a new CSG solid that is transformed using the given Matrix.
@@ -94,22 +122,76 @@ export declare class CSG extends TransformationMethods {
      * let B = A.transform(m)
      */
     transform(matrix4x4: Matrix4x4): CSG;
+    /**
+     * Center
+     * @alias center
+     * @param axes
+     */
     center(axes: [boolean, boolean, boolean]): any;
+    /**
+     * Expand
+     * @alias expand
+     * @param radius
+     * @param resolution
+     */
     expand(radius: number, resolution: number): any;
+    /**
+     * Contract
+     * @alias contract
+     * @param radius
+     * @param resolution
+     */
     contract(radius: number, resolution: number): any;
+    /**
+     * Expanded Shell Of CCSG
+     * @alias expandedShellOfCCSG
+     * @param radius
+     * @param resolution
+     * @param unionWithThis
+     */
     expandedShell(radius: number, resolution: number, unionWithThis?: boolean): any;
+    /**
+     * Stretch At Plane
+     * cut the solid at a plane, and stretch the cross-section found along plane normal
+     * note: only used in roundedCube() internally
+     * @param normal
+     * @param point
+     * @param length
+     */
     stretchAtPlane(normal: TVector3Universal, point: TVector3Universal, length: number): CSG;
+    /**
+     * canonicalized
+     * @alias canonicalizeFunc
+     */
     canonicalized(): CSG;
+    /**
+     * reTessellated
+     * @alias reTessellate
+     */
     reTesselated(): CSG;
+    /**
+     * Fix TJunctions
+     * @alias fixTJunctions
+     */
     fixTJunctions(): any;
+    /**
+     * getBounds
+     * @alias bounds
+     */
     getBounds(): [Vector3, Vector3];
     /**
+     * May Overlap
      * Returns true if there is a possibility that the two solids overlap
      * returns false if we can be sure that they do not overlap
      * NOTE: this is critical as it is used in UNIONs
      * @param  {CSG} csg
      */
     mayOverlap(csg: CSG): boolean;
+    /**
+     * Cut By Plane
+     * @alias cutByPlane
+     * @param plane
+     */
     cutByPlane(plane: Plane): CSG;
     /**
      * Connect a solid to another solid, such that two Connectors become connected
@@ -134,10 +216,33 @@ export declare class CSG extends TransformationMethods {
      * @returns {CSG} a copy of this CSG, with the given color
      */
     setColor(...args: any[]): CSG;
+    /**
+     * Get Transformation And Inverse Transformation To Flat Lying
+     * @alias getTransformationAndInverseTransformationToFlatLying
+     */
     getTransformationAndInverseTransformationToFlatLying(): (Matrix4x4 | undefined)[];
+    /**
+     * Get Transformation To Flat Lying
+     * @alias getTransformationToFlatLying
+     */
     getTransformationToFlatLying(): any;
+    /**
+     * Lie Flat
+     * @alias lieFlat
+     */
     lieFlat(): any;
+    /**
+     * Project the 3D CSG onto a plane
+     * This returns a 2D CAG with the 'shadow' shape of the 3D solid when projected onto the
+     * plane represented by the orthonormal basis
+     * @param orthobasis
+     */
     projectToOrthoNormalBasis(orthobasis: OrthoNormalBasis): import("./CAG").CAG;
+    /**
+     * Section Cut
+     * @alias sectionCut
+     * @param orthobasis
+     */
     sectionCut(orthobasis: OrthoNormalBasis): import("./CAG").CAG;
     /**
      * Returns an array of values for the requested features of this solid.
@@ -150,9 +255,13 @@ export declare class CSG extends TransformationMethods {
      */
     getFeatures(inFeatures: string | string[]): any;
     /**
+     * To Polygons
      * @return {Polygon[]} The list of polygons.
      */
     toPolygons(): Polygon3[];
+    /**
+     * To String helper
+     */
     toString(): string;
     /**
      * Returns a compact binary representation of this csg

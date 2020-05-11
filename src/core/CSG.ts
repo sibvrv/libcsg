@@ -4,7 +4,7 @@ import {Line2D, Line3D, Matrix4x4, OrthoNormalBasis, Path2D, Plane, Polygon2D, P
 import {Properties} from '@core/Properties';
 import {fixTJunctions} from '@core/utils/fixTJunctions';
 import {canonicalize as canonicalizeFunc} from '@core/utils/canonicalize';
-import {reTesselate} from '@core/utils/retesellate';
+import {reTessellate} from '@core/utils/reTesellate';
 import {bounds} from '@core/utils/csgMeasurements';
 import {projectToOrthoNormalBasis} from '@core/utils/csgProjections';
 
@@ -21,9 +21,9 @@ import {Connector} from '@core/Connector';
 import {ConnectorList} from '@core/ConnectorList';
 
 /**
- * Class CSG
  * Holds a binary space partition tree representing a 3D solid. Two solids can
  * be combined using the `union()`, `subtract()`, and `intersect()` methods.
+ * @class CSG
  * @constructor
  */
 export class CSG extends TransformationMethods {
@@ -67,6 +67,12 @@ export class CSG extends TransformationMethods {
     return csgs[i - 1].reTesselated().canonicalized();
   }
 
+  /**
+   * Union Sub
+   * @param csg
+   * @param retesselate
+   * @param canonicalize
+   */
   unionSub(csg: CSG, retesselate?: boolean, canonicalize?: boolean) {
     if (!this.mayOverlap(csg)) {
       return this.unionForNonIntersecting(csg);
@@ -90,8 +96,12 @@ export class CSG extends TransformationMethods {
     }
   }
 
-  // Like union, but when we know that the two solids are not intersecting
-  // Do not use if you are not completely sure that the solids do not intersect!
+  /**
+   * unionForNonIntersecting
+   * Like union, but when we know that the two solids are not intersecting
+   * Do not use if you are not completely sure that the solids do not intersect!
+   * @param csg
+   */
   unionForNonIntersecting(csg: CSG) {
     const newpolygons = this.polygons.concat(csg.polygons);
     const result = fromPolygons(newpolygons);
@@ -133,6 +143,12 @@ export class CSG extends TransformationMethods {
     return result;
   }
 
+  /**
+   * Subtract Sub
+   * @param csg
+   * @param retesselate
+   * @param canonicalize
+   */
   subtractSub(csg: CSG, retesselate?: boolean, canonicalize?: boolean) {
     const a = new Tree(this.polygons);
     const b = new Tree(csg.polygons);
@@ -180,7 +196,13 @@ export class CSG extends TransformationMethods {
     return result;
   }
 
-  intersectSub(csg: CSG, retesselate?: boolean, canonicalize?: boolean) {
+  /**
+   * Intersect Sub
+   * @param csg
+   * @param _reTessellate
+   * @param canonicalize
+   */
+  intersectSub(csg: CSG, _reTessellate?: boolean, canonicalize?: boolean) {
     const a = new Tree(this.polygons);
     const b = new Tree(csg.polygons);
     a.invert();
@@ -192,8 +214,12 @@ export class CSG extends TransformationMethods {
     a.invert();
     let result = fromPolygons(a.allPolygons());
     result.properties = this.properties._merge(csg.properties);
-    if (retesselate) result = result.reTesselated();
-    if (canonicalize) result = result.canonicalized();
+    if (_reTessellate) {
+      result = result.reTesselated();
+    }
+    if (canonicalize) {
+      result = result.canonicalized();
+    }
     return result;
   }
 
@@ -212,7 +238,10 @@ export class CSG extends TransformationMethods {
     // TODO: flip properties?
   }
 
-  // Affine transformation of CSG object. Returns a new CSG object
+  /**
+   * Affine transformation of CSG object. Returns a new CSG object
+   * @param matrix4x4
+   */
   transform1(matrix4x4: Matrix4x4) {
     const newpolygons = this.polygons.map((p) => {
       return p.transform(matrix4x4);
@@ -271,28 +300,54 @@ export class CSG extends TransformationMethods {
     return result;
   }
 
-  // ALIAS !
+  /**
+   * Center
+   * @alias center
+   * @param axes
+   */
   center(axes: [boolean, boolean, boolean]) {
     return center({axes}, [this]);
   }
 
-  // ALIAS !
+  /**
+   * Expand
+   * @alias expand
+   * @param radius
+   * @param resolution
+   */
   expand(radius: number, resolution: number) {
     return expand(this, radius, resolution);
   }
 
-  // ALIAS !
+  /**
+   * Contract
+   * @alias contract
+   * @param radius
+   * @param resolution
+   */
   contract(radius: number, resolution: number) {
     return contract(this, radius, resolution);
   }
 
-  // ALIAS !
+  /**
+   * Expanded Shell Of CCSG
+   * @alias expandedShellOfCCSG
+   * @param radius
+   * @param resolution
+   * @param unionWithThis
+   */
   expandedShell(radius: number, resolution: number, unionWithThis?: boolean) {
     return expandedShellOfCCSG(this, radius, resolution, unionWithThis);
   }
 
-  // cut the solid at a plane, and stretch the cross-section found along plane normal
-  // note: only used in roundedCube() internally
+  /**
+   * Stretch At Plane
+   * cut the solid at a plane, and stretch the cross-section found along plane normal
+   * note: only used in roundedCube() internally
+   * @param normal
+   * @param point
+   * @param length
+   */
   stretchAtPlane(normal: TVector3Universal, point: TVector3Universal, length: number) {
     const plane = Plane.fromNormalAndPoint(normal, point);
     const onb = new OrthoNormalBasis(plane);
@@ -304,27 +359,40 @@ export class CSG extends TransformationMethods {
     return result;
   }
 
-  // ALIAS !
+  /**
+   * canonicalized
+   * @alias canonicalizeFunc
+   */
   canonicalized() {
     return canonicalizeFunc(this);
   }
 
-  // ALIAS !
+  /**
+   * reTessellated
+   * @alias reTessellate
+   */
   reTesselated() {
-    return reTesselate(this);
+    return reTessellate(this);
   }
 
-  // ALIAS !
+  /**
+   * Fix TJunctions
+   * @alias fixTJunctions
+   */
   fixTJunctions() {
     return fixTJunctions(fromPolygons, this);
   }
 
-  // ALIAS !
+  /**
+   * getBounds
+   * @alias bounds
+   */
   getBounds() {
     return bounds(this);
   }
 
   /**
+   * May Overlap
    * Returns true if there is a possibility that the two solids overlap
    * returns false if we can be sure that they do not overlap
    * NOTE: this is critical as it is used in UNIONs
@@ -346,7 +414,11 @@ export class CSG extends TransformationMethods {
     }
   }
 
-  // ALIAS !
+  /**
+   * Cut By Plane
+   * @alias cutByPlane
+   * @param plane
+   */
   cutByPlane(plane: Plane) {
     return cutByPlane(this, plane);
   }
@@ -392,30 +464,47 @@ export class CSG extends TransformationMethods {
     return this.setShared(newshared);
   }
 
-  // ALIAS !
+  /**
+   * Get Transformation And Inverse Transformation To Flat Lying
+   * @alias getTransformationAndInverseTransformationToFlatLying
+   */
   getTransformationAndInverseTransformationToFlatLying() {
     return getTransformationAndInverseTransformationToFlatLying(this);
   }
 
-  // ALIAS !
+  /**
+   * Get Transformation To Flat Lying
+   * @alias getTransformationToFlatLying
+   */
   getTransformationToFlatLying() {
     return getTransformationToFlatLying(this);
   }
 
-  // ALIAS !
+  /**
+   * Lie Flat
+   * @alias lieFlat
+   */
   lieFlat() {
     return lieFlat(this);
   }
 
-  // project the 3D CSG onto a plane
-  // This returns a 2D CAG with the 'shadow' shape of the 3D solid when projected onto the
-  // plane represented by the orthonormal basis
+  /**
+   * Project the 3D CSG onto a plane
+   * This returns a 2D CAG with the 'shadow' shape of the 3D solid when projected onto the
+   * plane represented by the orthonormal basis
+   * @param orthobasis
+   */
   projectToOrthoNormalBasis(orthobasis: OrthoNormalBasis) {
     // FIXME:  DEPENDS ON CAG !!
     return projectToOrthoNormalBasis(this, orthobasis);
   }
 
   // FIXME: not finding any uses within our code ?
+  /**
+   * Section Cut
+   * @alias sectionCut
+   * @param orthobasis
+   */
   sectionCut(orthobasis: OrthoNormalBasis) {
     return sectionCut(this, orthobasis);
   }
@@ -448,12 +537,16 @@ export class CSG extends TransformationMethods {
   }
 
   /**
+   * To Polygons
    * @return {Polygon[]} The list of polygons.
    */
   toPolygons() {
     return this.polygons;
   }
 
+  /**
+   * To String helper
+   */
   toString() {
     let result = 'CSG solid:\n';
     this.polygons.map((p) => {

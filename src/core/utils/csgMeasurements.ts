@@ -32,18 +32,28 @@ export const bounds = (csg: CSG) => {
   return csg.cachedBoundingBox;
 };
 
+/**
+ * Get CSG Volume
+ * @param csg
+ */
 export const volume = (csg: CSG) => {
   const result = csg.toTriangles().map((triPoly: any) => {
     return triPoly.getTetraFeatures(['volume']);
   });
   // tslint:disable-next-line:no-console
   console.log('volume', result);
+  return result;
 };
 
+/**
+ * Get CSG Area
+ * @param csg
+ */
 export const area = (csg: CSG) => {
   const result = csg.toTriangles().map((triPoly: any) => {
     return triPoly.getTetraFeatures(['area']);
   });
   // tslint:disable-next-line:no-console
   console.log('area', result);
+  return result;
 };

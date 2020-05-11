@@ -2,12 +2,18 @@ import {EPS} from '@core/constants';
 import {Plane, Polygon3, PolygonShared, Vertex3} from '@core/math';
 import {FuzzyFactory} from '@core/FuzzyFactory';
 
-// ////////////////////////////////////
+/**
+ * Class FuzzyCSGFactory
+ */
 export class FuzzyCSGFactory {
   vertexfactory = new FuzzyFactory(5, EPS);
   planefactory = new FuzzyFactory(4, EPS);
   polygonsharedfactory: { [hash: string]: PolygonShared } = {};
 
+  /**
+   * Get Polygon Shared
+   * @param sourceshared
+   */
   getPolygonShared(sourceshared: PolygonShared) {
     const hash = sourceshared.getHash();
     if (hash in this.polygonsharedfactory) {
@@ -18,6 +24,10 @@ export class FuzzyCSGFactory {
     }
   }
 
+  /**
+   * Get Vertex
+   * @param sourcevertex
+   */
   getVertex(sourcevertex: Vertex3) {
     const elements = [
       sourcevertex.pos._x, sourcevertex.pos._y, sourcevertex.pos._z,
@@ -29,6 +39,10 @@ export class FuzzyCSGFactory {
     return result;
   }
 
+  /**
+   * Get Plane
+   * @param sourceplane
+   */
   getPlane(sourceplane: Plane) {
     const elements = [
       sourceplane.normal._x, sourceplane.normal._y, sourceplane.normal._z,
@@ -40,6 +54,10 @@ export class FuzzyCSGFactory {
     return result;
   }
 
+  /**
+   * Get Polygon
+   * @param sourcepolygon
+   */
   getPolygon(sourcepolygon: Polygon3) {
     const newplane = this.getPlane(sourcepolygon.plane);
     const newshared = this.getPolygonShared(sourcepolygon.shared);

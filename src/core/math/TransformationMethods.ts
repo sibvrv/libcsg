@@ -4,51 +4,102 @@ import {Matrix4x4, Plane, TVector3Universal, Vector3} from '.';
  * Extra Transformation Methods
  */
 export abstract class TransformationMethods {
+  /**
+   * Transform helper
+   * @abstract
+   * @param mat
+   */
   abstract transform(mat: Matrix4x4): any;
 
+  /**
+   * Get Mirrored
+   * @param plane
+   */
   mirrored(plane: Plane) {
     return this.transform(Matrix4x4.mirroring(plane));
   }
 
+  /**
+   * Get Mirrored - X
+   */
   mirroredX() {
     const plane = new Plane(Vector3.Create(1, 0, 0), 0);
     return this.mirrored(plane);
   }
 
+  /**
+   * Get Mirrored - Y
+   */
   mirroredY() {
     const plane = new Plane(Vector3.Create(0, 1, 0), 0);
     return this.mirrored(plane);
   }
 
+  /**
+   * Get Mirrored - Z
+   */
   mirroredZ() {
     const plane = new Plane(Vector3.Create(0, 0, 1), 0);
     return this.mirrored(plane);
   }
 
+  /**
+   * Translate
+   * @param v
+   */
   translate(v: TVector3Universal) {
     return this.transform(Matrix4x4.translation(v));
   }
 
+  /**
+   * Scale
+   * @param f
+   */
   scale(f: TVector3Universal) {
     return this.transform(Matrix4x4.scaling(f));
   }
 
+  /**
+   * Rotate - X
+   * @param deg
+   */
   rotateX(deg: number) {
     return this.transform(Matrix4x4.rotationX(deg));
   }
 
+  /**
+   * Rotate - Y
+   * @param deg
+   */
   rotateY(deg: number) {
     return this.transform(Matrix4x4.rotationY(deg));
   }
 
+  /**
+   * Rotate - Z
+   * @param deg
+   */
   rotateZ(deg: number) {
     return this.transform(Matrix4x4.rotationZ(deg));
   }
 
+  /**
+   * Rotate
+   * @param rotationCenter
+   * @param rotationAxis
+   * @param degrees
+   */
   rotate(rotationCenter: any, rotationAxis: any, degrees: number) {
     return this.transform(Matrix4x4.rotation(rotationCenter, rotationAxis, degrees));
   }
 
+  /**
+   * Rotate Euler Angles
+   * @param alpha
+   * @param beta
+   * @param gamma
+   * @param position
+   */
   rotateEulerAngles(alpha: number, beta: number, gamma: number, position: TVector3Universal) {
     position = position || [0, 0, 0];
 
@@ -60,6 +111,13 @@ export abstract class TransformationMethods {
     return this.transform(Rz2.multiply(Rx).multiply(Rz1).multiply(T));
   }
 
+  /**
+   * Rotate Euler XYZ
+   * @param alpha
+   * @param beta
+   * @param gamma
+   * @param position
+   */
   rotateEulerXYZ(alpha: number, beta: number, gamma: number, position: TVector3Universal) {
     position = position || [0, 0, 0];
 

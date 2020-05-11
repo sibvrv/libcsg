@@ -1,13 +1,14 @@
 import {Line3D, Matrix4x4, OrthoNormalBasis, Plane, TransformationMethods, TVector3Universal, Vector3} from '@core/math';
 
-// # class Connector
-// A connector allows to attach two objects at predefined positions
-// For example a servo motor and a servo horn:
-// Both can have a Connector called 'shaft'
-// The horn can be moved and rotated such that the two connectors match
-// and the horn is attached to the servo motor at the proper position.
-// Connectors are stored in the properties of a CSG solid so they are
-// ge the same transformations applied as the solid
+/**
+ * A connector allows to attach two objects at predefined positions
+ * For example a servo motor and a servo horn:
+ * Both can have a Connector called 'shaft'
+ * The horn can be moved and rotated such that the two connectors match
+ * and the horn is attached to the servo motor at the proper position.
+ * Connectors are stored in the properties of a CSG solid so they are
+ * ge the same transformations applied as the solid
+ */
 export class Connector extends TransformationMethods {
   point: Vector3;
   axisvector: Vector3;
@@ -23,6 +24,9 @@ export class Connector extends TransformationMethods {
     this.normalvector = new Vector3(normalvector).unit();
   }
 
+  /**
+   * get normalized Connector
+   */
   normalized() {
     const axisvector = this.axisvector.unit();
     // make the normal vector truly normal:
@@ -31,6 +35,10 @@ export class Connector extends TransformationMethods {
     return new Connector(this.point, axisvector, normalvector);
   }
 
+  /**
+   * Transform helper
+   * @param matrix4x4
+   */
   transform(matrix4x4: Matrix4x4): Connector {
     const point = this.point.multiply4x4(matrix4x4);
     const axisvector = this.point.plus(this.axisvector).multiply4x4(matrix4x4).minus(point);
@@ -38,12 +46,15 @@ export class Connector extends TransformationMethods {
     return new Connector(point, axisvector, normalvector);
   }
 
-  // Get the transformation matrix to connect this Connector to another connector
-  //   other: a Connector to which this connector should be connected
-  //   mirror: false: the 'axis' vectors of the connectors should point in the same direction
-  //           true: the 'axis' vectors of the connectors should point in opposite direction
-  //   normalrotation: degrees of rotation between the 'normal' vectors of the two
-  //                   connectors
+  /**
+   * Get the transformation matrix to connect this Connector to another connector
+   * other: a Connector to which this connector should be connected
+   * @param other
+   * @param mirror -
+   *    false: the 'axis' vectors of the connectors should point in the same direction
+   *     true: the 'axis' vectors of the connectors should point in opposite direction
+   * @param normalrotation - degrees of rotation between the 'normal' vectors of the two connectors
+   */
   getTransformationTo(other: Connector, mirror: boolean, normalrotation: number) {
     mirror = mirror ? true : false;
     normalrotation = normalrotation ? Number(normalrotation) : 0;
@@ -80,11 +91,17 @@ export class Connector extends TransformationMethods {
     return transformation;
   }
 
+  /**
+   * Axis Line
+   */
   axisLine() {
     return new Line3D(this.point, this.axisvector);
   }
 
-  // creates a new Connector, with the connection point moved in the direction of the axisvector
+  /**
+   * creates a new Connector, with the connection point moved in the direction of the axisvector
+   * @param distance
+   */
   extend(distance: number) {
     const newpoint = this.point.plus(this.axisvector.unit().times(distance));
     return new Connector(newpoint, this.axisvector, this.normalvector);

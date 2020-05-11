@@ -16,8 +16,11 @@ export const fromSides = (sides: Side[]) => {
   return cag;
 };
 
-// Converts a CSG to a  The CSG must consist of polygons with only z coordinates +1 and -1
-// as constructed by _toCSGWall(-1, 1). This is so we can use the 3D union(), intersect() etc
+/**
+ * Converts a CSG to a  The CSG must consist of polygons with only z coordinates +1 and -1
+ * as constructed by _toCSGWall(-1, 1). This is so we can use the 3D union(), intersect() etc
+ * @param csg
+ */
 export const fromFakeCSG = (csg: CSG) => {
   const sides = csg.polygons
     .map((p) => Side._fromFakePolygon(p)!)
@@ -51,7 +54,10 @@ export const fromPoints = (points: any): CAG => {
   throw new Error('Unsupported points list format');
 };
 
-// Do not export the two following function (code splitting for fromPoints())
+/**
+ * Do not export the two following function (code splitting for fromPoints())
+ * @param points
+ */
 export const fromPointsArray = (points: any) => {
   if (points.length < 3) {
     throw new Error('CAG shape needs at least 3 points');
@@ -77,6 +83,10 @@ export const fromPointsArray = (points: any) => {
   return result.canonicalized();
 };
 
+/**
+ * From Nested Points Array
+ * @param points
+ */
 export const fromNestedPointsArray = (points: any) => {
   if (points.length === 1) {
     return fromPoints(points[0]);

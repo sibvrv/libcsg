@@ -8,6 +8,12 @@ export class ConnectorList {
 
   static defaultNormal = [0, 0, 1];
 
+  /**
+   * make ConnectorList from Path2D
+   * @param path2D
+   * @param arg1
+   * @param arg2
+   */
   static fromPath2D(path2D: Path2D, arg1: TVector3Universal, arg2: TVector3Universal) {
     if (arguments.length === 3) {
       return ConnectorList._fromPath2DTangents(path2D, arg1, arg2);
@@ -18,10 +24,14 @@ export class ConnectorList {
     }
   };
 
-  /*
+  /**
    * calculate the connector axisvectors by calculating the "tangent" for path2D.
    * This is undefined for start and end points, so axis for these have to be manually
    * provided.
+   * @param path2D
+   * @param start
+   * @param end
+   * @private
    */
   static _fromPath2DTangents(path2D: Path2D, start: TVector3Universal, end: TVector3Universal) {
     // path2D
@@ -45,8 +55,12 @@ export class ConnectorList {
     return result;
   };
 
-  /*
+  /**
+   * From Path2D Explicit
    * angleIsh: either a static angle, or a function(point) returning an angle
+   * @param path2D
+   * @param angleIsh
+   * @private
    */
   static _fromPath2DExplicit(path2D: Path2D, angleIsh: any) {
 
@@ -75,20 +89,30 @@ export class ConnectorList {
     this.connectorsList = [...connectors];
   }
 
+  /**
+   * Set Closed
+   * @param closed
+   */
   setClosed(closed: boolean) {
     this.closed = !!closed;
   }
 
+  /**
+   * Append Connector
+   * @param conn
+   */
   appendConnector(conn: Connector) {
     this.connectorsList.push(conn);
   }
 
-  /*
+  /**
+   * Follow With
    * arguments: cagish: a cag or a function(connector) returning a cag
    *            closed: whether the 3d path defined by connectors location
    *              should be closed or stay open
    *              Note: don't duplicate connectors in the path
    * TODO: consider an option "maySelfIntersect" to close & force union all single segments
+   * @param cagish
    */
   followWith(cagish: any) {
     this.verify();
@@ -131,7 +155,8 @@ export class ConnectorList {
     return fromPolygons(polygons).reTesselated().canonicalized();
   }
 
-  /*
+  /**
+   * Verify
    * general idea behind these checks: connectors need to have smooth transition from one to another
    * TODO: add a check that 2 follow-on CAGs are not intersecting
    */

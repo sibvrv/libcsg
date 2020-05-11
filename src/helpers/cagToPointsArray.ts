@@ -1,3 +1,7 @@
+/**
+ * Cag To Points Array
+ * @param input
+ */
 export const cagToPointsArray = (input: any) => {
   let points;
   if ('sides' in input) { // this is a cag

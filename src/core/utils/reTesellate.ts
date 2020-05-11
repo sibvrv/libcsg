@@ -3,7 +3,11 @@ import {Polygon3, reTesselateCoplanarPolygons} from '@core/math';
 import {fromPolygons} from '@core/CSGFactories';
 import {CSG} from '@core/CSG';
 
-export const reTesselate = (csg: CSG) => {
+/**
+ * Re-Tessellate
+ * @param csg
+ */
+export const reTessellate = (csg: CSG) => {
   if (csg.isRetesselated) {
     return csg;
   } else {

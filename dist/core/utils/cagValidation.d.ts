@@ -1,6 +1,16 @@
 import { Vector2 } from '@core/math';
 import { CAG } from '@core/CAG';
+/**
+ * Check if we are a valid CAG (for debugging)
+ * NOTE(bebbi) uneven side count doesn't work because rounding with EPS isn't taken into account
+ * @param cag
+ */
 export declare const isCAGValid: (cag: CAG) => void;
+/**
+ * Is Self Intersecting
+ * @param cag
+ * @param debug
+ */
 export declare const isSelfIntersecting: (cag: CAG, debug?: boolean | undefined) => boolean;
 /**
  * Check if the point stay inside the CAG shape

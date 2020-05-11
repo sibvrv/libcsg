@@ -1,14 +1,22 @@
 import {OrthoNormalBasis, Plane, TVector3Universal, Vector2, Vector3} from '.';
 
-// # class Matrix4x4:
-// Represents a 4x4 matrix. Elements are specified in row order
+/**
+ * Represents a 4x4 matrix. Elements are specified in row order
+ *
+ * @class Matrix4x4
+ */
 export class Matrix4x4 {
-// return the unity matrix
+  /**
+   * Return the unity matrix
+   */
   static unity() {
     return new Matrix4x4();
   };
 
-// Create a rotation matrix for rotating around the x axis
+  /**
+   * Create a rotation matrix for rotating around the x axis
+   * @param degrees
+   */
   static rotationX(degrees: number) {
     const radians = degrees * Math.PI * (1.0 / 180.0);
     const cos = Math.cos(radians);
@@ -19,7 +27,10 @@ export class Matrix4x4 {
     return new Matrix4x4(els);
   };
 
-// Create a rotation matrix for rotating around the y axis
+  /**
+   * Create a rotation matrix for rotating around the y axis
+   * @param degrees
+   */
   static rotationY(degrees: number) {
     const radians = degrees * Math.PI * (1.0 / 180.0);
     const cos = Math.cos(radians);
@@ -30,7 +41,10 @@ export class Matrix4x4 {
     return new Matrix4x4(els);
   };
 
-// Create a rotation matrix for rotating around the z axis
+  /**
+   * Create a rotation matrix for rotating around the z axis
+   * @param degrees
+   */
   static rotationZ(degrees: number) {
     const radians = degrees * Math.PI * (1.0 / 180.0);
     const cos = Math.cos(radians);
@@ -41,7 +55,12 @@ export class Matrix4x4 {
     return new Matrix4x4(els);
   };
 
-// Matrix for rotation about arbitrary point and axis
+  /**
+   * Matrix for rotation about arbitrary point and axis
+   * @param _rotationCenter
+   * @param _rotationAxis
+   * @param degrees
+   */
   static rotation(_rotationCenter: TVector3Universal, _rotationAxis: TVector3Universal, degrees: number) {
     const rotationCenter = new Vector3(_rotationCenter);
     const rotationAxis = new Vector3(_rotationAxis);
@@ -55,7 +74,10 @@ export class Matrix4x4 {
     return transformation;
   };
 
-// Create an affine matrix for translation:
+  /**
+   * Create an affine matrix for translation:
+   * @param v
+   */
   static translation(v: TVector3Universal) {
     // parse as Vector3, so we can pass an array or a Vector3
     const vec = new Vector3(v);
@@ -63,7 +85,10 @@ export class Matrix4x4 {
     return new Matrix4x4(els);
   };
 
-// Create an affine matrix for mirroring into an arbitrary plane:
+  /**
+   * Create an affine matrix for mirroring into an arbitrary plane:
+   * @param plane
+   */
   static mirroring(plane: Plane) {
     const nx = plane.normal.x;
     const ny = plane.normal.y;
@@ -78,7 +103,10 @@ export class Matrix4x4 {
     return new Matrix4x4(els);
   };
 
-// Create an affine matrix for scaling:
+  /**
+   * Create an affine matrix for scaling:
+   * @param v
+   */
   static scaling(v: TVector3Universal) {
     // parse as Vector3, so we can pass an array or a Vector3
     const vec = new Vector3(v);
@@ -88,9 +116,17 @@ export class Matrix4x4 {
     return new Matrix4x4(els);
   };
 
+  /**
+   * Metrix4x4 Constructor
+   * @param elements
+   */
   constructor(public elements = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]) {
   }
 
+  /**
+   * Plus
+   * @param m
+   */
   plus(m: Matrix4x4) {
     const r = [];
     for (let i = 0; i < 16; i++) {
@@ -99,6 +135,10 @@ export class Matrix4x4 {
     return new Matrix4x4(r);
   }
 
+  /**
+   * Minus
+   * @param m
+   */
   minus(m: Matrix4x4) {
     const r = [];
     for (let i = 0; i < 16; i++) {
@@ -107,7 +147,10 @@ export class Matrix4x4 {
     return new Matrix4x4(r);
   }
 
-  // right multiply by another 4x4 matrix:
+  /**
+   * Right multiply by another 4x4 matrix:
+   * @param m
+   */
   multiply(m: Matrix4x4) {
     // cache elements in local variables, for speedup:
     const this0 = this.elements[0];
@@ -163,13 +206,19 @@ export class Matrix4x4 {
     return new Matrix4x4(result);
   }
 
+  /**
+   * Clone
+   */
   clone() {
     return new Matrix4x4([...this.elements]);
   }
 
-  // Right multiply the matrix by a Vector3 (interpreted as 3 row, 1 column)
-  // (result = M*v)
-  // Fourth element is taken as 1
+  /**
+   * Right multiply the matrix by a Vector3 (interpreted as 3 row, 1 column)
+   * (result = M*v)
+   * Fourth element is taken as 1
+   * @param v
+   */
   rightMultiply1x3Vector(v: Vector3) {
     const v0 = v._x;
     const v1 = v._y;
@@ -189,9 +238,12 @@ export class Matrix4x4 {
     return new Vector3(x, y, z);
   }
 
-  // Multiply a Vector3 (interpreted as 3 column, 1 row) by this matrix
-  // (result = v*M)
-  // Fourth element is taken as 1
+  /**
+   * Multiply a Vector3 (interpreted as 3 column, 1 row) by this matrix
+   * (result = v*M)
+   * Fourth element is taken as 1
+   * @param v
+   */
   leftMultiply1x3Vector(v: Vector3) {
     const v0 = v._x;
     const v1 = v._y;
@@ -211,9 +263,12 @@ export class Matrix4x4 {
     return new Vector3(x, y, z);
   }
 
-  // Right multiply the matrix by a Vector2 (interpreted as 2 row, 1 column)
-  // (result = M*v)
-  // Fourth element is taken as 1
+  /**
+   * Right multiply the matrix by a Vector2 (interpreted as 2 row, 1 column)
+   * (result = M*v)
+   * Fourth element is taken as 1
+   * @param v
+   */
   rightMultiply1x2Vector(v: Vector2) {
     const v0 = v.x;
     const v1 = v.y;
@@ -233,9 +288,12 @@ export class Matrix4x4 {
     return new Vector2(x, y);
   }
 
-  // Multiply a Vector2 (interpreted as 2 column, 1 row) by this matrix
-  // (result = v*M)
-  // Fourth element is taken as 1
+  /**
+   * Multiply a Vector2 (interpreted as 2 column, 1 row) by this matrix
+   * (result = v*M)
+   * Fourth element is taken as 1
+   * @param v
+   */
   leftMultiply1x2Vector(v: Vector2) {
     const v0 = v.x;
     const v1 = v.y;
@@ -255,7 +313,9 @@ export class Matrix4x4 {
     return new Vector2(x, y);
   }
 
-  // determine whether this matrix is a mirroring transformation
+  /**
+   * Determine whether this matrix is a mirroring transformation
+   */
   isMirroring() {
     const u = new Vector3(this.elements[0], this.elements[4], this.elements[8]);
     const v = new Vector3(this.elements[1], this.elements[5], this.elements[9]);

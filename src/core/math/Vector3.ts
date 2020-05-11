@@ -18,8 +18,16 @@ export class Vector3 extends TransformationMethods {
   _x: number;
   _y: number;
   _z: number;
-// This does the same as new Vector3(x,y,z) but it doesn't go through the constructor
-// and the parameters are not validated. Is much faster.
+
+  /**
+   * Make Vector3
+   * This does the same as new Vector3(x,y,z) but it doesn't go through the constructor
+   * and the parameters are not validated. Is much faster.
+   * @param x
+   * @param y
+   * @param z
+   * @constructor
+   */
   static Create(x: number, y: number, z: number) {
     return new Vector3(x, y, z);
   };
@@ -54,110 +62,202 @@ export class Vector3 extends TransformationMethods {
     }
   }
 
+  /**
+   * Set X is not allowed. Vector3 is immutable
+   * @param v
+   */
   set x(v) {
     throw new Error('Vector3 is immutable');
   }
 
+  /**
+   * Get X component
+   */
   get x() {
     return this._x;
   }
 
+  /**
+   * Set Y is not allowed. Vector3 is immutable
+   * @param v
+   */
   set y(v) {
     throw new Error('Vector3 is immutable');
   }
 
+  /**
+   * Get Y component
+   */
   get y() {
     return this._y;
   }
 
+  /**
+   * Set Z is not allowed. Vector3 is immutable
+   * @param v
+   */
   set z(v) {
     throw new Error('Vector3 is immutable');
   }
 
+  /**
+   * get Z component
+   */
   get z() {
     return this._z;
   }
 
+  /**
+   * Clone Vector3
+   */
   clone() {
     return Vector3.Create(this._x, this._y, this._z);
   }
 
+  /**
+   * Get negated vector
+   */
   negated() {
     return Vector3.Create(-this._x, -this._y, -this._z);
   }
 
+  /**
+   * get module
+   */
   abs() {
     return Vector3.Create(Math.abs(this._x), Math.abs(this._y), Math.abs(this._z));
   }
 
+  /**
+   * Plus
+   * @param a
+   */
   plus(a: Vector3) {
     return Vector3.Create(this._x + a._x, this._y + a._y, this._z + a._z);
   }
 
+  /**
+   * Minus
+   * @param a
+   */
   minus(a: Vector3) {
     return Vector3.Create(this._x - a._x, this._y - a._y, this._z - a._z);
   }
 
+  /**
+   * scale this vector by scalar and return a new vector
+   * @param a
+   */
   times(a: number) {
     return Vector3.Create(this._x * a, this._y * a, this._z * a);
   }
 
+  /**
+   * divide this vector by scalar and return a new vector
+   * @param a
+   */
   dividedBy(a: number) {
     return Vector3.Create(this._x / a, this._y / a, this._z / a);
   }
 
+  /**
+   * Find The Dot Product Of Two Vectors
+   * @param a
+   */
   dot(a: Vector3) {
     return this._x * a._x + this._y * a._y + this._z * a._z;
   }
 
+  /**
+   * Lerp
+   * @param a
+   * @param t
+   */
   lerp(a: Vector3, t: number) {
     return this.plus(a.minus(this).times(t));
   }
 
+  /**
+   * get Squared Length
+   */
   lengthSquared() {
     return this.dot(this);
   }
 
+  /**
+   * Get Length
+   */
   length() {
     return Math.sqrt(this.lengthSquared());
   }
 
+  /**
+   * Get Unit Vector
+   */
   unit() {
     return this.dividedBy(this.length());
   }
 
+  /**
+   * Cross Product
+   * @param a
+   */
   cross(a: Vector3) {
     return Vector3.Create(
       this._y * a._z - this._z * a._y, this._z * a._x - this._x * a._z, this._x * a._y - this._y * a._x);
   }
 
+  /**
+   * Distance to point
+   * @param a
+   */
   distanceTo(a: Vector3) {
     return this.minus(a).length();
   }
 
+  /**
+   * Squared distance to point
+   * @param a
+   */
   distanceToSquared(a: Vector3) {
     return this.minus(a).lengthSquared();
   }
 
+  /**
+   * is Vector Equals
+   * @param a
+   */
   equals(a: Vector3) {
     return (this._x === a._x) && (this._y === a._y) && (this._z === a._z);
   }
 
-  // Right multiply by a 4x4 matrix (the vector is interpreted as a row vector)
-  // Returns a new Vector3
+  /**
+   * Right multiply by a 4x4 matrix (the vector is interpreted as a row vector)
+   * Returns a new Vector3
+   * @param matrix4x4
+   */
   multiply4x4(matrix4x4: Matrix4x4) {
     return matrix4x4.leftMultiply1x3Vector(this);
   }
 
+  /**
+   * Transform helper
+   * @param matrix4x4
+   */
   transform(matrix4x4: Matrix4x4): Vector3 {
     return matrix4x4.leftMultiply1x3Vector(this);
   }
 
+  /**
+   * To string helper
+   */
   toString() {
     return '(' + this._x.toFixed(5) + ', ' + this._y.toFixed(5) + ', ' + this._z.toFixed(5) + ')';
   }
 
-  // find a vector that is somewhat perpendicular to this one
+  /**
+   * find a vector that is somewhat perpendicular to this one
+   */
   randomNonParallelVector() {
     const abs = this.abs();
     if ((abs._x <= abs._y) && (abs._x <= abs._z)) {
@@ -169,11 +269,19 @@ export class Vector3 extends TransformationMethods {
     }
   }
 
+  /**
+   * get min vector components
+   * @param p
+   */
   min(p: Vector3) {
     return Vector3.Create(
       Math.min(this._x, p._x), Math.min(this._y, p._y), Math.min(this._z, p._z));
   }
 
+  /**
+   * get max vector components
+   * @param p
+   */
   max(p: Vector3) {
     return Vector3.Create(
       Math.max(this._x, p._x), Math.max(this._y, p._y), Math.max(this._z, p._z));

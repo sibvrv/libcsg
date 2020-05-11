@@ -2,13 +2,14 @@ import {Polygon3, PolygonShared, Vertex3} from '@core/math';
 import {fromPolygons} from '@core/CSGFactories';
 import {fnSortByIndex} from '@core/utils/sortHelpers';
 
+// FIXME: WHY is this for 3D polygons and not for 2D shapes ?
+
 export interface ISolidFromSlices {
   loop: boolean;
   numslices: number;
   callback: any;
 }
 
-// FIXME: WHY is this for 3D polygons and not for 2D shapes ?
 /**
  * Creates solid from slices (Polygon) by generating walls
  * @param {Object} options Solid generating options

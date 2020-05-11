@@ -2,14 +2,21 @@ import {EPS} from '@core/constants';
 import {solve2Linear} from '@core/utils/solve2Linear';
 import {Matrix4x4, Plane, TransformationMethods, TVector3Universal, Vector3} from '.';
 
-// # class Line3D
-// Represents a line in 3D space
-// direction must be a unit vector
-// point is a random point on the line
+/**
+ * Represents a line in 3D space
+ * direction must be a unit vector
+ * point is a random point on the line
+ * @class Line3D
+ */
 export class Line3D extends TransformationMethods {
   point: Vector3;
   direction: Vector3;
 
+  /**
+   * Make Line3D from points
+   * @param _p1
+   * @param _p2
+   */
   static fromPoints(_p1: TVector3Universal, _p2: TVector3Universal) {
     const p1 = new Vector3(_p1);
     const p2 = new Vector3(_p2);
@@ -17,6 +24,11 @@ export class Line3D extends TransformationMethods {
     return new Line3D(p1, direction);
   }
 
+  /**
+   * Make Line3D from planes
+   * @param p1
+   * @param p2
+   */
   static fromPlanes(p1: Plane, p2: Plane) {
     let direction = p1.normal.cross(p2.normal);
     const l = direction.length();
@@ -55,6 +67,10 @@ export class Line3D extends TransformationMethods {
     this.direction = new Vector3(direction).unit();
   }
 
+  /**
+   * Intersect with plane
+   * @param plane
+   */
   intersectWithPlane(plane: Plane) {
     // plane: plane.normal * p = plane.w
     // line: p=line.point + labda * line.direction
@@ -63,14 +79,24 @@ export class Line3D extends TransformationMethods {
     return point;
   }
 
+  /**
+   * Clone
+   */
   clone() {
     return new Line3D(this.point.clone(), this.direction.clone());
   }
 
+  /**
+   * Reverse
+   */
   reverse() {
     return new Line3D(this.point.clone(), this.direction.negated());
   }
 
+  /**
+   * Transform helper
+   * @param matrix4x4
+   */
   transform(matrix4x4: Matrix4x4): Line3D {
     const newpoint = this.point.multiply4x4(matrix4x4);
     const pointPlusDirection = this.point.plus(this.direction);
@@ -79,6 +105,10 @@ export class Line3D extends TransformationMethods {
     return new Line3D(newpoint, newdirection);
   }
 
+  /**
+   * Get closest point on line
+   * @param _point
+   */
   closestPointOnLine(_point: TVector3Universal) {
     const point = new Vector3(_point);
     const t = point.minus(this.point).dot(this.direction) / this.direction.dot(this.direction);
@@ -86,6 +116,10 @@ export class Line3D extends TransformationMethods {
     return closestpoint;
   }
 
+  /**
+   * Distance to point
+   * @param _point
+   */
   distanceToPoint(_point: TVector3Universal) {
     const point = new Vector3(_point);
     const closestpoint = this.closestPointOnLine(point);
@@ -94,6 +128,10 @@ export class Line3D extends TransformationMethods {
     return distance;
   }
 
+  /**
+   * Line-Line equals
+   * @param line3d
+   */
   equals(line3d: Line3D) {
     if (!this.direction.equals(line3d.direction)) return false;
     const distance = this.distanceToPoint(line3d.point);

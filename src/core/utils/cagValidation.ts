@@ -2,8 +2,11 @@ import {areaEPS} from '@core/constants';
 import {linesIntersect, Vector2} from '@core/math';
 import {CAG} from '@core/CAG';
 
-// check if we are a valid CAG (for debugging)
-// NOTE(bebbi) uneven side count doesn't work because rounding with EPS isn't taken into account
+/**
+ * Check if we are a valid CAG (for debugging)
+ * NOTE(bebbi) uneven side count doesn't work because rounding with EPS isn't taken into account
+ * @param cag
+ */
 export const isCAGValid = (cag: CAG) => {
   const errors = [];
   if (cag.isSelfIntersecting(true)) {
@@ -47,6 +50,11 @@ export const isCAGValid = (cag: CAG) => {
   }
 };
 
+/**
+ * Is Self Intersecting
+ * @param cag
+ * @param debug
+ */
 export const isSelfIntersecting = (cag: CAG, debug?: boolean) => {
   const numsides = cag.sides.length;
   for (let i = 0; i < numsides; i++) {

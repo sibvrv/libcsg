@@ -1,27 +1,43 @@
 import {EPS, getTag} from '@core/constants';
 import {Line3D, Matrix4x4, TransformationMethods, TVector3Universal, Vector3} from '.';
 
-// # class Plane
-// Represents a plane in 3D space.
+/**
+ * @class Plane
+ * Represents a plane in 3D space.
+ */
 export class Plane extends TransformationMethods {
   normal: Vector3;
   w: number;
   tag?: number;
 
-// create from an untyped object with identical property names:
+  /**
+   * create from an untyped object with identical property names:
+   * @param obj
+   */
   static fromObject<T extends Plane | { normal: TVector3Universal, w?: number | string }>(obj: T) {
     const normal = new Vector3(obj.normal);
     const w = (typeof obj.w === 'string' ? parseFloat(obj.w) : obj.w) || 0;
     return new Plane(normal, w);
   };
 
+  /**
+   * make from 3D Vectors
+   * @param a
+   * @param b
+   * @param c
+   */
   static fromVector3Ds(a: Vector3, b: Vector3, c: Vector3) {
     const n = b.minus(a).cross(c.minus(a)).unit();
     return new Plane(n, n.dot(a));
   };
 
-// like fromVector3Ds, but allow the vectors to be on one point or one line
-// in such a case a random plane through the given points is constructed
+  /**
+   * like fromVector3Ds, but allow the vectors to be on one point or one line
+   * in such a case a random plane through the given points is constructed
+   * @param a
+   * @param b
+   * @param c
+   */
   static anyPlaneFromVector3Ds(a: Vector3, b: Vector3, c: Vector3) {
     let v1 = b.minus(a);
     let v2 = c.minus(a);
@@ -41,6 +57,12 @@ export class Plane extends TransformationMethods {
     return new Plane(normal, normal.dot(a));
   };
 
+  /**
+   * Make From Points
+   * @param _a
+   * @param _b
+   * @param _c
+   */
   static fromPoints(_a: TVector3Universal, _b: TVector3Universal, _c: TVector3Universal) {
     const a = new Vector3(_a);
     const b = new Vector3(_b);
@@ -48,6 +70,11 @@ export class Plane extends TransformationMethods {
     return Plane.fromVector3Ds(a, b, c);
   };
 
+  /**
+   * Make from normal and point
+   * @param _normal
+   * @param _point
+   */
   static fromNormalAndPoint(_normal: TVector3Universal, _point: TVector3Universal) {
     const normal = new Vector3(_normal).unit();
     const point = new Vector3(_point);
@@ -55,16 +82,27 @@ export class Plane extends TransformationMethods {
     return new Plane(normal, w);
   };
 
+  /**
+   * Plane constructor
+   * @param normal
+   * @param w
+   */
   constructor(normal: Vector3, w: number) {
     super();
     this.normal = normal;
     this.w = w;
   }
 
+  /**
+   * Get Flipped Plane
+   */
   flipped() {
     return new Plane(this.normal.negated(), -this.w);
   }
 
+  /**
+   * Get Tag
+   */
   getTag() {
     let result = this.tag;
     if (!result) {
@@ -74,10 +112,18 @@ export class Plane extends TransformationMethods {
     return result;
   }
 
+  /**
+   * Plane-Plane equals
+   * @param n
+   */
   equals(n: Plane) {
     return this.normal.equals(n.normal) && this.w === n.w;
   }
 
+  /**
+   * Transform helper
+   * @param matrix4x4
+   */
   transform(matrix4x4: Matrix4x4): Plane {
     const ismirror = matrix4x4.isMirroring();
     // get two vectors in the plane:
@@ -102,8 +148,12 @@ export class Plane extends TransformationMethods {
     return newplane;
   }
 
-  // robust splitting of a line by a plane
-  // will work even if the line is parallel to the plane
+  /**
+   * robust splitting of a line by a plane
+   * will work even if the line is parallel to the plane
+   * @param p1
+   * @param p2
+   */
   splitLineBetweenPoints(p1: Vector3, p2: Vector3) {
     const direction = p2.minus(p1);
     let labda = (this.w - this.normal.dot(p1)) / this.normal.dot(direction);
@@ -114,24 +164,42 @@ export class Plane extends TransformationMethods {
     return result;
   }
 
-  // returns Vector3D
+  /**
+   * Intersect With Line
+   * returns Vector3D
+   * @param line3d
+   */
   intersectWithLine(line3d: Line3D) {
     return line3d.intersectWithPlane(this);
   }
 
-  // intersection of two planes
+  /**
+   * intersection of two planes
+   * @param plane
+   */
   intersectWithPlane(plane: Plane) {
     return Line3D.fromPlanes(this, plane);
   }
 
+  /**
+   * Signed Distance To Point
+   * @param point
+   */
   signedDistanceToPoint(point: Vector3) {
     return this.normal.dot(point) - this.w;
   }
 
+  /**
+   * To String
+   */
   toString() {
     return '[normal: ' + this.normal.toString() + ', w: ' + this.w + ']';
   }
 
+  /**
+   * Mirror point
+   * @param point3d
+   */
   mirrorPoint(point3d: Vector3) {
     const distance = this.signedDistanceToPoint(point3d);
     const mirrored = point3d.minus(this.normal.times(distance * 2.0));
