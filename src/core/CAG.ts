@@ -12,7 +12,7 @@ import {area, getBounds} from './utils/cagMeasurements';
 import {overCutInsideCorners} from '@api/ops-cnc';
 import {extrude, extrudeInOrthonormalBasis, extrudeInPlane, rotateExtrude} from '@modifiers/extrusions/';
 import {cagOutlinePaths} from '@api/cagOutlinePaths';
-import {center} from '@api/center';
+import {centerHelper} from '@api/centerHelper';
 import {contract, expand, expandedShellOfCAG} from '@modifiers/expansions';
 
 import {circle, ellipse, rectangle, roundedRectangle} from '@primitives/csg/primitives2d';
@@ -116,7 +116,7 @@ export class CAG extends TransformationMethods {
    * @param axes
    */
   center(axes: [boolean, boolean, boolean]) {
-    return center({axes}, [this]);
+    return centerHelper({axes}, [this as CAG]);
   }
 
   /**

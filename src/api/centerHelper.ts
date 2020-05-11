@@ -29,7 +29,7 @@ const defaults: ICenterOptions = {
  * @example
  * let csg = center({axes: [true,false,false]}, sphere()) // center about the X axis
  */
-export const center = (options: Partial<ICenterOptions>, objects: CAG | CSG | (CAG | CSG)[]) => {
+export const centerHelper = <ObjectType extends CSG | CAG>(options: Partial<ICenterOptions>, objects: ObjectType | ObjectType[]): ObjectType | ObjectType[] => {
   objects = Array.isArray(objects) ? objects : [objects];
   options = {...defaults, ...options};
 

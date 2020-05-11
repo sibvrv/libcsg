@@ -10,7 +10,7 @@ import {projectToOrthoNormalBasis} from '@core/utils/csgProjections';
 
 import {getTransformationAndInverseTransformationToFlatLying, getTransformationToFlatLying, lieFlat} from '@api/ops-cnc';
 import {cutByPlane, sectionCut} from '@api/ops-cuts';
-import {center} from '@api/center';
+import {centerHelper} from '@api/centerHelper';
 import {contract, expand, expandedShellOfCCSG} from '@modifiers/expansions';
 
 import {_CSGDEBUG, all, angleEPS, areaEPS, back, bottom, defaultResolution2D, defaultResolution3D, EPS, front, getTag, left, right, staticTag, top} from '@core/constants';
@@ -306,7 +306,7 @@ export class CSG extends TransformationMethods {
    * @param axes
    */
   center(axes: [boolean, boolean, boolean]) {
-    return center({axes}, [this]);
+    return centerHelper({axes}, [this as CSG]);
   }
 
   /**

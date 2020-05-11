@@ -39,7 +39,7 @@ export declare class CAG extends TransformationMethods {
      * @alias center
      * @param axes
      */
-    center(axes: [boolean, boolean, boolean]): any;
+    center(axes: [boolean, boolean, boolean]): CAG | CAG[];
     /**
      * Expanded Shell
      * @alias expandedShellOfCAG

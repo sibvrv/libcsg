@@ -127,7 +127,7 @@ export declare class CSG extends TransformationMethods {
      * @alias center
      * @param axes
      */
-    center(axes: [boolean, boolean, boolean]): any;
+    center(axes: [boolean, boolean, boolean]): CSG | CSG[];
     /**
      * Expand
      * @alias expand
