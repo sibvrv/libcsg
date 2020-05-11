@@ -1,15 +1,15 @@
 import {EPS} from '@core/constants';
-import {calcInterpolationFactor, Line2D, OrthoNormalBasis, Polygon3, Vector2, Vertex3} from '.';
+import {calcInterpolationFactor, Line2D, OrthoNormalBasis, Polygon3, Vector2, Vertex3} from '../math';
 import {fnNumberSort} from '@core/utils/sortHelpers';
 import {insertSorted} from '@core/utils/insertSorted';
 import {interpolateBetween2DPointsForY} from '@core/utils/interpolateBetween2DPointsForY';
 
 /**
- * Re-Tesselation function for a set of coplanar polygons.
+ * Re-Tessellation function for a set of coplanar polygons.
  * @param sourcepolygons
  * @param destpolygons
  */
-export const reTesselateCoplanarPolygons = (sourcepolygons: Polygon3[], destpolygons: Polygon3[]) => {
+export const reTessellateCoplanarPolygons = (sourcepolygons: Polygon3[], destpolygons: Polygon3[]) => {
   const numpolygons = sourcepolygons.length;
   if (numpolygons > 0) {
     const plane = sourcepolygons[0].plane;

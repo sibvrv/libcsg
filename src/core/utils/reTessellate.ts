@@ -1,7 +1,8 @@
 import {FuzzyCSGFactory} from '@core/FuzzyFactory3d';
-import {Polygon3, reTesselateCoplanarPolygons} from '@core/math';
+import {Polygon3} from '@core/math';
 import {fromPolygons} from '@core/CSGFactories';
 import {CSG} from '@core/CSG';
+import {reTessellateCoplanarPolygons} from '@core/utils/reTessellateCoplanarPolygons';
 
 /**
  * Re-Tessellate
@@ -47,7 +48,7 @@ export const reTessellate = (csg: CSG) => {
         destpolygons = destpolygons.concat(sourcepolygons);
       } else {
         const retesselayedpolygons: Polygon3[] = [];
-        reTesselateCoplanarPolygons(sourcepolygons, retesselayedpolygons);
+        reTessellateCoplanarPolygons(sourcepolygons, retesselayedpolygons);
         destpolygons = destpolygons.concat(retesselayedpolygons);
       }
     }

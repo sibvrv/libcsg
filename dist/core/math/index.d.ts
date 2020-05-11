@@ -1,7 +1,6 @@
 export * from './calcInterpolationFactor';
 export * from './lineUtils';
 export * from './polygon3Factories';
-export * from './reTesselateCoplanarPolygons';
 export * from './PolygonShared';
 export * from './Polygon2';
 export * from './TransformationMethods';

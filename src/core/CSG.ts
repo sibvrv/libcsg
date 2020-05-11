@@ -4,7 +4,7 @@ import {Line2D, Line3D, Matrix4x4, OrthoNormalBasis, Path2D, Plane, Polygon2D, P
 import {Properties} from '@core/Properties';
 import {fixTJunctions} from '@core/utils/fixTJunctions';
 import {canonicalize as canonicalizeFunc} from '@core/utils/canonicalize';
-import {reTessellate} from '@core/utils/reTesellate';
+import {reTessellate} from '@core/utils/reTessellate';
 import {bounds} from '@core/utils/csgMeasurements';
 import {projectToOrthoNormalBasis} from '@core/utils/csgProjections';
 

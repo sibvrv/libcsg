@@ -3,7 +3,6 @@
 export * from './calcInterpolationFactor';
 export * from './lineUtils';
 export * from './polygon3Factories';
-export * from './reTesselateCoplanarPolygons';
 
 // Extra
 

@@ -5,7 +5,7 @@ import {fromPolygons} from './CSGFactories';
 import {fromCompactBinary, fromFakeCSG, fromObject, fromPath2, fromPoints, fromPointsNoCheck, fromSides} from './CAGFactories';
 
 import {canonicalize} from './utils/canonicalize';
-import {reTessellate} from './utils/reTesellate';
+import {reTessellate} from './utils/reTessellate';
 import {hasPointInside, isCAGValid, isSelfIntersecting} from './utils/cagValidation';
 import {area, getBounds} from './utils/cagMeasurements';
 // all of these are good candidates for elimination in this scope, since they are part of a functional api
