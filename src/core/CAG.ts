@@ -10,13 +10,12 @@ import {hasPointInside, isCAGValid, isSelfIntersecting} from './utils/cagValidat
 import {area, getBounds} from './utils/cagMeasurements';
 // all of these are good candidates for elimination in this scope, since they are part of a functional api
 import {overCutInsideCorners} from '@api/ops-cnc';
-import {extrude, extrudeInOrthonormalBasis, extrudeInPlane, rotateExtrude} from '@modifiers/extrusions/';
+import {extrude, extrudeInOrthonormalBasis, extrudeInPlane, IRotateExtrude, rotateExtrude} from '@modifiers/extrusions/';
 import {cagOutlinePaths} from '@api/cagOutlinePaths';
-import {centerHelper} from '@api/centerHelper';
+import {centerHelper} from '@modifiers/transforms';
 import {contract, expand, expandedShellOfCAG} from '@modifiers/expansions';
 
 import {circle, ellipse, rectangle, roundedRectangle} from '@primitives/csg/primitives2d';
-import {IRotateExtrude} from '@modifiers/extrusions/rotateExtrude';
 
 /**
  * Holds a solid area geometry like CSG but 2D.

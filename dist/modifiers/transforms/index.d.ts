@@ -2,6 +2,7 @@ export * from './translate';
 export * from './scale';
 export * from './rotate';
 export * from './transform';
+export * from './centerHelper';
 export * from './center';
 export * from './mirror';
 export * from './expand';

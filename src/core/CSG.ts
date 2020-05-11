@@ -10,7 +10,7 @@ import {projectToOrthoNormalBasis} from '@core/utils/csgProjections';
 
 import {getTransformationAndInverseTransformationToFlatLying, getTransformationToFlatLying, lieFlat} from '@api/ops-cnc';
 import {cutByPlane, sectionCut} from '@api/ops-cuts';
-import {centerHelper} from '@api/centerHelper';
+import {centerHelper} from '@modifiers/transforms';
 import {contract, expand, expandedShellOfCCSG} from '@modifiers/expansions';
 
 import {_CSGDEBUG, all, angleEPS, areaEPS, back, bottom, defaultResolution2D, defaultResolution3D, EPS, front, getTag, left, right, staticTag, top} from '@core/constants';

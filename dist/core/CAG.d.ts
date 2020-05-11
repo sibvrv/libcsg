@@ -1,5 +1,5 @@
 import { Matrix4x4, OrthoNormalBasis, Polygon3, Side, TransformationMethods, Vector2, Vector3, Vertex2 } from './math';
-import { IRotateExtrude } from '@modifiers/extrusions/rotateExtrude';
+import { IRotateExtrude } from '@modifiers/extrusions/';
 /**
  * Holds a solid area geometry like CSG but 2D.
  * Each area consists of a number of sides.
