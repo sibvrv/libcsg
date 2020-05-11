@@ -1,5 +1,5 @@
 import { CAG } from '@core/CAG';
-import { ISolidFromSlices } from '@api/solidFromSlices';
+import { ISolidFromSlices } from '@core/utils/solidFromSlices';
 import { Matrix4x4, OrthoNormalBasis, Plane, PolygonShared, TransformationMethods, TVector3Universal, Vector3, Vertex3 } from '.';
 /**
  * Class Polygon

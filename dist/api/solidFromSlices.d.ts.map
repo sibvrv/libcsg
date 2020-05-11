@@ -1,1 +1,0 @@
-{"version":3,"file":"solidFromSlices.d.ts","sourceRoot":"","sources":["../../src/api/solidFromSlices.ts"],"names":[],"mappings":"AAAA,OAAO,EAAC,QAAQ,EAAyB,MAAM,YAAY,CAAC;AAM5D,MAAM,WAAW,gBAAgB;IAC/B,IAAI,EAAE,OAAO,CAAC;IACd,SAAS,EAAE,MAAM,CAAC;IAClB,QAAQ,EAAE,GAAG,CAAC;CACf;AAED;;;;;;;;;GASG;AACH,eAAO,MAAM,eAAe,kFAuE3B,CAAC"}
