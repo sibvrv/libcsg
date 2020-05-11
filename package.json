@@ -74,7 +74,6 @@
     "@types/webpack-merge": "*",
     "ava": "*",
     "chai": "*",
-    "circular-dependency-plugin": "^5.2.0",
     "clean-webpack-plugin": "*",
     "conventional-changelog-cli": "*",
     "jsdoc": "*",
@@ -87,6 +86,7 @@
     "tsconfig-paths": "*",
     "tsconfig-paths-webpack-plugin": "*",
     "tslint": "*",
+    "tslint-no-circular-imports": "^0.7.0",
     "typescript": "*",
     "webpack": "*",
     "webpack-cli": "*"
