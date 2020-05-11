@@ -1,6 +1,5 @@
 import {Plane, Polygon3, Vector3, Vertex3} from '@core/math';
 import {CSG} from '@core/CSG';
-import {solidFromSlices} from '@api/solidFromSlices';
 
 /**
  * Construct a CSG solid from a list of `Polygon` instances.
@@ -14,21 +13,6 @@ export const fromPolygons = (polygons: Polygon3[]) => {
   csg.isRetesselated = false;
   return csg;
 };
-
-/**
- * Construct a CSG solid from a list of pre-generated slices.
- * See Polygon.prototype.solidFromSlices() for details.
- * @param {Object} options - options passed to solidFromSlices()
- * @returns {CSG} new CSG object
- */
-export function fromSlices(options: any) {
-  return solidFromSlices(Polygon3.createFromPoints([
-    [0, 0, 0],
-    [1, 0, 0],
-    [1, 1, 0],
-    [0, 1, 0],
-  ]), options);
-}
 
 /**
  * Reconstruct a CSG solid from an object with identical property names.

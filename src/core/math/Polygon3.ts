@@ -1,6 +1,6 @@
 import {_CSGDEBUG, areaEPS, EPS} from '@core/constants';
 import {CAG} from '@core/CAG';
-import {ISolidFromSlices, solidFromSlices} from '@api/solidFromSlices';
+import {ISolidFromSlices, solidFromSlices} from '@core/utils/solidFromSlices';
 import {fromPolygons} from '@core/CSGFactories';
 import {fromPointsNoCheck} from '@core/CAGFactories';
 import {fromPoints, Matrix4x4, OrthoNormalBasis, Plane, PolygonShared, TransformationMethods, TVector3Universal, Vector2, Vector3, Vertex3} from '.';

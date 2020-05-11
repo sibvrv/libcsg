@@ -15,10 +15,11 @@ import {contract, expand, expandedShellOfCCSG} from '@modifiers/expansions';
 
 import {_CSGDEBUG, all, angleEPS, areaEPS, back, bottom, defaultResolution2D, defaultResolution3D, EPS, front, getTag, left, right, staticTag, top} from '@core/constants';
 import {cube, cylinder, cylinderElliptic, polyhedron, roundedCube, roundedCylinder, sphere} from '@primitives/csg/primitives3d';
-import {fromCompactBinary, fromObject, fromPolygons, fromSlices} from './CSGFactories';
+import {fromCompactBinary, fromObject, fromPolygons} from './CSGFactories';
 import * as optionsParsers from '@api/optionParsers';
 import {Connector} from '@core/Connector';
 import {ConnectorList} from '@core/ConnectorList';
+import {fromSlices} from './utils/solidFromSlices';
 
 /**
  * Holds a binary space partition tree representing a 3D solid. Two solids can

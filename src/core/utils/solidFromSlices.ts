@@ -11,6 +11,21 @@ export interface ISolidFromSlices {
 }
 
 /**
+ * Construct a CSG solid from a list of pre-generated slices.
+ * See Polygon.prototype.solidFromSlices() for details.
+ * @param {Object} options - options passed to solidFromSlices()
+ * @returns {CSG} new CSG object
+ */
+export function fromSlices(options: any) {
+  return solidFromSlices(Polygon3.createFromPoints([
+    [0, 0, 0],
+    [1, 0, 0],
+    [1, 1, 0],
+    [0, 1, 0],
+  ]), options);
+}
+
+/**
  * Creates solid from slices (Polygon) by generating walls
  * @param polygon
  * @param {Object} options Solid generating options
