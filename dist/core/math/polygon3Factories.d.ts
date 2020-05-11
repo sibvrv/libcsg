@@ -1,4 +1,4 @@
-import { Plane, Polygon3, PolygonShared } from '.';
+import { Plane, Polygon3, PolygonShared, TVector3Universal } from '.';
 /**
  * Create a polygon from the given points.
  *
@@ -14,5 +14,5 @@ import { Plane, Polygon3, PolygonShared } from '.';
  * ]
  * let polygon = CSG.Polygon.createFromPoints(points)
  */
-export declare const fromPoints: (points: number[][], shared: PolygonShared, plane?: Plane | undefined) => Polygon3;
+export declare const fromPoints: (points: TVector3Universal[], shared?: PolygonShared | undefined, plane?: Plane | undefined) => Polygon3;
 //# sourceMappingURL=polygon3Factories.d.ts.map

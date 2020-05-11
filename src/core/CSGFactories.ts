@@ -1,5 +1,6 @@
 import {Plane, Polygon3, Vector3, Vertex3} from '@core/math';
 import {CSG} from '@core/CSG';
+import {solidFromSlices} from '@api/solidFromSlices';
 
 /**
  * Construct a CSG solid from a list of `Polygon` instances.
@@ -21,12 +22,12 @@ export const fromPolygons = (polygons: Polygon3[]) => {
  * @returns {CSG} new CSG object
  */
 export function fromSlices(options: any) {
-  return Polygon3.createFromPoints([
+  return solidFromSlices(Polygon3.createFromPoints([
     [0, 0, 0],
     [1, 0, 0],
     [1, 1, 0],
     [0, 1, 0],
-  ]).solidFromSlices(options);
+  ]), options);
 }
 
 /**

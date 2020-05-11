@@ -60,7 +60,7 @@ export declare class Polygon3 extends TransformationMethods {
      * ]
      * let observed = CSG.Polygon3.createFromPoints(points)
      */
-    static createFromPoints(points: TVector3Universal[], shared?: PolygonShared, plane?: Plane): Polygon3;
+    static createFromPoints: (points: TVector3Universal[], shared?: PolygonShared | undefined, plane?: Plane | undefined) => Polygon3;
     /**
      * Vertices Convex
      * @param vertices

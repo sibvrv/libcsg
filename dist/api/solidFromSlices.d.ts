@@ -6,6 +6,7 @@ export interface ISolidFromSlices {
 }
 /**
  * Creates solid from slices (Polygon) by generating walls
+ * @param polygon
  * @param {Object} options Solid generating options
  *  - numslices {Number} Number of slices to be generated
  *  - callback(t, slice) {Function} Callback function generating slices.

@@ -3,7 +3,7 @@ import {CAG} from '@core/CAG';
 import {ISolidFromSlices, solidFromSlices} from '@api/solidFromSlices';
 import {fromPolygons} from '@core/CSGFactories';
 import {fromPointsNoCheck} from '@core/CAGFactories';
-import {Matrix4x4, OrthoNormalBasis, Plane, PolygonShared, TransformationMethods, TVector3Universal, Vector2, Vector3, Vertex3} from '.';
+import {fromPoints, Matrix4x4, OrthoNormalBasis, Plane, PolygonShared, TransformationMethods, TVector3Universal, Vector2, Vector3, Vertex3} from '.';
 
 /**
  * Class Polygon
@@ -70,20 +70,7 @@ export class Polygon3 extends TransformationMethods {
    * ]
    * let observed = CSG.Polygon3.createFromPoints(points)
    */
-  static createFromPoints(points: TVector3Universal[], shared?: PolygonShared, plane?: Plane) {
-    // FIXME : this circular dependency does not work !
-    // const {fromPoints} = require('./polygon3Factories')
-    // return fromPoints(points, shared, plane)
-    const vertices: Vertex3[] = [];
-    points.map((p) => {
-      const vec = new Vector3(p);
-      const vertex = new Vertex3(vec);
-      vertices.push(vertex);
-    });
-
-    const polygon = plane ? new Polygon3(vertices, shared, plane) : new Polygon3(vertices, shared);
-    return polygon;
-  }
+  static createFromPoints = fromPoints;
 
   /**
    * Vertices Convex
