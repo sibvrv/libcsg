@@ -1,8 +1,4 @@
-import { IVectorTextOptions } from './vectorParams';
-export interface IVectorTextLine {
-    width: 0;
-    segments: any[];
-}
+import { IVectorTextOptions } from '@root/text/types/VectorTextTypes';
 /**
  * Construct an array of character segments from a ascii string whose characters code is between 31 and 127,
  * if one character is not supported it is replaced by a question mark.

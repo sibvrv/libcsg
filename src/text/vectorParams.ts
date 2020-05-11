@@ -1,30 +1,5 @@
 import {hersheyFont as defaultFont} from './fonts/single-line/hershey/simplex';
-
-export type TRAWVectorGlyph = (number | undefined)[];
-
-export interface IVectorFont {
-  height: number;
-
-  [charCode: number]: TRAWVectorGlyph;
-}
-
-export const enum TEXT_ALIGN {
-  LEFT = 'left',
-  RIGHT = 'right',
-  CENTER = 'center'
-}
-
-export interface IVectorTextOptions {
-  xOffset: number;
-  yOffset: number;
-  input: string;
-  align: TEXT_ALIGN;
-  font: any;
-  height: number;
-  lineSpacing: number;
-  letterSpacing: number;
-  extrudeOffset: number;
-}
+import {IVectorTextOptions, TEXT_ALIGN} from '@root/text/types/VectorTextTypes';
 
 export const defaultsVectorParams: IVectorTextOptions = {
   xOffset: 0,

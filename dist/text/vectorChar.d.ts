@@ -1,4 +1,4 @@
-import { IVectorTextOptions } from './vectorParams';
+import { IVectorTextOptions } from '@root/text/types/VectorTextTypes';
 /**
  * Represents a character as segments
  * @typedef {Object} VectorCharObject

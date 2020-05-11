@@ -1,4 +1,4 @@
-import { IVectorTextLine } from './vectorText';
+import { IVectorTextLine } from '@root/text/types/VectorTextTypes';
 export interface ITranslateLineOptions {
     x: number;
     y: number;

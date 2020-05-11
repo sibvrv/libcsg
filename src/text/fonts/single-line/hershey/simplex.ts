@@ -1,4 +1,4 @@
-import {IVectorFont} from '../../../vectorParams';
+import {IVectorFont} from '@root/text/types/VectorTextTypes';
 
 // -- data source from from http://paulbourke.net/dataformats/hershey/
 // -- reduced to save some bytes...

@@ -1,4 +1,5 @@
-import {IVectorTextOptions, vectorParams} from './vectorParams';
+import {vectorParams} from './vectorParams';
+import {IVectorTextOptions} from '@root/text/types/VectorTextTypes';
 
 /**
  * Represents a character as segments

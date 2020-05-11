@@ -1,11 +1,7 @@
-import {IVectorTextOptions, TEXT_ALIGN, vectorParams} from './vectorParams';
+import {vectorParams} from './vectorParams';
 import {vectorChar} from './vectorChar';
 import {translateLine} from './translateLine';
-
-export interface IVectorTextLine {
-  width: 0;
-  segments: any[];
-}
+import {IVectorTextLine, IVectorTextOptions, TEXT_ALIGN} from '@root/text/types/VectorTextTypes';
 
 /**
  * Construct an array of character segments from a ascii string whose characters code is between 31 and 127,
