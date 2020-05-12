@@ -1,4 +1,5 @@
 import { Plane, Polygon3 } from '@core/math';
+import { IPolygonTreeNode } from '@core/tree/treeTypes';
 /**
  * @class PolygonTreeNode
  * This class manages hierarchical splits of polygons
@@ -14,7 +15,7 @@ import { Plane, Polygon3 } from '@core/math';
  * since they are no longer intact.
  * constructor creates the root node:
  */
-export declare class PolygonTreeNode {
+export declare class PolygonTreeNode implements IPolygonTreeNode {
     parent: PolygonTreeNode | null;
     children: PolygonTreeNode[];
     polygon: Polygon3 | null;

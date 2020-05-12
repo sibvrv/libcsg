@@ -1,4 +1,4 @@
-import {Tree} from '@core/Tree';
+import {Tree} from '@core/tree/Tree';
 import {Line2D, Line3D, Matrix4x4, OrthoNormalBasis, Path2D, Plane, Polygon2D, Polygon3, PolygonShared, TransformationMethods, TVector3Universal, Vector2, Vector3, Vertex3} from '@core/math';
 
 import {Properties} from '@core/Properties';

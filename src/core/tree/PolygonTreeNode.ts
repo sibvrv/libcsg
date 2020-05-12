@@ -1,6 +1,7 @@
 import {_CSGDEBUG, EPS} from '@core/constants';
 import {splitPolygonByPlane} from '@core/splitPolygonByPlane';
 import {Plane, Polygon3} from '@core/math';
+import {IPolygonTreeNode} from '@core/tree/treeTypes';
 
 /**
  * @class PolygonTreeNode
@@ -17,7 +18,7 @@ import {Plane, Polygon3} from '@core/math';
  * since they are no longer intact.
  * constructor creates the root node:
  */
-export class PolygonTreeNode {
+export class PolygonTreeNode implements IPolygonTreeNode {
   parent: PolygonTreeNode | null = null;
   children: PolygonTreeNode[] = [];
   polygon: Polygon3 | null = null;

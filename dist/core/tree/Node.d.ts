@@ -1,6 +1,6 @@
 import { Plane, Vector3 } from '@core/math';
-import { Tree } from '@core/Tree';
-import { PolygonTreeNode } from '@core/PolygonTreeNode';
+import { PolygonTreeNode } from '@core/tree/PolygonTreeNode';
+import { INode, ITree } from '@core/tree/treeTypes';
 /**
  * @class Node
  * Holds a node in a BSP tree. A BSP tree is built from a collection of polygons
@@ -11,7 +11,7 @@ import { PolygonTreeNode } from '@core/PolygonTreeNode';
  * This is not a leafy BSP tree since there is
  * no distinction between internal and leaf nodes.
  */
-export declare class Node {
+export declare class Node implements INode {
     parent: Node | null;
     plane: Plane | null;
     front: Node | null;
@@ -29,16 +29,16 @@ export declare class Node {
      * clip polygontreenodes to our plane
      * calls remove() for all clipped PolygonTreeNodes
      * @param polygontreenodes
-     * @param alsoRemovecoplanarFront
+     * @param alsoRemoveCoplanarFront
      */
-    clipPolygons(polygontreenodes: PolygonTreeNode[], alsoRemovecoplanarFront?: boolean): void;
+    clipPolygons(polygontreenodes: PolygonTreeNode[], alsoRemoveCoplanarFront?: boolean): void;
     /**
      * Remove all polygons in this BSP tree that are inside the other BSP tree
      * `tree`.
      * @param tree
-     * @param alsoRemovecoplanarFront
+     * @param alsoRemoveCoplanarFront
      */
-    clipTo(tree: Tree, alsoRemovecoplanarFront?: boolean): void;
+    clipTo(tree: ITree, alsoRemoveCoplanarFront?: boolean): void;
     /**
      * Add Polygon Tree Nodes
      * @param polygontreenodes

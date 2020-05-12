@@ -1,6 +1,7 @@
 import {Polygon3} from '@core/math';
-import {PolygonTreeNode} from '@core/PolygonTreeNode';
-import {Node} from '@core/Node';
+import {PolygonTreeNode} from '@core/tree/PolygonTreeNode';
+import {Node} from '@core/tree/Node';
+import {ITree} from '@core/tree/treeTypes';
 
 /**
  * @class Tree
@@ -8,7 +9,7 @@ import {Node} from '@core/Node';
  * We are using this separate class for the root of the tree, to hold the PolygonTreeNode root
  * The actual tree is kept in this.rootnode
  */
-export class Tree {
+export class Tree implements ITree {
   polygonTree = new PolygonTreeNode();
   rootnode = new Node(null);
 
@@ -33,11 +34,11 @@ export class Tree {
    * Remove all polygons in this BSP tree that are inside the other BSP tree
    * `tree`.
    * @param tree
-   * @param alsoRemovecoplanarFront
+   * @param alsoRemoveCoplanarFront
    */
-  clipTo(tree: Tree, alsoRemovecoplanarFront?: boolean) {
-    alsoRemovecoplanarFront = !!alsoRemovecoplanarFront;
-    this.rootnode.clipTo(tree, alsoRemovecoplanarFront);
+  clipTo(tree: Tree, alsoRemoveCoplanarFront?: boolean) {
+    alsoRemoveCoplanarFront = !!alsoRemoveCoplanarFront;
+    this.rootnode.clipTo(tree, alsoRemoveCoplanarFront);
   }
 
   /**

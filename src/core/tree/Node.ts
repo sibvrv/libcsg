@@ -1,6 +1,6 @@
 import {Plane, Vector3} from '@core/math';
-import {Tree} from '@core/Tree';
-import {PolygonTreeNode} from '@core/PolygonTreeNode';
+import {PolygonTreeNode} from '@core/tree/PolygonTreeNode';
+import {INode, ITree} from '@core/tree/treeTypes';
 
 /**
  * @class Node
@@ -12,7 +12,7 @@ import {PolygonTreeNode} from '@core/PolygonTreeNode';
  * This is not a leafy BSP tree since there is
  * no distinction between internal and leaf nodes.
  */
-export class Node {
+export class Node implements INode {
   plane: Plane | null = null;
   front: Node | null = null;
   back: Node | null = null;
@@ -55,9 +55,9 @@ export class Node {
    * clip polygontreenodes to our plane
    * calls remove() for all clipped PolygonTreeNodes
    * @param polygontreenodes
-   * @param alsoRemovecoplanarFront
+   * @param alsoRemoveCoplanarFront
    */
-  clipPolygons(polygontreenodes: PolygonTreeNode[], alsoRemovecoplanarFront?: boolean) {
+  clipPolygons(polygontreenodes: PolygonTreeNode[], alsoRemoveCoplanarFront?: boolean) {
     let args = {
       'node': this as Node,
       'polygontreenodes': polygontreenodes,
@@ -73,7 +73,7 @@ export class Node {
       if (node.plane) {
         const backnodes: PolygonTreeNode[] = [];
         const frontnodes: PolygonTreeNode[] = [];
-        const coplanarfrontnodes = alsoRemovecoplanarFront ? backnodes : frontnodes;
+        const coplanarfrontnodes = alsoRemoveCoplanarFront ? backnodes : frontnodes;
         const plane = node.plane;
         const numpolygontreenodes = polygontreenodes.length;
         for (let i = 0; i < numpolygontreenodes; i++) {
@@ -104,15 +104,15 @@ export class Node {
    * Remove all polygons in this BSP tree that are inside the other BSP tree
    * `tree`.
    * @param tree
-   * @param alsoRemovecoplanarFront
+   * @param alsoRemoveCoplanarFront
    */
-  clipTo(tree: Tree, alsoRemovecoplanarFront?: boolean) {
+  clipTo(tree: ITree, alsoRemoveCoplanarFront?: boolean) {
     let node: Node = this;
     const stack = [];
 
     do {
       if (node.polygontreenodes.length > 0) {
-        tree.rootnode.clipPolygons(node.polygontreenodes, alsoRemovecoplanarFront);
+        tree.rootnode.clipPolygons(node.polygontreenodes, alsoRemoveCoplanarFront);
       }
       if (node.front) stack.push(node.front);
       if (node.back) stack.push(node.back);
