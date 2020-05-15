@@ -1,4 +1,4 @@
-## csg.js
+## :diamond_shape_with_a_dot_inside: LibCSG
 
 ## Constructive Solid Geometry (CSG) Library
 
