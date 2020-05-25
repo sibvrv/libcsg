@@ -1,5 +1,5 @@
 import {defaultResolution3D} from '@core/constants';
-import {parseOptionAs3DVector, parseOptionAsFloat, parseOptionAsInt} from '@api/optionParsers';
+import {parseOptionAs3DVector, parseOptionAsFloat, parseOptionAsInt} from '@helpers/optionParsers';
 import {fromPolygons} from '@core/CSGFactories';
 import {Connector} from '@core/Connector';
 import {Vector3} from '@core/math';

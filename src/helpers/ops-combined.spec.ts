@@ -1,6 +1,6 @@
-import {circle, cube, torus} from '@root/primitives';
-import {linear_extrude} from '@modifiers/extrusions';
-import {intersection, union} from '@modifiers/booleans';
+import {circle, cube, torus} from '../primitives';
+import {linear_extrude} from '../modifiers/extrusions';
+import {intersection, union} from '../modifiers/booleans';
 import {expect} from 'chai';
 
 // any tests that involve multiple operands (extrude with union translate with difference etc)

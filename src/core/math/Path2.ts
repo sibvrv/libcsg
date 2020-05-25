@@ -1,5 +1,5 @@
 import {angleEPS, defaultResolution2D, EPS} from '@core/constants';
-import {parseOptionAs2DVector, parseOptionAsBool, parseOptionAsFloat, parseOptionAsInt} from '@api/optionParsers';
+import {parseOptionAs2DVector, parseOptionAsBool, parseOptionAsFloat, parseOptionAsInt} from '@helpers/optionParsers';
 import {CAG} from '@core/CAG';
 import {Matrix4x4, Side, TransformationMethods, TVector2Universal, Vector2, Vertex2} from '.';
 

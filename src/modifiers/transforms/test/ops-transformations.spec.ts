@@ -1,5 +1,5 @@
 import test from 'ava';
-import {sideEquals} from '@api/test-helpers';
+import {sideEquals} from '../../../../test/helpers/test-helpers';
 import {circle, cube, sphere, square} from '@root/primitives';
 import {center, chain_hull, contract, expand, hull, minkowski, mirror, rotate, scale, transform, translate} from '../';
 

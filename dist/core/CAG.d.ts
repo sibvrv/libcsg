@@ -200,7 +200,7 @@ export declare class CAG extends TransformationMethods {
     static fromObject: (obj: any) => CAG;
     static fromPoints: (points: any) => CAG;
     static fromPointsNoCheck: (points: any) => CAG;
-    static fromPath2: (path: any) => CAG;
+    static fromPath2: (path: import("./math").Path2D) => CAG;
     static fromFakeCSG: (csg: import("./CSG").CSG) => CAG;
     static fromCompactBinary: (bin: any) => CAG;
 }

@@ -1,4 +1,4 @@
-import {parseOptionAs2DVector, parseOptionAsFloat, parseOptionAsInt} from '@api/optionParsers';
+import {parseOptionAs2DVector, parseOptionAsFloat, parseOptionAsInt} from '@helpers/optionParsers';
 import {defaultResolution2D} from '@core/constants';
 import {fromPath2, fromPoints} from '@core/CAGFactories';
 import {Path2D, TVector2Universal, Vector2} from '@core/math';

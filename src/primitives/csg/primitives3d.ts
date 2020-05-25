@@ -1,4 +1,4 @@
-import {parseOption, parseOptionAs2DVector, parseOptionAs3DVector, parseOptionAs3DVectorList, parseOptionAsFloat, parseOptionAsInt} from '@api/optionParsers';
+import {parseOption, parseOptionAs2DVector, parseOptionAs3DVector, parseOptionAs3DVectorList, parseOptionAsFloat, parseOptionAsInt} from '@helpers/optionParsers';
 import {defaultResolution2D, defaultResolution3D, EPS} from '@core/constants';
 import {fromPolygons} from '@core/CSGFactories';
 

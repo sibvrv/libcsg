@@ -8,15 +8,15 @@ import {reTessellate} from '@core/utils/reTessellate';
 import {bounds} from '@core/utils/csgMeasurements';
 import {projectToOrthoNormalBasis} from '@core/utils/csgProjections';
 
-import {getTransformationAndInverseTransformationToFlatLying, getTransformationToFlatLying, lieFlat} from '@api/ops-cnc';
-import {cutByPlane, sectionCut} from '@api/ops-cuts';
+import {getTransformationAndInverseTransformationToFlatLying, getTransformationToFlatLying, lieFlat} from '@helpers/ops-cnc';
+import {cutByPlane, sectionCut} from '@helpers/ops-cuts';
 import {centerHelper} from '@modifiers/transforms';
 import {contract, expand, expandedShellOfCCSG} from '@modifiers/expansions';
 
 import {_CSGDEBUG, all, angleEPS, areaEPS, back, bottom, defaultResolution2D, defaultResolution3D, EPS, front, getTag, left, right, staticTag, top} from '@core/constants';
 import {cube, cylinder, cylinderElliptic, polyhedron, roundedCube, roundedCylinder, sphere} from '@primitives/csg/primitives3d';
 import {fromCompactBinary, fromObject, fromPolygons} from './CSGFactories';
-import * as optionsParsers from '@api/optionParsers';
+import * as optionsParsers from '@helpers/optionParsers';
 import {Connector} from '@core/Connector';
 import {ConnectorList} from '@core/ConnectorList';
 import {fromSlices} from './utils/solidFromSlices';

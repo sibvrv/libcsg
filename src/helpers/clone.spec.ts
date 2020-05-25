@@ -1,4 +1,4 @@
-import {cube} from '@root/primitives';
+import {cube} from '../primitives';
 import {clone} from './clone';
 import {config, expect} from 'chai';
 

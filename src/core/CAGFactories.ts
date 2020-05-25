@@ -1,4 +1,4 @@
-import {Side, Vector2, Vertex2} from '@core/math';
+import {Path2D, Side, Vector2, Vertex2} from '@core/math';
 import {areaEPS} from '@core/constants';
 import {contains, isSelfIntersecting} from './utils/cagValidation';
 import {difference, union} from '@modifiers/booleans';
@@ -187,7 +187,7 @@ export const fromPointsNoCheck = (points: any) => {
  * @param {path} Path2 - a Path2 path
  * @returns {CAG} new CAG object
  */
-export const fromPath2 = (path: any) => {
+export const fromPath2 = (path: Path2D) => {
   if (!path.isClosed()) throw new Error('The path should be closed!');
   return fromPoints(path.getPoints());
 };

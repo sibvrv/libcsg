@@ -1,4 +1,4 @@
-import { Side } from '@core/math';
+import { Path2D, Side } from '@core/math';
 import { CAG } from '@core/CAG';
 import { CSG } from '@core/CSG';
 /**
@@ -56,7 +56,7 @@ export declare const fromPointsNoCheck: (points: any) => CAG;
  * @param {path} Path2 - a Path2 path
  * @returns {CAG} new CAG object
  */
-export declare const fromPath2: (path: any) => CAG;
+export declare const fromPath2: (path: Path2D) => CAG;
 /**
  * Reconstruct a CAG from the output of toCompactBinary().
  * @param {CompactBinary} bin - see toCompactBinary()
