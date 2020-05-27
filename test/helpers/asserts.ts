@@ -1,16 +1,23 @@
-// Compare two polygons together.
-// They are identical if they are composed with the same vertices in the same
-// relative order
-// todo: could be part of csg.js
-// todo: should simplify colinear vertices
-// @return true if both polygons are identical
-export function comparePolygons(a: any, b: any) {
+import {Polygon3} from '../../src/core/math';
+
+/**
+ * Compare two polygons together.
+ * They are identical if they are composed with the same vertices in the same
+ * relative order
+ * todo: could be part of csg.js
+ * todo: should simplify collinear vertices
+ * @param a
+ * @param b
+ * @return true if both polygons are identical
+ */
+export function comparePolygons(a: Polygon3, b: Polygon3) {
   // First find one matching vertice
   // We try to find the first vertice of a inside b
   // If there is no such vertice, then a != b
   if (a.vertices.length !== b.vertices.length || a.vertices.length === 0) {
     return false;
   }
+
   const start = a.vertices[0];
   const index = b.vertices.findIndex((v: any) => {
     if (!v) {
@@ -38,16 +45,26 @@ export function comparePolygons(a: any, b: any) {
   return true;
 }
 
-export function assertSameGeometry(t: any, observed: any, expected: any, failMessage?: any) {
+/**
+ * Assert Same Geometry
+ * @param t
+ * @param observed
+ * @param expected
+ * @param failMessage
+ */
+export function assertSameGeometry(t: any, observed: any, expected: any, failMessage: string = 'CSG do not have the same geometry') {
   if (!containsCSG(observed, expected) || !containsCSG(observed, expected)) {
-    failMessage = failMessage === undefined ? 'CSG do not have the same geometry' : failMessage;
     t.fail(failMessage);
   } else {
     t.pass();
   }
 }
 
-// a contains b if b polygons are also found in a
+/**
+ * a contains b if b polygons are also found in a
+ * @param observed
+ * @param expected
+ */
 export function containsCSG(observed: any, expected: any) {
   // console.log('Observed: ', observed)
   // console.log('Expected: ', expected)
@@ -66,17 +83,31 @@ export function containsCSG(observed: any, expected: any) {
   }).reduce((_observed: any, _expected: any) => _observed && _expected);
 }
 
-export function simplifiedPolygon(polygon: any) {
+/**
+ * Simplified Polygon
+ * @param polygon
+ */
+export function simplifiedPolygon(polygon: Polygon3) {
   const vertices = polygon.vertices.map((vertex: any) => [vertex.pos._x, vertex.pos._y, vertex.pos._z]);
   const plane = {normal: [polygon.plane.normal._x, polygon.plane.normal._y, polygon.plane.normal._z], w: polygon.plane.w};
   return {positions: vertices, plane, shared: polygon.shared};
 }
 
+/**
+ *
+ * @param cag
+ */
 export function simplifieSides(cag: any) {
   const sides = cag.sides.map((side: any) => [side.vertex0.pos._x, side.vertex0.pos._y, side.vertex1.pos._x, side.vertex1.pos._y]);
   return sides.sort();
 }
 
+/**
+ *
+ * @param a
+ * @param b
+ * @param epsilon
+ */
 export function nearlyEquals(a: any, b: any, epsilon = 1) {
   if (a === b) { // shortcut, also handles infinities and NaNs
     return true;
@@ -99,6 +130,13 @@ export function nearlyEquals(a: any, b: any, epsilon = 1) {
   return true;
 }
 
+/**
+ * CAG Nearly Equals
+ * @param observed
+ * @param expected
+ * @param precision
+ * @constructor
+ */
 export function CAGNearlyEquals(observed: any, expected: any, precision?: any) {
   if (observed.sides.length !== expected.sides.length) {
     return false;
