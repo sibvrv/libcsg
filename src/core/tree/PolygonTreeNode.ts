@@ -105,14 +105,11 @@ export class PolygonTreeNode implements IPolygonTreeNode {
   getPolygons(result: Polygon3[]) {
     let children: PolygonTreeNode[] = [this];
     const queue = [children];
-    let i;
-    let j;
-    let l;
-    let node;
-    for (i = 0; i < queue.length; ++i) { // queue size can change in loop, don't cache length
+
+    for (let i = 0; i < queue.length; ++i) { // queue size can change in loop, don't cache length
       children = queue[i];
-      for (j = 0, l = children.length; j < l; j++) { // ok to cache length
-        node = children[j];
+      for (let j = 0, l = children.length; j < l; j++) { // ok to cache length
+        const node = children[j];
         if (node.polygon) {
           // the polygon hasn't been broken yet. We can ignore the children and return our polygon:
           result.push(node.polygon);
@@ -138,15 +135,11 @@ export class PolygonTreeNode implements IPolygonTreeNode {
   splitByPlane(plane: Plane, coplanarfrontnodes: PolygonTreeNode[], coplanarbacknodes: PolygonTreeNode[], frontnodes: PolygonTreeNode[], backnodes: PolygonTreeNode[]) {
     if (this.children.length) {
       const queue = [this.children];
-      let i;
-      let j;
-      let l;
-      let node;
-      let nodes;
-      for (i = 0; i < queue.length; i++) { // queue.length can increase, do not cache
-        nodes = queue[i];
-        for (j = 0, l = nodes.length; j < l; j++) { // ok to cache length
-          node = nodes[j];
+
+      for (let i = 0; i < queue.length; i++) { // queue.length can increase, do not cache
+        const nodes = queue[i];
+        for (let j = 0, l = nodes.length; j < l; j++) { // ok to cache length
+          const node = nodes[j];
           if (node.children.length) {
             queue.push(node.children);
           } else {
@@ -243,14 +236,10 @@ export class PolygonTreeNode implements IPolygonTreeNode {
   invertSub() {
     let children: PolygonTreeNode[] = [this];
     const queue = [children];
-    let i;
-    let j;
-    let l;
-    let node;
-    for (i = 0; i < queue.length; i++) {
+    for (let i = 0; i < queue.length; i++) {
       children = queue[i];
-      for (j = 0, l = children.length; j < l; j++) {
-        node = children[j];
+      for (let j = 0, l = children.length; j < l; j++) {
+        const node = children[j];
         if (node.polygon) {
           node.polygon = node.polygon.flipped();
         }
